@@ -1,10 +1,7 @@
 ---
-title: "About"
+title: "About Me"
 permalink: /about/
 ---
-
-Regarding Dave Carroll
-{: style="text-align: center"}
 
 I'm just a dude with a knack for finding data (and faults in data). Often, my tool of choice is PowerShell.
 
