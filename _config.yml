@@ -262,7 +262,7 @@ compress_html:
 defaults:
   # _posts
   - scope:
-      path: "/posts"
+      path: ""
       type: posts
     values:
       layout: single
@@ -270,7 +270,7 @@ defaults:
       read_time: true
       comments: # true
       share: true
-      related: # true
+      related: true
   # _pages
   - scope:
       path: ""
