@@ -1,1 +1,1 @@
-Sitemap: /sitemap.xml
+Sitemap: https://powershell.anovelidea.org/sitemap.xml
