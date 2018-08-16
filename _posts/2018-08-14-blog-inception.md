@@ -1,8 +1,8 @@
 ---
 layout: posts
 title:  "Welcome to My PowerShell Blog"
-date:   2018-08-14 21:18:00 -0600
-last_modified_at: 2018-08-14T23:21:00-06:00
+date:   2018-08-14 -0600
+last_modified_at: 2018-08-14 -06:00
 tags:
   - blog
   - powershell
