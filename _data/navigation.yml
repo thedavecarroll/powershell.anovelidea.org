@@ -6,12 +6,9 @@ main:
   - title: Posts
     url: /posts/
     description: "Blog Posts"
-  - title: Help
-    description: "Useful Things"
-    children:
-    - title: "Tags"
-      url: /tags/
-    - title: "Sitemap"
-      url: /sitemap/
-    - title: "Other Resources"
-      url: /resources/
+  - title: "Tags"
+    url: /tags/
+  - title: "Sitemap"
+    url: /sitemap/
+  - title: "Other Resources"
+    url: /resources/
