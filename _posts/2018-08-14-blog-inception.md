@@ -6,6 +6,8 @@ date: 2018-08-14
 tags:
   - blog
   - powershell
+category:
+  - blog
 ---
 
 Greetings fellow PowerShell aficionados!

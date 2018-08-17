@@ -15,7 +15,7 @@ tags:
 
 ## Other Blogs
 
-https://www.ILovePowerShell.com
+* [ILovePowerShell.com](https://www.ILovePowerShell.com)
 
 ## Important Microsoft Links
 
