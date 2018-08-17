@@ -1,16 +1,12 @@
 ---
 permalink: /resources/
-layout: default
+layout: single
 title:  Other Resources
 excerpt: "Other Resources"
 author_profile: true
 toc: true
-toc_label: Contents
+toc_label: On This Page
 toc_icon: list
-tags:
-    - online help
-    - links
-    - other blogs
 ---
 
 ## Other Blogs
