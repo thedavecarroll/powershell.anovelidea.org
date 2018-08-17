@@ -9,7 +9,7 @@ category:
   - powershell
 ---
 
-So you're working on getting all of you email domains that's on-prem into Azure or you simply want to ensure that your
+So you're working on getting all of your email domains that's on-prem into Azure or you simply want to ensure that your
 on-prem Exchange has been configured for all the domains your user accounts utilize. Your Active Directory domain
 contains over 30,000 accounts. How would you go about discovering the unique email domains?
 
