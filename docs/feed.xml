@@ -1,4 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-08-16T22:46:15-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell - What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Welcome to My PowerShell Blog</title><link href="https://powershell.anovelidea.org/blog-inception/" rel="alternate" type="text/html" title="Welcome to My PowerShell Blog" /><published>2018-08-14T00:00:00-05:00</published><updated>2018-08-14T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/blog-inception</id><content type="html" xml:base="https://powershell.anovelidea.org/blog-inception/">&lt;p&gt;Greetings fellow PowerShell aficionados!&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-08-16T22:58:15-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell - What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">My TOC Test</title><link href="https://powershell.anovelidea.org/toc-test/" rel="alternate" type="text/html" title="My TOC Test" /><published>2018-08-16T00:00:00-05:00</published><updated>2018-08-16T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/toc-test</id><content type="html" xml:base="https://powershell.anovelidea.org/toc-test/">&lt;h2 id=&quot;header-1&quot;&gt;Header 1&lt;/h2&gt;
+
+&lt;p&gt;Stuff and stuff&lt;/p&gt;
+
+&lt;h2 id=&quot;little-header&quot;&gt;Little header&lt;/h2&gt;
+
+&lt;p&gt;Tiny stuff&lt;/p&gt;
+
+&lt;h2 id=&quot;header-2&quot;&gt;Header 2&lt;/h2&gt;
+
+&lt;p&gt;stuff and stuff and stuff&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="blog" /><category term="table of contents" /><summary type="html">I feel I must begin with a confession: I was not an early adopter of PowerShell...and I've decided to start blogging about PowerShell.</summary></entry><entry><title type="html">Welcome to My PowerShell Blog</title><link href="https://powershell.anovelidea.org/blog-inception/" rel="alternate" type="text/html" title="Welcome to My PowerShell Blog" /><published>2018-08-14T00:00:00-05:00</published><updated>2018-08-14T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/blog-inception</id><content type="html" xml:base="https://powershell.anovelidea.org/blog-inception/">&lt;p&gt;Greetings fellow PowerShell aficionados!&lt;/p&gt;
 
 &lt;p&gt;I feel I must begin with a confession: I was not an early adopter of PowerShell.&lt;/p&gt;
 
@@ -16,14 +26,4 @@
 
 &lt;p&gt;And I’ve decided to start blogging about PowerShell.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;I’ve had the domain &lt;code class=&quot;highlighter-rouge&quot;&gt;anovelidea.org&lt;/code&gt; since early 2000. If you want a break from PowerShell and IT in general, you can check out &lt;a href=&quot;http://www.anovelidea.org&quot;&gt;my other website&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="blog" /><category term="powershell" /><summary type="html">I feel I must begin with a confession: I was not an early adopter of PowerShell...and I've decided to start blogging about PowerShell.</summary></entry><entry><title type="html">My TOC Test</title><link href="https://powershell.anovelidea.org/toc-test/" rel="alternate" type="text/html" title="My TOC Test" /><published>2011-06-23T13:38:52-05:00</published><updated>2011-06-23T13:38:52-05:00</updated><id>https://powershell.anovelidea.org/toc-test</id><content type="html" xml:base="https://powershell.anovelidea.org/toc-test/">&lt;h1 id=&quot;header-1&quot;&gt;Header 1&lt;/h1&gt;
-
-&lt;p&gt;Stuff and stuff&lt;/p&gt;
-
-&lt;h2 id=&quot;little-header&quot;&gt;Little header&lt;/h2&gt;
-
-&lt;p&gt;Tiny stuff&lt;/p&gt;
-
-&lt;h1 id=&quot;header-2&quot;&gt;Header 2&lt;/h1&gt;
-
-&lt;p&gt;stuff and stuff and stuff&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="blog" /><category term="powershell" /><summary type="html">I feel I must begin with a confession: I was not an early adopter of PowerShell...and I've decided to start blogging about PowerShell.</summary></entry></feed>
+&lt;p&gt;&lt;em&gt;I’ve had the domain &lt;code class=&quot;highlighter-rouge&quot;&gt;anovelidea.org&lt;/code&gt; since early 2000. If you want a break from PowerShell and IT in general, you can check out &lt;a href=&quot;http://www.anovelidea.org&quot;&gt;my other website&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="blog" /><category term="powershell" /><summary type="html">Greetings fellow PowerShell aficionados!...I've decided to start blogging about PowerShell.</summary></entry></feed>

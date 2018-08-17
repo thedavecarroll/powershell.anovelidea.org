@@ -1,11 +1,8 @@
 ---
 layout: single
 title:  "Welcome to My PowerShell Blog"
-excerpt: "I feel I must begin with a confession: I was not an early adopter of PowerShell...and I've decided to start blogging about PowerShell."
-#date: 2011-06-23T18:38:52+00:00
+excerpt: "Greetings fellow PowerShell aficionados!...I've decided to start blogging about PowerShell."
 date: 2018-08-14
-#date:   2018-08-14 -0600
-#last_modified_at: 2018-08-14 -06:00
 tags:
   - blog
   - powershell
