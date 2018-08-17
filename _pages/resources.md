@@ -9,10 +9,13 @@ toc_label: On This Page
 toc_icon: list
 ---
 
-## Other Blogs
+## Other Blogs and Useful PowerShell Links
 
+* [The DevOps Collective Site - PowerShell.org](https://www.powershell.org/)
 * [ILovePowerShell.com](https://www.ILovePowerShell.com)
+* [Unofficial PowerShell Best Practice and Style Guide](https://github.com/PoshCode/PowerShellPracticeAndStyle)
 
-## Important Microsoft Links
+## Microsoft Links
 
-## Miscellany
+* [Offical PoweShell Core Repo](https://github.com/PowerShell/PowerShell)
+* [Visual Studio Code](https://code.visualstudio.com/)

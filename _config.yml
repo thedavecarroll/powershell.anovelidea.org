@@ -102,7 +102,7 @@ analytics:
 author:
   name             : Dave Carroll
   avatar           : /assets/images/me.jpg # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : Systems engineer with a strong predilection to automation. PowerShell to the people! #
+  bio              : Systems engineer with a strong predilection for automation. PowerShell to the people! #
   location         : Nashville, TN
   email            :
   uri              :
