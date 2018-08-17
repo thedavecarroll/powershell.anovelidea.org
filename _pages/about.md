@@ -1,6 +1,7 @@
 ---
 title: "About Me"
 permalink: /about/
+search: true
 ---
 
 I'm just a dude with a knack for finding data (and faults in data). Often, my tool of choice is PowerShell.

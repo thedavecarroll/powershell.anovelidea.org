@@ -1,16 +1,17 @@
 # main links
 main:
-  - title: About Me
+  - title: "About Me"
     url: /about/
     description: About Me
   - title: Posts
     url: /posts/
-    description: Blog Posts
+    description: "Blog Posts"
   - title: Help
+    description: "Useful Things"
     children:
     - title: "Tags"
       url: /tags/
-    - title: Sitemap
+    - title: "Sitemap"
       url: /sitemap/
-    - title: Other Resources
+    - title: "Other Resources"
       url: /resources/
