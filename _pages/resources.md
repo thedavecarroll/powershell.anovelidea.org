@@ -6,6 +6,10 @@ author_profile: true
 toc: true
 toc_label: Contents
 toc_icon: list
+tags:
+    - online help
+    - links
+    - other blogs
 ---
 
 ## Other Blogs
