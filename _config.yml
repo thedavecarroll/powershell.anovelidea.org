@@ -16,7 +16,7 @@ minimal_mistakes_skin    : "air" # "default" # "air", "aqua", "contrast", "dark"
 
 # Site Settings
 locale                   : "en-US"
-title                    : "PowerShell:\nWhat A Novel Idea"
+title                    : "PowerShell: What A Novel Idea"
 title_separator          : "-"
 name                     : Dave Carroll
 description              : A blog on PowerShell and IT
