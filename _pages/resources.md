@@ -1,6 +1,6 @@
 ---
 permalink: /resources/
-layout: single
+layout: default
 title:  Other Resources
 excerpt: "Other Resources"
 author_profile: true
