@@ -1,4 +1,5 @@
 ---
+permalink: /resources/
 layout: single
 title:  Other Resources
 excerpt: "Other Resources"

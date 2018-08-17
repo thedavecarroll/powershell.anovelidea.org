@@ -24,9 +24,12 @@
 <loc>https://powershell.anovelidea.org/posts/</loc>
 </url>
 <url>
-<loc>https://powershell.anovelidea.org/_pages/resources/</loc>
+<loc>https://powershell.anovelidea.org/resources/</loc>
 </url>
 <url>
 <loc>https://powershell.anovelidea.org/sitemap/</loc>
+</url>
+<url>
+<loc>https://powershell.anovelidea.org/tags/</loc>
 </url>
 </urlset>
