@@ -4,7 +4,7 @@ var store = [{
         "tags": ["blog","powershell"],
         "url": "https://powershell.anovelidea.org/blog-inception/",
         "teaser":null},{
-        "title": "Welcome to My PowerShell Blog",
+        "title": "My TOC Test",
         "excerpt":"Header 1 Stuff and stuff Little header Tiny stuff Header 2 stuff and stuff and stuff ","categories": [],
         "tags": ["blog","powershell"],
         "url": "https://powershell.anovelidea.org/toc-test/",
