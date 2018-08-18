@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Welcome to My PowerShell Blog"
+title: "Welcome to My PowerShell Blog"
 excerpt: "Greetings fellow PowerShell aficionados!...I've decided to start blogging about PowerShell."
 date: 2018-08-14
 tags:
