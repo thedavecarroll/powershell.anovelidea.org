@@ -35,8 +35,9 @@ $EmailDomains = $ProxyAddresses.ForEach( {
 })
 ```
 
-_Notice that I used the ForEach() method (available in PowerShell v4 and later), which is typically faster than the_
-_ForEach-Object cmdlet or the foreach loop. You can use whichever you choose based on your PowerShell version._
+Notice that I used the ForEach() method (available in PowerShell v4 and later), which is typically faster than the
+ForEach-Object cmdlet or the foreach loop. You can use whichever you choose based on your PowerShell version.
+{: .notice--info}
 
 Finally, we use Sort-Object -Unique to get the unique domains.
 
@@ -49,8 +50,8 @@ $EmailDomains | Sort-Object -Unique
 # gmail.com
 ```
 
-Of course, you could have dozens or more unique domains. This would even help identify typos.
+Of course, you could have dozens or more unique domains. This short exercise can also reveal typos in domains.
 
-Hopefully, this post saved you some time.
+Hopefully, this post was helpful to you in some way.
 
 Have a great day!
