@@ -2,6 +2,7 @@
 layout: default
 search: false
 classes: wide
+permalink: /modules/PoShEvents/OnlineHelp/ConvertFrom-EventLogRecord.html
 external help file: PoShEvents-help.xml
 Module Name: PoShEvents
 online version: https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/ConvertFrom-EventLogRecord.md
