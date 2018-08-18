@@ -35,9 +35,9 @@ $EmailDomains = $ProxyAddresses.ForEach( {
 })
 ```
 
-Notice that I used the ForEach() method (available in PowerShell v4 and later), which is typically faster than the
+**Notice:** I used the ForEach() method (available in PowerShell v4 and later), which is typically faster than the
 ForEach-Object cmdlet or the foreach loop. You can use whichever you choose based on your PowerShell version.
-{: .notice--info}
+{: .notice}
 
 Finally, we use Sort-Object -Unique to get the unique domains.
 
