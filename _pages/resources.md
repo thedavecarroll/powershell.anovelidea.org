@@ -1,8 +1,8 @@
 ---
 permalink: /resources/
 layout: single
-title:  Other Resources
-excerpt: "Other Resources"
+title: Resources
+excerpt: Resources
 author_profile: true
 toc: true
 toc_label: On This Page
