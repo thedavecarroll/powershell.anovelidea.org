@@ -4,7 +4,7 @@ permalink: /about/
 search: true
 ---
 
-I'm just a systems dude with an aptitude for Active Directory and scripting. I also like data, finding data, fixing data, often with my tool of choice, PowerShell.
+I'm just a systems dude with an aptitude for Active Directory and scripting. I also like data, finding data, and fixing data, often with my tool of choice, PowerShell.
 
 I've gravitated toward automation & DevOps, but I do not really have a development background. I have written lots of scripts in bash, batch, vbscript, PHP, and, my favorite, PowerShell.
 

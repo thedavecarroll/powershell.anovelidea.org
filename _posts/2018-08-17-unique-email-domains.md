@@ -51,6 +51,6 @@ $EmailDomains | Sort-Object -Unique
 
 Of course, you could have dozens or more unique domains. This would even help identify typos.
 
-Hopefully, this post saved you a some time.
+Hopefully, this post saved you some time.
 
 Have a great day!
