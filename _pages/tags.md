@@ -1,6 +1,6 @@
 ---
 permalink: /tags/
 layout: tags
-title:  Tags
+title: Tags
 search: false
 ---

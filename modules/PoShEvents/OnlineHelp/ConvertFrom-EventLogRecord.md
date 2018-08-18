@@ -1,4 +1,6 @@
 ---
+layout: default
+search: false
 external help file: PoShEvents-help.xml
 Module Name: PoShEvents
 online version: https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/ConvertFrom-EventLogRecord.md

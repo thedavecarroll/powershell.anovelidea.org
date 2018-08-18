@@ -104,9 +104,9 @@ Accept wildcard characters: False
 ```
 
 ### -MaxEvents
-{{Specifies the maximum number of events this function returns.
+Specifies the maximum number of events this function returns.
 Enter an integer.
-The default is to return all the events in the logs.}}
+The default is to return all the events in the logs.
 
 ```yaml
 Type: Int64
