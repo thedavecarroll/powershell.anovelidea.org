@@ -8,5 +8,7 @@ main:
     description: "Blog Posts"
   - title: "Tags"
     url: /tags/
+  - title: "Categories"
+    url: /categories/
   - title: "Resources"
     url: /resources/
