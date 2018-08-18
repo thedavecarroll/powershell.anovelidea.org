@@ -35,8 +35,8 @@
     {% endif %}
     {% if post.excerpt %}<p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>{% endif %}
 
-    {% if page.tags %}
-      <small>tags: <em>{{ page.tags | join: "</em> - <em>" }}</em></small>
+    {% if post.tags %}
+      <small>tags: <em>{{ post.tags | join: "</em> - <em>" }}</em></small>
     {% endif %}
 
 
