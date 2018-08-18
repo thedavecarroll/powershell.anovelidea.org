@@ -6,5 +6,5 @@ search: false
 ---
 
 {% for post in site.posts %}
-  {% include posts-tags-list.html %}
+  {% include posts-list.html %}
 {% endfor %}
