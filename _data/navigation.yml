@@ -8,5 +8,5 @@ main:
     description: "Blog Posts"
   - title: "Tags"
     url: /tags/
-  - title: "Other Resources"
+  - title: "Resources"
     url: /resources/
