@@ -1,4 +1,7 @@
 ---
+layout: default
+search: false
+classes: wide
 external help file: PoShEvents-help.xml
 Module Name: PoShEvents
 online version: https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/Get-PrintDocumentEvent.md
