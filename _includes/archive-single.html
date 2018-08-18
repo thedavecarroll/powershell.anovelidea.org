@@ -35,7 +35,10 @@
     {% endif %}
     {% if post.excerpt %}<p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>{% endif %}
 
-    {% include tag-list.html %}
+    {% if page.tags %}
+      <small>tags: <em>{{ page.tags | join: "</em> - <em>" }}</em></small>
+    {% endif %}
+
 
     {% if page.last_modified_at %}
       <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Updated:" }}</strong> <time datetime="{{ page.last_modified_at | date: "%Y-%m-%d" }}">{{ page.last_modified_at | date: "%B %d, %Y" }}</time></p>
