@@ -9,16 +9,16 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Unique Email Domains - PowerShell: What A Novel Idea</title>
+<!-- begin _includes/seo.html --><title>Categories - PowerShell: What A Novel Idea</title>
 <meta name="description" content="A blog on PowerShell and IT">
 
 
 
-<meta property="og:type" content="article">
+<meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="PowerShell: What A Novel Idea">
-<meta property="og:title" content="Unique Email Domains">
-<meta property="og:url" content="https://powershell.anovelidea.org/_posts/2018-08-17-unique-email-domains/">
+<meta property="og:title" content="Categories">
+<meta property="og:url" content="https://powershell.anovelidea.org/categories/">
 
 
 
@@ -26,9 +26,9 @@
 
 
   <meta name="twitter:site" content="@thedavecarroll">
-  <meta name="twitter:title" content="Unique Email Domains">
+  <meta name="twitter:title" content="Categories">
   <meta name="twitter:description" content="A blog on PowerShell and IT">
-  <meta name="twitter:url" content="https://powershell.anovelidea.org/_posts/2018-08-17-unique-email-domains/">
+  <meta name="twitter:url" content="https://powershell.anovelidea.org/categories/">
 
   
     <meta name="twitter:card" content="summary">
@@ -39,8 +39,6 @@
 
 
 
-  <meta property="article:published_time" content="2018-08-17T00:00:00-05:00">
-
 
 
 
@@ -50,7 +48,7 @@
   
 
 
-<link rel="canonical" href="https://powershell.anovelidea.org/_posts/2018-08-17-unique-email-domains/">
+<link rel="canonical" href="https://powershell.anovelidea.org/categories/">
 
 
 
@@ -115,7 +113,7 @@
 
   </head>
 
-  <body class="layout--single">
+  <body class="layout--categories">
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -279,112 +277,121 @@
   </div>
 
 
-  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Unique Email Domains">
+  <div class="archive">
     
-    <meta itemprop="datePublished" content="August 17, 2018">
+      <h1 id="page-title" class="page__title">Categories</h1>
+    
     
 
-    <div class="page__inner-wrap">
+
+
+
+
+<ul class="taxonomy__index">
+  
+    
       
-        <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">Unique Email Domains
-</h1>
+        <li>
+          <a href="#blog">
+            <strong>blog</strong> <span class="taxonomy__count">1</span>
+          </a>
+        </li>
+      
+    
+      
+        <li>
+          <a href="#powershell">
+            <strong>powershell</strong> <span class="taxonomy__count">1</span>
+          </a>
+        </li>
+      
+    
+  
+</ul>
+
+
+  
+    
+      <section id="blog" class="taxonomy__section">
+        <h2 class="archive__subtitle">blog</h2>
+        <div class="entries-list">
           
-        </header>
-      
-
-      <section class="page__content" itemprop="text">
-        
-        <p>So you’re working on getting all of your email domains that’s on-prem into Azure or you simply want to ensure that your
-on-prem Exchange has been configured for all the domains your user accounts utilize. Your Active Directory domain
-contains over 30,000 accounts. How would you go about discovering the unique email domains?</p>
-
-<p>Knowing that the Active Directory attribute proxyAddresses contains the account’s SMTP addreses, we can start there.
-Also, you only want to include only those domains for active accounts. [Note: The proxyAddresses also contains other
-address types, but we are only concerned about SMTP for this excercise.]</p>
-
-<p>First, let’s get all of the proxyAddresses into a variable.</p>
-
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Filter</span> <span class="o">=</span> <span class="s2">"proxyAddresses -like '*' -and enabled -eq 'true'"</span>
-<span class="nv">$ProxyAddresses</span> <span class="o">=</span> <span class="nb">Get-ADUser</span> -Filter <span class="nv">$Filter</span> -Properties proxyAddresses | <span class="nb">Select-Object</span> -ExpandProperty proxyAddresses
-</code></pre></div></div>
-
-<p>Next, we will loop through each one, matching on only SMTP addresses. We split on the @ symbol and return the domain
-portion.</p>
-
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$EmailDomains</span> <span class="o">=</span> <span class="nv">$ProxyAddresses</span>.ForEach<span class="o">(</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="nv">$_</span> -match <span class="s1">'smtp'</span><span class="o">)</span> <span class="o">{</span>
-        <span class="nv">$_</span>.Replace<span class="o">(</span><span class="s1">'smtp:'</span>,<span class="s1">''</span><span class="o">)</span>.Split<span class="o">(</span><span class="s1">'@'</span><span class="o">)[</span>1]
-    <span class="o">}</span>
-<span class="o">})</span>
-</code></pre></div></div>
-
-<p class="notice"><strong>Notice:</strong> I used the ForEach() method (available in PowerShell v4 and later), which is typically faster than the
-ForEach-Object cmdlet or the foreach loop. You can use whichever you choose based on your PowerShell version.</p>
-
-<p>Finally, we use Sort-Object -Unique to get the unique domains.</p>
-
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$EmailDomains</span> | <span class="nb">Sort-Object</span> -Unique
-
-<span class="c1"># output</span>
-<span class="c1"># anovelidea.org</span>
-<span class="c1"># chronicgoogler.com</span>
-<span class="c1"># gmail.com</span>
-</code></pre></div></div>
-
-<p>Of course, you could have dozens or more unique domains. This short exercise can also reveal typos in domains.</p>
-
-<p>Hopefully, this post was helpful to you in some way.</p>
-
-<p>Have a great day!</p>
-
-        
-      </section>
-
-      <footer class="page__meta">
-        
-        
-  
+            
 
 
-  
-  
-  
 
-  <p class="page__taxonomy">
-    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
-    <span itemprop="keywords">
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
     
+    <h2 class="archive__item-title" itemprop="headline">
       
+        <a href="/blog/blog-inception/" rel="permalink">Welcome to My PowerShell Blog
+</a>
       
-      <a href="/tags/" class="page__taxonomy-item" rel="tag"></a><span class="sep">, </span>
+    </h2>
     
-      
-      
-      <a href="/tags/#powershell" class="page__taxonomy-item" rel="tag">powershell</a>
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+</p>
     
-    </span>
-  </p>
-
-
-
-
-        
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-08-17T00:00:00-05:00">August 17, 2018</time></p>
-        
-      </footer>
-
-      
-
-      
-    </div>
-
+    <p class="archive__item-excerpt" itemprop="description">Greetings fellow PowerShell aficionados!…I’ve decided to start blogging about PowerShell.
+</p>
+    
     
   </article>
+</div>
+          
+        </div>
+        <a href="#page-title" class="back-to-top">Back to top &uarr;</a>
+      </section>
+    
+  
+    
+      <section id="powershell" class="taxonomy__section">
+        <h2 class="archive__subtitle">powershell</h2>
+        <div class="entries-list">
+          
+            
 
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/powershell/unique-email-domains/" rel="permalink">Unique Email Domains
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">So you’re working on getting all of your email domains that’s on-prem into Azure or you simply want to ensure that your
+on-prem Exchange has been configured ...</p>
+    
+    
+  </article>
+</div>
+          
+        </div>
+        <a href="#page-title" class="back-to-top">Back to top &uarr;</a>
+      </section>
+    
   
-  
+
+
+  </div>
 </div>
     </div>
 
