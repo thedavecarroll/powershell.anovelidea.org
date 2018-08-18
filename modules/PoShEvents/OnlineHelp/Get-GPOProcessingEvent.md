@@ -1,10 +1,11 @@
 ---
-layout: default
+layout: single
 search: false
 classes: wide
+permalink: /modules/PoShEvents/OnlineHelp/Get-GPOProcessingEvent.html
 external help file: PoShEvents-help.xml
 Module Name: PoShEvents
-online version: https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/Get-GPOProcessingEvent.md
+online version: https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-GPOProcessingEvent.html
 schema: 2.0.0
 ---
 

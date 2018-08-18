@@ -1,7 +1,11 @@
 ---
+layout: single
+search: false
+classes: wide
+permalink: /modules/PoShEvents/OnlineHelp/Get-KMSClientEvent.html
 external help file: PoShEvents-help.xml
 Module Name: PoShEvents
-online version: https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/Get-KMSClientEvent.md
+online version: https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-KMSClientEvent.html
 schema: 2.0.0
 ---
 

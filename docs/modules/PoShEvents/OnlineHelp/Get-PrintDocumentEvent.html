@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Get-KMSClientEvent - PowerShell: What A Novel Idea</title>
+<!-- begin _includes/seo.html --><title>Get-PrintDocumentEvent - PowerShell: What A Novel Idea</title>
 <meta name="description" content="A blog on PowerShell and IT">
 
 
@@ -17,8 +17,8 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="PowerShell: What A Novel Idea">
-<meta property="og:title" content="Get-KMSClientEvent">
-<meta property="og:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-KMSClientEvent/">
+<meta property="og:title" content="Get-PrintDocumentEvent">
+<meta property="og:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-PrintDocumentEvent.html">
 
 
 
@@ -26,9 +26,9 @@
 
 
   <meta name="twitter:site" content="@thedavecarroll">
-  <meta name="twitter:title" content="Get-KMSClientEvent">
+  <meta name="twitter:title" content="Get-PrintDocumentEvent">
   <meta name="twitter:description" content="A blog on PowerShell and IT">
-  <meta name="twitter:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-KMSClientEvent/">
+  <meta name="twitter:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-PrintDocumentEvent.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -48,7 +48,7 @@
   
 
 
-<link rel="canonical" href="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-KMSClientEvent/">
+<link rel="canonical" href="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-PrintDocumentEvent.html">
 
 
 
@@ -113,7 +113,7 @@
 
   </head>
 
-  <body class="layout--single">
+  <body class="layout--single wide">
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -280,7 +280,7 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Get-KMSClientEvent">
+    <meta itemprop="headline" content="Get-PrintDocumentEvent">
     
     
     
@@ -288,7 +288,7 @@
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">Get-KMSClientEvent
+          <h1 id="page-title" class="page__title" itemprop="headline">Get-PrintDocumentEvent
 </h1>
           
         </header>
@@ -296,55 +296,46 @@
 
       <section class="page__content" itemprop="text">
         
-        <h1 id="get-kmsclientevent">Get-KMSClientEvent</h1>
+        <h1 id="get-printdocumentevent">Get-PrintDocumentEvent</h1>
 
 <h2 id="synopsis">SYNOPSIS</h2>
-<p>This function returns details from KMS client events.</p>
+<p>This function will show you details for the successful print jobs that the system has processed.</p>
 
 <h2 id="syntax">SYNTAX</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-KMSClientEvent [[-ComputerName] &lt;String[]&gt;] [[-Credential] &lt;PSCredential&gt;] [[-StartTime] &lt;DateTime&gt;]
- [[-EndTime] &lt;DateTime&gt;] [[-MaxEvents] &lt;Int64&gt;] [-Oldest] [-Raw] [&lt;CommonParameters&gt;]
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-PrintDocumentEvent [[-ComputerName] &lt;String&gt;] [[-Credential] &lt;PSCredential&gt;] [[-StartTime] &lt;DateTime&gt;]
+ [[-EndTime] &lt;DateTime&gt;] [[-MaxEvents] &lt;Int64&gt;] [-Oldest] [-Raw] [-UserName &lt;String&gt;]
+ [-ClientMachineName &lt;String&gt;] [-PrinterName &lt;String&gt;] [-PrinterPort &lt;String&gt;] [&lt;CommonParameters&gt;]
 </code></pre></div></div>
 
 <h2 id="description">DESCRIPTION</h2>
-<p>This function returns details from KMS client events.</p>
+<p>This function will show you details for the successful print jobs that the system has processed.</p>
 
 <h2 id="examples">EXAMPLES</h2>
 
 <h3 id="example-1">Example 1</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\&gt; Get-KMSClientEvent
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\&gt; C:\PowerShell\Get-PrintDocumentEvent -ComputerName printsvc -MaxEvents 1 -Oldest
 
-ComputerName              : WKSTN47.contoso.com
-TimeCreated               : 5/7/2018 3:20:36 PM
-Id                        : 12308
-Level                     : Information
-KMSHost                   :
-KMSHostPort               :
-ClientMachineID           :
-ClientTimestamp           :
-ActivationStatus          : Active Directory Activation has succeeded.
-ADActivationObjectName    : Windows Server 2016 RTM ServerDatacenter;ServerStandard Volume:CSVLK
-ADActivationObject        : CN=br549-999-607319-0,CN=Activation Objects,CN=Microsoft SPP,CN=Services,CN=Configuration,DC=contoso,DC=com
-CurrentActivationCount    :
-NextActivationAttempt     :
-LicenseStateExpiration    :
-LicenseStateExpirationMin :
-ProductSkuId              : 73001100-0000-1111-2222-f1d7bf300300
-ProductSkuName            : Windows 10 Enterprise
-MinActivateCount          :
-KmsErrorCode              :
-KmsErrorMessage           :
+ComputerName      : PRINTSVR
+TimeCreated       : 10/5/2017 8:12:05 AM
+PrintJobId        : 234
+DocumentName      : Print Document
+UserName          : CONTOSO\KSmith2
+ClientMachineName : WKSTN07
+PrinterName       : HPColorPrinter
+PrinterPort       : IP_172.16.5.37
+DocumentSizeBytes : 1557928
+DocumentPageCount : 2
 </code></pre></div></div>
 
 <h2 id="parameters">PARAMETERS</h2>
 
 <h3 id="-computername">-ComputerName</h3>
-<p>Gets events from the event logs on the specified computer(s).
+<p>Gets events from the event logs on the specified computer.
 Type the NetBIOS name, an Internet Protocol (IP) address, or the fully qualified domain name of the computer.
 The default value is the local computer.</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">String[]</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">String</span>
 <span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
 <span class="na">Aliases</span><span class="pi">:</span> <span class="s">IPAddress, __Server, CN</span>
 
@@ -434,10 +425,66 @@ By default, events are returned in newest-first order.</p>
 <span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
 </code></pre></div></div>
 
+<h3 id="-clientmachinename">-ClientMachineName</h3>
+<p>Filter by the client machine host name.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">String</span>
+<span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
+<span class="na">Aliases</span><span class="pi">:</span>
+
+<span class="na">Required</span><span class="pi">:</span> <span class="s">False</span>
+<span class="na">Position</span><span class="pi">:</span> <span class="s">Named</span>
+<span class="na">Default value</span><span class="pi">:</span> <span class="s">None</span>
+<span class="na">Accept pipeline input</span><span class="pi">:</span> <span class="s">False</span>
+<span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
+</code></pre></div></div>
+
+<h3 id="-printername">-PrinterName</h3>
+<p>Filter events for the specified printer.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">String</span>
+<span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
+<span class="na">Aliases</span><span class="pi">:</span>
+
+<span class="na">Required</span><span class="pi">:</span> <span class="s">False</span>
+<span class="na">Position</span><span class="pi">:</span> <span class="s">Named</span>
+<span class="na">Default value</span><span class="pi">:</span> <span class="s">None</span>
+<span class="na">Accept pipeline input</span><span class="pi">:</span> <span class="s">False</span>
+<span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
+</code></pre></div></div>
+
+<h3 id="-printerport">-PrinterPort</h3>
+<p>Filter events for the specified printer port name, e.g. IP_172.16.5.27</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">String</span>
+<span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
+<span class="na">Aliases</span><span class="pi">:</span>
+
+<span class="na">Required</span><span class="pi">:</span> <span class="s">False</span>
+<span class="na">Position</span><span class="pi">:</span> <span class="s">Named</span>
+<span class="na">Default value</span><span class="pi">:</span> <span class="s">None</span>
+<span class="na">Accept pipeline input</span><span class="pi">:</span> <span class="s">False</span>
+<span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
+</code></pre></div></div>
+
 <h3 id="-raw">-Raw</h3>
 <p>Use this switch to provide the raw event log record for the function.</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">SwitchParameter</span>
+<span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
+<span class="na">Aliases</span><span class="pi">:</span>
+
+<span class="na">Required</span><span class="pi">:</span> <span class="s">False</span>
+<span class="na">Position</span><span class="pi">:</span> <span class="s">Named</span>
+<span class="na">Default value</span><span class="pi">:</span> <span class="s">None</span>
+<span class="na">Accept pipeline input</span><span class="pi">:</span> <span class="s">False</span>
+<span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
+</code></pre></div></div>
+
+<h3 id="-username">-UserName</h3>
+<p>Filter the results by the user which printed documents. Provide the SamAccountName only.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">String</span>
 <span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
 <span class="na">Aliases</span><span class="pi">:</span>
 
@@ -453,7 +500,7 @@ By default, events are returned in newest-first order.</p>
 
 <h2 id="inputs">INPUTS</h2>
 
-<h3 id="systemstring">System.String[]</h3>
+<h3 id="systemstring">System.String</h3>
 
 <h2 id="outputs">OUTPUTS</h2>
 

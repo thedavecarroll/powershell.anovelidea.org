@@ -1,10 +1,11 @@
 ---
-layout: default
+layout: single
 search: false
 classes: wide
+permalink: /modules/PoShEvents/OnlineHelp/Get-KMSHostEvent.html
 external help file: PoShEvents-help.xml
 Module Name: PoShEvents
-online version: https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/Get-KMSHostEvent.md
+online version: https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-KMSHostEvent.html
 schema: 2.0.0
 ---
 

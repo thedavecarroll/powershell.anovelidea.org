@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Get-ServiceEvent - PowerShell: What A Novel Idea</title>
+<!-- begin _includes/seo.html --><title>Get-KMSClientEvent - PowerShell: What A Novel Idea</title>
 <meta name="description" content="A blog on PowerShell and IT">
 
 
@@ -17,8 +17,8 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="PowerShell: What A Novel Idea">
-<meta property="og:title" content="Get-ServiceEvent">
-<meta property="og:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-ServiceEvent/">
+<meta property="og:title" content="Get-KMSClientEvent">
+<meta property="og:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-KMSClientEvent.html">
 
 
 
@@ -26,9 +26,9 @@
 
 
   <meta name="twitter:site" content="@thedavecarroll">
-  <meta name="twitter:title" content="Get-ServiceEvent">
+  <meta name="twitter:title" content="Get-KMSClientEvent">
   <meta name="twitter:description" content="A blog on PowerShell and IT">
-  <meta name="twitter:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-ServiceEvent/">
+  <meta name="twitter:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-KMSClientEvent.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -48,7 +48,7 @@
   
 
 
-<link rel="canonical" href="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-ServiceEvent/">
+<link rel="canonical" href="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-KMSClientEvent.html">
 
 
 
@@ -113,7 +113,7 @@
 
   </head>
 
-  <body class="layout--default wide">
+  <body class="layout--single wide">
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -154,44 +154,187 @@
 
 
     <div class="initial-content">
-      <h1 id="get-serviceevent">Get-ServiceEvent</h1>
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/me.jpg" alt="Dave Carroll" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Dave Carroll</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Systems engineer with a strong predilection for automation. PowerShell to the people!
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Nashville, TN</span>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/thedavecarroll" itemprop="sameAs">
+            <i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/thedavecarroll" itemprop="sameAs">
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/thedavecarroll" itemprop="sameAs">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Get-KMSClientEvent">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Get-KMSClientEvent
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <h1 id="get-kmsclientevent">Get-KMSClientEvent</h1>
 
 <h2 id="synopsis">SYNOPSIS</h2>
-<p>This function will query the specified system for all service control manager events for service operations, stop, and start events.
-You can then filter on a particular service name or service displayname.</p>
+<p>This function returns details from KMS client events.</p>
 
 <h2 id="syntax">SYNTAX</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-ServiceEvent [[-ComputerName] &lt;String[]&gt;] [[-Credential] &lt;PSCredential&gt;] [[-StartTime] &lt;DateTime&gt;]
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-KMSClientEvent [[-ComputerName] &lt;String[]&gt;] [[-Credential] &lt;PSCredential&gt;] [[-StartTime] &lt;DateTime&gt;]
  [[-EndTime] &lt;DateTime&gt;] [[-MaxEvents] &lt;Int64&gt;] [-Oldest] [-Raw] [&lt;CommonParameters&gt;]
 </code></pre></div></div>
 
 <h2 id="description">DESCRIPTION</h2>
-<p>This function will query the specified system for all service control manager events for service operations, stop, and start events.
-You can then filter on a particular service name or service displayname.</p>
+<p>This function returns details from KMS client events.</p>
 
 <h2 id="examples">EXAMPLES</h2>
 
 <h3 id="example-1">Example 1</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\&gt; (Get-ServiceEvent).Where({$_.ServiceDisplayName -match "print"}) | Select-Object -Property TimeCreated,EventType,ServiceName,ServiceDisplayName,Message
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\&gt; Get-KMSClientEvent
 
-TimeCreated        : 9/12/2017 9:41:27 PM
-EventType          : ServiceOperations
-ServiceName        :
-ServiceDisplayName : Printer Extensions and Notifications
-Message            : The Printer Extensions and Notifications service is marked as an interactive service.  However, the system is configured to not allow interactive services.  This service may not function properly.
-
-TimeCreated        : 10/3/2017 10:42:18 PM
-EventType          : ServiceOperations
-ServiceName        : Spooler
-ServiceDisplayName : Print Spooler
-Message            : The start type of the Print Spooler service was changed from auto start to demand start.
-
-TimeCreated        : 10/3/2017 10:42:20 PM
-EventType          : ServiceOperations
-ServiceName        : Spooler
-ServiceDisplayName : Print Spooler
-Message            : The start type of the Print Spooler service was changed from demand start to auto start.
+ComputerName              : WKSTN47.contoso.com
+TimeCreated               : 5/7/2018 3:20:36 PM
+Id                        : 12308
+Level                     : Information
+KMSHost                   :
+KMSHostPort               :
+ClientMachineID           :
+ClientTimestamp           :
+ActivationStatus          : Active Directory Activation has succeeded.
+ADActivationObjectName    : Windows Server 2016 RTM ServerDatacenter;ServerStandard Volume:CSVLK
+ADActivationObject        : CN=br549-999-607319-0,CN=Activation Objects,CN=Microsoft SPP,CN=Services,CN=Configuration,DC=contoso,DC=com
+CurrentActivationCount    :
+NextActivationAttempt     :
+LicenseStateExpiration    :
+LicenseStateExpirationMin :
+ProductSkuId              : 73001100-0000-1111-2222-f1d7bf300300
+ProductSkuName            : Windows 10 Enterprise
+MinActivateCount          :
+KmsErrorCode              :
+KmsErrorMessage           :
 </code></pre></div></div>
 
 <h2 id="parameters">PARAMETERS</h2>
@@ -320,6 +463,28 @@ By default, events are returned in newest-first order.</p>
 
 <h2 id="related-links">RELATED LINKS</h2>
 
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
     </div>
 
     

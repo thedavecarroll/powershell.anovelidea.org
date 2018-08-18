@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Get-KMSHostEvent - PowerShell: What A Novel Idea</title>
+<!-- begin _includes/seo.html --><title>Get-OSVersionFromEvent - PowerShell: What A Novel Idea</title>
 <meta name="description" content="A blog on PowerShell and IT">
 
 
@@ -17,8 +17,8 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="PowerShell: What A Novel Idea">
-<meta property="og:title" content="Get-KMSHostEvent">
-<meta property="og:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-KMSHostEvent/">
+<meta property="og:title" content="Get-OSVersionFromEvent">
+<meta property="og:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-OSVersionFromEvent.html">
 
 
 
@@ -26,9 +26,9 @@
 
 
   <meta name="twitter:site" content="@thedavecarroll">
-  <meta name="twitter:title" content="Get-KMSHostEvent">
+  <meta name="twitter:title" content="Get-OSVersionFromEvent">
   <meta name="twitter:description" content="A blog on PowerShell and IT">
-  <meta name="twitter:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-KMSHostEvent/">
+  <meta name="twitter:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-OSVersionFromEvent.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -48,7 +48,7 @@
   
 
 
-<link rel="canonical" href="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-KMSHostEvent/">
+<link rel="canonical" href="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-OSVersionFromEvent.html">
 
 
 
@@ -113,7 +113,7 @@
 
   </head>
 
-  <body class="layout--default wide">
+  <body class="layout--single wide">
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -154,47 +154,179 @@
 
 
     <div class="initial-content">
-      <h1 id="get-kmshostevent">Get-KMSHostEvent</h1>
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/me.jpg" alt="Dave Carroll" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Dave Carroll</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Systems engineer with a strong predilection for automation. PowerShell to the people!
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Nashville, TN</span>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/thedavecarroll" itemprop="sameAs">
+            <i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/thedavecarroll" itemprop="sameAs">
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/thedavecarroll" itemprop="sameAs">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Get-OSVersionFromEvent">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Get-OSVersionFromEvent
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <h1 id="get-osversionfromevent">Get-OSVersionFromEvent</h1>
 
 <h2 id="synopsis">SYNOPSIS</h2>
-<p>This function queries a KMS host server for registration events.</p>
+<p>This function returns the OperatingSystem version.</p>
 
 <h2 id="syntax">SYNTAX</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-KMSHostEvent [[-ComputerName] &lt;String&gt;] [[-Credential] &lt;PSCredential&gt;] [[-StartTime] &lt;DateTime&gt;]
- [[-EndTime] &lt;DateTime&gt;] [[-MaxEvents] &lt;Int64&gt;] [-Oldest] [-Raw] [&lt;CommonParameters&gt;]
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-OSVersionFromEvent [[-ComputerName] &lt;String[]&gt;] [[-Credential] &lt;PSCredential&gt;] [-Raw] [&lt;CommonParameters&gt;]
 </code></pre></div></div>
 
 <h2 id="description">DESCRIPTION</h2>
-<p>This function queries a KMS host server for registration events.</p>
+<p>This function returns the OperatingSystem version based on the data in last EventID 6009 in the system log.</p>
 
 <h2 id="examples">EXAMPLES</h2>
 
 <h3 id="example-1">Example 1</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\&gt; Get-KMSHostEvent -ComputerName SVR01.contoso.com -MaxEvents 10 -Oldest | Format-Table -Property ClientFqdn,ClientTimestamp,IsClientVM,LicenseState,ProductSkuName,MinActivateCount
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\&gt; Get-OSVersionFromEvent
 
-ClientFqdn            ClientTimestamp       IsClientVM LicenseState       ProductSkuName         MinActivateCount
-----------            ---------------       ---------- ------------       --------------         ----------------
-WKSTN27.contoso.com   4/10/2018 10:21:00 PM      False Grace Period       Office Standard 2016   5
-WKSTN06.contoso.com   4/10/2018 10:24:00 PM      False Grace Period       Office Standard 2016   5
-MYLAPTOP              4/10/2018 9:26:00 PM       False Notifications Mode Windows 10 Enterprise  25
-WKSTN63.contoso.com   4/10/2018 10:28:00 PM      False Grace Period       Office Standard 2013   5
-vmwkstn04.contoso.com 4/10/2018 10:31:00 PM       True Grace Period       Windows 7 Professional 25
-WKSTN68.contoso.com   4/10/2018 10:33:00 PM       True Grace Period       Windows 7 Professional 25
-vmwkstn14.contoso.com 4/10/2018 10:33:00 PM       True Grace Period       Windows 7 Professional 25
-WKSTN63               4/10/2018 9:34:00 PM       False Grace Period       Office Standard 2016   5
-WKSTN63               4/10/2018 9:34:00 PM       False Notifications Mode Windows 10 Enterprise  25
-vmwkstn45.contoso.com 4/10/2018 10:34:00 PM       True Grace Period       Windows 7 Professional 25
+ComputerName         OperatingSystemVersion
+------------         ----------------------
+WKSTN07.contoso.com  10.00.17134
 </code></pre></div></div>
 
 <h2 id="parameters">PARAMETERS</h2>
 
 <h3 id="-computername">-ComputerName</h3>
-<p>Gets events from the event logs on the specified computer.
+<p>Gets events from the event logs on the specified computer(s).
 Type the NetBIOS name, an Internet Protocol (IP) address, or the fully qualified domain name of the computer.
 The default value is the local computer.</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">String</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">String[]</span>
 <span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
 <span class="na">Aliases</span><span class="pi">:</span> <span class="s">IPAddress, __Server, CN</span>
 
@@ -225,65 +357,6 @@ If you type only the parameter name, you will be prompted for both a user name a
 <span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
 </code></pre></div></div>
 
-<h3 id="-endtime">-EndTime</h3>
-<p>Specifies the end of the time period for the event log query.</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">DateTime</span>
-<span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
-<span class="na">Aliases</span><span class="pi">:</span>
-
-<span class="na">Required</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Position</span><span class="pi">:</span> <span class="s">3</span>
-<span class="na">Default value</span><span class="pi">:</span> <span class="s">None</span>
-<span class="na">Accept pipeline input</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
-</code></pre></div></div>
-
-<h3 id="-maxevents">-MaxEvents</h3>
-<p>Specifies the maximum number of events this function returns.
-Enter an integer.
-The default is to return all the events in the logs.</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">Int64</span>
-<span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
-<span class="na">Aliases</span><span class="pi">:</span>
-
-<span class="na">Required</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Position</span><span class="pi">:</span> <span class="s">4</span>
-<span class="na">Default value</span><span class="pi">:</span> <span class="s">None</span>
-<span class="na">Accept pipeline input</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
-</code></pre></div></div>
-
-<h3 id="-oldest">-Oldest</h3>
-<p>Returns the events in oldest-first order.
-By default, events are returned in newest-first order.</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">SwitchParameter</span>
-<span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
-<span class="na">Aliases</span><span class="pi">:</span>
-
-<span class="na">Required</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Position</span><span class="pi">:</span> <span class="s">Named</span>
-<span class="na">Default value</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Accept pipeline input</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
-</code></pre></div></div>
-
-<h3 id="-starttime">-StartTime</h3>
-<p>Specifies the beginning of the time period for the event log query.</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">DateTime</span>
-<span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
-<span class="na">Aliases</span><span class="pi">:</span>
-
-<span class="na">Required</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Position</span><span class="pi">:</span> <span class="s">2</span>
-<span class="na">Default value</span><span class="pi">:</span> <span class="s">None</span>
-<span class="na">Accept pipeline input</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
-</code></pre></div></div>
-
 <h3 id="-raw">-Raw</h3>
 <p>Use this switch to provide the raw event log record for the function.</p>
 
@@ -303,7 +376,7 @@ By default, events are returned in newest-first order.</p>
 
 <h2 id="inputs">INPUTS</h2>
 
-<h3 id="systemstring">System.String</h3>
+<h3 id="systemstring">System.String[]</h3>
 
 <h2 id="outputs">OUTPUTS</h2>
 
@@ -313,6 +386,28 @@ By default, events are returned in newest-first order.</p>
 
 <h2 id="related-links">RELATED LINKS</h2>
 
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
     </div>
 
     

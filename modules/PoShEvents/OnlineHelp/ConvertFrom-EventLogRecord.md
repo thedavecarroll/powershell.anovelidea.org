@@ -1,11 +1,11 @@
 ---
-layout: default
+layout: single
 search: false
 classes: wide
 permalink: /modules/PoShEvents/OnlineHelp/ConvertFrom-EventLogRecord.html
 external help file: PoShEvents-help.xml
 Module Name: PoShEvents
-online version: https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/ConvertFrom-EventLogRecord.md
+online version: https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/ConvertFrom-EventLogRecord.html
 schema: 2.0.0
 ---
 
