@@ -1,3 +1,3 @@
-# PowerShell.anovelidea.org
+# My PowerShell Blog
 
-My blog
+This repo contains the raw content and framework for my [PowerShell blog](https://powershell.anovelidea.org).
