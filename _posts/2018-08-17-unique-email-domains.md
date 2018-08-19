@@ -18,7 +18,7 @@ Knowing that the Active Directory attribute proxyAddresses contains the account'
 Also, you only want to include only those domains for active accounts. [Note: The proxyAddresses also contains other
 address types, but we are only concerned about SMTP for this excercise.]
 
-First, let's get all of the proxyAddresses into a variable.
+First, let's get all the proxyAddresses into a variable.
 
 ```powershell
 $Filter = "proxyAddresses -like '*' -and enabled -eq 'true'"

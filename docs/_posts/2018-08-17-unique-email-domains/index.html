@@ -306,7 +306,7 @@ contains over 30,000 accounts. How would you go about discovering the unique ema
 Also, you only want to include only those domains for active accounts. [Note: The proxyAddresses also contains other
 address types, but we are only concerned about SMTP for this excercise.]</p>
 
-<p>First, let’s get all of the proxyAddresses into a variable.</p>
+<p>First, let’s get all the proxyAddresses into a variable.</p>
 
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Filter</span> <span class="o">=</span> <span class="s2">"proxyAddresses -like '*' -and enabled -eq 'true'"</span>
 <span class="nv">$ProxyAddresses</span> <span class="o">=</span> <span class="nb">Get-ADUser</span> -Filter <span class="nv">$Filter</span> -Properties proxyAddresses | <span class="nb">Select-Object</span> -ExpandProperty proxyAddresses
