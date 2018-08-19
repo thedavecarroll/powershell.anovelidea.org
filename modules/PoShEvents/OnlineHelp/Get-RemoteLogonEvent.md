@@ -1,5 +1,5 @@
 ---
-layout: single
+layout: onlinehelp
 search: false
 classes: wide
 permalink: /modules/PoShEvents/OnlineHelp/Get-RemoteLogonEvent.html
