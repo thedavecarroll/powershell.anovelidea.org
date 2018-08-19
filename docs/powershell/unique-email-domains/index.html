@@ -422,6 +422,73 @@ ForEach-Object cmdlet or the foreach loop. You can use whichever you choose base
     </div>
 
     
+      <div class="page__comments">
+  
+  
+      <section id="static-comments">
+        
+          <!-- Start static comments -->
+          <div class="js-comments">
+            
+          </div>
+          <!-- End static comments -->
+
+          <!-- Start new comment form -->
+          <div class="page__comments-form">
+            <h4 class="page__comments-title">Leave a comment</h4>
+            <p class="small">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
+            <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v2/entry/thedavecarroll/powershell.anovelidea.org/master/comments">
+              <div class="form__spinner">
+                <i class="fas fa-spinner fa-spin fa-3x fa-fw"></i>
+                <span class="sr-only">Loading...</span>
+              </div>
+
+              <div class="form-group">
+                <label for="comment-form-message">Comment <small class="required">*</small></label>
+                <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+                <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown is supported.</a></div>
+              </div>
+              <div class="form-group">
+                <label for="comment-form-name">Name <small class="required">*</small></label>
+                <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+              </div>
+              <div class="form-group">
+                <label for="comment-form-email">Email address <small class="required">*</small></label>
+                <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+              </div>
+              <div class="form-group">
+                <label for="comment-form-url">Website (optional)</label>
+                <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+              </div>
+              <div class="form-group hidden" style="display: none;">
+                <input type="hidden" name="options[slug]" value="unique-email-domains">
+                <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+                <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+                <input type="hidden" name="options[reCaptcha][siteKey]" value="6LfTsmoUAAAAAKI2qS8kGdIxL5rAxjr4vKfD1yH8">
+                <input type="hidden" name="options[reCaptcha][secret]" value="gahrPcBtEt03G0gUgYjtyQR+WRhr9+mgyHRJX0Z23jQ42E63EfEpxTLC4FttAKQX6fXnexRPiAoW8tzRvXMuId3XaTHrCUKkp9ik513TTzuDaT/Bx9lZGxX66Hf7XAg4beiUZsRCXwLZYyLo7jB2x3tRDEgB+4f7xJ34c4iWhEM=">
+              </div>
+              <!-- Start comment form alert messaging -->
+              <p class="hidden js-notice">
+                <strong class="js-notice-text"></strong>
+              </p>
+              <!-- End comment form alert messaging -->
+              
+                <div class="form-group">
+                  <div class="g-recaptcha" data-sitekey="6LfTsmoUAAAAAKI2qS8kGdIxL5rAxjr4vKfD1yH8"></div>
+                </div>
+              
+              <div class="form-group">
+                <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--primary btn--large">Submit comment</button>
+              </div>
+            </form>
+          </div>
+          <!-- End new comment form -->
+          <script async src="https://www.google.com/recaptcha/api.js"></script>
+        
+      </section>
+    
+</div>
+    
   </article>
 
   
@@ -474,6 +541,23 @@ ForEach-Object cmdlet or the foreach loop. You can use whichever you choose base
 <script src="/assets/js/lunr/lunr.min.js"></script>
 <script src="/assets/js/lunr/lunr-store.js"></script>
 <script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-122236350-1']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
 
 
 

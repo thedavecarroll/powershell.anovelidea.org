@@ -2,7 +2,7 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://powershell.anovelidea.org/blog/blog-inception/</loc>
-<lastmod>2018-08-14T00:00:00-05:00</lastmod>
+<lastmod>2018-08-17T00:00:00-05:00</lastmod>
 </url>
 <url>
 <loc>https://powershell.anovelidea.org/powershell/unique-email-domains/</loc>
@@ -10,6 +10,7 @@
 </url>
 <url>
 <loc>https://powershell.anovelidea.org/_posts/2018-08-14-blog-inception/</loc>
+<lastmod>2018-08-17T00:00:00-05:00</lastmod>
 </url>
 <url>
 <loc>https://powershell.anovelidea.org/_posts/2018-08-17-unique-email-domains/</loc>
