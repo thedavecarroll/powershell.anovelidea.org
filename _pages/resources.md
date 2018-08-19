@@ -1,6 +1,5 @@
 ---
 permalink: /resources/
-layout: single
 title: Resources
 excerpt: Resources
 author_profile: true
