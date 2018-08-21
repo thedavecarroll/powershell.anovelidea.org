@@ -2,4 +2,4 @@
 set -e # halt script on error
 
 bundle exec jekyll build --config _config.yml --source . --destination ./docs
-bundle exec htmlproofer ./docs --disable-external
+bundle exec htmlproofer ./docs --disable-external --allow_hash_href
