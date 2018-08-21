@@ -34,5 +34,6 @@ deploy:
   committer-from-gh: true
   commit-message: [ci skip]
   keep-history: true
+  verbose: true
   on:
     branch: master
