@@ -26,6 +26,11 @@ cache: bundler # caching bundler gem packages will speed up build
 notifications:
   email: false
 
+after_success:
+  - export GIT_TAG=$TRAVIS_BRANCH-v1.0.$TRAVIS_BUILD_NUMBER
+  - git tag $GIT_TAG -a -m "TravisCI build $TRAVIS_BUILD_NUMBER"
+  - git push -q https://${GITHUB_TOKEN}@github.com/thedavecarroll/powershell.anovelidea.org --tags
+
 deploy:
   provider: pages
   target-branch: master
