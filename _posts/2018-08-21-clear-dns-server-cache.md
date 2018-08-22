@@ -40,6 +40,8 @@ Of course, there are a few shortcuts you can do to get this to a one-liner.
 (Resolve-DnsName -Name (Get-ADDomain | Select-Object -ExpandProperty DnsRoot -Type NS).Where({ $_.Type -eq 'NS' }).NameHost.ForEach({ Clear-DnsServerCache -ComputerName $_ -Force })
 ```
 
-**For more information, please see the following Microsoft docs:**
+For more information, please see the following Microsoft docs:
+
 [Clear-DnsServerCache](https://docs.microsoft.com/en-us/powershell/module/dnsserver/clear-dnsservercache)
+
 [DnsCmd](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dnscmd)
