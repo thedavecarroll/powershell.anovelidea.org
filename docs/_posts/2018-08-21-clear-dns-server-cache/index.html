@@ -9,48 +9,50 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>  PowerShell: What A Novel Idea</title>
-<meta name="description" content="A blog on PowerShell and IT">
+<!-- begin _includes/seo.html --><title>Clear DNS Server Cache - PowerShell: What A Novel Idea</title>
+<meta name="description" content="Greetings fellow PowerShell aficionados!…I’ve decided to start blogging about PowerShell.">
 
 
 
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="PowerShell: What A Novel Idea">
-<meta property="og:title" content="">
-<meta property="og:url" content="https://powershell.anovelidea.org/">
+<meta property="og:title" content="Clear DNS Server Cache">
+<meta property="og:url" content="https://powershell.anovelidea.org/_posts/2018-08-21-clear-dns-server-cache/">
 
 
+  <meta property="og:description" content="Greetings fellow PowerShell aficionados!…I’ve decided to start blogging about PowerShell.">
 
 
-  <meta property="og:image" content="https://powershell.anovelidea.org/assets/images/header.jpeg">
 
 
 
   <meta name="twitter:site" content="@thedavecarroll">
-  <meta name="twitter:title" content="">
-  <meta name="twitter:description" content="A blog on PowerShell and IT">
-  <meta name="twitter:url" content="https://powershell.anovelidea.org/">
+  <meta name="twitter:title" content="Clear DNS Server Cache">
+  <meta name="twitter:description" content="Greetings fellow PowerShell aficionados!…I’ve decided to start blogging about PowerShell.">
+  <meta name="twitter:url" content="https://powershell.anovelidea.org/_posts/2018-08-21-clear-dns-server-cache/">
 
   
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://powershell.anovelidea.org/assets/images/header.jpeg">
-  
-
-  
-
-
-
-
-
-
-
+    <meta name="twitter:card" content="summary">
+    
   
 
   
 
 
-<link rel="canonical" href="https://powershell.anovelidea.org/">
+
+  <meta property="article:published_time" content="2018-08-21T00:00:00-05:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://powershell.anovelidea.org/_posts/2018-08-21-clear-dns-server-cache/">
 
 
 
@@ -115,7 +117,7 @@
 
   </head>
 
-  <body class="layout--home">
+  <body class="layout--single">
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -157,38 +159,6 @@
 
     <div class="initial-content">
       
-  
-
-
-
-
-
-
-
-
-
-
-
-<div class="page__hero--overlay"
-  style=" background-image: url('/assets/images/header.jpeg');"
->
-  
-    <div class="wrapper">
-      <h1 id="page-title" class="page__title" itemprop="headline">
-        
-          
-
-        
-      </h1>
-      
-      
-      
-    </div>
-  
-  
-</div>
-
-
 
 
 
@@ -313,188 +283,105 @@
   </div>
 
 
-  <div class="archive">
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Clear DNS Server Cache">
+    <meta itemprop="description" content="Greetings fellow PowerShell aficionados!…I’ve decided to start blogging about PowerShell.">
+    <meta itemprop="datePublished" content="August 21, 2018">
     
-    This blog primarily focuses on PowerShell and will become the place for online and updatable help for my modules.
 
-There will be articles on other IT related topics, as well.
-
-<h3 class="archive__subtitle">Recent posts</h3>
-
-
-  
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
+    <div class="page__inner-wrap">
       
-        <a href="/powershell/clear-dns-server-cache/" rel="permalink">Clear DNS Server Cache
-</a>
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Clear DNS Server Cache
+</h1>
+          
+        </header>
       
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
 
+      <section class="page__content" itemprop="text">
+        
+        <p>How often have you needed to clear the DNS server cache?</p>
 
+<p>It may not be frequent, but if your environment has several domain controllers, a few simple lines of PowerShell can
+clear the cache on all of them.</p>
 
+<p>First, we need to get the name of the domain. Of course, if you already know the name, you can simply use it.</p>
 
-  less than 1 minute read
-</p>
-    
-    
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$DomainName</span> <span class="o">=</span> <span class="nb">Get-ADDomain</span> | <span class="nb">Select-Object</span> -ExpandProperty DnsRoot
+</code></pre></div></div>
+
+<p>Next, we find all name servers in the domain and show only the hostname.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$DomainControllers</span> <span class="o">=</span> <span class="o">(</span><span class="nb">Resolve-DnsName</span> -Name <span class="nv">$DomainName</span> -Type NS<span class="o">)</span>.Where<span class="o">({</span> <span class="nv">$_</span>.Type -eq <span class="s1">'NS'</span> <span class="o">})</span>.NameHost
+</code></pre></div></div>
+
+<p>Lastly, we excecute the clear command for each one.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$DomainControllers</span>.ForEach<span class="o">({</span> <span class="nb">Clear</span>-DnsServerCache -ComputerName <span class="nv">$_</span> -Force <span class="o">})</span>
+</code></pre></div></div>
+
+<p>Of course, there are a few shortcuts you can do to get this to a one-liner.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(</span><span class="nb">Resolve-DnsName</span> -Name <span class="o">(</span><span class="nb">Get-ADDomain</span> | <span class="nb">Select-Object</span> -ExpandProperty DnsRoot -Type NS<span class="o">)</span>.Where<span class="o">({</span> <span class="nv">$_</span>.Type -eq <span class="s1">'NS'</span> <span class="o">})</span>.NameHost.ForEach<span class="o">({</span> <span class="nb">Clear</span>-DnsServerCache -ComputerName <span class="nv">$_</span> -Force <span class="o">})</span>
+</code></pre></div></div>
+
+<p class="notice"><strong>For more information, please see the following Microsoft docs:</strong>
+<a href="https://docs.microsoft.com/en-us/powershell/module/dnsserver/clear-dnsservercache">Clear-DnsServerCache</a>
+<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dnscmd">DnsCmd</a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
 
 
   
   
   
 
-  <p class="page__meta">
+  <p class="page__taxonomy">
     <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
-    <span itemprop="keywords" style="font-size: medium">
+    <span itemprop="keywords">
     
       
       
-      <a href="/tags/#dns-cache" class="page__meta" rel="tag">dns cache</a><span class="sep">, </span>
+      <a href="/tags/#dns-cache" class="page__taxonomy-item" rel="tag">dns cache</a><span class="sep">, </span>
     
       
       
-      <a href="/tags/#dns" class="page__meta" rel="tag">dns</a><span class="sep">, </span>
+      <a href="/tags/#dns" class="page__taxonomy-item" rel="tag">dns</a><span class="sep">, </span>
     
       
       
-      <a href="/tags/#powershell" class="page__meta" rel="tag">powershell</a>
+      <a href="/tags/#powershell" class="page__taxonomy-item" rel="tag">powershell</a>
     
     </span>
   </p>
 
+
+
+
+
+        
+            <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted:</strong> <time datetime="2018-08-21T00:00:00-05:00">August 21, 2018</time></p>
+        
+        
+
+      </footer>
+
+      
+
+      
+    </div>
+
     
-    <p class="page__meta"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted:</strong> <time datetime="2018-08-21T00:00:00-05:00">August 21, 2018</time></p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Greetings fellow PowerShell aficionados!…I’ve decided to start blogging about PowerShell.
-</p>
-
   </article>
-</div>
-
-  
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/powershell/unique-email-domains/" rel="permalink">Unique Email Domains
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  1 minute read
-</p>
-    
-    
-
 
   
   
-  
-
-  <p class="page__meta">
-    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
-    <span itemprop="keywords" style="font-size: medium">
-    
-      
-      
-      <a href="/tags/#exchange" class="page__meta" rel="tag">exchange</a><span class="sep">, </span>
-    
-      
-      
-      <a href="/tags/#powershell" class="page__meta" rel="tag">powershell</a>
-    
-    </span>
-  </p>
-
-    
-    <p class="page__meta"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted:</strong> <time datetime="2018-08-17T00:00:00-05:00">August 17, 2018</time></p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">So you’re working on getting all of your email domains that’s on-prem into Azure or you simply want to ensure that your
-on-prem Exchange has been configured ...</p>
-
-  </article>
-</div>
-
-  
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/blog/blog-inception/" rel="permalink">Welcome to My PowerShell Blog
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  1 minute read
-</p>
-    
-    
-
-
-  
-  
-  
-
-  <p class="page__meta">
-    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
-    <span itemprop="keywords" style="font-size: medium">
-    
-      
-      
-      <a href="/tags/#blog" class="page__meta" rel="tag">blog</a><span class="sep">, </span>
-    
-      
-      
-      <a href="/tags/#powershell" class="page__meta" rel="tag">powershell</a>
-    
-    </span>
-  </p>
-
-    
-    <p class="page__meta"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted:</strong> <time datetime="2018-08-14T00:00:00-05:00">August 14, 2018</time></p>
-
-
-    <p class="page__meta"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-08-17">August 17, 2018</time></p>
-
-    <p class="archive__item-excerpt" itemprop="description">Greetings fellow PowerShell aficionados!…I’ve decided to start blogging about PowerShell.
-</p>
-
-  </article>
-</div>
-
-
-
-
-
-  </div>
 </div>
     </div>
 
