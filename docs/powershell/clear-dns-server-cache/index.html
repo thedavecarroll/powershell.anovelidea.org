@@ -333,9 +333,11 @@ clear the cache on all of them.</p>
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(</span><span class="nb">Resolve-DnsName</span> -Name <span class="o">(</span><span class="nb">Get-ADDomain</span> | <span class="nb">Select-Object</span> -ExpandProperty DnsRoot -Type NS<span class="o">)</span>.Where<span class="o">({</span> <span class="nv">$_</span>.Type -eq <span class="s1">'NS'</span> <span class="o">})</span>.NameHost.ForEach<span class="o">({</span> <span class="nb">Clear</span>-DnsServerCache -ComputerName <span class="nv">$_</span> -Force <span class="o">})</span>
 </code></pre></div></div>
 
-<p><strong>For more information, please see the following Microsoft docs:</strong>
-<a href="https://docs.microsoft.com/en-us/powershell/module/dnsserver/clear-dnsservercache">Clear-DnsServerCache</a>
-<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dnscmd">DnsCmd</a></p>
+<p>For more information, please see the following Microsoft docs:</p>
+
+<p><a href="https://docs.microsoft.com/en-us/powershell/module/dnsserver/clear-dnsservercache">Clear-DnsServerCache</a></p>
+
+<p><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dnscmd">DnsCmd</a></p>
 
         
       </section>

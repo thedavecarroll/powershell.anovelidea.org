@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e # halt script on error
 
-if [ "$TRAVIS_PULL_REQUEST" != "false" -a "$TRAVIS_BRANCH" == "comments"]; then
+if [ "$TRAVIS_PULL_REQUEST" != "false" -a "$TRAVIS_BRANCH" == "comments" ]; then
 
     echo "Building site for pull request for $TRAVIS_BRANCH..."
     bundle exec jekyll build --config _config.yml --source . --destination ./docs
