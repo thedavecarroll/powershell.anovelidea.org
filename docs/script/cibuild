@@ -1,5 +1,34 @@
 #!/usr/bin/env bash
 set -e # halt script on error
 
-bundle exec jekyll build --config _config.yml --source . --destination ./docs
-bundle exec htmlproofer ./docs --disable-external --allow_hash_href
+if [ "$TRAVIS_PULL_REQUEST" != "false" -a "$TRAVIS_BRANCH" == "comments"]; then
+
+    echo "Building site for pull request for $TRAVIS_BRANCH..."
+    bundle exec jekyll build --config _config.yml --source . --destination ./docs
+    echo "Site built into /docs"
+
+    echo "Proofing links"
+    bundle exec htmlproofer ./docs --disable-external --allow_hash_href
+    echo "Proofing links complete"
+
+    exit 0
+
+elif [ "$TRAVIS_BRANCH" == "master" ]; then
+
+    echo "Building site for $TRAVIS_BRANCH..."
+    bundle exec jekyll build --config _config.yml --source . --destination ./docs
+    echo "Site built into /docs"
+
+    echo "Proofing links"
+    bundle exec htmlproofer ./docs --disable-external --allow_hash_href
+    echo "Proofing links complete"
+
+    exit 0
+
+else
+
+    echo "Build not triggered internally"
+    exit 0
+
+fi
+
