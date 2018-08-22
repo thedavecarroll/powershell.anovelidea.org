@@ -10,7 +10,7 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>Clear DNS Server Cache - PowerShell: What A Novel Idea</title>
-<meta name="description" content="Greetings fellow PowerShell aficionados!…I’ve decided to start blogging about PowerShell.">
+<meta name="description" content="How often have you needed to clear the DNS server cache?">
 
 
 
@@ -21,7 +21,7 @@
 <meta property="og:url" content="https://powershell.anovelidea.org/powershell/clear-dns-server-cache/">
 
 
-  <meta property="og:description" content="Greetings fellow PowerShell aficionados!…I’ve decided to start blogging about PowerShell.">
+  <meta property="og:description" content="How often have you needed to clear the DNS server cache?">
 
 
 
@@ -29,7 +29,7 @@
 
   <meta name="twitter:site" content="@thedavecarroll">
   <meta name="twitter:title" content="Clear DNS Server Cache">
-  <meta name="twitter:description" content="Greetings fellow PowerShell aficionados!…I’ve decided to start blogging about PowerShell.">
+  <meta name="twitter:description" content="How often have you needed to clear the DNS server cache?">
   <meta name="twitter:url" content="https://powershell.anovelidea.org/powershell/clear-dns-server-cache/">
 
   
@@ -285,7 +285,7 @@
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
     <meta itemprop="headline" content="Clear DNS Server Cache">
-    <meta itemprop="description" content="Greetings fellow PowerShell aficionados!…I’ve decided to start blogging about PowerShell.">
+    <meta itemprop="description" content="How often have you needed to clear the DNS server cache?">
     <meta itemprop="datePublished" content="August 21, 2018">
     
 
@@ -333,11 +333,9 @@ clear the cache on all of them.</p>
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(</span><span class="nb">Resolve-DnsName</span> -Name <span class="o">(</span><span class="nb">Get-ADDomain</span> | <span class="nb">Select-Object</span> -ExpandProperty DnsRoot -Type NS<span class="o">)</span>.Where<span class="o">({</span> <span class="nv">$_</span>.Type -eq <span class="s1">'NS'</span> <span class="o">})</span>.NameHost.ForEach<span class="o">({</span> <span class="nb">Clear</span>-DnsServerCache -ComputerName <span class="nv">$_</span> -Force <span class="o">})</span>
 </code></pre></div></div>
 
-<p><strong>For more information, please see the following Microsoft docs:</strong></p>
-
-<p><a href="https://docs.microsoft.com/en-us/powershell/module/dnsserver/clear-dnsservercache">Clear-DnsServerCache</a></p>
-
-<p class="notice--warning"><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dnscmd">DnsCmd</a></p>
+<p><strong>For more information, please see the following Microsoft docs:</strong>
+<a href="https://docs.microsoft.com/en-us/powershell/module/dnsserver/clear-dnsservercache">Clear-DnsServerCache</a>
+<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dnscmd">DnsCmd</a></p>
 
         
       </section>
