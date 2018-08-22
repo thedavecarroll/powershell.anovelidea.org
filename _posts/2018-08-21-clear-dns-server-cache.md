@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Clear DNS Server Cache"
-excerpt: "Greetings fellow PowerShell aficionados!...I've decided to start blogging about PowerShell."
+excerpt: "How often have you needed to clear the DNS server cache?"
 date: 2018-08-21
 tags:
   - powershell
@@ -41,8 +41,5 @@ Of course, there are a few shortcuts you can do to get this to a one-liner.
 ```
 
 **For more information, please see the following Microsoft docs:**
-
 [Clear-DnsServerCache](https://docs.microsoft.com/en-us/powershell/module/dnsserver/clear-dnsservercache)
-
 [DnsCmd](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dnscmd)
-{: .notice--warning}
