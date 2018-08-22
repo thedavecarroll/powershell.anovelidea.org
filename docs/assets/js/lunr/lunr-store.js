@@ -10,7 +10,7 @@ var store = [{
         "url": "https://powershell.anovelidea.org/powershell/unique-email-domains/",
         "teaser":null},{
         "title": "Clear DNS Server Cache",
-        "excerpt":"How often have you needed to clear the DNS server cache? It may not be frequent, but if your environment has several domain controllers, a few simple lines of PowerShell canclear the cache on all of them. First, we need to get the name of the domain. Of course, if...","categories": ["powershell"],
+        "excerpt":"How often have you needed to clear the DNS server cache? Regardless how many domain controllers in your environment, a few simple lines of PowerShell can clear the cache on all of them. First, we need to get the name of the domain. Of course, if you already know the...","categories": ["powershell"],
         "tags": ["powershell","dns","dns cache"],
         "url": "https://powershell.anovelidea.org/powershell/clear-dns-server-cache/",
         "teaser":null}]

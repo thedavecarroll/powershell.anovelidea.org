@@ -3,6 +3,7 @@ layout: single
 title: "Clear DNS Server Cache"
 excerpt: "How often have you needed to clear the DNS server cache?"
 date: 2018-08-21
+comments: true
 tags:
   - powershell
   - dns
@@ -13,8 +14,7 @@ category:
 
 How often have you needed to clear the DNS server cache?
 
-It may not be frequent, but if your environment has several domain controllers, a few simple lines of PowerShell can
-clear the cache on all of them.
+Regardless how many domain controllers in your environment, a few simple lines of PowerShell can clear the cache on all of them.
 
 First, we need to get the name of the domain. Of course, if you already know the name, you can simply use it.
 
