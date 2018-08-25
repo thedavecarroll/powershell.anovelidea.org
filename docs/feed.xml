@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-08-25T14:37:08-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Updatable Help</title><link href="https://powershell.anovelidea.org/powershell/updatable-help/" rel="alternate" type="text/html" title="Updatable Help" /><published>2018-08-25T00:00:00-05:00</published><updated>2018-08-25T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/updatable-help</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/updatable-help/">&lt;p&gt;PowerShell has provided a way to update the help files for modules since version 3.0.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-08-25T14:49:55-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Updatable Help</title><link href="https://powershell.anovelidea.org/powershell/updatable-help/" rel="alternate" type="text/html" title="Updatable Help" /><published>2018-08-25T00:00:00-05:00</published><updated>2018-08-25T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/updatable-help</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/updatable-help/">&lt;p&gt;PowerShell has provided a way to update the help files for modules since version 3.0.&lt;/p&gt;
 
 &lt;p&gt;Since creating my first two modules, I have tried adding updatable help support, but came across a few issues. Tonight,
 I finally resolved them for my module PoShEvents.&lt;/p&gt;
@@ -89,7 +89,7 @@ the TLS 1.2 protocol and tested the URL again.&lt;/p&gt;
 &lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Net.ServicePointManager]::SecurityProtocol
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;div style=&quot;color: slategray&quot; class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Ssl3, Tls
+&lt;div style=&quot;color: dimgray&quot; class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Ssl3, Tls
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Net.ServicePointManager]::SecurityProtocol &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Net.SecurityProtocolType]::Tls,[Net.SecurityProtocolType]::Tls11,[Net.SecurityProtocolType]::Tls12
@@ -184,10 +184,9 @@ ForEach-Object cmdlet or the foreach loop. You can use whichever you choose base
 
 &lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$EmailDomains&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;Sort-Object&lt;/span&gt; -Unique
 
-&lt;span class=&quot;c1&quot;&gt;# output&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# anovelidea.org&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# chronicgoogler.com&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# gmail.com&lt;/span&gt;
+anovelidea.org
+chronicgoogler.com
+gmail.com
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Of course, you could have dozens or more unique domains. This short exercise can also reveal typos in domains.&lt;/p&gt;
