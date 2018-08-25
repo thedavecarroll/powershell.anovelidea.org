@@ -35,8 +35,8 @@ as intended.
 Like most others, I have opted to use the module [platyPS](https://github.com/PowerShell/platyPS){:target="_blank"} to
 create my help files.
 
-This post focuses on solving the issues I had with updatable help, so for instructions on how to use `platyPS` see any
-of these sites.
+This post focuses on solving the issues I had with updatable help. For instructions on how to use `platyPS` see any of
+these sites.
 
 * [Module Tools - Adding Cmdlet Help With PlatyPS](https://overpoweredshell.com/Module-Tools-Adding-Cmdlet-Help-With-PlatyPS/){:target="_blank"}
 * [Convert PowerShell Help to a Website](https://ntsystems.it/post/converting-powershell-help-a-website){:target="_blank"}
@@ -71,12 +71,14 @@ First, let's see if we can `Update-Help` from the local source.
 
 ```powershell
 Update-Help -Module PoShEvents -SourcePath .\powershell.anovelidea.org\modulehelp\PoShEvents\ -Force -Verbose
+```
 
+```console
 VERBOSE: Performing the operation "Update-Help" on target "PoShEvents, Current Version: 0.2.1, Available Version: 0.2.1, UICulture: en-US".
 VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\about_PoShEvents.help.txt. Culture en-US Version 0.2.1
 VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\PoShEvents-help.xml. Culture en-US Version 0.2.1
-{: style="color: yellow"}
 ```
+{: style="color: yellow"}
 
 This proves that the updatable help works when pulling from the local source.
 
@@ -87,40 +89,51 @@ If the local source test is successful, you will need to upload the `*HelpInfo.x
 verify that you can access the URL successfully by using `Invoke-WebRequest`. Ideally, the StatusCode should be 200.
 
 ```powershell
-$ModInfo = Get-Module -Name PoShEvents | Select-Object -Property Guid,HelpInfoURI
-(Invoke-WebRequest -Uri "$($ModInfo.HelpInfoUri)/PoShEvents_$($ModInfo.Guid)_HelpInfo.xml").StatusCode
+$ModInfo = Get-Module -Name PoShEvents | Select-Object -Property Name,Guid,HelpInfoURI
+(Invoke-WebRequest -Uri "$($ModInfo.HelpInfoUri)$($ModInfo.Name)_$($ModInfo.Guid)_HelpInfo.xml").StatusCode
 ```
+
+My result was not ideal.
 
 ```console
 Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
+```
+{: style="color: crimson"}
+
+```console
+DarkRed
+Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
 At line:1 char:2
-+ (Invoke-WebRequest -Uri "$($ModInfo.HelpInfoUri)/PoShEvents_$($ModInf ...
++ (Invoke-WebRequest -Uri "$($ModInfo.HelpInfoUri)$($ModInfo.Name)_$($M ...
 +  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     + CategoryInfo          : InvalidOperation: (System.Net.HttpWebRequest:HttpWebRequest) [Invoke-WebRequest], WebException
     + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands.InvokeWebRequestCommand
 ```
-{: style="color: red"}
-
-My result was not ideal.
+{: style="color: darkred"}
 
 I wished that I could say I immediately tested with `Invoke-WebRequest`. That would have saved me about an hour going
 down the rabbithole of trying to trace the `Update-Help` command. It would really be nice if `Update-Help` revealed more
 internal workings when you use the `-Verbose` switch.
 
-### TLS
+## TLS
 
 Checking the security protocol that my default PowerShell session used, I clearly see why my testing failed. I included
 the TLS 1.2 protocol and tested the URL again.
 
 ```powershell
 [Net.ServicePointManager]::SecurityProtocol
+```
 
+```console
 Ssl3, Tls
+```
 
+```powershell
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls,[Net.SecurityProtocolType]::Tls11,[Net.SecurityProtocolType]::Tls12
 ```
 
-On February 8, 2018, [GitHub discontinued the use of TLS 1.0 and TLS 1.1](https://githubengineering.com/crypto-removal-notice/){:target="_blank"}.
+After some checking, I discovered that on February 8, 2018,
+[GitHub discontinued the use of TLS 1.0 and TLS 1.1](https://githubengineering.com/crypto-removal-notice/){:target="_blank"}.
 {: .notice}
 
 ```powershell
@@ -136,7 +149,7 @@ VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\Po
 ```
 {: style="color: yellow"}
 
-### Setting Strong Cryptography for .Net Framework
+## Setting Strong Cryptography for .Net Framework
 
 Setting `[Net.ServicePointManager]::SecurityProtocol`, as I did, only applies to the current PowerShell session. To make
 the change permanent, I updated the registry.
@@ -148,3 +161,8 @@ Set-ItemProperty -Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NetFramework\v4.0.
 # set strong cryptography on 32 bit .Net Framework (version 4 and above)
 Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\.NetFramework\v4.0.30319' -Name 'SchUseStrongCrypto' -Value '1' -Type DWord
 ```
+
+## Conclusion
+
+By using GitHub Pages, platyPS, and the appropriate TLS protocol, I'm finally serving updatable help for my module
+[PoShEvents](https://github.com/thedavecarroll/PoShEvents){:target="_blank"}.
