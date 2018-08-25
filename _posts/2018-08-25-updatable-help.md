@@ -78,7 +78,7 @@ VERBOSE: Performing the operation "Update-Help" on target "PoShEvents, Current V
 VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\about_PoShEvents.help.txt. Culture en-US Version 0.2.1
 VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\PoShEvents-help.xml. Culture en-US Version 0.2.1
 ```
-{: style="color: yellow"}
+{: style="color: gold"}
 
 This proves that the updatable help works when pulling from the local source.
 
@@ -98,18 +98,7 @@ My result was not ideal.
 ```console
 Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
 ```
-{: style="color: firebrick"}
-
-```console
-DarkRed
-Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
-At line:1 char:2
-+ (Invoke-WebRequest -Uri "$($ModInfo.HelpInfoUri)$($ModInfo.Name)_$($M ...
-+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : InvalidOperation: (System.Net.HttpWebRequest:HttpWebRequest) [Invoke-WebRequest], WebException
-    + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands.InvokeWebRequestCommand
-```
-{: style="color: darkred"}
+{: style="color: maroon"}
 
 I wished that I could say I immediately tested with `Invoke-WebRequest`. That would have saved me about an hour going
 down the rabbithole of trying to trace the `Update-Help` command. It would really be nice if `Update-Help` revealed more
@@ -127,14 +116,13 @@ the TLS 1.2 protocol and tested the URL again.
 ```console
 Ssl3, Tls
 ```
-{: style="color: lightgray"}
+{: style="color: slategray"}
 
 ```powershell
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls,[Net.SecurityProtocolType]::Tls11,[Net.SecurityProtocolType]::Tls12
 ```
 
-After some checking, I discovered that on February 8, 2018,
-[GitHub discontinued the use of TLS 1.0 and TLS 1.1](https://githubengineering.com/crypto-removal-notice/){:target="_blank"}.
+A quick search revealed that on February 8, 2018, [GitHub discontinued the use of TLS 1.0 and TLS 1.1](https://githubengineering.com/crypto-removal-notice/){:target="_blank"}.
 {: .notice}
 
 ```powershell
@@ -148,7 +136,7 @@ VERBOSE: Performing the operation "Update-Help" on target "PoShEvents, Current V
 VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\about_PoShEvents.help.txt. Culture en-US Version 0.2.1
 VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\PoShEvents-help.xml. Culture en-US Version 0.2.1
 ```
-{: style="color: yellow"}
+{: style="color: gold"}
 
 ## Setting Strong Cryptography for .Net Framework
 
