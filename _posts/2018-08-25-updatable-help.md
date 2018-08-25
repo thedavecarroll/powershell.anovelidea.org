@@ -85,7 +85,7 @@ This proves that the updatable help works when pulling from the local source.
 ### Online Source
 
 If the local source test is successful, you will need to upload the `*HelpInfo.xml`, `*HelpContent.cab`, and
-`*HelpContent.zip` help files to the location indicated by the modules `HelpInfoUri`. After this is done, you should
+`*HelpContent.zip` help files to the location indicated by the module's `HelpInfoUri`. After this is done, you should
 verify that you can access the URL successfully by using `Invoke-WebRequest`. Ideally, the StatusCode should be 200.
 
 ```powershell
@@ -106,10 +106,10 @@ internal workings when you use the `-Verbose` switch.
 
 ## TLS
 
-Checking the security protocol that my default PowerShell session used, I clearly see why my testing failed. I included
-the TLS 1.2 protocol and tested the URL again successfully.
+Checking the security protocol that my default PowerShell session used, I saw why my testing failed. I included the
+TLS 1.2 protocol and tested the URL again successfully.
 
-```powershell
+```csharp
 [Net.ServicePointManager]::SecurityProtocol
 ```
 
@@ -118,7 +118,7 @@ Ssl3, Tls
 ```
 {: style="color: whitesmoke"}
 
-```powershell
+```csharp
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls,[Net.SecurityProtocolType]::Tls11,[Net.SecurityProtocolType]::Tls12
 ```
 
@@ -126,7 +126,7 @@ A quick search revealed that on February 8, 2018, [GitHub discontinued the use o
 {: .notice}
 
 ```powershell
-PS C:\> Update-Help -Name PoShEvents -Verbose -Force
+Update-Help -Name PoShEvents -Verbose -Force
 ```
 
 ```console
