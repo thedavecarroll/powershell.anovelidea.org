@@ -300,7 +300,7 @@
 
 
 
-  4 minute read
+  3 minute read
 </p>
           
         </header>
@@ -365,7 +365,7 @@ clean or initial run of <code class="highlighter-rouge">New-MarkdownHelp</code>,
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Update-Help -Module PoShEvents -SourcePath .\powershell.anovelidea.org\modulehelp\PoShEvents\ -Force -Verbose
 </code></pre></div></div>
 
-<div style="color: yellow" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">VERBOSE: Performing the operation "Update-Help" on target "PoShEvents, Current Version: 0.2.1, Available Version: 0.2.1, UICulture: en-US".
+<div style="color: gold" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">VERBOSE: Performing the operation "Update-Help" on target "PoShEvents, Current Version: 0.2.1, Available Version: 0.2.1, UICulture: en-US".
 VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\about_PoShEvents.help.txt. Culture en-US Version 0.2.1
 VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\PoShEvents-help.xml. Culture en-US Version 0.2.1
 </span></code></pre></div></div>
@@ -384,16 +384,7 @@ verify that you can access the URL successfully by using <code class="highlighte
 
 <p>My result was not ideal.</p>
 
-<div style="color: firebrick" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
-</span></code></pre></div></div>
-
-<div style="color: darkred" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">DarkRed
-Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
-At line:1 char:2
-</span><span class="gp">+ (Invoke-WebRequest -Uri "$</span><span class="o">(</span><span class="nv">$ModInfo</span>.HelpInfoUri<span class="o">)</span><span class="k">$(</span><span class="nv">$ModInfo</span>.Name<span class="k">)</span>_<span class="k">$(</span><span class="nv">$M</span> ...
-<span class="go">+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : InvalidOperation: (System.Net.HttpWebRequest:HttpWebRequest) [Invoke-WebRequest], WebException
-    + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands.InvokeWebRequestCommand
+<div style="color: maroon" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
 </span></code></pre></div></div>
 
 <p>I wished that I could say I immediately tested with <code class="highlighter-rouge">Invoke-WebRequest</code>. That would have saved me about an hour going
@@ -408,19 +399,18 @@ the TLS 1.2 protocol and tested the URL again.</p>
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>Net.ServicePointManager]::SecurityProtocol
 </code></pre></div></div>
 
-<div style="color: lightgray" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">Ssl3, Tls
+<div style="color: slategray" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">Ssl3, Tls
 </span></code></pre></div></div>
 
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>Net.ServicePointManager]::SecurityProtocol <span class="o">=</span> <span class="o">[</span>Net.SecurityProtocolType]::Tls,[Net.SecurityProtocolType]::Tls11,[Net.SecurityProtocolType]::Tls12
 </code></pre></div></div>
 
-<p class="notice">After some checking, I discovered that on February 8, 2018,
-<a href="https://githubengineering.com/crypto-removal-notice/" target="_blank">GitHub discontinued the use of TLS 1.0 and TLS 1.1</a>.</p>
+<p class="notice">A quick search revealed that on February 8, 2018, <a href="https://githubengineering.com/crypto-removal-notice/" target="_blank">GitHub discontinued the use of TLS 1.0 and TLS 1.1</a>.</p>
 
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">PS </span>C:\&gt; Update-Help -Name PoShEvents -Verbose -Force
 </code></pre></div></div>
 
-<div style="color: yellow" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">VERBOSE: Resolving URI: "https://powershell.anovelidea.org/modulehelp/PoShEvents"
+<div style="color: gold" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">VERBOSE: Resolving URI: "https://powershell.anovelidea.org/modulehelp/PoShEvents"
 VERBOSE: Your connection has been redirected to the following URI: "http://powershell.anovelidea.org/modulehelp/PoShEvents/"
 VERBOSE: Performing the operation "Update-Help" on target "PoShEvents, Current Version: 0.2.1, Available Version: 0.2.1, UICulture: en-US".
 VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\about_PoShEvents.help.txt. Culture en-US Version 0.2.1

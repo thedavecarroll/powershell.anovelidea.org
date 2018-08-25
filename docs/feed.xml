@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-08-25T12:25:02-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Updatable Help</title><link href="https://powershell.anovelidea.org/powershell/updatable-help/" rel="alternate" type="text/html" title="Updatable Help" /><published>2018-08-25T00:00:00-05:00</published><updated>2018-08-25T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/updatable-help</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/updatable-help/">&lt;p&gt;PowerShell has provided a way to update the help files for modules since version 3.0.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-08-25T14:37:08-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Updatable Help</title><link href="https://powershell.anovelidea.org/powershell/updatable-help/" rel="alternate" type="text/html" title="Updatable Help" /><published>2018-08-25T00:00:00-05:00</published><updated>2018-08-25T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/updatable-help</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/updatable-help/">&lt;p&gt;PowerShell has provided a way to update the help files for modules since version 3.0.&lt;/p&gt;
 
 &lt;p&gt;Since creating my first two modules, I have tried adding updatable help support, but came across a few issues. Tonight,
 I finally resolved them for my module PoShEvents.&lt;/p&gt;
@@ -55,7 +55,7 @@ clean or initial run of &lt;code class=&quot;highlighter-rouge&quot;&gt;New-Mark
 &lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Update-Help -Module PoShEvents -SourcePath .\powershell.anovelidea.org\modulehelp\PoShEvents\ -Force -Verbose
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;div style=&quot;color: yellow&quot; class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;VERBOSE: Performing the operation &quot;Update-Help&quot; on target &quot;PoShEvents, Current Version: 0.2.1, Available Version: 0.2.1, UICulture: en-US&quot;.
+&lt;div style=&quot;color: gold&quot; class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;VERBOSE: Performing the operation &quot;Update-Help&quot; on target &quot;PoShEvents, Current Version: 0.2.1, Available Version: 0.2.1, UICulture: en-US&quot;.
 VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\about_PoShEvents.help.txt. Culture en-US Version 0.2.1
 VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\PoShEvents-help.xml. Culture en-US Version 0.2.1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -74,16 +74,7 @@ verify that you can access the URL successfully by using &lt;code class=&quot;hi
 
 &lt;p&gt;My result was not ideal.&lt;/p&gt;
 
-&lt;div style=&quot;color: firebrick&quot; class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div style=&quot;color: darkred&quot; class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;DarkRed
-Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
-At line:1 char:2
-&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;+ (Invoke-WebRequest -Uri &quot;$&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ModInfo&lt;/span&gt;.HelpInfoUri&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ModInfo&lt;/span&gt;.Name&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;_&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$M&lt;/span&gt; ...
-&lt;span class=&quot;go&quot;&gt;+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : InvalidOperation: (System.Net.HttpWebRequest:HttpWebRequest) [Invoke-WebRequest], WebException
-    + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands.InvokeWebRequestCommand
+&lt;div style=&quot;color: maroon&quot; class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;I wished that I could say I immediately tested with &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-WebRequest&lt;/code&gt;. That would have saved me about an hour going
@@ -98,19 +89,18 @@ the TLS 1.2 protocol and tested the URL again.&lt;/p&gt;
 &lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Net.ServicePointManager]::SecurityProtocol
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;div style=&quot;color: lightgray&quot; class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Ssl3, Tls
+&lt;div style=&quot;color: slategray&quot; class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Ssl3, Tls
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Net.ServicePointManager]::SecurityProtocol &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Net.SecurityProtocolType]::Tls,[Net.SecurityProtocolType]::Tls11,[Net.SecurityProtocolType]::Tls12
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p class=&quot;notice&quot;&gt;After some checking, I discovered that on February 8, 2018,
-&lt;a href=&quot;https://githubengineering.com/crypto-removal-notice/&quot; target=&quot;_blank&quot;&gt;GitHub discontinued the use of TLS 1.0 and TLS 1.1&lt;/a&gt;.&lt;/p&gt;
+&lt;p class=&quot;notice&quot;&gt;A quick search revealed that on February 8, 2018, &lt;a href=&quot;https://githubengineering.com/crypto-removal-notice/&quot; target=&quot;_blank&quot;&gt;GitHub discontinued the use of TLS 1.0 and TLS 1.1&lt;/a&gt;.&lt;/p&gt;
 
 &lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;PS &lt;/span&gt;C:\&amp;gt; Update-Help -Name PoShEvents -Verbose -Force
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;div style=&quot;color: yellow&quot; class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;VERBOSE: Resolving URI: &quot;https://powershell.anovelidea.org/modulehelp/PoShEvents&quot;
+&lt;div style=&quot;color: gold&quot; class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;VERBOSE: Resolving URI: &quot;https://powershell.anovelidea.org/modulehelp/PoShEvents&quot;
 VERBOSE: Your connection has been redirected to the following URI: &quot;http://powershell.anovelidea.org/modulehelp/PoShEvents/&quot;
 VERBOSE: Performing the operation &quot;Update-Help&quot; on target &quot;PoShEvents, Current Version: 0.2.1, Available Version: 0.2.1, UICulture: en-US&quot;.
 VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\about_PoShEvents.help.txt. Culture en-US Version 0.2.1
