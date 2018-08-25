@@ -1,4 +1,126 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-08-24T22:24:30-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Clear DNS Server Cache</title><link href="https://powershell.anovelidea.org/powershell/clear-dns-server-cache/" rel="alternate" type="text/html" title="Clear DNS Server Cache" /><published>2018-08-21T00:00:00-05:00</published><updated>2018-08-21T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/clear-dns-server-cache</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/clear-dns-server-cache/">&lt;p&gt;How often have you needed to clear the DNS server cache?&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-08-25T10:40:12-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Updatable Help</title><link href="https://powershell.anovelidea.org/powershell/updatable-help/" rel="alternate" type="text/html" title="Updatable Help" /><published>2018-08-25T00:00:00-05:00</published><updated>2018-08-25T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/updatable-help</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/updatable-help/">&lt;p&gt;PowerShell has provided a way to update the help files for modules since version 3.0.&lt;/p&gt;
+
+&lt;p&gt;Since creating my first two modules, I have tried adding updatable help support, but came across a few issues. Tonight,
+I finally resolved them for my module PoShEvents.&lt;/p&gt;
+
+&lt;h2 id=&quot;github-bad-github-pages-good&quot;&gt;GitHub Bad, GitHub Pages Good&lt;/h2&gt;
+
+&lt;p&gt;My module repository is in GitHub, and I originally thought that I could simply use the Raw view for my updatable help.
+After all, I was successfully serving the online help version using the markdown files straight out of GitHub.&lt;/p&gt;
+
+&lt;p&gt;GitHub, as it turns out, hosts their files in a way that is not compatible for updatable help.&lt;/p&gt;
+
+&lt;p&gt;I am now using GitHub Pages for this blog and I wanted to give updatable help another try. This method of hosting works
+as intended.&lt;/p&gt;
+
+&lt;h2 id=&quot;building-updatable-help&quot;&gt;Building Updatable Help&lt;/h2&gt;
+
+&lt;p&gt;Like most others, I have opted to use the module &lt;a href=&quot;https://github.com/PowerShell/platyPS&quot; target=&quot;_blank&quot;&gt;platyPS&lt;/a&gt; to
+create my help files.&lt;/p&gt;
+
+&lt;p&gt;This post focuses on solving the issues I had with updatable help, so for instructions on how to use &lt;code class=&quot;highlighter-rouge&quot;&gt;platyPS&lt;/code&gt; see any
+of these sites.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://overpoweredshell.com/Module-Tools-Adding-Cmdlet-Help-With-PlatyPS/&quot; target=&quot;_blank&quot;&gt;Module Tools - Adding Cmdlet Help With PlatyPS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ntsystems.it/post/converting-powershell-help-a-website&quot; target=&quot;_blank&quot;&gt;Convert PowerShell Help to a Website&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I had already created the markdown files that I was serving via GitHub for online help and moved those into my blog
+repository structure. I used &lt;code class=&quot;highlighter-rouge&quot;&gt;Update-MarkdownHelp&lt;/code&gt; to update them and noticed that my Jekyll front matter was largely
+untouched – some entries were out of order.&lt;/p&gt;
+
+&lt;p&gt;When I originally created the help files, I did not include the &lt;code class=&quot;highlighter-rouge&quot;&gt;-WithModulePage&lt;/code&gt; switch. I ran the &lt;code class=&quot;highlighter-rouge&quot;&gt;New-MarkdownHelp&lt;/code&gt;
+and generated a clean set of help files into a temp folder just to harvest the module page. After placing the file into
+the correct path, I updated the front matter for Download Help Link, Help Version, and Locale.&lt;/p&gt;
+
+&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I also added additional front matter YAML to be used by Jekyll, namely layout, classes, and permalink.&lt;/p&gt;
+
+&lt;p&gt;As the content for the help files had previously been updated, I didn’t have to do that again. If you’re starting from a
+clean or initial run of &lt;code class=&quot;highlighter-rouge&quot;&gt;New-MarkdownHelp&lt;/code&gt;, you will need to update the content manually.&lt;/p&gt;
+
+&lt;p&gt;Then, I recreated the external help file.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;New-ExternalHelp -Path .\powershell.anovelidea.org\modulehelp\PoShEvents -OutputPath .\PoShEvents\PoShEvents\en-US\ -Force
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;testing-updatable-help&quot;&gt;Testing Updatable Help&lt;/h2&gt;
+
+&lt;p&gt;Once you have created the necessary help files, you will need to test that it will successully update the module help.&lt;/p&gt;
+
+&lt;h3 id=&quot;local-source&quot;&gt;Local Source&lt;/h3&gt;
+
+&lt;p&gt;First, let’s see if we can &lt;code class=&quot;highlighter-rouge&quot;&gt;Update-Help&lt;/code&gt; from the local source.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Update-Help -Module PoShEvents -SourcePath .\powershell.anovelidea.org\modulehelp\PoShEvents\ -Force -Verbose
+
+VERBOSE: Performing the operation &lt;span class=&quot;s2&quot;&gt;&quot;Update-Help&quot;&lt;/span&gt; on target &lt;span class=&quot;s2&quot;&gt;&quot;PoShEvents, Current Version: 0.2.1, Available Version: 0.2.1, UICulture: en-US&quot;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\about_PoShEvents.help.txt. Culture en-US Version 0.2.1
+VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\PoShEvents-help.xml. Culture en-US Version 0.2.1
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;: &lt;span class=&quot;nv&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;color: yellow&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This proves that the updatable help works when pulling from the local source.&lt;/p&gt;
+
+&lt;h3 id=&quot;online-source&quot;&gt;Online Source&lt;/h3&gt;
+
+&lt;p&gt;If the local source test is successful, you will need to upload the &lt;code class=&quot;highlighter-rouge&quot;&gt;*HelpInfo.xml&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;*HelpContent.cab&lt;/code&gt;, and
+&lt;code class=&quot;highlighter-rouge&quot;&gt;*HelpContent.zip&lt;/code&gt; help files to the location indicated by the modules &lt;code class=&quot;highlighter-rouge&quot;&gt;HelpInfoUri&lt;/code&gt;. After this is done, you should
+verify that you can access the URL successfully by using &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-WebRequest&lt;/code&gt;. Ideally, the StatusCode should be 200.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ModInfo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Get-Module -Name PoShEvents | &lt;span class=&quot;nb&quot;&gt;Select-Object&lt;/span&gt; -Property Guid,HelpInfoURI
+&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Invoke-WebRequest&lt;/span&gt; -Uri &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ModInfo&lt;/span&gt;.HelpInfoUri&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/PoShEvents_&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ModInfo&lt;/span&gt;.Guid&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_HelpInfo.xml&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.StatusCode
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div style=&quot;color: red&quot; class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
+At line:1 char:2
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;+ (Invoke-WebRequest -Uri &quot;$&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ModInfo&lt;/span&gt;.HelpInfoUri&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;/PoShEvents_&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ModInf&lt;/span&gt; ...
+&lt;span class=&quot;go&quot;&gt;+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (System.Net.HttpWebRequest:HttpWebRequest) [Invoke-WebRequest], WebException
+    + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands.InvokeWebRequestCommand
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;My result was not ideal.&lt;/p&gt;
+
+&lt;p&gt;I wished that I could say I immediately tested with &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-WebRequest&lt;/code&gt;. That would have saved me about an hour going
+down the rabbithole of trying to trace the &lt;code class=&quot;highlighter-rouge&quot;&gt;Update-Help&lt;/code&gt; command. It would really be nice if &lt;code class=&quot;highlighter-rouge&quot;&gt;Update-Help&lt;/code&gt; revealed more
+internal workings when you use the &lt;code class=&quot;highlighter-rouge&quot;&gt;-Verbose&lt;/code&gt; switch.&lt;/p&gt;
+
+&lt;h3 id=&quot;tls&quot;&gt;TLS&lt;/h3&gt;
+
+&lt;p&gt;Checking the security protocol that my default PowerShell session used, I clearly see why my testing failed. I included
+the TLS 1.2 protocol and tested the URL again.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Net.ServicePointManager]::SecurityProtocol
+
+Ssl3, Tls
+
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Net.ServicePointManager]::SecurityProtocol &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Net.SecurityProtocolType]::Tls,[Net.SecurityProtocolType]::Tls11,[Net.SecurityProtocolType]::Tls12
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p class=&quot;notice&quot;&gt;On February 8, 2018, &lt;a href=&quot;https://githubengineering.com/crypto-removal-notice/&quot; target=&quot;_blank&quot;&gt;GitHub discontinued the use of TLS 1.0 and TLS 1.1&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;PS &lt;/span&gt;C:\&amp;gt; Update-Help -Name PoShEvents -Verbose -Force
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div style=&quot;color: yellow&quot; class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;VERBOSE: Resolving URI: &quot;https://powershell.anovelidea.org/modulehelp/PoShEvents&quot;
+VERBOSE: Your connection has been redirected to the following URI: &quot;http://powershell.anovelidea.org/modulehelp/PoShEvents/&quot;
+VERBOSE: Performing the operation &quot;Update-Help&quot; on target &quot;PoShEvents, Current Version: 0.2.1, Available Version: 0.2.1, UICulture: en-US&quot;.
+VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\about_PoShEvents.help.txt. Culture en-US Version 0.2.1
+VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\PoShEvents-help.xml. Culture en-US Version 0.2.1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;setting-strong-cryptography-for-net-framework&quot;&gt;Setting Strong Cryptography for .Net Framework&lt;/h3&gt;
+
+&lt;p&gt;Setting &lt;code class=&quot;highlighter-rouge&quot;&gt;[Net.ServicePointManager]::SecurityProtocol&lt;/code&gt;, as I did, only applies to the current PowerShell session. To make
+the change permanent, I updated the registry.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# set strong cryptography on 64 bit .Net Framework (version 4 and above)&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;Set-ItemProperty&lt;/span&gt; -Path &lt;span class=&quot;s1&quot;&gt;'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NetFramework\v4.0.30319'&lt;/span&gt; -Name &lt;span class=&quot;s1&quot;&gt;'SchUseStrongCrypto'&lt;/span&gt; -Value &lt;span class=&quot;s1&quot;&gt;'1'&lt;/span&gt; -Type DWord
+
+&lt;span class=&quot;c1&quot;&gt;# set strong cryptography on 32 bit .Net Framework (version 4 and above)&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;Set-ItemProperty&lt;/span&gt; -Path &lt;span class=&quot;s1&quot;&gt;'HKLM:\SOFTWARE\Microsoft\.NetFramework\v4.0.30319'&lt;/span&gt; -Name &lt;span class=&quot;s1&quot;&gt;'SchUseStrongCrypto'&lt;/span&gt; -Value &lt;span class=&quot;s1&quot;&gt;'1'&lt;/span&gt; -Type DWord
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="update-help" /><category term="updatable help" /><category term="tls" /><category term="ssl" /><category term="platyps" /><category term="powershell" /></entry><entry><title type="html">Clear DNS Server Cache</title><link href="https://powershell.anovelidea.org/powershell/clear-dns-server-cache/" rel="alternate" type="text/html" title="Clear DNS Server Cache" /><published>2018-08-21T00:00:00-05:00</published><updated>2018-08-21T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/clear-dns-server-cache</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/clear-dns-server-cache/">&lt;p&gt;How often have you needed to clear the DNS server cache?&lt;/p&gt;
 
 &lt;p&gt;Regardless how many domain controllers in your environment, a few simple lines of PowerShell can clear the cache on all of them.&lt;/p&gt;
 

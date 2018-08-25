@@ -13,4 +13,9 @@ var store = [{
         "excerpt":"How often have you needed to clear the DNS server cache? Regardless how many domain controllers in your environment, a few simple lines of PowerShell can clear the cache on all of them. First, we need to get the name of the domain. Of course, if you already know the...","categories": ["powershell"],
         "tags": ["powershell","dns","dns cache"],
         "url": "https://powershell.anovelidea.org/powershell/clear-dns-server-cache/",
+        "teaser":null},{
+        "title": "Updatable Help",
+        "excerpt":"PowerShell has provided a way to update the help files for modules since version 3.0. Since creating my first two modules, I have tried adding updatable help support, but came across a few issues. Tonight,I finally resolved them for my module PoShEvents. GitHub Bad, GitHub Pages Good My module repository...","categories": ["powershell"],
+        "tags": ["update-help","updatable help","tls","ssl","platyps","powershell"],
+        "url": "https://powershell.anovelidea.org/powershell/updatable-help/",
         "teaser":null}]

@@ -13,6 +13,10 @@
 <lastmod>2018-08-21T00:00:00-05:00</lastmod>
 </url>
 <url>
+<loc>https://powershell.anovelidea.org/powershell/updatable-help/</loc>
+<lastmod>2018-08-25T00:00:00-05:00</lastmod>
+</url>
+<url>
 <loc>https://powershell.anovelidea.org/_posts/2018-08-14-blog-inception/</loc>
 <lastmod>2018-08-17T00:00:00-05:00</lastmod>
 </url>
@@ -21,6 +25,9 @@
 </url>
 <url>
 <loc>https://powershell.anovelidea.org/_posts/2018-08-21-clear-dns-server-cache/</loc>
+</url>
+<url>
+<loc>https://powershell.anovelidea.org/_posts/2018-08-25-updatable-help/</loc>
 </url>
 <url>
 <loc>https://powershell.anovelidea.org/modulehelp/PoShEvents/ConvertFrom-EventLogRecord.html</loc>
