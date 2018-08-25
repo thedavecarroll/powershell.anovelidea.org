@@ -376,7 +376,7 @@ verify that you can access the URL successfully by using <code class="highlighte
 
 <p>My result was not ideal.</p>
 
-<div style="color: crimson" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
+<div style="color: firebrick" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
 </span></code></pre></div></div>
 
 <div style="color: darkred" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">DarkRed
@@ -400,7 +400,7 @@ the TLS 1.2 protocol and tested the URL again.</p>
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>Net.ServicePointManager]::SecurityProtocol
 </code></pre></div></div>
 
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">Ssl3, Tls
+<div style="color: lightgray" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">Ssl3, Tls
 </span></code></pre></div></div>
 
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>Net.ServicePointManager]::SecurityProtocol <span class="o">=</span> <span class="o">[</span>Net.SecurityProtocolType]::Tls,[Net.SecurityProtocolType]::Tls11,[Net.SecurityProtocolType]::Tls12
