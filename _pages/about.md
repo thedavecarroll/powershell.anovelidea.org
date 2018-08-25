@@ -12,4 +12,4 @@ I switched to VS Code in late 2016 from PowerShell ISE. And, this year I started
 
 Hope you find my posts informative and entertaining.
 
-Feel free to check out my projects on [GitHub](https://github.com/thedavecarroll).
+Feel free to check out my projects on [GitHub](https://github.com/thedavecarroll){:target="_blank"}.

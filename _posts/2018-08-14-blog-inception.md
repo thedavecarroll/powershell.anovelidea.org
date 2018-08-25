@@ -23,10 +23,10 @@ In the summer of 2010, I took on the challenge of forcing myself to learn PowerS
 
 Each year after that, my PowerShell skills grew and grew. I had/have a PowerShell session open basically all of the time. As much as I could, I tried using PowerShell commands instead of the GUI.
 
-In 2012, I started working with someone that [loved PowerShell](https://www.ILovePowerShell.com) as much as I did. We challenged each other and learned from it. I wrote functions and dot-sourced them in my profile. I started dabbling in modules, but just didn't make the time to delve fully into them.
+In 2012, I started working with someone that [loved PowerShell](https://www.ILovePowerShell.com){:target="_blank"} as much as I did. We challenged each other and learned from it. I wrote functions and dot-sourced them in my profile. I started dabbling in modules, but just didn't make the time to delve fully into them.
 
 Over the last couple years, I switched from PowerShell ISE to VS Code, started using git repositories (internal and GitHub), and created my first few real modules.
 
 And I've decided to start blogging about PowerShell.
 
-_I've had the domain `anovelidea.org` since early 2000. If you want a break from PowerShell and IT in general, you can check out [my other website](http://www.anovelidea.org)._
+_I've had the domain `anovelidea.org` since early 2000. If you want a break from PowerShell and IT in general, you can check out [my other website](http://www.anovelidea.org){:target="_blank"}._
