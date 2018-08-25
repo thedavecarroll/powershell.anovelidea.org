@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-08-25T15:11:18-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Updatable Help</title><link href="https://powershell.anovelidea.org/powershell/updatable-help/" rel="alternate" type="text/html" title="Updatable Help" /><published>2018-08-25T00:00:00-05:00</published><updated>2018-08-25T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/updatable-help</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/updatable-help/">&lt;p&gt;PowerShell has provided a way to update the help files for modules since version 3.0.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-08-25T15:24:02-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Updatable Help</title><link href="https://powershell.anovelidea.org/powershell/updatable-help/" rel="alternate" type="text/html" title="Updatable Help" /><published>2018-08-25T00:00:00-05:00</published><updated>2018-08-25T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/updatable-help</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/updatable-help/">&lt;p&gt;PowerShell has provided a way to update the help files for modules since version 3.0.&lt;/p&gt;
 
 &lt;p&gt;Since creating my first two modules, I have tried adding updatable help support, but came across a few issues. Tonight,
 I finally resolved them for my module PoShEvents.&lt;/p&gt;
@@ -65,7 +65,7 @@ VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\Po
 &lt;h3 id=&quot;online-source&quot;&gt;Online Source&lt;/h3&gt;
 
 &lt;p&gt;If the local source test is successful, you will need to upload the &lt;code class=&quot;highlighter-rouge&quot;&gt;*HelpInfo.xml&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;*HelpContent.cab&lt;/code&gt;, and
-&lt;code class=&quot;highlighter-rouge&quot;&gt;*HelpContent.zip&lt;/code&gt; help files to the location indicated by the modules &lt;code class=&quot;highlighter-rouge&quot;&gt;HelpInfoUri&lt;/code&gt;. After this is done, you should
+&lt;code class=&quot;highlighter-rouge&quot;&gt;*HelpContent.zip&lt;/code&gt; help files to the location indicated by the module’s &lt;code class=&quot;highlighter-rouge&quot;&gt;HelpInfoUri&lt;/code&gt;. After this is done, you should
 verify that you can access the URL successfully by using &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-WebRequest&lt;/code&gt;. Ideally, the StatusCode should be 200.&lt;/p&gt;
 
 &lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ModInfo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Get-Module -Name PoShEvents | &lt;span class=&quot;nb&quot;&gt;Select-Object&lt;/span&gt; -Property Name,Guid,HelpInfoURI
@@ -83,21 +83,21 @@ internal workings when you use the &lt;code class=&quot;highlighter-rouge&quot;&
 
 &lt;h2 id=&quot;tls&quot;&gt;TLS&lt;/h2&gt;
 
-&lt;p&gt;Checking the security protocol that my default PowerShell session used, I clearly see why my testing failed. I included
-the TLS 1.2 protocol and tested the URL again successfully.&lt;/p&gt;
+&lt;p&gt;Checking the security protocol that my default PowerShell session used, I saw why my testing failed. I included the
+TLS 1.2 protocol and tested the URL again successfully.&lt;/p&gt;
 
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Net.ServicePointManager]::SecurityProtocol
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;[Net.ServicePointManager]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SecurityProtocol&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;div style=&quot;color: whitesmoke&quot; class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Ssl3, Tls
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Net.ServicePointManager]::SecurityProtocol &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Net.SecurityProtocolType]::Tls,[Net.SecurityProtocolType]::Tls11,[Net.SecurityProtocolType]::Tls12
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;[Net.ServicePointManager]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SecurityProtocol&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SecurityProtocolType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Tls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SecurityProtocolType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Tls11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SecurityProtocolType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Tls12&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p class=&quot;notice&quot;&gt;A quick search revealed that on February 8, 2018, &lt;a href=&quot;https://githubengineering.com/crypto-removal-notice/&quot; target=&quot;_blank&quot;&gt;GitHub discontinued the use of TLS 1.0 and TLS 1.1&lt;/a&gt;.&lt;/p&gt;
 
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;PS &lt;/span&gt;C:\&amp;gt; Update-Help -Name PoShEvents -Verbose -Force
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Update-Help -Name PoShEvents -Verbose -Force
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;div style=&quot;color: gold&quot; class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;VERBOSE: Resolving URI: &quot;https://powershell.anovelidea.org/modulehelp/PoShEvents&quot;
