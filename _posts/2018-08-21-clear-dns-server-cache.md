@@ -42,7 +42,6 @@ Of course, there are a few shortcuts you can do to get this to a one-liner.
 
 For more information, please see the following Microsoft docs:
 
-* [Clear-DnsServerCache](https://docs.microsoft.com/en-us/powershell/module/dnsserver/clear-dnsservercache)
-* [DnsCmd](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dnscmd)
+* [Clear-DnsServerCache](https://docs.microsoft.com/en-us/powershell/module/dnsserver/clear-dnsservercache){:target="_blank"}
 
 Have a great day!
