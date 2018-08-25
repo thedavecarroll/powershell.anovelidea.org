@@ -10,11 +10,11 @@ toc_icon: list
 
 ## Other Blogs and Useful PowerShell Links
 
-* [The DevOps Collective Site - PowerShell.org](https://www.powershell.org/)
-* [ILovePowerShell.com](https://www.ILovePowerShell.com)
-* [Unofficial PowerShell Best Practice and Style Guide](https://github.com/PoshCode/PowerShellPracticeAndStyle)
+* [The DevOps Collective Site - PowerShell.org](https://www.powershell.org/){:target="_blank"}
+* [ILovePowerShell.com](https://www.ILovePowerShell.com){:target="_blank"}
+* [Unofficial PowerShell Best Practice and Style Guide](https://github.com/PoshCode/PowerShellPracticeAndStyle){:target="_blank"}
 
 ## Microsoft Links
 
-* [Offical PoweShell Core Repo](https://github.com/PowerShell/PowerShell)
-* [Visual Studio Code](https://code.visualstudio.com/)
+* [Offical PoweShell Core Repo](https://github.com/PowerShell/PowerShell){:target="_blank"}
+* [Visual Studio Code](https://code.visualstudio.com/){:target="_blank"}
