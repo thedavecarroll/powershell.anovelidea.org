@@ -98,7 +98,7 @@ My result was not ideal.
 ```console
 Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
 ```
-{: style="color: crimson"}
+{: style="color: firebrick"}
 
 ```console
 DarkRed
@@ -127,6 +127,7 @@ the TLS 1.2 protocol and tested the URL again.
 ```console
 Ssl3, Tls
 ```
+{: style="color: lightgray"}
 
 ```powershell
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls,[Net.SecurityProtocolType]::Tls11,[Net.SecurityProtocolType]::Tls12
