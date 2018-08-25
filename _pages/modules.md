@@ -15,8 +15,8 @@ PowerShell module to query Windows Event Logs.
 | Updatable Help | Yes (version 0.2.1) |
 | Pester Tests | No |
 | Build Script | No |
-| GitHub Repo | [PoShEvents on GitHub](https://github.com/thedavecarroll/PoShEvents){:target="_blank"} |
-| PowerShell Gallery | [PoShEvents on PSGallery](https://www.powershellgallery.com/packages/PoShEvents){:target="_blank"} |
+| GitHub Repo | [PoShEvents](https://github.com/thedavecarroll/PoShEvents){:target="_blank"} |
+| PowerShell Gallery | [![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/PoShEvents.svg?style=for-the-badge)](https://www.powershellgallery.com/packages/PoShEvents/) |
 
 ## PoShGroupPolicy
 
@@ -29,8 +29,8 @@ PowerShell module to assist with Group Policy.
 | Updatable Help | No |
 | Pester Tests | No |
 | Build Script | No |
-| GitHub Repo | [PoShGroupPolicy on GitHub](https://github.com/thedavecarroll/PoShGroupPolicy){:target="_blank"} |
-| PowerShell Gallery | [PoShGroupPolicy on PSGallery](https://www.powershellgallery.com/packages/PoShGroupPolicy){:target="_blank"} |
+| GitHub Repo | [PoShGroupPolicy](https://github.com/thedavecarroll/PoShGroupPolicy){:target="_blank"} |
+| PowerShell Gallery | [![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/PoShGroupPolicy.svg?style=for-the-badge)](https://www.powershellgallery.com/packages/PoShGroupPolicy/){:target="_blank"} |
 
 ## PoShDynDnsApi
 
@@ -43,4 +43,4 @@ PowerShell module used to interact with Dyn Managed DNS REST API.
 | Updatable Help | No |
 | Pester Tests | No |
 | Build Script | No |
-| GitHub Repo | [PoShDynDnsApi on GitHub](https://github.com/thedavecarroll/PoShDynDnsApi){:target="_blank"} |
+| GitHub Repo | [PoShDynDnsApi](https://github.com/thedavecarroll/PoShDynDnsApi){:target="_blank"} |
