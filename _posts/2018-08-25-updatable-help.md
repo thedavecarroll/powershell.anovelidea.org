@@ -107,7 +107,7 @@ internal workings when you use the `-Verbose` switch.
 ## TLS
 
 Checking the security protocol that my default PowerShell session used, I clearly see why my testing failed. I included
-the TLS 1.2 protocol and tested the URL again.
+the TLS 1.2 protocol and tested the URL again successfully.
 
 ```powershell
 [Net.ServicePointManager]::SecurityProtocol
