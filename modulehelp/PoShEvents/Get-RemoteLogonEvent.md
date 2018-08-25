@@ -1,55 +1,56 @@
 ---
-layout: onlinehelp
-search: false
 classes: wide
-permalink: /modules/PoShEvents/OnlineHelp/Get-KMSClientEvent.html
 external help file: PoShEvents-help.xml
-Module Name: PoShEvents
-online version: https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-KMSClientEvent.html
+layout: onlinehelp
+Module Name: poshevents
+online version: https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-RemoteLogonEvent.html
+permalink: /modulehelp/PoShEvents/Get-RemoteLogonEvent.html
 schema: 2.0.0
+search: false
 ---
 
-# Get-KMSClientEvent
+# Get-RemoteLogonEvent
 
 ## SYNOPSIS
-This function returns details from KMS client events.
+This function queries the security log for EventIds 4624,4625,4634,4778,4779.
 
 ## SYNTAX
 
 ```
-Get-KMSClientEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
+Get-RemoteLogonEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
  [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This function returns details from KMS client events.
+This function queries the security log for EventIds 4624,4625,4634,4778,4779.
 
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> Get-KMSClientEvent
+PS C:\> Get-RemoteLogonEvent -ComputerName WKSTN47 -MaxEvents 5
 
-ComputerName              : WKSTN47.contoso.com
-TimeCreated               : 5/7/2018 3:20:36 PM
-Id                        : 12308
-Level                     : Information
-KMSHost                   :
-KMSHostPort               :
-ClientMachineID           :
-ClientTimestamp           :
-ActivationStatus          : Active Directory Activation has succeeded.
-ADActivationObjectName    : Windows Server 2016 RTM ServerDatacenter;ServerStandard Volume:CSVLK
-ADActivationObject        : CN=br549-999-607319-0,CN=Activation Objects,CN=Microsoft SPP,CN=Services,CN=Configuration,DC=contoso,DC=com
-CurrentActivationCount    :
-NextActivationAttempt     :
-LicenseStateExpiration    :
-LicenseStateExpirationMin :
-ProductSkuId              : 73001100-0000-1111-2222-f1d7bf300300
-ProductSkuName            : Windows 10 Enterprise
-MinActivateCount          :
-KmsErrorCode              :
-KmsErrorMessage           :
+ComputerName : WKSTN47.contoso.com
+TimeCreated  : 5/11/2018 1:16:51 PM
+Id           : 4625
+Level        : Information
+EventType    : Logon Failure
+UserName     : WKSTN47\GUEST
+IpAddress    :
+LogonID      :
+Reason       : Account currently disabled.
+LogonMethod  : Network
+
+ComputerName : WKSTN47.contoso.com
+TimeCreated  : 5/11/2018 11:15:51 AM
+Id           : 4625
+Level        : Information
+EventType    : Logon Failure
+UserName     : CONTOSO\CARROLLD
+IpAddress    : 127.0.0.1
+LogonID      :
+Reason       : Unknown user name or bad password.
+LogonMethod  : Interactive (local system)
 ```
 
 ## PARAMETERS

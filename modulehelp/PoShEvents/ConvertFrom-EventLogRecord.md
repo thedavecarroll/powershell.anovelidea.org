@@ -1,12 +1,12 @@
 ---
-layout: onlinehelp
-search: false
 classes: wide
-permalink: /modules/PoShEvents/OnlineHelp/ConvertFrom-EventLogRecord.html
 external help file: PoShEvents-help.xml
-Module Name: PoShEvents
-online version: https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/ConvertFrom-EventLogRecord.html
+layout: onlinehelp
+Module Name: poshevents
+online version: https://powershell.anovelidea.org/modulehelp/PoShEvents/ConvertFrom-EventLogRecord.html
+permalink: /modulehelp/PoShEvents/ConvertFrom-EventLogRecord.html
 schema: 2.0.0
+search: false
 ---
 
 # ConvertFrom-EventLogRecord
@@ -85,8 +85,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

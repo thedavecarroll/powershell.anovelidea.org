@@ -1,56 +1,43 @@
 ---
-layout: onlinehelp
-search: false
 classes: wide
-permalink: /modules/PoShEvents/OnlineHelp/Get-RemoteLogonEvent.html
 external help file: PoShEvents-help.xml
-Module Name: PoShEvents
-online version: https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-RemoteLogonEvent.html
+layout: onlinehelp
+Module Name: poshevents
+online version: https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-LogonFailureEvent.html
+permalink: /modulehelp/PoShEvents/Get-LogonFailureEvent.html
 schema: 2.0.0
+search: false
 ---
 
-# Get-RemoteLogonEvent
+# Get-LogonFailureEvent
 
 ## SYNOPSIS
-This function queries the security log for EventIds 4624,4625,4634,4778,4779.
+This function searchs for logon failure events, those events with Ids of 4625 and 4771.
 
 ## SYNTAX
 
 ```
-Get-RemoteLogonEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
+Get-LogonFailureEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
  [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This function queries the security log for EventIds 4624,4625,4634,4778,4779.
+This function searchs for logon failure events, those events with Ids of 4625 and 4771.
 
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> Get-RemoteLogonEvent -ComputerName WKSTN47 -MaxEvents 5
+PS C:\> Get-LogonFailureEvent -ComputerName dc07 -MaxEvents 10 -Credential (Get-Credential) | Format-Table -Property ComputerName,TimeCreated,TargetUserName,IPAddress,IpPort,LogonMethod,Reason
 
-ComputerName : WKSTN47.contoso.com
-TimeCreated  : 5/11/2018 1:16:51 PM
-Id           : 4625
-Level        : Information
-EventType    : Logon Failure
-UserName     : WKSTN47\GUEST
-IpAddress    :
-LogonID      :
-Reason       : Account currently disabled.
-LogonMethod  : Network
-
-ComputerName : WKSTN47.contoso.com
-TimeCreated  : 5/11/2018 11:15:51 AM
-Id           : 4625
-Level        : Information
-EventType    : Logon Failure
-UserName     : CONTOSO\CARROLLD
-IpAddress    : 127.0.0.1
-LogonID      :
-Reason       : Unknown user name or bad password.
-LogonMethod  : Interactive (local system)
+ComputerName    TimeCreated          TargetUserName IpAddress    LogonMethod               Reason
+------------    -----------          -------------- ---------    -----------               ------
+DC1.contoso.com 5/11/2018 8:39:29 PM rtorn          192.168.1.22 Undetermined logon method 0x18
+DC1.contoso.com 5/11/2018 8:39:27 PM tljones        192.168.1.18 Undetermined logon method 0x18
+DC1.contoso.com 5/11/2018 8:39:27 PM ftpug          192.168.1.66 Undetermined logon method 0x18
+DC1.contoso.com 5/11/2018 8:39:24 PM ftpug          192.168.1.66 Undetermined logon method 0x18
+DC1.contoso.com 5/11/2018 8:38:51 PM WKSTN99$       192.168.1.9  Network                   Account currently disabled.
+DC1.contoso.com 5/11/2018 8:37:41 PM jknoxville     192.168.1.67 Undetermined logon method 0x18
 ```
 
 ## PARAMETERS

@@ -1,47 +1,55 @@
 ---
-layout: onlinehelp
-search: false
 classes: wide
-permalink: /modules/PoShEvents/OnlineHelp/Get-SystemRestartEvent.html
 external help file: PoShEvents-help.xml
-Module Name: PoShEvents
-online version: https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-SystemRestartEvent.html
+layout: onlinehelp
+Module Name: poshevents
+online version: https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-KMSClientEvent.html
+permalink: /modulehelp/PoShEvents/Get-KMSClientEvent.html
 schema: 2.0.0
+search: false
 ---
 
-# Get-SystemRestartEvent
+# Get-KMSClientEvent
 
 ## SYNOPSIS
-This function returns the details for system startup and shutdown events.
+This function returns details from KMS client events.
 
 ## SYNTAX
 
 ```
-Get-SystemRestartEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
+Get-KMSClientEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
  [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This function returns the details for system startup and shutdown events including identifying the user and application that initiated the shutdown (if available).
+This function returns details from KMS client events.
 
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> Get-SystemRestartEvent -MaxEvents 10 | Format-Table
+PS C:\> Get-KMSClientEvent
 
-ComputerName        TimeCreated            Id ProviderName Level       Status              UserName         Reason            Details
-------------        -----------            -- ------------ -----       ------              --------         ------            -------
-WKSTN07.contoso.com 5/9/2018 1:27:51 PM  6005 EventLog     Information Startup
-WKSTN07.contoso.com 5/9/2018 1:27:51 PM  6009 EventLog     Information System Info
-WKSTN07.contoso.com 5/9/2018 1:27:51 PM  6008 EventLog     Error       Unexpected Shutdown
-WKSTN07.contoso.com 5/7/2018 3:23:12 PM  6005 EventLog     Information Startup
-WKSTN07.contoso.com 5/7/2018 3:23:12 PM  6009 EventLog     Information System Info
-WKSTN07.contoso.com 5/7/2018 3:22:29 PM  6006 EventLog     Information Shutdown
-WKSTN07.contoso.com 5/7/2018 3:22:12 PM  1074 User32       Information Shutdown Initiated  CONTOSO\carrolld Other (Unplanned) RuntimeBroker.exe
-WKSTN07.contoso.com 5/3/2018 11:09:31 PM 6005 EventLog     Information Startup
-WKSTN07.contoso.com 5/3/2018 11:09:31 PM 6009 EventLog     Information System Info
-WKSTN07.contoso.com 5/3/2018 11:08:41 PM 6006 EventLog     Information Shutdown
+ComputerName              : WKSTN47.contoso.com
+TimeCreated               : 5/7/2018 3:20:36 PM
+Id                        : 12308
+Level                     : Information
+KMSHost                   :
+KMSHostPort               :
+ClientMachineID           :
+ClientTimestamp           :
+ActivationStatus          : Active Directory Activation has succeeded.
+ADActivationObjectName    : Windows Server 2016 RTM ServerDatacenter;ServerStandard Volume:CSVLK
+ADActivationObject        : CN=br549-999-607319-0,CN=Activation Objects,CN=Microsoft SPP,CN=Services,CN=Configuration,DC=contoso,DC=com
+CurrentActivationCount    :
+NextActivationAttempt     :
+LicenseStateExpiration    :
+LicenseStateExpirationMin :
+ProductSkuId              : 73001100-0000-1111-2222-f1d7bf300300
+ProductSkuName            : Windows 10 Enterprise
+MinActivateCount          :
+KmsErrorCode              :
+KmsErrorMessage           :
 ```
 
 ## PARAMETERS

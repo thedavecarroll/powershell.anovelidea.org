@@ -1,65 +1,47 @@
 ---
-layout: onlinehelp
-search: false
 classes: wide
-permalink: /modules/PoShEvents/OnlineHelp/Get-ServiceEvent.html
 external help file: PoShEvents-help.xml
-Module Name: PoShEvents
-online version: https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-ServiceEvent.html
+layout: onlinehelp
+Module Name: poshevents
+online version: https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-KMSHostLicenseCheckEvent.html
+permalink: /modulehelp/PoShEvents/Get-KMSHostLicenseCheckEvent.html
 schema: 2.0.0
+search: false
 ---
 
-# Get-ServiceEvent
+# Get-KMSHostLicenseCheckEvent
 
 ## SYNOPSIS
-This function will query the specified system for all service control manager events for service operations, stop, and start events.
-You can then filter on a particular service name or service displayname.
+This function will search the provider Microsoft-Windows-Security-SPP for KMS Host license checks with Microsoft.
 
 ## SYNTAX
 
 ```
-Get-ServiceEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
- [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [<CommonParameters>]
+Get-KMSHostLicenseCheckEvent [[-ComputerName] <String>] [[-Credential] <PSCredential>]
+ [[-StartTime] <DateTime>] [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This function will query the specified system for all service control manager events for service operations, stop, and start events.
-You can then filter on a particular service name or service displayname.
+This function will search the provider Microsoft-Windows-Security-SPP for KMS Host license checks with Microsoft.
 
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> (Get-ServiceEvent).Where({$_.ServiceDisplayName -match "print"}) | Select-Object -Property TimeCreated,EventType,ServiceName,ServiceDisplayName,Message
-
-TimeCreated        : 9/12/2017 9:41:27 PM
-EventType          : ServiceOperations
-ServiceName        :
-ServiceDisplayName : Printer Extensions and Notifications
-Message            : The Printer Extensions and Notifications service is marked as an interactive service.  However, the system is configured to not allow interactive services.  This service may not function properly.
-
-TimeCreated        : 10/3/2017 10:42:18 PM
-EventType          : ServiceOperations
-ServiceName        : Spooler
-ServiceDisplayName : Print Spooler
-Message            : The start type of the Print Spooler service was changed from auto start to demand start.
-
-TimeCreated        : 10/3/2017 10:42:20 PM
-EventType          : ServiceOperations
-ServiceName        : Spooler
-ServiceDisplayName : Print Spooler
-Message            : The start type of the Print Spooler service was changed from demand start to auto start.
+PS C:\> Get-KMSHostLicenseCheckEvent -ComputerName KMSSVR -Credential (Get-Credential) -MaxEvents 5
 ```
+
+This will return the following propeties: ComputerName TimeCreated Id (always 1003) Level ActivationId ApplicationName LicensingStatusMessage The full license status message which will need to be manually decoded.
 
 ## PARAMETERS
 
 ### -ComputerName
-Gets events from the event logs on the specified computer(s).
+Gets events from the event logs on the specified computer.
 Type the NetBIOS name, an Internet Protocol (IP) address, or the fully qualified domain name of the computer.
 The default value is the local computer.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases: IPAddress, __Server, CN
 
@@ -174,7 +156,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### System.String[]
+### System.String
 
 ## OUTPUTS
 

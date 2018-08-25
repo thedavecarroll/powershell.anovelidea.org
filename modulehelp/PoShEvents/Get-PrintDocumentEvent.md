@@ -1,48 +1,57 @@
 ---
-layout: onlinehelp
-search: false
 classes: wide
-permalink: /modules/PoShEvents/OnlineHelp/Get-GPOProcessingEvent.html
 external help file: PoShEvents-help.xml
-Module Name: PoShEvents
-online version: https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-GPOProcessingEvent.html
+layout: onlinehelp
+Module Name: poshevents
+online version: https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-PrintDocumentEvent.html
+permalink: /modulehelp/PoShEvents/Get-PrintDocumentEvent.html
 schema: 2.0.0
+search: false
 ---
 
-# Get-GPOProcessingEvent
+# Get-PrintDocumentEvent
 
 ## SYNOPSIS
-Queries the specific computer or group of computers for group policy processing events.
+This function will show you details for the successful print jobs that the system has processed.
 
 ## SYNTAX
 
 ```
-Get-GPOProcessingEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
- [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [-GroupPolicy <Object[]>] [<CommonParameters>]
+Get-PrintDocumentEvent [[-ComputerName] <String>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
+ [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [-UserName <String>]
+ [-ClientMachineName <String>] [-PrinterName <String>] [-PrinterPort <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Queries the specific computer or group of computers for group policy processing events.
+This function will show you details for the successful print jobs that the system has processed.
 
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> Get-GPOProcessingEvent -MaxEvents 10 | Out-GridView
-```
+PS C:\> C:\PowerShell\Get-PrintDocumentEvent -ComputerName printsvc -MaxEvents 1 -Oldest
 
-This command will show the last 10 group policy processing events on the local system in gridview.
-You can then sort or enter additional criteria in the gridview.
+ComputerName      : PRINTSVR
+TimeCreated       : 10/5/2017 8:12:05 AM
+PrintJobId        : 234
+DocumentName      : Print Document
+UserName          : CONTOSO\KSmith2
+ClientMachineName : WKSTN07
+PrinterName       : HPColorPrinter
+PrinterPort       : IP_172.16.5.37
+DocumentSizeBytes : 1557928
+DocumentPageCount : 2
+```
 
 ## PARAMETERS
 
 ### -ComputerName
-Gets events from the event logs on the specified computer(s).
+Gets events from the event logs on the specified computer.
 Type the NetBIOS name, an Internet Protocol (IP) address, or the fully qualified domain name of the computer.
 The default value is the local computer.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases: IPAddress, __Server, CN
 
@@ -137,11 +146,41 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -GroupPolicy
-Provide the function all group policy objects in order to have the friendly name presented in the event output.
+### -ClientMachineName
+Filter by the client machine host name.
 
 ```yaml
-Type: Object[]
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PrinterName
+Filter events for the specified printer.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PrinterPort
+Filter events for the specified printer port name, e.g. IP_172.16.5.27
+
+```yaml
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -167,12 +206,27 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -UserName
+Filter the results by the user which printed documents. Provide the SamAccountName only.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### System.String[]
+### System.String
 
 ## OUTPUTS
 

@@ -1,12 +1,12 @@
 ---
-layout: onlinehelp
-search: false
 classes: wide
-permalink: /modules/PoShEvents/OnlineHelp/Get-OSVersionFromEvent.html
 external help file: PoShEvents-help.xml
-Module Name: PoShEvents
-online version: https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-OSVersionFromEvent.html
+layout: onlinehelp
+Module Name: poshevents
+online version: https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-OSVersionFromEvent.html
+permalink: /modulehelp/PoShEvents/Get-OSVersionFromEvent.html
 schema: 2.0.0
+search: false
 ---
 
 # Get-OSVersionFromEvent
