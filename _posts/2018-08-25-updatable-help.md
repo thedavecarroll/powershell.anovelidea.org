@@ -116,7 +116,7 @@ the TLS 1.2 protocol and tested the URL again.
 ```console
 Ssl3, Tls
 ```
-{: style="color: dimgray"}
+{: style="color: whitesmoke"}
 
 ```powershell
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls,[Net.SecurityProtocolType]::Tls11,[Net.SecurityProtocolType]::Tls12
