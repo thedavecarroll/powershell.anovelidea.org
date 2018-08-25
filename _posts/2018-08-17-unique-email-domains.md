@@ -45,10 +45,9 @@ Finally, we use Sort-Object -Unique to get the unique domains.
 ```powershell
 $EmailDomains | Sort-Object -Unique
 
-# output
-# anovelidea.org
-# chronicgoogler.com
-# gmail.com
+anovelidea.org
+chronicgoogler.com
+gmail.com
 ```
 
 Of course, you could have dozens or more unique domains. This short exercise can also reveal typos in domains.
