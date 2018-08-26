@@ -98,7 +98,6 @@ My result was not ideal.
 ```console
 Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
 ```
-{: style="color: maroon"}
 
 I wished that I could say I immediately tested with `Invoke-WebRequest`. That would have saved me about an hour going
 down the rabbithole of trying to trace the `Update-Help` command. It would really be nice if `Update-Help` revealed more
