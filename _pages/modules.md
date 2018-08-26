@@ -5,19 +5,43 @@ search: true
 ---
 
 {% for module in site.data.mymodules %}
-    ## {{ module.name }}
+    <h2>{{ module.name }}</h2>
 
-    {{ module.description }}
+    <p>{{ module.description }}</p>
 
-    <div class="table-wrapper" markdown="block">
-        | Feature | Status |
-        | - | - |
-        | Help | {{ module.help }} |
-        | Online Help | {{ module.onlinehelp }} |
-        | Updatable Help | {{ module.updatablehelp }} |
-        | Pester Tests | {{ module.pester }} |
-        | Build Script | {{ module.build }} |
-        | GitHub Repo | [{{ module.name }}](https://github.com/thedavecarroll/{{ module.name }}){:target="_blank"} |
-        | PowerShell Gallery | [![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/{{ module.name }}.svg?style=for-the-badge)](https://www.powershellgallery.com/packages/{{ module.name }}/) |
-    </div>
+    <table>
+        <tr>
+            <th>Feature</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <td>Help</td
+            <td>{{ module.help }}</td>
+        </tr>
+        <tr>
+            <td>Online Help</td>
+            <td>{{ module.onlinehelp }}</td>
+        </tr>
+        <tr>
+            <td>Updatable Help</td>
+            <td>{{ module.updatablehelp }}</td>
+        </tr>
+        <tr>
+            <td>Pester Tests</td>
+            <td>{{ module.pester }}</td>
+        </tr>
+        <tr>
+            <td>Build Script</td>
+            <td>{{ module.build }}</td>
+        </tr>
+        <tr>
+            <td>GitHub Repo</td>
+            <td><a href="https://github.com/thedavecarroll/{{ module.name }}" target="_blank">{{ module.name }}</a></td>
+        </tr>
+        <tr>
+            <td>PowerShell Gallery</td>
+            <td><a href="https://www.powershellgallery.com/packages/{{ module.name }}/"><img src="https://img.shields.io/powershellgallery/dt/{{ module.name }}.svg?style=for-the-badge" alt="{{ module.name }}"></a></td>
+        </tr>
+    </table>
+
 {% endfor %}
