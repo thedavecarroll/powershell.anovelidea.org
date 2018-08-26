@@ -21,11 +21,7 @@ layout: pages
             <tr>
                 <td>Help</td>
                 <td>
-                    {% if module.help == true %}
-                        Yes
-                    {% else %}
-                        No
-                    {% endif %}
+                    {{ module.help }}
                 </td>
             </tr>
             <tr>
