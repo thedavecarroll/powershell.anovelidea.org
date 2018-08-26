@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Clear DNS Server Cache"
-excerpt: "How often have you needed to clear the DNS server cache?"
+excerpt: "Clear the DNS server cache on all domain controllers"
 date: 2018-08-21
 comments: true
 tags:

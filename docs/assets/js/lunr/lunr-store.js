@@ -6,7 +6,7 @@ var store = [{
         "teaser":null},{
         "title": "Unique Email Domains",
         "excerpt":"So you’re working on getting all of your email domains that’s on-prem into Azure or you simply want to ensure that youron-prem Exchange has been configured for all the domains your user accounts utilize. Your Active Directory domaincontains over 30,000 accounts. How would you go about discovering the unique email...","categories": ["powershell"],
-        "tags": ["powershell","exchange"],
+        "tags": ["powershell","exchange","azure"],
         "url": "https://powershell.anovelidea.org/powershell/unique-email-domains/",
         "teaser":null},{
         "title": "Clear DNS Server Cache",
