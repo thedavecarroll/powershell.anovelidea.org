@@ -10,38 +10,42 @@ search: true
     <p>{{ module.description }}</p>
 
     <table>
-        <tr>
-            <th>Feature</th>
-            <th>Status</th>
-        </tr>
-        <tr>
-            <td>Help</td>
-            <td>{{ module.help }}</td>
-        </tr>
-        <tr>
-            <td>Online Help</td>
-            <td>{{ module.onlinehelp }}</td>
-        </tr>
-        <tr>
-            <td>Updatable Help</td>
-            <td>{{ module.updatablehelp }}</td>
-        </tr>
-        <tr>
-            <td>Pester Tests</td>
-            <td>{{ module.pester }}</td>
-        </tr>
-        <tr>
-            <td>Build Script</td>
-            <td>{{ module.build }}</td>
-        </tr>
-        <tr>
-            <td>GitHub Repo</td>
-            <td><a href="https://github.com/thedavecarroll/{{ module.name }}" target="_blank">{{ module.name }}</a></td>
-        </tr>
-        <tr>
-            <td>PowerShell Gallery</td>
-            <td><a href="https://www.powershellgallery.com/packages/{{ module.name }}/"><img src="https://img.shields.io/powershellgallery/dt/{{ module.name }}.svg?style=for-the-badge" alt="{{ module.name }}"></a></td>
-        </tr>
+        <thead>
+            <tr>
+                <th>Feature</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Help</td>
+                <td>{{ module.help }}</td>
+            </tr>
+            <tr>
+                <td>Online Help</td>
+                <td>{{ module.onlinehelp }}</td>
+            </tr>
+            <tr>
+                <td>Updatable Help</td>
+                <td>{{ module.updatablehelp }}</td>
+            </tr>
+            <tr>
+                <td>Pester Tests</td>
+                <td>{{ module.pester }}</td>
+            </tr>
+            <tr>
+                <td>Build Script</td>
+                <td>{{ module.build }}</td>
+            </tr>
+            <tr>
+                <td>GitHub Repo</td>
+                <td><a href="https://github.com/thedavecarroll/{{ module.name }}" target="_blank">{{ module.name }}</a></td>
+            </tr>
+            <tr>
+                <td>PowerShell Gallery</td>
+                <td><a href="https://www.powershellgallery.com/packages/{{ module.name }}/"><img src="https://img.shields.io/powershellgallery/dt/{{ module.name }}.svg?style=for-the-badge" alt="{{ module.name }}"></a></td>
+            </tr>
+        </tbody>
     </table>
 
 {% endfor %}
