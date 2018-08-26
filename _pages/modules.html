@@ -43,7 +43,11 @@ search: true
             </tr>
             <tr>
                 <td>PowerShell Gallery</td>
-                <td><a href="https://www.powershellgallery.com/packages/{{ module.name }}/"><img src="https://img.shields.io/powershellgallery/dt/{{ module.name }}.svg?style=for-the-badge" alt="{{ module.name }}"></a></td>
+                <td>
+                    { % if module.psgallery == "true" % }
+                        <a href="https://www.powershellgallery.com/packages/{{ module.name }}/"><img src="https://img.shields.io/powershellgallery/dt/{{ module.name }}.svg?style=for-the-badge" alt="{{ module.name }}"></a>
+                    {% endif %}
+                </td>
             </tr>
         </tbody>
     </table>

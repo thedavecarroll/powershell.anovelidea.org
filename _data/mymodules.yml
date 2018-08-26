@@ -5,6 +5,7 @@
   updatablehelp: 'Yes (version 0.2.1)'
   pester: 'No'
   build: 'No'
+  psgallery: true
 
 - name: PoShGroupPolicy
   description: 'PowerShell module to assist with Group Policy.'
@@ -13,11 +14,13 @@
   updatablehelp: 'No'
   pester: 'No'
   build: 'No'
+  psgallery: true
 
 - name: PoShDynDnsApi
   description: 'PowerShell module used to interact with Dyn Managed DNS REST API.'
-  help: 'Comment based'
+  help: 'No'
   onlinehelp: 'No'
   updatablehelp: 'No'
   pester: 'No'
   build: 'No'
+  psgallery: false
