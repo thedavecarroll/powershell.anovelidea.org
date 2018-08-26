@@ -4,7 +4,7 @@ title: My Modules
 search: true
 ---
 
-{% for module in site.data.modules %}
+{% for module in site.data.mymodules %}
     ## {{ module.name }}
 
     {{ module.description }}
