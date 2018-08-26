@@ -1,26 +1,26 @@
 - name: PoShEvents
   description: 'PowerShell module to query Windows Event Logs.'
   help: 'External file'
-  onlinehelp: 'Yes'
-  updatablehelp: 'Yes (version 0.2.1)'
-  pester: 'No'
-  build: 'No'
+  onlinehelp: true
+  updatablehelp: true
+  pester: false
+  build: false
   psgallery: true
 
 - name: PoShGroupPolicy
   description: 'PowerShell module to assist with Group Policy.'
   help: 'Comment based'
-  onlinehelp: 'No'
-  updatablehelp: 'No'
-  pester: 'No'
-  build: 'No'
+  onlinehelp: false
+  updatablehelp: false
+  pester: false
+  build: false
   psgallery: true
 
 - name: PoShDynDnsApi
   description: 'PowerShell module used to interact with Dyn Managed DNS REST API.'
-  help: 'No'
-  onlinehelp: 'No'
-  updatablehelp: 'No'
-  pester: 'No'
-  build: 'No'
+  help: false
+  onlinehelp: false
+  updatablehelp: false
+  pester: false
+  build: false
   psgallery: false
