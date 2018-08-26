@@ -1,11 +1,13 @@
 ---
 layout: single
 title: "Unique Email Domains"
+excerpt: "Get unique email domains from proxyAddresses for Exchange or Azure."
 date: 2018-08-17
 comments: true
 tags:
   - powershell
   - exchange
+  - azure
 category:
   - powershell
 ---
