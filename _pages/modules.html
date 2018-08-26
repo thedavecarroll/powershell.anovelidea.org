@@ -44,7 +44,7 @@ search: true
             <tr>
                 <td>PowerShell Gallery</td>
                 <td>
-                    {% if module.psgallery == "true" %}
+                    {% if module.psgallery == true %}
                         <a href="https://www.powershellgallery.com/packages/{{ module.name }}/"><img src="https://img.shields.io/powershellgallery/dt/{{ module.name }}.svg?style=for-the-badge" alt="{{ module.name }}"></a>
                     {% else %}
                         Not published
