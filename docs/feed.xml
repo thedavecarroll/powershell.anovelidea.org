@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-08-26T23:32:22-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">How I Blog</title><link href="https://powershell.anovelidea.org/blog/how-i-blog/" rel="alternate" type="text/html" title="How I Blog" /><published>2018-08-26T00:00:00-05:00</published><updated>2018-08-26T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/blog/how-i-blog</id><content type="html" xml:base="https://powershell.anovelidea.org/blog/how-i-blog/">&lt;p&gt;Someone asked what I used to produce this blog. This post will provide the methodology and details.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-08-26T23:45:24-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">How I Blog</title><link href="https://powershell.anovelidea.org/blog/how-i-blog/" rel="alternate" type="text/html" title="How I Blog" /><published>2018-08-26T00:00:00-05:00</published><updated>2018-08-26T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/blog/how-i-blog</id><content type="html" xml:base="https://powershell.anovelidea.org/blog/how-i-blog/">&lt;p&gt;Someone asked what I used to produce this blog. This post will provide the methodology and details.&lt;/p&gt;
 
 &lt;h2 id=&quot;the-decision-to-blog&quot;&gt;The Decision to Blog&lt;/h2&gt;
 
 &lt;p&gt;I’ve hosted a personal website on various platforms since early 2000. I’ve used FTP, SFTP, FrontPage, WebDAV,
 Dreamweaver, WordPress, and probably some others that I’ve forgotten about. Using WordPress, I had performance issues
-when the mySQL database was not located near the web host.&lt;/p&gt;
+when the MySQL database was not located near the web host.&lt;/p&gt;
 
 &lt;p&gt;Even with a stance of ‘update all the plugins’, it was not enough to protect my site from hackers. Late in 2015, my site
 was hacked and it took me months to realize since they were just hosting hidden pages and hidden SEO info. Once I
@@ -18,7 +18,7 @@ working with another PowerShell blogger, Michael Simmons, who publishes &lt;a hr
 posts and the bloggers just happen to be using GitHub Pages, Jekyll, and, a few times, the Minimal Mistakes Jekyll theme.&lt;/p&gt;
 
 &lt;p&gt;This new (to me) tech stack would provide an easy way to add content (not like Google Sites) and still provide a static
-site with decent performance. Thoughts starting falling into place and I saw the efficiency and learning opportunities.&lt;/p&gt;
+site with decent performance. Thoughts started falling into place and I saw the efficiency and learning opportunities.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;I’m going to blog. And I’m going to use that tech stack.&lt;/p&gt;
@@ -28,7 +28,7 @@ site with decent performance. Thoughts starting falling into place and I saw the
 
 &lt;p&gt;I use Visual Studio Code to edit my blog, PowerShell code, and scripts in other languages.&lt;/p&gt;
 
-&lt;p&gt;Git for Windows allows me to create local source controled folders and to interact with GitHub. Even if you don’t opt to
+&lt;p&gt;Git for Windows allows me to create local source controlled folders and to interact with GitHub. Even if you don’t opt to
 use GitHub (free for public repositories), you can still use Git locally.&lt;/p&gt;
 
 &lt;h2 id=&quot;github-and-github-pages&quot;&gt;GitHub and GitHub Pages&lt;/h2&gt;
@@ -36,7 +36,7 @@ use GitHub (free for public repositories), you can still use Git locally.&lt;/p&
 &lt;p&gt;I’m fully convinced that source control is necessary for code, and a blog is really nothing but code. Therefore, it was
 an easy decision to use a GitHub repository for my blog and then to configure it to publish using GitHub Pages.&lt;/p&gt;
 
-&lt;p&gt;Visit GitHub Help for more information on how to &lt;a href=&quot;https://help.github.com/articles/signing-up-for-a-new-github-account/&quot; target=&quot;_blank&quot;&gt;create a GitHub account&lt;/a&gt;, &lt;a href=&quot;https://help.github.com/articles/create-a-repo/&quot; target=&quot;_blank&quot;&gt;create a respository&lt;/a&gt;, and
+&lt;p&gt;Visit GitHub Help for more information on how to &lt;a href=&quot;https://help.github.com/articles/signing-up-for-a-new-github-account/&quot; target=&quot;_blank&quot;&gt;create a GitHub account&lt;/a&gt;, &lt;a href=&quot;https://help.github.com/articles/create-a-repo/&quot; target=&quot;_blank&quot;&gt;create a repository&lt;/a&gt;, and
 information on &lt;a href=&quot;https://help.github.com/articles/what-is-github-pages/&quot; target=&quot;_blank&quot;&gt;GitHub Pages&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h3 id=&quot;repository&quot;&gt;Repository&lt;/h3&gt;
@@ -55,7 +55,7 @@ I opted to use the Custom Domain setting for my repo and created &lt;code class=
 &lt;p&gt;Every git or GitHub repository can have multiple branches. Branches are typically used to develop new features or work
 on fixes without touching the rest of the code.&lt;/p&gt;
 
-&lt;p&gt;Each branch of my repo plays a particular role in the production of my blog.&lt;/p&gt;
+&lt;p&gt;Each branch of my repo plays a role in the production of my blog.&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -85,7 +85,7 @@ on fixes without touching the rest of the code.&lt;/p&gt;
 &lt;p&gt;Jekyll is &lt;a href=&quot;https://www.netlify.com/blog/2017/05/25/top-ten-static-site-generators-of-2017/&quot; target=&quot;_blank&quot;&gt;one of the most used&lt;/a&gt;
 static site generators. It’s built on Ruby and renders content with Markdown and Liquid templates.&lt;/p&gt;
 
-&lt;p&gt;GitHub Pages deploy sites using Jekyll and provides a &lt;a href=&quot;https://help.github.com/articles/about-jekyll-themes-on-github/&quot; target=&quot;_blank&quot;&gt;handul of themes&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;GitHub Pages deploy sites using Jekyll and provides a &lt;a href=&quot;https://help.github.com/articles/about-jekyll-themes-on-github/&quot; target=&quot;_blank&quot;&gt;handful of themes&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/&quot; target=&quot;_blank&quot;&gt;Jekyll site&lt;/a&gt; for more details.&lt;/p&gt;
 
@@ -102,8 +102,8 @@ repo or fork it and have a site up and running in short order.&lt;/p&gt;
 
 &lt;p&gt;The Jekyll framework is essentially a given structure of folders with code snippets that build the static HTML files when
 Jekyll is instructed to do so. Layouts, includes, CSS, html, Markdown files, and more are stitched together and, barring
-any compilation errors, the result is several html files, css, and other assets that is your site. You could conceivably
-take those files and FTP them to a third party hosting provider, but where is the fun in that?&lt;/p&gt;
+any compilation errors, the result is several html files, CSS, and other assets that is your site. You could conceivably
+take those files and FTP them to a third-party hosting provider, but where is the fun in that?&lt;/p&gt;
 
 &lt;h4 id=&quot;configuration&quot;&gt;Configuration&lt;/h4&gt;
 
@@ -193,7 +193,7 @@ file, &lt;code class=&quot;highlighter-rouge&quot;&gt;_data\mymodules.yml&lt;/co
 
 &lt;h2 id=&quot;google-analytics&quot;&gt;Google Analytics&lt;/h2&gt;
 
-&lt;p&gt;The theme has builtin support for Google Analytics. You simply add your site’s tracking ID to the &lt;code class=&quot;highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt;
+&lt;p&gt;The theme has built-in support for Google Analytics. You simply add your site’s tracking ID to the &lt;code class=&quot;highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt;
 configuration file.&lt;/p&gt;
 
 &lt;h2 id=&quot;visitor-comments&quot;&gt;Visitor Comments&lt;/h2&gt;
@@ -203,7 +203,7 @@ staticman, staticman_v2, and custom. After checking into them, I saw that the th
 the best way to go and it keeps the comments within your grasp and local(ish) to the site.&lt;/p&gt;
 
 &lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; The theme author has developed &lt;strong&gt;reply-to&lt;/strong&gt; comments but has not incorporated them into the Minimal Mistakes
-theme. When I want to get under the hood again of the theme, I will take a look at implementing it for this site.&lt;/p&gt;
+theme. When I want to get under the hood again of the theme, I will look at implementing it for this site.&lt;/p&gt;
 
 &lt;h3 id=&quot;staticman-api-webhook&quot;&gt;Staticman API Webhook&lt;/h3&gt;
 
@@ -219,7 +219,7 @@ real users wanting to leave a message. Beyond that, I use the optional moderatio
 pull request to the &lt;code class=&quot;highlighter-rouge&quot;&gt;comments&lt;/code&gt; branch. I get a notification that a PR is waiting for me, login to GitHub, even on
 mobile, and merge the pull request to approve the message.&lt;/p&gt;
 
-&lt;p&gt;The pull request for a comment is saved to &lt;code class=&quot;highlighter-rouge&quot;&gt;_data\comments\&amp;lt;title-slug\comment-&amp;lt;date-time-stamp&amp;gt;.yml&lt;/code&gt;. The vistor’s
+&lt;p&gt;The pull request for a comment is saved to &lt;code class=&quot;highlighter-rouge&quot;&gt;_data\comments\&amp;lt;title-slug\comment-&amp;lt;date-time-stamp&amp;gt;.yml&lt;/code&gt;. The visitor’s
 email is stored as a hash value to keep it relatively safe.&lt;/p&gt;
 
 &lt;h3 id=&quot;gravatar&quot;&gt;Gravatar&lt;/h3&gt;
@@ -229,7 +229,7 @@ provide a graphic that the user has previously configured.&lt;/p&gt;
 
 &lt;h2 id=&quot;jekyll-build&quot;&gt;Jekyll Build&lt;/h2&gt;
 
-&lt;p&gt;As Jekyll runs on Ruby, you will need to have a system that is capable of running Ruby and the Jekyll gems.&lt;/p&gt;
+&lt;p&gt;As Jekyll runs on Ruby, you will need to have a system that can run Ruby and the Jekyll gems.&lt;/p&gt;
 
 &lt;h3 id=&quot;build-system--windows-subsystem-for-linux&quot;&gt;Build System : Windows Subsystem for Linux&lt;/h3&gt;
 
@@ -247,8 +247,8 @@ point of being able execute the &lt;code class=&quot;highlighter-rouge&quot;&gt;
 I know how to do that now.&lt;/p&gt;
 
 &lt;p&gt;The problem I faced was that I need a way to kick off the build after I pushed changes into the branch —
-automatically, if at all possible. But that would entail me creating a listener on the VM that could be triggered by the
-branch status change. I felt I had explored that rabbithole enough and backed out quickly.&lt;/p&gt;
+automatically, if possible. But that would entail me creating a listener on the VM that could be triggered by the branch
+status change. I felt I had explored that rabbit hole enough and backed out quickly.&lt;/p&gt;
 
 &lt;p&gt;I still needed an automated build system.&lt;/p&gt;
 
@@ -269,7 +269,7 @@ the comments branch is merged, the service notifies Travis CI that it needs to c
 &lt;h4 id=&quot;travis-configuration-file&quot;&gt;Travis Configuration File&lt;/h4&gt;
 
 &lt;p&gt;In my &lt;code class=&quot;highlighter-rouge&quot;&gt;.travis.yml&lt;/code&gt; configuration file, I set the build script to execute (chmod), set which branch to clone, and
-whether to use a cache for the bundler. Additonally, I set it to deploy to the gh-pages branch after the build phase
+whether to use a cache for the bundler. Additonally I set it to deploy to the gh-pages branch after the build phase
 completes.&lt;/p&gt;
 
 &lt;h4 id=&quot;build&quot;&gt;Build&lt;/h4&gt;

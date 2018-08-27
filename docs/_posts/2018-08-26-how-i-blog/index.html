@@ -345,7 +345,7 @@
 
 <p>I’ve hosted a personal website on various platforms since early 2000. I’ve used FTP, SFTP, FrontPage, WebDAV,
 Dreamweaver, WordPress, and probably some others that I’ve forgotten about. Using WordPress, I had performance issues
-when the mySQL database was not located near the web host.</p>
+when the MySQL database was not located near the web host.</p>
 
 <p>Even with a stance of ‘update all the plugins’, it was not enough to protect my site from hackers. Late in 2015, my site
 was hacked and it took me months to realize since they were just hosting hidden pages and hidden SEO info. Once I
@@ -359,7 +359,7 @@ working with another PowerShell blogger, Michael Simmons, who publishes <a href=
 posts and the bloggers just happen to be using GitHub Pages, Jekyll, and, a few times, the Minimal Mistakes Jekyll theme.</p>
 
 <p>This new (to me) tech stack would provide an easy way to add content (not like Google Sites) and still provide a static
-site with decent performance. Thoughts starting falling into place and I saw the efficiency and learning opportunities.</p>
+site with decent performance. Thoughts started falling into place and I saw the efficiency and learning opportunities.</p>
 
 <blockquote>
   <p>I’m going to blog. And I’m going to use that tech stack.</p>
@@ -369,7 +369,7 @@ site with decent performance. Thoughts starting falling into place and I saw the
 
 <p>I use Visual Studio Code to edit my blog, PowerShell code, and scripts in other languages.</p>
 
-<p>Git for Windows allows me to create local source controled folders and to interact with GitHub. Even if you don’t opt to
+<p>Git for Windows allows me to create local source controlled folders and to interact with GitHub. Even if you don’t opt to
 use GitHub (free for public repositories), you can still use Git locally.</p>
 
 <h2 id="github-and-github-pages">GitHub and GitHub Pages</h2>
@@ -377,7 +377,7 @@ use GitHub (free for public repositories), you can still use Git locally.</p>
 <p>I’m fully convinced that source control is necessary for code, and a blog is really nothing but code. Therefore, it was
 an easy decision to use a GitHub repository for my blog and then to configure it to publish using GitHub Pages.</p>
 
-<p>Visit GitHub Help for more information on how to <a href="https://help.github.com/articles/signing-up-for-a-new-github-account/" target="_blank">create a GitHub account</a>, <a href="https://help.github.com/articles/create-a-repo/" target="_blank">create a respository</a>, and
+<p>Visit GitHub Help for more information on how to <a href="https://help.github.com/articles/signing-up-for-a-new-github-account/" target="_blank">create a GitHub account</a>, <a href="https://help.github.com/articles/create-a-repo/" target="_blank">create a repository</a>, and
 information on <a href="https://help.github.com/articles/what-is-github-pages/" target="_blank">GitHub Pages</a>.</p>
 
 <h3 id="repository">Repository</h3>
@@ -396,7 +396,7 @@ I opted to use the Custom Domain setting for my repo and created <code class="hi
 <p>Every git or GitHub repository can have multiple branches. Branches are typically used to develop new features or work
 on fixes without touching the rest of the code.</p>
 
-<p>Each branch of my repo plays a particular role in the production of my blog.</p>
+<p>Each branch of my repo plays a role in the production of my blog.</p>
 
 <table>
   <thead>
@@ -426,7 +426,7 @@ on fixes without touching the rest of the code.</p>
 <p>Jekyll is <a href="https://www.netlify.com/blog/2017/05/25/top-ten-static-site-generators-of-2017/" target="_blank">one of the most used</a>
 static site generators. It’s built on Ruby and renders content with Markdown and Liquid templates.</p>
 
-<p>GitHub Pages deploy sites using Jekyll and provides a <a href="https://help.github.com/articles/about-jekyll-themes-on-github/" target="_blank">handul of themes</a>.</p>
+<p>GitHub Pages deploy sites using Jekyll and provides a <a href="https://help.github.com/articles/about-jekyll-themes-on-github/" target="_blank">handful of themes</a>.</p>
 
 <p>Check out the <a href="https://jekyllrb.com/" target="_blank">Jekyll site</a> for more details.</p>
 
@@ -443,8 +443,8 @@ repo or fork it and have a site up and running in short order.</p>
 
 <p>The Jekyll framework is essentially a given structure of folders with code snippets that build the static HTML files when
 Jekyll is instructed to do so. Layouts, includes, CSS, html, Markdown files, and more are stitched together and, barring
-any compilation errors, the result is several html files, css, and other assets that is your site. You could conceivably
-take those files and FTP them to a third party hosting provider, but where is the fun in that?</p>
+any compilation errors, the result is several html files, CSS, and other assets that is your site. You could conceivably
+take those files and FTP them to a third-party hosting provider, but where is the fun in that?</p>
 
 <h4 id="configuration">Configuration</h4>
 
@@ -534,7 +534,7 @@ file, <code class="highlighter-rouge">_data\mymodules.yml</code>. On next build,
 
 <h2 id="google-analytics">Google Analytics</h2>
 
-<p>The theme has builtin support for Google Analytics. You simply add your site’s tracking ID to the <code class="highlighter-rouge">_config.yml</code>
+<p>The theme has built-in support for Google Analytics. You simply add your site’s tracking ID to the <code class="highlighter-rouge">_config.yml</code>
 configuration file.</p>
 
 <h2 id="visitor-comments">Visitor Comments</h2>
@@ -544,7 +544,7 @@ staticman, staticman_v2, and custom. After checking into them, I saw that the th
 the best way to go and it keeps the comments within your grasp and local(ish) to the site.</p>
 
 <p class="notice"><strong>Note:</strong> The theme author has developed <strong>reply-to</strong> comments but has not incorporated them into the Minimal Mistakes
-theme. When I want to get under the hood again of the theme, I will take a look at implementing it for this site.</p>
+theme. When I want to get under the hood again of the theme, I will look at implementing it for this site.</p>
 
 <h3 id="staticman-api-webhook">Staticman API Webhook</h3>
 
@@ -560,7 +560,7 @@ real users wanting to leave a message. Beyond that, I use the optional moderatio
 pull request to the <code class="highlighter-rouge">comments</code> branch. I get a notification that a PR is waiting for me, login to GitHub, even on
 mobile, and merge the pull request to approve the message.</p>
 
-<p>The pull request for a comment is saved to <code class="highlighter-rouge">_data\comments\&lt;title-slug\comment-&lt;date-time-stamp&gt;.yml</code>. The vistor’s
+<p>The pull request for a comment is saved to <code class="highlighter-rouge">_data\comments\&lt;title-slug\comment-&lt;date-time-stamp&gt;.yml</code>. The visitor’s
 email is stored as a hash value to keep it relatively safe.</p>
 
 <h3 id="gravatar">Gravatar</h3>
@@ -570,7 +570,7 @@ provide a graphic that the user has previously configured.</p>
 
 <h2 id="jekyll-build">Jekyll Build</h2>
 
-<p>As Jekyll runs on Ruby, you will need to have a system that is capable of running Ruby and the Jekyll gems.</p>
+<p>As Jekyll runs on Ruby, you will need to have a system that can run Ruby and the Jekyll gems.</p>
 
 <h3 id="build-system--windows-subsystem-for-linux">Build System : Windows Subsystem for Linux</h3>
 
@@ -588,8 +588,8 @@ point of being able execute the <code class="highlighter-rouge">jekyll build</co
 I know how to do that now.</p>
 
 <p>The problem I faced was that I need a way to kick off the build after I pushed changes into the branch —
-automatically, if at all possible. But that would entail me creating a listener on the VM that could be triggered by the
-branch status change. I felt I had explored that rabbithole enough and backed out quickly.</p>
+automatically, if possible. But that would entail me creating a listener on the VM that could be triggered by the branch
+status change. I felt I had explored that rabbit hole enough and backed out quickly.</p>
 
 <p>I still needed an automated build system.</p>
 
@@ -610,7 +610,7 @@ the comments branch is merged, the service notifies Travis CI that it needs to c
 <h4 id="travis-configuration-file">Travis Configuration File</h4>
 
 <p>In my <code class="highlighter-rouge">.travis.yml</code> configuration file, I set the build script to execute (chmod), set which branch to clone, and
-whether to use a cache for the bundler. Additonally, I set it to deploy to the gh-pages branch after the build phase
+whether to use a cache for the bundler. Additonally I set it to deploy to the gh-pages branch after the build phase
 completes.</p>
 
 <h4 id="build">Build</h4>
