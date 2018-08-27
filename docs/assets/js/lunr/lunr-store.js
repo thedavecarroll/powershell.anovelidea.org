@@ -4,6 +4,11 @@ var store = [{
         "tags": ["blog","powershell"],
         "url": "https://powershell.anovelidea.org/blog/blog-inception/",
         "teaser":null},{
+        "title": "How I Blog",
+        "excerpt":"Someone asked what I used to produce this blog. This post will provide the methodology and details. The Decision to Blog I’ve hosted a personal website on various platforms since early 2000. I’ve used FTP, SFTP, FrontPage, WebDAV,Dreamweaver, WordPress, and probably some others that I’ve forgotten about. Using WordPress, I...","categories": ["blog"],
+        "tags": ["blog","jekyll","travis ci","github","staticman"],
+        "url": "https://powershell.anovelidea.org/blog/how-i-blog/",
+        "teaser":null},{
         "title": "Unique Email Domains",
         "excerpt":"So you’re working on getting all of your email domains that’s on-prem into Azure or you simply want to ensure that youron-prem Exchange has been configured for all the domains your user accounts utilize. Your Active Directory domaincontains over 30,000 accounts. How would you go about discovering the unique email...","categories": ["powershell"],
         "tags": ["powershell","exchange","azure"],

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-08-26T16:24:36-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Updatable Help</title><link href="https://powershell.anovelidea.org/powershell/updatable-help/" rel="alternate" type="text/html" title="Updatable Help" /><published>2018-08-25T00:00:00-05:00</published><updated>2018-08-25T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/updatable-help</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/updatable-help/">&lt;p&gt;PowerShell has provided a way to update the help files for modules since version 3.0.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-08-26T23:25:38-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Updatable Help</title><link href="https://powershell.anovelidea.org/powershell/updatable-help/" rel="alternate" type="text/html" title="Updatable Help" /><published>2018-08-25T00:00:00-05:00</published><updated>2018-08-25T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/updatable-help</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/updatable-help/">&lt;p&gt;PowerShell has provided a way to update the help files for modules since version 3.0.&lt;/p&gt;
 
 &lt;p&gt;Since creating my first two modules, I have tried adding updatable help support, but came across a few issues. Tonight,
 I finally resolved them for my module PoShEvents.&lt;/p&gt;
@@ -192,7 +192,300 @@ gmail.com
 
 &lt;p&gt;Hopefully, this post was helpful to you in some way.&lt;/p&gt;
 
-&lt;p&gt;Have a great day!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="exchange" /><category term="azure" /><summary type="html">Get unique email domains from proxyAddresses for Exchange or Azure.</summary></entry><entry><title type="html">Welcome to My PowerShell Blog</title><link href="https://powershell.anovelidea.org/blog/blog-inception/" rel="alternate" type="text/html" title="Welcome to My PowerShell Blog" /><published>2018-08-14T00:00:00-05:00</published><updated>2018-08-17T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/blog/blog-inception</id><content type="html" xml:base="https://powershell.anovelidea.org/blog/blog-inception/">&lt;p&gt;Greetings fellow PowerShell aficionados!&lt;/p&gt;
+&lt;p&gt;Have a great day!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="exchange" /><category term="azure" /><summary type="html">Get unique email domains from proxyAddresses for Exchange or Azure.</summary></entry><entry><title type="html">How I Blog</title><link href="https://powershell.anovelidea.org/blog/how-i-blog/" rel="alternate" type="text/html" title="How I Blog" /><published>2018-08-14T00:00:00-05:00</published><updated>2018-08-14T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/blog/how-i-blog</id><content type="html" xml:base="https://powershell.anovelidea.org/blog/how-i-blog/">&lt;p&gt;Someone asked what I used to produce this blog. This post will provide the methodology and details.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-decision-to-blog&quot;&gt;The Decision to Blog&lt;/h2&gt;
+
+&lt;p&gt;I’ve hosted a personal website on various platforms since early 2000. I’ve used FTP, SFTP, FrontPage, WebDAV,
+Dreamweaver, WordPress, and probably some others that I’ve forgotten about. Using WordPress, I had performance issues
+when the mySQL database was not located near the web host.&lt;/p&gt;
+
+&lt;p&gt;Even with a stance of ‘update all the plugins’, it was not enough to protect my site from hackers. Late in 2015, my site
+was hacked and it took me months to realize since they were just hosting hidden pages and hidden SEO info. Once I
+realized what had happened to my site, I converted it to a static hosted by (don’t judge) Google Sites. It solved the
+problem of a vulnerable site and poor performance.&lt;/p&gt;
+
+&lt;p&gt;I’ve been toying around with the idea of creating a blog for PowerShell for a few years now, ever since I started
+working with another PowerShell blogger, Michael Simmons, who publishes &lt;a href=&quot;https://ilovepowershell.com&quot; target=&quot;_blank&quot;&gt;I Love PowerShell&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;As I was learning how to build my own modules, with finesse — not just thrown together, I kept finding enlightening
+posts and the bloggers just happen to be using GitHub Pages, Jekyll, and, a few times, the Minimal Mistakes Jekyll theme.&lt;/p&gt;
+
+&lt;p&gt;This new (to me) tech stack would provide an easy way to add content (not like Google Sites) and still provide a static
+site with decent performance. Thoughts starting falling into place and I saw the efficiency and learning opportunities.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;I’m going to blog. And I’m going to use that tech stack.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;editor-and-source-control&quot;&gt;Editor and Source Control&lt;/h2&gt;
+
+&lt;p&gt;I use Visual Studio Code to edit my blog, PowerShell code, and scripts in other languages.&lt;/p&gt;
+
+&lt;p&gt;Git for Windows allows me to create local source controled folders and to interact with GitHub. Even if you don’t opt to
+use GitHub (free for public repositories), you can still use Git locally.&lt;/p&gt;
+
+&lt;h2 id=&quot;github-and-github-pages&quot;&gt;GitHub and GitHub Pages&lt;/h2&gt;
+
+&lt;p&gt;I’m fully convinced that source control is necessary for code, and a blog is really nothing but code. Therefore, it was
+an easy decision to use a GitHub repository for my blog and then to configure it to publish using GitHub Pages.&lt;/p&gt;
+
+&lt;p&gt;Visit GitHub Help for more information on how to &lt;a href=&quot;https://help.github.com/articles/signing-up-for-a-new-github-account/&quot; target=&quot;_blank&quot;&gt;create a GitHub account&lt;/a&gt;, &lt;a href=&quot;https://help.github.com/articles/create-a-repo/&quot; target=&quot;_blank&quot;&gt;create a respository&lt;/a&gt;, and
+information on &lt;a href=&quot;https://help.github.com/articles/what-is-github-pages/&quot; target=&quot;_blank&quot;&gt;GitHub Pages&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;repository&quot;&gt;Repository&lt;/h3&gt;
+
+&lt;p&gt;Perhaps due to OCD, I created a repository to match the custom domain that I’m using for my GitHub Pages. Actually,
+naming folders based on the hostname is a habit that I got in several years ago. It clearly identifies that the content
+should be that website.&lt;/p&gt;
+
+&lt;h4 id=&quot;custom-domain&quot;&gt;Custom Domain&lt;/h4&gt;
+
+&lt;p&gt;I’ve had the domain &lt;code class=&quot;highlighter-rouge&quot;&gt;anovelidea.org&lt;/code&gt; since early 2000, and since I didn’t want to use the default domain of *.github.io,
+I opted to use the Custom Domain setting for my repo and created &lt;code class=&quot;highlighter-rouge&quot;&gt;powershell.anovelidea.org&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;branches&quot;&gt;Branches&lt;/h4&gt;
+
+&lt;p&gt;Every git or GitHub repository can have multiple branches. Branches are typically used to develop new features or work
+on fixes without touching the rest of the code.&lt;/p&gt;
+
+&lt;p&gt;Each branch of my repo plays a particular role in the production of my blog.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Branch&lt;/th&gt;
+      &lt;th&gt;Purpose&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;master&lt;/td&gt;
+      &lt;td&gt;I push commits to this branch when I make changes to the blog, e.g. publish new posts or approve comments.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;gh-pages&lt;/td&gt;
+      &lt;td&gt;After Travis-CI builds the site, it pushes to this branch which GitHub, in turn, publishes to GitHub Pages.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;comments&lt;/td&gt;
+      &lt;td&gt;The Staticman API creates pull requests for this branch when a new comment is submitted.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;jekyll-framework&quot;&gt;Jekyll Framework&lt;/h2&gt;
+
+&lt;p&gt;Jekyll is &lt;a href=&quot;https://www.netlify.com/blog/2017/05/25/top-ten-static-site-generators-of-2017/&quot; target=&quot;_blank&quot;&gt;one of the most used&lt;/a&gt;
+static site generators. It’s built on Ruby and renders content with Markdown and Liquid templates.&lt;/p&gt;
+
+&lt;p&gt;GitHub Pages deploy sites using Jekyll and provides a &lt;a href=&quot;https://help.github.com/articles/about-jekyll-themes-on-github/&quot; target=&quot;_blank&quot;&gt;handul of themes&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/&quot; target=&quot;_blank&quot;&gt;Jekyll site&lt;/a&gt; for more details.&lt;/p&gt;
+
+&lt;h2 id=&quot;minimal-mistakes&quot;&gt;Minimal Mistakes&lt;/h2&gt;
+
+&lt;p&gt;The theme that I chose for simplicity is Minimal Mistakes by Michael Rose at &lt;a href=&quot;https://mademistakes.com/&quot; target=&quot;_blank&quot;&gt;Made Mistakes&lt;/a&gt;.
+He provides a &lt;a href=&quot;https://mmistakes.github.io/minimal-mistakes&quot; target=&quot;_blank&quot;&gt;Minimal Mistakes demo site&lt;/a&gt; that can show
+you the theme’s capabilities.&lt;/p&gt;
+
+&lt;p&gt;The cool thing about most of the Jekyll themes is that they, themselves, are in GitHub repos. You can download the full
+repo or fork it and have a site up and running in short order.&lt;/p&gt;
+
+&lt;h3 id=&quot;custom-layouts-and-includes&quot;&gt;Custom Layouts and Includes&lt;/h3&gt;
+
+&lt;p&gt;The Jekyll framework is essentially a given structure of folders with code snippets that build the static HTML files when
+Jekyll is instructed to do so. Layouts, includes, CSS, html, Markdown files, and more are stitched together and, barring
+any compilation errors, the result is several html files, css, and other assets that is your site. You could conceivably
+take those files and FTP them to a third party hosting provider, but where is the fun in that?&lt;/p&gt;
+
+&lt;h4 id=&quot;configuration&quot;&gt;Configuration&lt;/h4&gt;
+
+&lt;p&gt;Jekyll uses what’s called front matter &lt;abbr title=&quot;Yet Ain't Markup Language&quot;&gt;YAML&lt;/abbr&gt; in the template files and in the configuration file, &lt;code class=&quot;highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt;. This
+allows each post and page to have different elements.&lt;/p&gt;
+
+&lt;h4 id=&quot;layouts-and-includes&quot;&gt;Layouts and Includes&lt;/h4&gt;
+
+&lt;p&gt;I’ve updated or added the following layout and includes files from the base theme.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;File&lt;/th&gt;
+      &lt;th&gt;Modifications&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;_layouts\home.html&lt;/td&gt;
+      &lt;td&gt;Replaced archive-single include with posts-lists&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;_layouts\onlinehelp.html&lt;/td&gt;
+      &lt;td&gt;New layout based on single, removed title header, page metadata, and other elements not required&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;_layouts\pages.html&lt;/td&gt;
+      &lt;td&gt;New layout based on single, added code to display published and updated date, removed environment requirement&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;_layouts\single.html&lt;/td&gt;
+      &lt;td&gt;Added &lt;code class=&quot;highlighter-rouge&quot;&gt;classes: wide&lt;/code&gt; to the front matter, added code to display published and updated date, removed environment requirement&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;_includes\analytics.html&lt;/td&gt;
+      &lt;td&gt;Removed environment requirement&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;_includes\archive-single.html&lt;/td&gt;
+      &lt;td&gt;Included new include file posts-date&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;_includes\posts-date.html&lt;/td&gt;
+      &lt;td&gt;New include, displays published and updated date&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;_includes\posts-list.html&lt;/td&gt;
+      &lt;td&gt;Based on archive-single, added posts-tags-list and posts-date&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;_includes\posts-tags-list.html&lt;/td&gt;
+      &lt;td&gt;Based on tag-list, uses post.tags instead of page.tags&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;code-syntax&quot;&gt;Code Syntax&lt;/h3&gt;
+
+&lt;p&gt;Though I’m using the &lt;code class=&quot;highlighter-rouge&quot;&gt;air&lt;/code&gt; skin for my theme, I didn’t like the default color scheme the skin provided. Using the
+theme’s documentation, I was able to replace the code syntax highlighting color variables with another skin’s by
+updating the file &lt;code class=&quot;highlighter-rouge&quot;&gt;_sass\_variables.scss&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;my-modules&quot;&gt;My Modules&lt;/h3&gt;
+
+&lt;p&gt;I wanted to provide a quick place to see my modules and what features they possess. I originally created markdown tables
+for each, but then decided to use a data file.&lt;/p&gt;
+
+&lt;p&gt;Jekyll uses a &lt;code class=&quot;highlighter-rouge&quot;&gt;_data&lt;/code&gt; folder to store data that could be used by the framework. At build time, it will import all files
+in this folder and provide the data as variables.&lt;/p&gt;
+
+&lt;h4 id=&quot;sample-data&quot;&gt;Sample data&lt;/h4&gt;
+&lt;pre&gt;
+- name: PoShEvents
+  description: 'PowerShell module to query Windows Event Logs.'
+  help: 'External file'
+  onlinehelp: true
+  updatablehelp: true
+  pester: false
+  build: false
+  psgallery: true
+&lt;/pre&gt;
+
+&lt;p&gt;In my &lt;code class=&quot;highlighter-rouge&quot;&gt;_pages\modules.html&lt;/code&gt; file, I added the html and Liquid code to loop through each section in the data file.
+Instead of manually adding markdown or html code, which can become tedious, I now simply add another section in the data
+file, &lt;code class=&quot;highlighter-rouge&quot;&gt;_data\mymodules.yml&lt;/code&gt;. On next build, the page will include the new module.&lt;/p&gt;
+
+&lt;h2 id=&quot;google-analytics&quot;&gt;Google Analytics&lt;/h2&gt;
+
+&lt;p&gt;The theme has builtin support for Google Analytics. You simply add your site’s tracking ID to the &lt;code class=&quot;highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt;
+configuration file.&lt;/p&gt;
+
+&lt;h2 id=&quot;vistor-comments&quot;&gt;Vistor Comments&lt;/h2&gt;
+
+&lt;p&gt;The Minimal Mistakes theme includes several options for visitor comments: disqus, discourse, facebook, google-plus,
+staticman, staticman_v2, and custom. After checking into them, I saw that the theme author used Staticman V2. It seemed
+the best way to go and it keeps the comments within your grasp and local(ish) to the site.&lt;/p&gt;
+
+&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; The theme author has developed &lt;strong&gt;reply-to&lt;/strong&gt; comments but has not incorporated them into the Minimal Mistakes
+theme. When I want to get under the hood again of the theme, I will take a look at implementing it for this site.&lt;/p&gt;
+
+&lt;h3 id=&quot;staticman-api-webhook&quot;&gt;Staticman API Webhook&lt;/h3&gt;
+
+&lt;p&gt;For Staticman to work, there are a few quick configuration steps needed that are laid out in the
+&lt;a href=&quot;https://staticman.net/docs/&quot; target=&quot;_blank&quot;&gt;documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Additionally, you will need a &lt;code class=&quot;highlighter-rouge&quot;&gt;staticman.yml&lt;/code&gt; configuration file. This file is included in the theme’s repo.&lt;/p&gt;
+
+&lt;h3 id=&quot;moderation&quot;&gt;Moderation&lt;/h3&gt;
+
+&lt;p&gt;Comment forms are magnets for bots and malicious users. The theme provides a few tricks to filter comments down to the
+real users wanting to leave a message. Beyond that, I use the optional moderation provided by Staticman which creates a
+pull request to the &lt;code class=&quot;highlighter-rouge&quot;&gt;comments&lt;/code&gt; branch. I get a notification that a PR is waiting for me, login to GitHub, even on
+mobile, and merge the pull request to approve the message.&lt;/p&gt;
+
+&lt;p&gt;The pull request for a comment is saved to &lt;code class=&quot;highlighter-rouge&quot;&gt;_data\comments\&amp;lt;title-slug\comment-&amp;lt;date-time-stamp&amp;gt;.yml&lt;/code&gt;. The vistor’s
+email is stored as a hash value to keep it relatively safe.&lt;/p&gt;
+
+&lt;h3 id=&quot;gravatar&quot;&gt;Gravatar&lt;/h3&gt;
+
+&lt;p&gt;The theme will use the &lt;a href=&quot;https://en.gravatar.com/support/what-is-gravatar/&quot; target=&quot;_blank&quot;&gt;Gravatar&lt;/a&gt; service to
+provide a graphic that the user has previously configured.&lt;/p&gt;
+
+&lt;h2 id=&quot;jekyll-build&quot;&gt;Jekyll Build&lt;/h2&gt;
+
+&lt;p&gt;As Jekyll runs on Ruby, you will need to have a system that is capable of running Ruby and the Jekyll gems.&lt;/p&gt;
+
+&lt;h3 id=&quot;build-system--windows-subsystem-for-linux&quot;&gt;Build System : Windows Subsystem for Linux&lt;/h3&gt;
+
+&lt;p&gt;Instead of going down the Ruby on Windows avenue, I opted to learn a little about the new Windows Subsystem for Linux on
+Windows 10. This method produced a few errors that I had to overcome. I’ll most likely post on that setup separately.
+While I used this method initially, I have all but abandoned it for now.&lt;/p&gt;
+
+&lt;h3 id=&quot;build-system--google-cloud-platform&quot;&gt;Build System : Google Cloud Platform&lt;/h3&gt;
+
+&lt;p&gt;I looked for a free hosting solution to have a Linux VM and, what I’m hoping, it appears that Google Cloud Platform will
+give you enough free credits per month to have a single, small VM running the whole time. I had configured it to the
+point of being able execute the &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll build&lt;/code&gt; command successfully.&lt;/p&gt;
+
+&lt;p&gt;I had even configured dynamic DNS for the VM to register its IP address with my domain at Google Domains. Hey, at least
+I know how to do that now.&lt;/p&gt;
+
+&lt;p&gt;The problem I faced was that I need a way to kick off the build after I pushed changes into the branch —
+automatically, if at all possible. But that would entail me creating a listener on the VM that could be triggered by the
+branch status change. I felt I had explored that rabbithole enough and backed out quickly.&lt;/p&gt;
+
+&lt;p&gt;I still needed an automated build system.&lt;/p&gt;
+
+&lt;h3 id=&quot;build-system--travis-ci&quot;&gt;Build System : Travis CI&lt;/h3&gt;
+
+&lt;p&gt;Enter Travis CI. The CI stands for &lt;strong&gt;Continuous Integration&lt;/strong&gt; and is part of the &lt;abbr title=&quot;Continuous Integration/Continuous Delivery&quot;&gt;CI/CD&lt;/abbr&gt; model that I want to learn about.
+It drives true DevOps.&lt;/p&gt;
+
+&lt;p&gt;On GitHub, I configured the Travis CI service for my blog repo.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Travis CI &lt;a href=&quot;https://docs.travis-ci.com/user/open-source-on-travis-ci-com/&quot; target=&quot;_blank&quot;&gt;announced in May&lt;/a&gt;
+that open source projects would be able to use &lt;code class=&quot;highlighter-rouge&quot;&gt;travis-ci.com&lt;/code&gt;. Sometime soon, I’ll work on upgrading to the new method
+which uses GitHub Apps and has greater benefits.&lt;/p&gt;
+
+&lt;p&gt;With the integration service setup, whenever the master branch changes, that is when I push changes or when a PR from
+the comments branch is merged, the service notifies Travis CI that it needs to create a build.&lt;/p&gt;
+
+&lt;h4 id=&quot;travis-configuration-file&quot;&gt;Travis Configuration File&lt;/h4&gt;
+
+&lt;p&gt;In my &lt;code class=&quot;highlighter-rouge&quot;&gt;.travis.yml&lt;/code&gt; configuration file, I set the build script to execute (chmod), set which branch to clone, and
+whether to use a cache for the bundler. Additonally, I set it to deploy to the gh-pages branch after the build phase
+completes.&lt;/p&gt;
+
+&lt;h4 id=&quot;build&quot;&gt;Build&lt;/h4&gt;
+
+&lt;p&gt;When notified of a change, Travis spins up an Ubuntu Linux container, installs all dependencies (from self updating
+cache), clones the master branch of my blog repo, runs the &lt;code class=&quot;highlighter-rouge&quot;&gt;/script/cibuild&lt;/code&gt; bash script I created, then deploys to the
+gh-pages branch.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;script/cibuild&lt;/strong&gt;&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/thedavecarroll/74438e76f6d0de1a77d09bcd956d4203.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Spinning up a blog in this manner takes patience and determination, but the rewards include learning new technologies,
+such as GitHub, Ruby, and Jekyll. It’s taken me several steps toward automation, &lt;abbr title=&quot;Continuous Integration/Continuous Delivery&quot;&gt;CI/CD&lt;/abbr&gt;, and DevOps.&lt;/p&gt;
+
+&lt;p&gt;Remember, because all of this is hosted publicly by GitHub, you can see everything in
+&lt;a href=&quot;https://github.com/thedavecarroll/powershell.anovelidea.org&quot; target=&quot;_blank&quot;&gt;my repo&lt;/a&gt;. Check out the closed Pull
+Requests. Check out the folder structure and the files.&lt;/p&gt;
+
+&lt;p&gt;I hope this post was informative. Feel free to leave a comment below.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;blog&quot;]" /><category term="blog" /><category term="jekyll" /><category term="travis ci" /><category term="github" /><category term="staticman" /><summary type="html">What technologies are used in my blog?</summary></entry><entry><title type="html">Welcome to My PowerShell Blog</title><link href="https://powershell.anovelidea.org/blog/blog-inception/" rel="alternate" type="text/html" title="Welcome to My PowerShell Blog" /><published>2018-08-14T00:00:00-05:00</published><updated>2018-08-17T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/blog/blog-inception</id><content type="html" xml:base="https://powershell.anovelidea.org/blog/blog-inception/">&lt;p&gt;Greetings fellow PowerShell aficionados!&lt;/p&gt;
 
 &lt;p&gt;I feel I must begin with a confession: I was not an early adopter of PowerShell.&lt;/p&gt;
 
