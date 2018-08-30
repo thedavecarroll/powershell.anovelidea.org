@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Updatable Help"
-excerpt: "Updatable Help on GitHub Pages with platyPS"
+excerpt: "Updatable Help on GitHub Pages with platyPS."
 date: 2018-08-25
 comments: true
 tags:
