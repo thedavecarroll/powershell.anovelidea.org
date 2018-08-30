@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Clear DNS Server Cache"
-excerpt: "Clear the DNS server cache on all domain controllers"
+excerpt: "Clear the DNS server cache on all domain controllers."
 date: 2018-08-21
 comments: true
 tags:
