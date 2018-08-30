@@ -9,10 +9,15 @@ toc_label: On This Page
 toc_icon: list
 ---
 
-## Other Blogs and Useful PowerShell Links
+## PowerShell Blogs
 
-* [The DevOps Collective Site - PowerShell.org](https://www.powershell.org/){:target="_blank"}
-* [ILovePowerShell.com](https://www.ILovePowerShell.com){:target="_blank"}
+* [Michael Simmons' ILovePowerShell.com](https://www.ILovePowerShell.com){:target="_blank"}
+* [Kevin Marquette on PowerShell Theory](https://kevinmarquette.github.io){:target="_blank"} and
+* [Warren Frame's Rambling Cookie Monster](https://ramblingcookiemonster.github.io/){:target="_blank"}
+
+## PowerShell Links
+
+* [The DevOps Collective Site : PowerShell.org](https://www.powershell.org/){:target="_blank"}
 * [Unofficial PowerShell Best Practice and Style Guide](https://github.com/PoshCode/PowerShellPracticeAndStyle){:target="_blank"}
 
 ## Microsoft Links
