@@ -12,7 +12,7 @@ toc_icon: list
 ## PowerShell Blogs
 
 * [Michael Simmons' ILovePowerShell.com](https://www.ILovePowerShell.com){:target="_blank"}
-* [Kevin Marquette on PowerShell Theory](https://kevinmarquette.github.io){:target="_blank"} and
+* [Kevin Marquette on PowerShell Theory](https://kevinmarquette.github.io){:target="_blank"}
 * [Warren Frame's Rambling Cookie Monster](https://ramblingcookiemonster.github.io/){:target="_blank"}
 
 ## PowerShell Links
