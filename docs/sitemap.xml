@@ -21,6 +21,10 @@
 <lastmod>2018-08-29T00:00:00-05:00</lastmod>
 </url>
 <url>
+<loc>https://powershell.anovelidea.org/powershell/download-newest-sysinternals/</loc>
+<lastmod>2018-09-03T00:00:00-05:00</lastmod>
+</url>
+<url>
 <loc>https://powershell.anovelidea.org/_posts/2018-08-14-blog-inception/</loc>
 <lastmod>2018-08-17T00:00:00-05:00</lastmod>
 </url>
@@ -36,6 +40,9 @@
 <url>
 <loc>https://powershell.anovelidea.org/_posts/2018-08-26-how-i-blog/</loc>
 <lastmod>2018-08-29T00:00:00-05:00</lastmod>
+</url>
+<url>
+<loc>https://powershell.anovelidea.org/_posts/2018-09-03-download-newest-sysinternals/</loc>
 </url>
 <url>
 <loc>https://powershell.anovelidea.org/modulehelp/PoShEvents/ConvertFrom-EventLogRecord.html</loc>
@@ -96,5 +103,8 @@
 </url>
 <url>
 <loc>https://powershell.anovelidea.org/tags/</loc>
+</url>
+<url>
+<loc>https://powershell.anovelidea.org/</loc>
 </url>
 </urlset>
