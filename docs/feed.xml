@@ -1,7 +1,425 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-08-21T22:41:09-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Clear DNS Server Cache</title><link href="https://powershell.anovelidea.org/powershell/clear-dns-server-cache/" rel="alternate" type="text/html" title="Clear DNS Server Cache" /><published>2018-08-21T00:00:00-05:00</published><updated>2018-08-21T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/clear-dns-server-cache</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/clear-dns-server-cache/">&lt;p&gt;How often have you needed to clear the DNS server cache?&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-09-03T12:52:02-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">How I Blog</title><link href="https://powershell.anovelidea.org/blog/how-i-blog/" rel="alternate" type="text/html" title="How I Blog" /><published>2018-08-26T00:00:00-05:00</published><updated>2018-08-29T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/blog/how-i-blog</id><content type="html" xml:base="https://powershell.anovelidea.org/blog/how-i-blog/">&lt;p&gt;Someone asked what I used to produce this blog. This post will provide the methodology and details.&lt;/p&gt;
 
-&lt;p&gt;It may not be frequent, but if your environment has several domain controllers, a few simple lines of PowerShell can
-clear the cache on all of them.&lt;/p&gt;
+&lt;h2 id=&quot;the-decision-to-blog&quot;&gt;The Decision to Blog&lt;/h2&gt;
+
+&lt;p&gt;I’ve hosted a personal website on various platforms since early 2000. I’ve used FTP, SFTP, FrontPage, WebDAV,
+Dreamweaver, WordPress, and probably some others that I’ve forgotten about. Using WordPress, I had performance issues
+when the MySQL database was not located near the web host.&lt;/p&gt;
+
+&lt;p&gt;Even with a stance of ‘update all the plugins’, it was not enough to protect my site from hackers. Late in 2015, my site
+was hacked and it took me months to realize since they were just hosting hidden pages and hidden SEO info. Once I
+realized what had happened to my site, I converted it to a static hosted by (don’t judge) Google Sites. It solved the
+problem of a vulnerable site and poor performance.&lt;/p&gt;
+
+&lt;p&gt;I’ve been toying around with the idea of creating a blog for PowerShell for a few years now, ever since I started
+working with another PowerShell blogger, Michael Simmons, who publishes &lt;a href=&quot;https://ilovepowershell.com&quot; target=&quot;_blank&quot;&gt;I Love PowerShell&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;As I was learning how to build my own modules, with finesse — not just thrown together, I kept finding enlightening
+posts on blogs like &lt;a href=&quot;https://kevinmarquette.github.io&quot; target=&quot;_blank&quot;&gt;Kevin Marquette on PowerShell Theory&lt;/a&gt; and
+&lt;a href=&quot;https://ramblingcookiemonster.github.io/&quot; target=&quot;_blank&quot;&gt;Warren Frame’s Rambling Cookie Monster&lt;/a&gt;. They just happen
+to be using GitHub Pages, Jekyll, and the Minimal Mistakes Jekyll theme.&lt;/p&gt;
+
+&lt;p&gt;This new (to me) tech stack would provide an easy way to add content (not like Google Sites) and still provide a static
+site with decent performance. Thoughts started falling into place and I saw the efficiency and learning opportunities.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;I’m going to blog. And I’m going to use that tech stack.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;editor-and-source-control&quot;&gt;Editor and Source Control&lt;/h2&gt;
+
+&lt;p&gt;I use Visual Studio Code to edit my blog, PowerShell code, and scripts in other languages.&lt;/p&gt;
+
+&lt;p&gt;Git for Windows allows me to create local source controlled folders and to interact with GitHub. Even if you don’t opt to
+use GitHub (free for public repositories), you can still use Git locally.&lt;/p&gt;
+
+&lt;h2 id=&quot;github-and-github-pages&quot;&gt;GitHub and GitHub Pages&lt;/h2&gt;
+
+&lt;p&gt;I’m fully convinced that source control is necessary for code, and a blog is really nothing but code. Therefore, it was
+an easy decision to use a GitHub repository for my blog and then to configure it to publish using GitHub Pages.&lt;/p&gt;
+
+&lt;p&gt;Visit GitHub Help for more information on how to &lt;a href=&quot;https://help.github.com/articles/signing-up-for-a-new-github-account/&quot; target=&quot;_blank&quot;&gt;create a GitHub account&lt;/a&gt;, &lt;a href=&quot;https://help.github.com/articles/create-a-repo/&quot; target=&quot;_blank&quot;&gt;create a repository&lt;/a&gt;, and
+information on &lt;a href=&quot;https://help.github.com/articles/what-is-github-pages/&quot; target=&quot;_blank&quot;&gt;GitHub Pages&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;repository&quot;&gt;Repository&lt;/h3&gt;
+
+&lt;p&gt;Perhaps due to OCD, I created a repository to match the custom domain that I’m using for my GitHub Pages. Actually,
+naming folders based on the hostname is a habit that I got in several years ago. It clearly identifies that the content
+should be that website.&lt;/p&gt;
+
+&lt;h4 id=&quot;custom-domain&quot;&gt;Custom Domain&lt;/h4&gt;
+
+&lt;p&gt;I’ve had the domain &lt;code class=&quot;highlighter-rouge&quot;&gt;anovelidea.org&lt;/code&gt; since early 2000, and since I didn’t want to use the default domain of *.github.io,
+I opted to use the Custom Domain setting for my repo and created &lt;code class=&quot;highlighter-rouge&quot;&gt;powershell.anovelidea.org&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;branches&quot;&gt;Branches&lt;/h4&gt;
+
+&lt;p&gt;Every git or GitHub repository can have multiple branches. Branches are typically used to develop new features or work
+on fixes without touching the rest of the code.&lt;/p&gt;
+
+&lt;p&gt;Each branch of my repo plays a role in the production of my blog.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Branch&lt;/th&gt;
+      &lt;th&gt;Purpose&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;master&lt;/td&gt;
+      &lt;td&gt;I push commits to this branch when I make changes to the blog, e.g. publish new posts or approve comments.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;gh-pages&lt;/td&gt;
+      &lt;td&gt;After Travis-CI builds the site, it pushes to this branch which GitHub, in turn, publishes to GitHub Pages.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;comments&lt;/td&gt;
+      &lt;td&gt;The Staticman API creates pull requests for this branch when a new comment is submitted.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;jekyll-framework&quot;&gt;Jekyll Framework&lt;/h2&gt;
+
+&lt;p&gt;Jekyll is &lt;a href=&quot;https://www.netlify.com/blog/2017/05/25/top-ten-static-site-generators-of-2017/&quot; target=&quot;_blank&quot;&gt;one of the most used&lt;/a&gt;
+static site generators. It’s built on Ruby and renders content with Markdown and Liquid templates.&lt;/p&gt;
+
+&lt;p&gt;GitHub Pages deploy sites using Jekyll and provides a &lt;a href=&quot;https://help.github.com/articles/about-jekyll-themes-on-github/&quot; target=&quot;_blank&quot;&gt;handful of themes&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/&quot; target=&quot;_blank&quot;&gt;Jekyll site&lt;/a&gt; for more details.&lt;/p&gt;
+
+&lt;h2 id=&quot;minimal-mistakes&quot;&gt;Minimal Mistakes&lt;/h2&gt;
+
+&lt;p&gt;The theme that I chose for simplicity is Minimal Mistakes by Michael Rose at &lt;a href=&quot;https://mademistakes.com/&quot; target=&quot;_blank&quot;&gt;Made Mistakes&lt;/a&gt;.
+He provides a &lt;a href=&quot;https://mmistakes.github.io/minimal-mistakes&quot; target=&quot;_blank&quot;&gt;Minimal Mistakes demo site&lt;/a&gt; that can show
+you the theme’s capabilities.&lt;/p&gt;
+
+&lt;p&gt;The cool thing about most of the Jekyll themes is that they, themselves, are in GitHub repos. You can download the full
+repo or fork it and have a site up and running in short order.&lt;/p&gt;
+
+&lt;h3 id=&quot;custom-layouts-and-includes&quot;&gt;Custom Layouts and Includes&lt;/h3&gt;
+
+&lt;p&gt;The Jekyll framework is essentially a given structure of folders with code snippets that build the static HTML files when
+Jekyll is instructed to do so. Layouts, includes, CSS, html, Markdown files, and more are stitched together and, barring
+any compilation errors, the result is several html files, CSS, and other assets that is your site. You could conceivably
+take those files and FTP them to a third-party hosting provider, but where is the fun in that?&lt;/p&gt;
+
+&lt;h4 id=&quot;configuration&quot;&gt;Configuration&lt;/h4&gt;
+
+&lt;p&gt;Jekyll uses what’s called front matter &lt;abbr title=&quot;Yet Ain't Markup Language&quot;&gt;YAML&lt;/abbr&gt; in the template files and in the configuration file, &lt;code class=&quot;highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt;. This
+allows each post and page to have different elements.&lt;/p&gt;
+
+&lt;h4 id=&quot;layouts-and-includes&quot;&gt;Layouts and Includes&lt;/h4&gt;
+
+&lt;p&gt;I’ve updated or added the following layout and includes files from the base theme.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;File&lt;/th&gt;
+      &lt;th&gt;Modifications&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;_layouts\home.html&lt;/td&gt;
+      &lt;td&gt;Replaced archive-single include with posts-lists&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;_layouts\onlinehelp.html&lt;/td&gt;
+      &lt;td&gt;New layout based on single, removed title header, page metadata, and other elements not required&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;_layouts\pages.html&lt;/td&gt;
+      &lt;td&gt;New layout based on single, added code to display published and updated date, removed environment requirement&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;_layouts\single.html&lt;/td&gt;
+      &lt;td&gt;Added &lt;code class=&quot;highlighter-rouge&quot;&gt;classes: wide&lt;/code&gt; to the front matter, added code to display published and updated date, removed environment requirement&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;_includes\analytics.html&lt;/td&gt;
+      &lt;td&gt;Removed environment requirement&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;_includes\archive-single.html&lt;/td&gt;
+      &lt;td&gt;Included new include file posts-date&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;_includes\posts-date.html&lt;/td&gt;
+      &lt;td&gt;New include, displays published and updated date&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;_includes\posts-list.html&lt;/td&gt;
+      &lt;td&gt;Based on archive-single, added posts-tags-list and posts-date&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;_includes\posts-tags-list.html&lt;/td&gt;
+      &lt;td&gt;Based on tag-list, uses post.tags instead of page.tags&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;code-syntax&quot;&gt;Code Syntax&lt;/h3&gt;
+
+&lt;p&gt;Though I’m using the &lt;code class=&quot;highlighter-rouge&quot;&gt;air&lt;/code&gt; skin for my theme, I didn’t like the default color scheme the skin provided. Using the
+theme’s documentation, I was able to replace the code syntax highlighting color variables with another skin’s by
+updating the file &lt;code class=&quot;highlighter-rouge&quot;&gt;_sass\_variables.scss&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;my-modules&quot;&gt;My Modules&lt;/h3&gt;
+
+&lt;p&gt;I wanted to provide a quick place to see my modules and what features they possess. I originally created markdown tables
+for each, but then decided to use a data file.&lt;/p&gt;
+
+&lt;p&gt;Jekyll uses a &lt;code class=&quot;highlighter-rouge&quot;&gt;_data&lt;/code&gt; folder to store data that could be used by the framework. At build time, it will import all files
+in this folder and provide the data as variables.&lt;/p&gt;
+
+&lt;h4 id=&quot;sample-data&quot;&gt;Sample data&lt;/h4&gt;
+&lt;pre&gt;
+- name: PoShEvents
+  description: 'PowerShell module to query Windows Event Logs.'
+  help: 'External file'
+  onlinehelp: true
+  updatablehelp: true
+  pester: false
+  build: false
+  psgallery: true
+&lt;/pre&gt;
+
+&lt;p&gt;In my &lt;code class=&quot;highlighter-rouge&quot;&gt;_pages\modules.html&lt;/code&gt; file, I added the html and Liquid code to loop through each section in the data file.
+Instead of manually adding markdown or html code, which can become tedious, I now simply add another section in the data
+file, &lt;code class=&quot;highlighter-rouge&quot;&gt;_data\mymodules.yml&lt;/code&gt;. On next build, the page will include the new module.&lt;/p&gt;
+
+&lt;h2 id=&quot;google-analytics&quot;&gt;Google Analytics&lt;/h2&gt;
+
+&lt;p&gt;The theme has built-in support for Google Analytics. You simply add your site’s tracking ID to the &lt;code class=&quot;highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt;
+configuration file.&lt;/p&gt;
+
+&lt;h2 id=&quot;visitor-comments&quot;&gt;Visitor Comments&lt;/h2&gt;
+
+&lt;p&gt;The Minimal Mistakes theme includes several options for visitor comments: disqus, discourse, facebook, google-plus,
+staticman, staticman_v2, and custom. After checking into them, I saw that the theme author used Staticman V2. It seemed
+the best way to go and it keeps the comments within your grasp and local(ish) to the site.&lt;/p&gt;
+
+&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; The theme author has developed &lt;strong&gt;reply-to&lt;/strong&gt; comments but has not incorporated them into the Minimal Mistakes
+theme. When I want to get under the hood again of the theme, I will look at implementing it for this site.&lt;/p&gt;
+
+&lt;h3 id=&quot;staticman-api-webhook&quot;&gt;Staticman API Webhook&lt;/h3&gt;
+
+&lt;p&gt;For Staticman to work, there are a few quick configuration steps needed that are laid out in the
+&lt;a href=&quot;https://staticman.net/docs/&quot; target=&quot;_blank&quot;&gt;documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Additionally, you will need a &lt;code class=&quot;highlighter-rouge&quot;&gt;staticman.yml&lt;/code&gt; configuration file. This file is included in the theme’s repo.&lt;/p&gt;
+
+&lt;h3 id=&quot;moderation&quot;&gt;Moderation&lt;/h3&gt;
+
+&lt;p&gt;Comment forms are magnets for bots and malicious users. The theme provides a few tricks to filter comments down to the
+real users wanting to leave a message. Beyond that, I use the optional moderation provided by Staticman which creates a
+pull request to the &lt;code class=&quot;highlighter-rouge&quot;&gt;comments&lt;/code&gt; branch. I get a notification that a PR is waiting for me, login to GitHub, even on
+mobile, and merge the pull request to approve the message.&lt;/p&gt;
+
+&lt;p&gt;The pull request for a comment is saved to &lt;code class=&quot;highlighter-rouge&quot;&gt;_data\comments\&amp;lt;title-slug\comment-&amp;lt;date-time-stamp&amp;gt;.yml&lt;/code&gt;. The visitor’s
+email is stored as a hash value to keep it relatively safe.&lt;/p&gt;
+
+&lt;h3 id=&quot;gravatar&quot;&gt;Gravatar&lt;/h3&gt;
+
+&lt;p&gt;The theme will use the &lt;a href=&quot;https://en.gravatar.com/support/what-is-gravatar/&quot; target=&quot;_blank&quot;&gt;Gravatar&lt;/a&gt; service to
+provide a graphic that the user has previously configured.&lt;/p&gt;
+
+&lt;h2 id=&quot;jekyll-build&quot;&gt;Jekyll Build&lt;/h2&gt;
+
+&lt;p&gt;As Jekyll runs on Ruby, you will need to have a system that can run Ruby and the Jekyll gems.&lt;/p&gt;
+
+&lt;h3 id=&quot;build-system--windows-subsystem-for-linux&quot;&gt;Build System : Windows Subsystem for Linux&lt;/h3&gt;
+
+&lt;p&gt;Instead of going down the Ruby on Windows avenue, I opted to learn a little about the new Windows Subsystem for Linux on
+Windows 10. This method produced a few errors that I had to overcome. I’ll most likely post on that setup separately.
+While I used this method initially, I have all but abandoned it for now.&lt;/p&gt;
+
+&lt;h3 id=&quot;build-system--google-cloud-platform&quot;&gt;Build System : Google Cloud Platform&lt;/h3&gt;
+
+&lt;p&gt;I looked for a free hosting solution to have a Linux VM and, what I’m hoping, it appears that Google Cloud Platform will
+give you enough free credits per month to have a single, small VM running the whole time. I had configured it to the
+point of being able execute the &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll build&lt;/code&gt; command successfully.&lt;/p&gt;
+
+&lt;p&gt;I had even configured dynamic DNS for the VM to register its IP address with my domain at Google Domains. Hey, at least
+I know how to do that now.&lt;/p&gt;
+
+&lt;p&gt;The problem I faced was that I need a way to kick off the build after I pushed changes into the branch —
+automatically, if possible. But that would entail me creating a listener on the VM that could be triggered by the branch
+status change. I felt I had explored that rabbit hole enough and backed out quickly.&lt;/p&gt;
+
+&lt;p&gt;I still needed an automated build system.&lt;/p&gt;
+
+&lt;h3 id=&quot;build-system--travis-ci&quot;&gt;Build System : Travis CI&lt;/h3&gt;
+
+&lt;p&gt;Enter Travis CI. The CI stands for &lt;strong&gt;Continuous Integration&lt;/strong&gt; and is part of the &lt;abbr title=&quot;Continuous Integration/Continuous Delivery&quot;&gt;CI/CD&lt;/abbr&gt; model that I want to learn about.
+It drives true DevOps.&lt;/p&gt;
+
+&lt;p&gt;On GitHub, I configured the Travis CI service for my blog repo.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Travis CI &lt;a href=&quot;https://docs.travis-ci.com/user/open-source-on-travis-ci-com/&quot; target=&quot;_blank&quot;&gt;announced in May&lt;/a&gt;
+that open source projects would be able to use &lt;code class=&quot;highlighter-rouge&quot;&gt;travis-ci.com&lt;/code&gt;. Sometime soon, I’ll work on upgrading to the new method
+which uses GitHub Apps and has greater benefits.&lt;/p&gt;
+
+&lt;p&gt;With the integration service setup, whenever the master branch changes, that is when I push changes or when a PR from
+the comments branch is merged, the service notifies Travis CI that it needs to create a build.&lt;/p&gt;
+
+&lt;h4 id=&quot;travis-configuration-file&quot;&gt;Travis Configuration File&lt;/h4&gt;
+
+&lt;p&gt;In my &lt;code class=&quot;highlighter-rouge&quot;&gt;.travis.yml&lt;/code&gt; configuration file, I set the build script to execute (chmod), set which branch to clone, and
+whether to use a cache for the bundler. Additonally I set it to deploy to the gh-pages branch after the build phase
+completes.&lt;/p&gt;
+
+&lt;h4 id=&quot;build&quot;&gt;Build&lt;/h4&gt;
+
+&lt;p&gt;When notified of a change, Travis spins up an Ubuntu Linux container, installs all dependencies (from self updating
+cache), clones the master branch of my blog repo, runs the &lt;code class=&quot;highlighter-rouge&quot;&gt;/script/cibuild&lt;/code&gt; bash script I created, then deploys to the
+gh-pages branch.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;script/cibuild&lt;/strong&gt;&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/thedavecarroll/74438e76f6d0de1a77d09bcd956d4203.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Spinning up a blog in this manner takes patience and determination, but the rewards include learning new technologies,
+such as GitHub, Ruby, and Jekyll. It’s taken me several steps toward automation, &lt;abbr title=&quot;Continuous Integration/Continuous Delivery&quot;&gt;CI/CD&lt;/abbr&gt;, and DevOps.&lt;/p&gt;
+
+&lt;p&gt;Remember, because all of this is hosted publicly by GitHub, you can see everything in
+&lt;a href=&quot;https://github.com/thedavecarroll/powershell.anovelidea.org&quot; target=&quot;_blank&quot;&gt;my repo&lt;/a&gt;. Check out the closed Pull
+Requests. Check out the folder structure and the files.&lt;/p&gt;
+
+&lt;p&gt;I hope this post was informative. Feel free to leave a comment below.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;blog&quot;]" /><category term="blog" /><category term="jekyll" /><category term="travis ci" /><category term="github" /><category term="staticman" /><summary type="html">What technologies are used in my blog?</summary></entry><entry><title type="html">Updatable Help</title><link href="https://powershell.anovelidea.org/powershell/updatable-help/" rel="alternate" type="text/html" title="Updatable Help" /><published>2018-08-25T00:00:00-05:00</published><updated>2018-08-25T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/updatable-help</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/updatable-help/">&lt;p&gt;PowerShell has provided a way to update the help files for modules since version 3.0.&lt;/p&gt;
+
+&lt;p&gt;Since creating my first two modules, I have tried adding updatable help support, but came across a few issues. Tonight,
+I finally resolved them for my module PoShEvents.&lt;/p&gt;
+
+&lt;h2 id=&quot;github-bad-github-pages-good&quot;&gt;GitHub Bad, GitHub Pages Good&lt;/h2&gt;
+
+&lt;p&gt;My module repository is in GitHub, and I originally thought that I could simply use the Raw view for my updatable help.
+After all, I was successfully serving the online help version using the markdown files straight out of GitHub.&lt;/p&gt;
+
+&lt;p&gt;GitHub, as it turns out, hosts their files in a way that is not compatible for updatable help.&lt;/p&gt;
+
+&lt;p&gt;I am now using GitHub Pages for this blog and I wanted to give updatable help another try. This method of hosting works
+as intended.&lt;/p&gt;
+
+&lt;h2 id=&quot;building-updatable-help&quot;&gt;Building Updatable Help&lt;/h2&gt;
+
+&lt;p&gt;Like most others, I have opted to use the module &lt;a href=&quot;https://github.com/PowerShell/platyPS&quot; target=&quot;_blank&quot;&gt;platyPS&lt;/a&gt; to
+create my help files.&lt;/p&gt;
+
+&lt;p&gt;This post focuses on solving the issues I had with updatable help. For instructions on how to use &lt;code class=&quot;highlighter-rouge&quot;&gt;platyPS&lt;/code&gt; see any of
+these sites.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://overpoweredshell.com/Module-Tools-Adding-Cmdlet-Help-With-PlatyPS/&quot; target=&quot;_blank&quot;&gt;Module Tools - Adding Cmdlet Help With PlatyPS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ntsystems.it/post/converting-powershell-help-a-website&quot; target=&quot;_blank&quot;&gt;Convert PowerShell Help to a Website&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I had already created the markdown files that I was serving via GitHub for online help and moved those into my blog
+repository structure. I used &lt;code class=&quot;highlighter-rouge&quot;&gt;Update-MarkdownHelp&lt;/code&gt; to update them and noticed that my Jekyll front matter was largely
+untouched – some entries were out of order.&lt;/p&gt;
+
+&lt;p&gt;When I originally created the help files, I did not include the &lt;code class=&quot;highlighter-rouge&quot;&gt;-WithModulePage&lt;/code&gt; switch. I ran the &lt;code class=&quot;highlighter-rouge&quot;&gt;New-MarkdownHelp&lt;/code&gt;
+and generated a clean set of help files into a temp folder just to harvest the module page. After placing the file into
+the correct path, I updated the front matter for Download Help Link, Help Version, and Locale.&lt;/p&gt;
+
+&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I also added additional front matter YAML to be used by Jekyll, namely layout, classes, and permalink.&lt;/p&gt;
+
+&lt;p&gt;As the content for the help files had previously been updated, I didn’t have to do that again. If you’re starting from a
+clean or initial run of &lt;code class=&quot;highlighter-rouge&quot;&gt;New-MarkdownHelp&lt;/code&gt;, you will need to update the content manually.&lt;/p&gt;
+
+&lt;p&gt;Then, I recreated the external help file.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;New-ExternalHelp -Path .\powershell.anovelidea.org\modulehelp\PoShEvents -OutputPath .\PoShEvents\PoShEvents\en-US\ -Force
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;testing-updatable-help&quot;&gt;Testing Updatable Help&lt;/h2&gt;
+
+&lt;p&gt;Once you have created the necessary help files, you will need to test that it will successully update the module help.&lt;/p&gt;
+
+&lt;h3 id=&quot;local-source&quot;&gt;Local Source&lt;/h3&gt;
+
+&lt;p&gt;First, let’s see if we can &lt;code class=&quot;highlighter-rouge&quot;&gt;Update-Help&lt;/code&gt; from the local source.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Update-Help -Module PoShEvents -SourcePath .\powershell.anovelidea.org\modulehelp\PoShEvents\ -Force -Verbose
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div style=&quot;color: gold&quot; class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;VERBOSE: Performing the operation &quot;Update-Help&quot; on target &quot;PoShEvents, Current Version: 0.2.1, Available Version: 0.2.1, UICulture: en-US&quot;.
+VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\about_PoShEvents.help.txt. Culture en-US Version 0.2.1
+VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\PoShEvents-help.xml. Culture en-US Version 0.2.1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This proves that the updatable help works when pulling from the local source.&lt;/p&gt;
+
+&lt;h3 id=&quot;online-source&quot;&gt;Online Source&lt;/h3&gt;
+
+&lt;p&gt;If the local source test is successful, you will need to upload the &lt;code class=&quot;highlighter-rouge&quot;&gt;*HelpInfo.xml&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;*HelpContent.cab&lt;/code&gt;, and
+&lt;code class=&quot;highlighter-rouge&quot;&gt;*HelpContent.zip&lt;/code&gt; help files to the location indicated by the module’s &lt;code class=&quot;highlighter-rouge&quot;&gt;HelpInfoUri&lt;/code&gt;. After this is done, you should
+verify that you can access the URL successfully by using &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-WebRequest&lt;/code&gt;. Ideally, the StatusCode should be 200.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ModInfo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Get-Module -Name PoShEvents | &lt;span class=&quot;nb&quot;&gt;Select-Object&lt;/span&gt; -Property Name,Guid,HelpInfoURI
+&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Invoke-WebRequest&lt;/span&gt; -Uri &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ModInfo&lt;/span&gt;.HelpInfoUri&lt;span class=&quot;k&quot;&gt;)$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ModInfo&lt;/span&gt;.Name&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ModInfo&lt;/span&gt;.Guid&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_HelpInfo.xml&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.StatusCode
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;My result was not ideal.&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I wished that I could say I immediately tested with &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-WebRequest&lt;/code&gt;. That would have saved me about an hour going
+down the rabbithole of trying to trace the &lt;code class=&quot;highlighter-rouge&quot;&gt;Update-Help&lt;/code&gt; command. It would really be nice if &lt;code class=&quot;highlighter-rouge&quot;&gt;Update-Help&lt;/code&gt; revealed more
+internal workings when you use the &lt;code class=&quot;highlighter-rouge&quot;&gt;-Verbose&lt;/code&gt; switch.&lt;/p&gt;
+
+&lt;h2 id=&quot;tls&quot;&gt;TLS&lt;/h2&gt;
+
+&lt;p&gt;Checking the security protocol that my default PowerShell session used, I saw why my testing failed. I included the
+TLS 1.2 protocol and tested the URL again successfully.&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;[Net.ServicePointManager]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SecurityProtocol&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div style=&quot;color: whitesmoke&quot; class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Ssl3, Tls
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;[Net.ServicePointManager]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SecurityProtocol&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SecurityProtocolType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Tls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SecurityProtocolType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Tls11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SecurityProtocolType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Tls12&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p class=&quot;notice&quot;&gt;A quick search revealed that on February 8, 2018, &lt;a href=&quot;https://githubengineering.com/crypto-removal-notice/&quot; target=&quot;_blank&quot;&gt;GitHub discontinued the use of TLS 1.0 and TLS 1.1&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Update-Help -Name PoShEvents -Verbose -Force
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div style=&quot;color: gold&quot; class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;VERBOSE: Resolving URI: &quot;https://powershell.anovelidea.org/modulehelp/PoShEvents&quot;
+VERBOSE: Your connection has been redirected to the following URI: &quot;http://powershell.anovelidea.org/modulehelp/PoShEvents/&quot;
+VERBOSE: Performing the operation &quot;Update-Help&quot; on target &quot;PoShEvents, Current Version: 0.2.1, Available Version: 0.2.1, UICulture: en-US&quot;.
+VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\about_PoShEvents.help.txt. Culture en-US Version 0.2.1
+VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\PoShEvents-help.xml. Culture en-US Version 0.2.1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;setting-strong-cryptography-for-net-framework&quot;&gt;Setting Strong Cryptography for .Net Framework&lt;/h2&gt;
+
+&lt;p&gt;Setting &lt;code class=&quot;highlighter-rouge&quot;&gt;[Net.ServicePointManager]::SecurityProtocol&lt;/code&gt;, as I did, only applies to the current PowerShell session. To make
+the change permanent, I updated the registry.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# set strong cryptography on 64 bit .Net Framework (version 4 and above)&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;Set-ItemProperty&lt;/span&gt; -Path &lt;span class=&quot;s1&quot;&gt;'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NetFramework\v4.0.30319'&lt;/span&gt; -Name &lt;span class=&quot;s1&quot;&gt;'SchUseStrongCrypto'&lt;/span&gt; -Value &lt;span class=&quot;s1&quot;&gt;'1'&lt;/span&gt; -Type DWord
+
+&lt;span class=&quot;c1&quot;&gt;# set strong cryptography on 32 bit .Net Framework (version 4 and above)&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;Set-ItemProperty&lt;/span&gt; -Path &lt;span class=&quot;s1&quot;&gt;'HKLM:\SOFTWARE\Microsoft\.NetFramework\v4.0.30319'&lt;/span&gt; -Name &lt;span class=&quot;s1&quot;&gt;'SchUseStrongCrypto'&lt;/span&gt; -Value &lt;span class=&quot;s1&quot;&gt;'1'&lt;/span&gt; -Type DWord
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;By using GitHub Pages, platyPS, and the appropriate TLS protocol, I’m finally serving updatable help for my module
+&lt;a href=&quot;https://github.com/thedavecarroll/PoShEvents&quot; target=&quot;_blank&quot;&gt;PoShEvents&lt;/a&gt;.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="update-help" /><category term="updatable help" /><category term="tls" /><category term="ssl" /><category term="platyps" /><category term="powershell" /><summary type="html">Updatable Help on GitHub Pages with platyPS.</summary></entry><entry><title type="html">Clear DNS Server Cache</title><link href="https://powershell.anovelidea.org/powershell/clear-dns-server-cache/" rel="alternate" type="text/html" title="Clear DNS Server Cache" /><published>2018-08-21T00:00:00-05:00</published><updated>2018-08-21T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/clear-dns-server-cache</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/clear-dns-server-cache/">&lt;p&gt;How often have you needed to clear the DNS server cache?&lt;/p&gt;
+
+&lt;p&gt;Regardless how many domain controllers in your environment, a few simple lines of PowerShell can clear the cache on all of them.&lt;/p&gt;
 
 &lt;p&gt;First, we need to get the name of the domain. Of course, if you already know the name, you can simply use it.&lt;/p&gt;
 
@@ -23,9 +441,13 @@ clear the cache on all of them.&lt;/p&gt;
 &lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Resolve-DnsName&lt;/span&gt; -Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Get-ADDomain&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;Select-Object&lt;/span&gt; -ExpandProperty DnsRoot -Type NS&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.Where&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;.Type -eq &lt;span class=&quot;s1&quot;&gt;'NS'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;.NameHost.ForEach&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Clear&lt;/span&gt;-DnsServerCache -ComputerName &lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt; -Force &lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;For more information, please see the following Microsoft docs:&lt;/strong&gt;
-&lt;a href=&quot;https://docs.microsoft.com/en-us/powershell/module/dnsserver/clear-dnsservercache&quot;&gt;Clear-DnsServerCache&lt;/a&gt;
-&lt;a href=&quot;https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dnscmd&quot;&gt;DnsCmd&lt;/a&gt;&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="dns" /><category term="dns cache" /><summary type="html">Greetings fellow PowerShell aficionados!...I've decided to start blogging about PowerShell.</summary></entry><entry><title type="html">Unique Email Domains</title><link href="https://powershell.anovelidea.org/powershell/unique-email-domains/" rel="alternate" type="text/html" title="Unique Email Domains" /><published>2018-08-17T00:00:00-05:00</published><updated>2018-08-17T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/unique-email-domains</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/unique-email-domains/">&lt;p&gt;So you’re working on getting all of your email domains that’s on-prem into Azure or you simply want to ensure that your
+&lt;p&gt;For more information, please see the following Microsoft docs:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.microsoft.com/en-us/powershell/module/dnsserver/clear-dnsservercache&quot; target=&quot;_blank&quot;&gt;Clear-DnsServerCache&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Have a great day!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="dns" /><category term="dns cache" /><summary type="html">Clear the DNS server cache on all domain controllers.</summary></entry><entry><title type="html">Unique Email Domains</title><link href="https://powershell.anovelidea.org/powershell/unique-email-domains/" rel="alternate" type="text/html" title="Unique Email Domains" /><published>2018-08-17T00:00:00-05:00</published><updated>2018-08-17T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/unique-email-domains</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/unique-email-domains/">&lt;p&gt;So you’re working on getting all of your email domains that’s on-prem into Azure or you simply want to ensure that your
 on-prem Exchange has been configured for all the domains your user accounts utilize. Your Active Directory domain
 contains over 30,000 accounts. How would you go about discovering the unique email domains?&lt;/p&gt;
 
@@ -56,17 +478,16 @@ ForEach-Object cmdlet or the foreach loop. You can use whichever you choose base
 
 &lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$EmailDomains&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;Sort-Object&lt;/span&gt; -Unique
 
-&lt;span class=&quot;c1&quot;&gt;# output&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# anovelidea.org&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# chronicgoogler.com&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# gmail.com&lt;/span&gt;
+anovelidea.org
+chronicgoogler.com
+gmail.com
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Of course, you could have dozens or more unique domains. This short exercise can also reveal typos in domains.&lt;/p&gt;
 
 &lt;p&gt;Hopefully, this post was helpful to you in some way.&lt;/p&gt;
 
-&lt;p&gt;Have a great day!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="exchange" /><summary type="html">So you’re working on getting all of your email domains that’s on-prem into Azure or you simply want to ensure that your on-prem Exchange has been configured for all the domains your user accounts utilize. Your Active Directory domain contains over 30,000 accounts. How would you go about discovering the unique email domains?</summary></entry><entry><title type="html">Welcome to My PowerShell Blog</title><link href="https://powershell.anovelidea.org/blog/blog-inception/" rel="alternate" type="text/html" title="Welcome to My PowerShell Blog" /><published>2018-08-14T00:00:00-05:00</published><updated>2018-08-17T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/blog/blog-inception</id><content type="html" xml:base="https://powershell.anovelidea.org/blog/blog-inception/">&lt;p&gt;Greetings fellow PowerShell aficionados!&lt;/p&gt;
+&lt;p&gt;Have a great day!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="exchange" /><category term="azure" /><summary type="html">Get unique email domains from proxyAddresses for Exchange or Azure.</summary></entry><entry><title type="html">Welcome to My PowerShell Blog</title><link href="https://powershell.anovelidea.org/blog/blog-inception/" rel="alternate" type="text/html" title="Welcome to My PowerShell Blog" /><published>2018-08-14T00:00:00-05:00</published><updated>2018-08-17T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/blog/blog-inception</id><content type="html" xml:base="https://powershell.anovelidea.org/blog/blog-inception/">&lt;p&gt;Greetings fellow PowerShell aficionados!&lt;/p&gt;
 
 &lt;p&gt;I feel I must begin with a confession: I was not an early adopter of PowerShell.&lt;/p&gt;
 
@@ -78,10 +499,10 @@ ForEach-Object cmdlet or the foreach loop. You can use whichever you choose base
 
 &lt;p&gt;Each year after that, my PowerShell skills grew and grew. I had/have a PowerShell session open basically all of the time. As much as I could, I tried using PowerShell commands instead of the GUI.&lt;/p&gt;
 
-&lt;p&gt;In 2012, I started working with someone that &lt;a href=&quot;https://www.ILovePowerShell.com&quot;&gt;loved PowerShell&lt;/a&gt; as much as I did. We challenged each other and learned from it. I wrote functions and dot-sourced them in my profile. I started dabbling in modules, but just didn’t make the time to delve fully into them.&lt;/p&gt;
+&lt;p&gt;In 2012, I started working with someone that &lt;a href=&quot;https://www.ILovePowerShell.com&quot; target=&quot;_blank&quot;&gt;loved PowerShell&lt;/a&gt; as much as I did. We challenged each other and learned from it. I wrote functions and dot-sourced them in my profile. I started dabbling in modules, but just didn’t make the time to delve fully into them.&lt;/p&gt;
 
 &lt;p&gt;Over the last couple years, I switched from PowerShell ISE to VS Code, started using git repositories (internal and GitHub), and created my first few real modules.&lt;/p&gt;
 
 &lt;p&gt;And I’ve decided to start blogging about PowerShell.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;I’ve had the domain &lt;code class=&quot;highlighter-rouge&quot;&gt;anovelidea.org&lt;/code&gt; since early 2000. If you want a break from PowerShell and IT in general, you can check out &lt;a href=&quot;http://www.anovelidea.org&quot;&gt;my other website&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;blog&quot;]" /><category term="blog" /><category term="powershell" /><summary type="html">Greetings fellow PowerShell aficionados!...I've decided to start blogging about PowerShell.</summary></entry></feed>
+&lt;p&gt;&lt;em&gt;I’ve had the domain &lt;code class=&quot;highlighter-rouge&quot;&gt;anovelidea.org&lt;/code&gt; since early 2000. If you want a break from PowerShell and IT in general, you can check out &lt;a href=&quot;http://www.anovelidea.org&quot; target=&quot;_blank&quot;&gt;my other website&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;blog&quot;]" /><category term="blog" /><category term="powershell" /><summary type="html">Greetings fellow PowerShell aficionados!...I've decided to start blogging about PowerShell.</summary></entry></feed>

@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.12.1 by Michael Rose
+  Minimal Mistakes Jekyll Theme 4.12.2 by Michael Rose
   Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Get-ServiceEvent - PowerShell: What A Novel Idea</title>
+<!-- begin _includes/seo.html --><title>Get-SystemRestartEvent - PowerShell: What A Novel Idea</title>
 <meta name="description" content="A blog on PowerShell and IT">
 
 
@@ -17,8 +17,8 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="PowerShell: What A Novel Idea">
-<meta property="og:title" content="Get-ServiceEvent">
-<meta property="og:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-ServiceEvent.html">
+<meta property="og:title" content="Get-SystemRestartEvent">
+<meta property="og:url" content="https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-SystemRestartEvent.html">
 
 
 
@@ -26,9 +26,9 @@
 
 
   <meta name="twitter:site" content="@thedavecarroll">
-  <meta name="twitter:title" content="Get-ServiceEvent">
+  <meta name="twitter:title" content="Get-SystemRestartEvent">
   <meta name="twitter:description" content="A blog on PowerShell and IT">
-  <meta name="twitter:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-ServiceEvent.html">
+  <meta name="twitter:url" content="https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-SystemRestartEvent.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -48,7 +48,7 @@
   
 
 
-<link rel="canonical" href="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-ServiceEvent.html">
+<link rel="canonical" href="https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-SystemRestartEvent.html">
 
 
 
@@ -131,7 +131,7 @@
             </li><li class="masthead__menu-item">
               <a href="/tags/" >Tags</a>
             </li><li class="masthead__menu-item">
-              <a href="/categories/" >Categories</a>
+              <a href="/modules/" >My Modules</a>
             </li><li class="masthead__menu-item">
               <a href="/resources/" >Resources</a>
             </li></ul>
@@ -280,7 +280,7 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Get-ServiceEvent">
+    <meta itemprop="headline" content="Get-SystemRestartEvent">
     
     
     
@@ -294,44 +294,37 @@
 
       <section class="page__content" itemprop="text">
         
-        <h1 id="get-serviceevent">Get-ServiceEvent</h1>
+        <h1 id="get-systemrestartevent">Get-SystemRestartEvent</h1>
 
 <h2 id="synopsis">SYNOPSIS</h2>
-<p>This function will query the specified system for all service control manager events for service operations, stop, and start events.
-You can then filter on a particular service name or service displayname.</p>
+<p>This function returns the details for system startup and shutdown events.</p>
 
 <h2 id="syntax">SYNTAX</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-ServiceEvent [[-ComputerName] &lt;String[]&gt;] [[-Credential] &lt;PSCredential&gt;] [[-StartTime] &lt;DateTime&gt;]
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-SystemRestartEvent [[-ComputerName] &lt;String[]&gt;] [[-Credential] &lt;PSCredential&gt;] [[-StartTime] &lt;DateTime&gt;]
  [[-EndTime] &lt;DateTime&gt;] [[-MaxEvents] &lt;Int64&gt;] [-Oldest] [-Raw] [&lt;CommonParameters&gt;]
 </code></pre></div></div>
 
 <h2 id="description">DESCRIPTION</h2>
-<p>This function will query the specified system for all service control manager events for service operations, stop, and start events.
-You can then filter on a particular service name or service displayname.</p>
+<p>This function returns the details for system startup and shutdown events including identifying the user and application that initiated the shutdown (if available).</p>
 
 <h2 id="examples">EXAMPLES</h2>
 
 <h3 id="example-1">Example 1</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\&gt; (Get-ServiceEvent).Where({$_.ServiceDisplayName -match "print"}) | Select-Object -Property TimeCreated,EventType,ServiceName,ServiceDisplayName,Message
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\&gt; Get-SystemRestartEvent -MaxEvents 10 | Format-Table
 
-TimeCreated        : 9/12/2017 9:41:27 PM
-EventType          : ServiceOperations
-ServiceName        :
-ServiceDisplayName : Printer Extensions and Notifications
-Message            : The Printer Extensions and Notifications service is marked as an interactive service.  However, the system is configured to not allow interactive services.  This service may not function properly.
-
-TimeCreated        : 10/3/2017 10:42:18 PM
-EventType          : ServiceOperations
-ServiceName        : Spooler
-ServiceDisplayName : Print Spooler
-Message            : The start type of the Print Spooler service was changed from auto start to demand start.
-
-TimeCreated        : 10/3/2017 10:42:20 PM
-EventType          : ServiceOperations
-ServiceName        : Spooler
-ServiceDisplayName : Print Spooler
-Message            : The start type of the Print Spooler service was changed from demand start to auto start.
+ComputerName        TimeCreated            Id ProviderName Level       Status              UserName         Reason            Details
+------------        -----------            -- ------------ -----       ------              --------         ------            -------
+WKSTN07.contoso.com 5/9/2018 1:27:51 PM  6005 EventLog     Information Startup
+WKSTN07.contoso.com 5/9/2018 1:27:51 PM  6009 EventLog     Information System Info
+WKSTN07.contoso.com 5/9/2018 1:27:51 PM  6008 EventLog     Error       Unexpected Shutdown
+WKSTN07.contoso.com 5/7/2018 3:23:12 PM  6005 EventLog     Information Startup
+WKSTN07.contoso.com 5/7/2018 3:23:12 PM  6009 EventLog     Information System Info
+WKSTN07.contoso.com 5/7/2018 3:22:29 PM  6006 EventLog     Information Shutdown
+WKSTN07.contoso.com 5/7/2018 3:22:12 PM  1074 User32       Information Shutdown Initiated  CONTOSO\carrolld Other (Unplanned) RuntimeBroker.exe
+WKSTN07.contoso.com 5/3/2018 11:09:31 PM 6005 EventLog     Information Startup
+WKSTN07.contoso.com 5/3/2018 11:09:31 PM 6009 EventLog     Information System Info
+WKSTN07.contoso.com 5/3/2018 11:08:41 PM 6006 EventLog     Information Shutdown
 </code></pre></div></div>
 
 <h2 id="parameters">PARAMETERS</h2>

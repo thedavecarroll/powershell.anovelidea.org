@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.12.1 by Michael Rose
+  Minimal Mistakes Jekyll Theme 4.12.2 by Michael Rose
   Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Get-KMSHostEvent - PowerShell: What A Novel Idea</title>
+<!-- begin _includes/seo.html --><title>Get-RemoteLogonEvent - PowerShell: What A Novel Idea</title>
 <meta name="description" content="A blog on PowerShell and IT">
 
 
@@ -17,8 +17,8 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="PowerShell: What A Novel Idea">
-<meta property="og:title" content="Get-KMSHostEvent">
-<meta property="og:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-KMSHostEvent.html">
+<meta property="og:title" content="Get-RemoteLogonEvent">
+<meta property="og:url" content="https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-RemoteLogonEvent.html">
 
 
 
@@ -26,9 +26,9 @@
 
 
   <meta name="twitter:site" content="@thedavecarroll">
-  <meta name="twitter:title" content="Get-KMSHostEvent">
+  <meta name="twitter:title" content="Get-RemoteLogonEvent">
   <meta name="twitter:description" content="A blog on PowerShell and IT">
-  <meta name="twitter:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-KMSHostEvent.html">
+  <meta name="twitter:url" content="https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-RemoteLogonEvent.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -48,7 +48,7 @@
   
 
 
-<link rel="canonical" href="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-KMSHostEvent.html">
+<link rel="canonical" href="https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-RemoteLogonEvent.html">
 
 
 
@@ -131,7 +131,7 @@
             </li><li class="masthead__menu-item">
               <a href="/tags/" >Tags</a>
             </li><li class="masthead__menu-item">
-              <a href="/categories/" >Categories</a>
+              <a href="/modules/" >My Modules</a>
             </li><li class="masthead__menu-item">
               <a href="/resources/" >Resources</a>
             </li></ul>
@@ -280,7 +280,7 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Get-KMSHostEvent">
+    <meta itemprop="headline" content="Get-RemoteLogonEvent">
     
     
     
@@ -294,47 +294,56 @@
 
       <section class="page__content" itemprop="text">
         
-        <h1 id="get-kmshostevent">Get-KMSHostEvent</h1>
+        <h1 id="get-remotelogonevent">Get-RemoteLogonEvent</h1>
 
 <h2 id="synopsis">SYNOPSIS</h2>
-<p>This function queries a KMS host server for registration events.</p>
+<p>This function queries the security log for EventIds 4624,4625,4634,4778,4779.</p>
 
 <h2 id="syntax">SYNTAX</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-KMSHostEvent [[-ComputerName] &lt;String&gt;] [[-Credential] &lt;PSCredential&gt;] [[-StartTime] &lt;DateTime&gt;]
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-RemoteLogonEvent [[-ComputerName] &lt;String[]&gt;] [[-Credential] &lt;PSCredential&gt;] [[-StartTime] &lt;DateTime&gt;]
  [[-EndTime] &lt;DateTime&gt;] [[-MaxEvents] &lt;Int64&gt;] [-Oldest] [-Raw] [&lt;CommonParameters&gt;]
 </code></pre></div></div>
 
 <h2 id="description">DESCRIPTION</h2>
-<p>This function queries a KMS host server for registration events.</p>
+<p>This function queries the security log for EventIds 4624,4625,4634,4778,4779.</p>
 
 <h2 id="examples">EXAMPLES</h2>
 
 <h3 id="example-1">Example 1</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\&gt; Get-KMSHostEvent -ComputerName SVR01.contoso.com -MaxEvents 10 -Oldest | Format-Table -Property ClientFqdn,ClientTimestamp,IsClientVM,LicenseState,ProductSkuName,MinActivateCount
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\&gt; Get-RemoteLogonEvent -ComputerName WKSTN47 -MaxEvents 5
 
-ClientFqdn            ClientTimestamp       IsClientVM LicenseState       ProductSkuName         MinActivateCount
-----------            ---------------       ---------- ------------       --------------         ----------------
-WKSTN27.contoso.com   4/10/2018 10:21:00 PM      False Grace Period       Office Standard 2016   5
-WKSTN06.contoso.com   4/10/2018 10:24:00 PM      False Grace Period       Office Standard 2016   5
-MYLAPTOP              4/10/2018 9:26:00 PM       False Notifications Mode Windows 10 Enterprise  25
-WKSTN63.contoso.com   4/10/2018 10:28:00 PM      False Grace Period       Office Standard 2013   5
-vmwkstn04.contoso.com 4/10/2018 10:31:00 PM       True Grace Period       Windows 7 Professional 25
-WKSTN68.contoso.com   4/10/2018 10:33:00 PM       True Grace Period       Windows 7 Professional 25
-vmwkstn14.contoso.com 4/10/2018 10:33:00 PM       True Grace Period       Windows 7 Professional 25
-WKSTN63               4/10/2018 9:34:00 PM       False Grace Period       Office Standard 2016   5
-WKSTN63               4/10/2018 9:34:00 PM       False Notifications Mode Windows 10 Enterprise  25
-vmwkstn45.contoso.com 4/10/2018 10:34:00 PM       True Grace Period       Windows 7 Professional 25
+ComputerName : WKSTN47.contoso.com
+TimeCreated  : 5/11/2018 1:16:51 PM
+Id           : 4625
+Level        : Information
+EventType    : Logon Failure
+UserName     : WKSTN47\GUEST
+IpAddress    :
+LogonID      :
+Reason       : Account currently disabled.
+LogonMethod  : Network
+
+ComputerName : WKSTN47.contoso.com
+TimeCreated  : 5/11/2018 11:15:51 AM
+Id           : 4625
+Level        : Information
+EventType    : Logon Failure
+UserName     : CONTOSO\CARROLLD
+IpAddress    : 127.0.0.1
+LogonID      :
+Reason       : Unknown user name or bad password.
+LogonMethod  : Interactive (local system)
 </code></pre></div></div>
 
 <h2 id="parameters">PARAMETERS</h2>
 
 <h3 id="-computername">-ComputerName</h3>
-<p>Gets events from the event logs on the specified computer.
+<p>Gets events from the event logs on the specified computer(s).
 Type the NetBIOS name, an Internet Protocol (IP) address, or the fully qualified domain name of the computer.
 The default value is the local computer.</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">String</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">String[]</span>
 <span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
 <span class="na">Aliases</span><span class="pi">:</span> <span class="s">IPAddress, __Server, CN</span>
 
@@ -443,7 +452,7 @@ By default, events are returned in newest-first order.</p>
 
 <h2 id="inputs">INPUTS</h2>
 
-<h3 id="systemstring">System.String</h3>
+<h3 id="systemstring">System.String[]</h3>
 
 <h2 id="outputs">OUTPUTS</h2>
 

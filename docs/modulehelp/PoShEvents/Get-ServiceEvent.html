@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.12.1 by Michael Rose
+  Minimal Mistakes Jekyll Theme 4.12.2 by Michael Rose
   Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Get-RemoteLogonEvent - PowerShell: What A Novel Idea</title>
+<!-- begin _includes/seo.html --><title>Get-ServiceEvent - PowerShell: What A Novel Idea</title>
 <meta name="description" content="A blog on PowerShell and IT">
 
 
@@ -17,8 +17,8 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="PowerShell: What A Novel Idea">
-<meta property="og:title" content="Get-RemoteLogonEvent">
-<meta property="og:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-RemoteLogonEvent.html">
+<meta property="og:title" content="Get-ServiceEvent">
+<meta property="og:url" content="https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-ServiceEvent.html">
 
 
 
@@ -26,9 +26,9 @@
 
 
   <meta name="twitter:site" content="@thedavecarroll">
-  <meta name="twitter:title" content="Get-RemoteLogonEvent">
+  <meta name="twitter:title" content="Get-ServiceEvent">
   <meta name="twitter:description" content="A blog on PowerShell and IT">
-  <meta name="twitter:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-RemoteLogonEvent.html">
+  <meta name="twitter:url" content="https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-ServiceEvent.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -48,7 +48,7 @@
   
 
 
-<link rel="canonical" href="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-RemoteLogonEvent.html">
+<link rel="canonical" href="https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-ServiceEvent.html">
 
 
 
@@ -131,7 +131,7 @@
             </li><li class="masthead__menu-item">
               <a href="/tags/" >Tags</a>
             </li><li class="masthead__menu-item">
-              <a href="/categories/" >Categories</a>
+              <a href="/modules/" >My Modules</a>
             </li><li class="masthead__menu-item">
               <a href="/resources/" >Resources</a>
             </li></ul>
@@ -280,7 +280,7 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Get-RemoteLogonEvent">
+    <meta itemprop="headline" content="Get-ServiceEvent">
     
     
     
@@ -294,46 +294,44 @@
 
       <section class="page__content" itemprop="text">
         
-        <h1 id="get-remotelogonevent">Get-RemoteLogonEvent</h1>
+        <h1 id="get-serviceevent">Get-ServiceEvent</h1>
 
 <h2 id="synopsis">SYNOPSIS</h2>
-<p>This function queries the security log for EventIds 4624,4625,4634,4778,4779.</p>
+<p>This function will query the specified system for all service control manager events for service operations, stop, and start events.
+You can then filter on a particular service name or service displayname.</p>
 
 <h2 id="syntax">SYNTAX</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-RemoteLogonEvent [[-ComputerName] &lt;String[]&gt;] [[-Credential] &lt;PSCredential&gt;] [[-StartTime] &lt;DateTime&gt;]
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-ServiceEvent [[-ComputerName] &lt;String[]&gt;] [[-Credential] &lt;PSCredential&gt;] [[-StartTime] &lt;DateTime&gt;]
  [[-EndTime] &lt;DateTime&gt;] [[-MaxEvents] &lt;Int64&gt;] [-Oldest] [-Raw] [&lt;CommonParameters&gt;]
 </code></pre></div></div>
 
 <h2 id="description">DESCRIPTION</h2>
-<p>This function queries the security log for EventIds 4624,4625,4634,4778,4779.</p>
+<p>This function will query the specified system for all service control manager events for service operations, stop, and start events.
+You can then filter on a particular service name or service displayname.</p>
 
 <h2 id="examples">EXAMPLES</h2>
 
 <h3 id="example-1">Example 1</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\&gt; Get-RemoteLogonEvent -ComputerName WKSTN47 -MaxEvents 5
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\&gt; (Get-ServiceEvent).Where({$_.ServiceDisplayName -match "print"}) | Select-Object -Property TimeCreated,EventType,ServiceName,ServiceDisplayName,Message
 
-ComputerName : WKSTN47.contoso.com
-TimeCreated  : 5/11/2018 1:16:51 PM
-Id           : 4625
-Level        : Information
-EventType    : Logon Failure
-UserName     : WKSTN47\GUEST
-IpAddress    :
-LogonID      :
-Reason       : Account currently disabled.
-LogonMethod  : Network
+TimeCreated        : 9/12/2017 9:41:27 PM
+EventType          : ServiceOperations
+ServiceName        :
+ServiceDisplayName : Printer Extensions and Notifications
+Message            : The Printer Extensions and Notifications service is marked as an interactive service.  However, the system is configured to not allow interactive services.  This service may not function properly.
 
-ComputerName : WKSTN47.contoso.com
-TimeCreated  : 5/11/2018 11:15:51 AM
-Id           : 4625
-Level        : Information
-EventType    : Logon Failure
-UserName     : CONTOSO\CARROLLD
-IpAddress    : 127.0.0.1
-LogonID      :
-Reason       : Unknown user name or bad password.
-LogonMethod  : Interactive (local system)
+TimeCreated        : 10/3/2017 10:42:18 PM
+EventType          : ServiceOperations
+ServiceName        : Spooler
+ServiceDisplayName : Print Spooler
+Message            : The start type of the Print Spooler service was changed from auto start to demand start.
+
+TimeCreated        : 10/3/2017 10:42:20 PM
+EventType          : ServiceOperations
+ServiceName        : Spooler
+ServiceDisplayName : Print Spooler
+Message            : The start type of the Print Spooler service was changed from demand start to auto start.
 </code></pre></div></div>
 
 <h2 id="parameters">PARAMETERS</h2>

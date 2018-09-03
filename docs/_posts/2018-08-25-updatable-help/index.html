@@ -9,28 +9,28 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Unique Email Domains - PowerShell: What A Novel Idea</title>
-<meta name="description" content="Get unique email domains from proxyAddresses for Exchange or Azure.">
+<!-- begin _includes/seo.html --><title>Updatable Help - PowerShell: What A Novel Idea</title>
+<meta name="description" content="Updatable Help on GitHub Pages with platyPS.">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="PowerShell: What A Novel Idea">
-<meta property="og:title" content="Unique Email Domains">
-<meta property="og:url" content="https://powershell.anovelidea.org/_posts/2018-08-17-unique-email-domains/">
+<meta property="og:title" content="Updatable Help">
+<meta property="og:url" content="https://powershell.anovelidea.org/_posts/2018-08-25-updatable-help/">
 
 
-  <meta property="og:description" content="Get unique email domains from proxyAddresses for Exchange or Azure.">
+  <meta property="og:description" content="Updatable Help on GitHub Pages with platyPS.">
 
 
 
 
 
   <meta name="twitter:site" content="@thedavecarroll">
-  <meta name="twitter:title" content="Unique Email Domains">
-  <meta name="twitter:description" content="Get unique email domains from proxyAddresses for Exchange or Azure.">
-  <meta name="twitter:url" content="https://powershell.anovelidea.org/_posts/2018-08-17-unique-email-domains/">
+  <meta name="twitter:title" content="Updatable Help">
+  <meta name="twitter:description" content="Updatable Help on GitHub Pages with platyPS.">
+  <meta name="twitter:url" content="https://powershell.anovelidea.org/_posts/2018-08-25-updatable-help/">
 
   
     <meta name="twitter:card" content="summary">
@@ -41,7 +41,7 @@
 
 
 
-  <meta property="article:published_time" content="2018-08-17T00:00:00-05:00">
+  <meta property="article:published_time" content="2018-08-25T00:00:00-05:00">
 
 
 
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="https://powershell.anovelidea.org/_posts/2018-08-17-unique-email-domains/">
+<link rel="canonical" href="https://powershell.anovelidea.org/_posts/2018-08-25-updatable-help/">
 
 
 
@@ -284,15 +284,15 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Unique Email Domains">
-    <meta itemprop="description" content="Get unique email domains from proxyAddresses for Exchange or Azure.">
-    <meta itemprop="datePublished" content="August 17, 2018">
+    <meta itemprop="headline" content="Updatable Help">
+    <meta itemprop="description" content="Updatable Help on GitHub Pages with platyPS.">
+    <meta itemprop="datePublished" content="August 25, 2018">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">Unique Email Domains
+          <h1 id="page-title" class="page__title" itemprop="headline">Updatable Help
 </h1>
           
         </header>
@@ -300,47 +300,131 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>So you’re working on getting all of your email domains that’s on-prem into Azure or you simply want to ensure that your
-on-prem Exchange has been configured for all the domains your user accounts utilize. Your Active Directory domain
-contains over 30,000 accounts. How would you go about discovering the unique email domains?</p>
+        <p>PowerShell has provided a way to update the help files for modules since version 3.0.</p>
 
-<p>Knowing that the Active Directory attribute proxyAddresses contains the account’s SMTP addreses, we can start there.
-Also, you only want to include only those domains for active accounts. [Note: The proxyAddresses also contains other
-address types, but we are only concerned about SMTP for this excercise.]</p>
+<p>Since creating my first two modules, I have tried adding updatable help support, but came across a few issues. Tonight,
+I finally resolved them for my module PoShEvents.</p>
 
-<p>First, let’s get all the proxyAddresses into a variable.</p>
+<h2 id="github-bad-github-pages-good">GitHub Bad, GitHub Pages Good</h2>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Filter</span> <span class="o">=</span> <span class="s2">"proxyAddresses -like '*' -and enabled -eq 'true'"</span>
-<span class="nv">$ProxyAddresses</span> <span class="o">=</span> <span class="nb">Get-ADUser</span> -Filter <span class="nv">$Filter</span> -Properties proxyAddresses | <span class="nb">Select-Object</span> -ExpandProperty proxyAddresses
+<p>My module repository is in GitHub, and I originally thought that I could simply use the Raw view for my updatable help.
+After all, I was successfully serving the online help version using the markdown files straight out of GitHub.</p>
+
+<p>GitHub, as it turns out, hosts their files in a way that is not compatible for updatable help.</p>
+
+<p>I am now using GitHub Pages for this blog and I wanted to give updatable help another try. This method of hosting works
+as intended.</p>
+
+<h2 id="building-updatable-help">Building Updatable Help</h2>
+
+<p>Like most others, I have opted to use the module <a href="https://github.com/PowerShell/platyPS" target="_blank">platyPS</a> to
+create my help files.</p>
+
+<p>This post focuses on solving the issues I had with updatable help. For instructions on how to use <code class="highlighter-rouge">platyPS</code> see any of
+these sites.</p>
+
+<ul>
+  <li><a href="https://overpoweredshell.com/Module-Tools-Adding-Cmdlet-Help-With-PlatyPS/" target="_blank">Module Tools - Adding Cmdlet Help With PlatyPS</a></li>
+  <li><a href="https://ntsystems.it/post/converting-powershell-help-a-website" target="_blank">Convert PowerShell Help to a Website</a></li>
+</ul>
+
+<p>I had already created the markdown files that I was serving via GitHub for online help and moved those into my blog
+repository structure. I used <code class="highlighter-rouge">Update-MarkdownHelp</code> to update them and noticed that my Jekyll front matter was largely
+untouched – some entries were out of order.</p>
+
+<p>When I originally created the help files, I did not include the <code class="highlighter-rouge">-WithModulePage</code> switch. I ran the <code class="highlighter-rouge">New-MarkdownHelp</code>
+and generated a clean set of help files into a temp folder just to harvest the module page. After placing the file into
+the correct path, I updated the front matter for Download Help Link, Help Version, and Locale.</p>
+
+<p class="notice"><strong>Note:</strong> I also added additional front matter YAML to be used by Jekyll, namely layout, classes, and permalink.</p>
+
+<p>As the content for the help files had previously been updated, I didn’t have to do that again. If you’re starting from a
+clean or initial run of <code class="highlighter-rouge">New-MarkdownHelp</code>, you will need to update the content manually.</p>
+
+<p>Then, I recreated the external help file.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>New-ExternalHelp -Path .\powershell.anovelidea.org\modulehelp\PoShEvents -OutputPath .\PoShEvents\PoShEvents\en-US\ -Force
 </code></pre></div></div>
 
-<p>Next, we will loop through each one, matching on only SMTP addresses. We split on the @ symbol and return the domain
-portion.</p>
+<h2 id="testing-updatable-help">Testing Updatable Help</h2>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$EmailDomains</span> <span class="o">=</span> <span class="nv">$ProxyAddresses</span>.ForEach<span class="o">(</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="nv">$_</span> -match <span class="s1">'smtp'</span><span class="o">)</span> <span class="o">{</span>
-        <span class="nv">$_</span>.Replace<span class="o">(</span><span class="s1">'smtp:'</span>,<span class="s1">''</span><span class="o">)</span>.Split<span class="o">(</span><span class="s1">'@'</span><span class="o">)[</span>1]
-    <span class="o">}</span>
-<span class="o">})</span>
+<p>Once you have created the necessary help files, you will need to test that it will successully update the module help.</p>
+
+<h3 id="local-source">Local Source</h3>
+
+<p>First, let’s see if we can <code class="highlighter-rouge">Update-Help</code> from the local source.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Update-Help -Module PoShEvents -SourcePath .\powershell.anovelidea.org\modulehelp\PoShEvents\ -Force -Verbose
 </code></pre></div></div>
 
-<p class="notice"><strong>Notice:</strong> I used the ForEach() method (available in PowerShell v4 and later), which is typically faster than the
-ForEach-Object cmdlet or the foreach loop. You can use whichever you choose based on your PowerShell version.</p>
+<div style="color: gold" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">VERBOSE: Performing the operation "Update-Help" on target "PoShEvents, Current Version: 0.2.1, Available Version: 0.2.1, UICulture: en-US".
+VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\about_PoShEvents.help.txt. Culture en-US Version 0.2.1
+VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\PoShEvents-help.xml. Culture en-US Version 0.2.1
+</span></code></pre></div></div>
 
-<p>Finally, we use Sort-Object -Unique to get the unique domains.</p>
+<p>This proves that the updatable help works when pulling from the local source.</p>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$EmailDomains</span> | <span class="nb">Sort-Object</span> -Unique
+<h3 id="online-source">Online Source</h3>
 
-anovelidea.org
-chronicgoogler.com
-gmail.com
+<p>If the local source test is successful, you will need to upload the <code class="highlighter-rouge">*HelpInfo.xml</code>, <code class="highlighter-rouge">*HelpContent.cab</code>, and
+<code class="highlighter-rouge">*HelpContent.zip</code> help files to the location indicated by the module’s <code class="highlighter-rouge">HelpInfoUri</code>. After this is done, you should
+verify that you can access the URL successfully by using <code class="highlighter-rouge">Invoke-WebRequest</code>. Ideally, the StatusCode should be 200.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ModInfo</span> <span class="o">=</span> Get-Module -Name PoShEvents | <span class="nb">Select-Object</span> -Property Name,Guid,HelpInfoURI
+<span class="o">(</span><span class="nb">Invoke-WebRequest</span> -Uri <span class="s2">"</span><span class="k">$(</span><span class="nv">$ModInfo</span>.HelpInfoUri<span class="k">)$(</span><span class="nv">$ModInfo</span>.Name<span class="k">)</span><span class="s2">_</span><span class="k">$(</span><span class="nv">$ModInfo</span>.Guid<span class="k">)</span><span class="s2">_HelpInfo.xml"</span><span class="o">)</span>.StatusCode
 </code></pre></div></div>
 
-<p>Of course, you could have dozens or more unique domains. This short exercise can also reveal typos in domains.</p>
+<p>My result was not ideal.</p>
 
-<p>Hopefully, this post was helpful to you in some way.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
+</span></code></pre></div></div>
 
-<p>Have a great day!</p>
+<p>I wished that I could say I immediately tested with <code class="highlighter-rouge">Invoke-WebRequest</code>. That would have saved me about an hour going
+down the rabbithole of trying to trace the <code class="highlighter-rouge">Update-Help</code> command. It would really be nice if <code class="highlighter-rouge">Update-Help</code> revealed more
+internal workings when you use the <code class="highlighter-rouge">-Verbose</code> switch.</p>
+
+<h2 id="tls">TLS</h2>
+
+<p>Checking the security protocol that my default PowerShell session used, I saw why my testing failed. I included the
+TLS 1.2 protocol and tested the URL again successfully.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">[Net.ServicePointManager]</span><span class="p">::</span><span class="n">SecurityProtocol</span>
+</code></pre></div></div>
+
+<div style="color: whitesmoke" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">Ssl3, Tls
+</span></code></pre></div></div>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">[Net.ServicePointManager]</span><span class="p">::</span><span class="n">SecurityProtocol</span> <span class="p">=</span> <span class="p">[</span><span class="n">Net</span><span class="p">.</span><span class="n">SecurityProtocolType</span><span class="p">]::</span><span class="n">Tls</span><span class="p">,[</span><span class="n">Net</span><span class="p">.</span><span class="n">SecurityProtocolType</span><span class="p">]::</span><span class="n">Tls11</span><span class="p">,[</span><span class="n">Net</span><span class="p">.</span><span class="n">SecurityProtocolType</span><span class="p">]::</span><span class="n">Tls12</span>
+</code></pre></div></div>
+
+<p class="notice">A quick search revealed that on February 8, 2018, <a href="https://githubengineering.com/crypto-removal-notice/" target="_blank">GitHub discontinued the use of TLS 1.0 and TLS 1.1</a>.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Update-Help -Name PoShEvents -Verbose -Force
+</code></pre></div></div>
+
+<div style="color: gold" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">VERBOSE: Resolving URI: "https://powershell.anovelidea.org/modulehelp/PoShEvents"
+VERBOSE: Your connection has been redirected to the following URI: "http://powershell.anovelidea.org/modulehelp/PoShEvents/"
+VERBOSE: Performing the operation "Update-Help" on target "PoShEvents, Current Version: 0.2.1, Available Version: 0.2.1, UICulture: en-US".
+VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\about_PoShEvents.help.txt. Culture en-US Version 0.2.1
+VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\PoShEvents-help.xml. Culture en-US Version 0.2.1
+</span></code></pre></div></div>
+
+<h2 id="setting-strong-cryptography-for-net-framework">Setting Strong Cryptography for .Net Framework</h2>
+
+<p>Setting <code class="highlighter-rouge">[Net.ServicePointManager]::SecurityProtocol</code>, as I did, only applies to the current PowerShell session. To make
+the change permanent, I updated the registry.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># set strong cryptography on 64 bit .Net Framework (version 4 and above)</span>
+<span class="nb">Set-ItemProperty</span> -Path <span class="s1">'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NetFramework\v4.0.30319'</span> -Name <span class="s1">'SchUseStrongCrypto'</span> -Value <span class="s1">'1'</span> -Type DWord
+
+<span class="c1"># set strong cryptography on 32 bit .Net Framework (version 4 and above)</span>
+<span class="nb">Set-ItemProperty</span> -Path <span class="s1">'HKLM:\SOFTWARE\Microsoft\.NetFramework\v4.0.30319'</span> -Name <span class="s1">'SchUseStrongCrypto'</span> -Value <span class="s1">'1'</span> -Type DWord
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>By using GitHub Pages, platyPS, and the appropriate TLS protocol, I’m finally serving updatable help for my module
+<a href="https://github.com/thedavecarroll/PoShEvents" target="_blank">PoShEvents</a>.</p>
 
         
       </section>
@@ -361,15 +445,27 @@ gmail.com
     
       
       
-      <a href="/tags/#azure" class="page__taxonomy-item" rel="tag">azure</a><span class="sep">, </span>
+      <a href="/tags/#platyps" class="page__taxonomy-item" rel="tag">platyps</a><span class="sep">, </span>
     
       
       
-      <a href="/tags/#exchange" class="page__taxonomy-item" rel="tag">exchange</a><span class="sep">, </span>
+      <a href="/tags/#powershell" class="page__taxonomy-item" rel="tag">powershell</a><span class="sep">, </span>
     
       
       
-      <a href="/tags/#powershell" class="page__taxonomy-item" rel="tag">powershell</a>
+      <a href="/tags/#ssl" class="page__taxonomy-item" rel="tag">ssl</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#tls" class="page__taxonomy-item" rel="tag">tls</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#updatable-help" class="page__taxonomy-item" rel="tag">updatable help</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#update-help" class="page__taxonomy-item" rel="tag">update-help</a>
     
     </span>
   </p>
@@ -379,7 +475,7 @@ gmail.com
 
 
         
-            <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted:</strong> <time datetime="2018-08-17T00:00:00-05:00">August 17, 2018</time></p>
+            <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted:</strong> <time datetime="2018-08-25T00:00:00-05:00">August 25, 2018</time></p>
         
         
 

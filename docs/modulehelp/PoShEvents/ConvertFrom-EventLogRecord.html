@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.12.1 by Michael Rose
+  Minimal Mistakes Jekyll Theme 4.12.2 by Michael Rose
   Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Get-GPOProcessingEvent - PowerShell: What A Novel Idea</title>
+<!-- begin _includes/seo.html --><title>ConvertFrom-EventLogRecord - PowerShell: What A Novel Idea</title>
 <meta name="description" content="A blog on PowerShell and IT">
 
 
@@ -17,8 +17,8 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="PowerShell: What A Novel Idea">
-<meta property="og:title" content="Get-GPOProcessingEvent">
-<meta property="og:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-GPOProcessingEvent.html">
+<meta property="og:title" content="ConvertFrom-EventLogRecord">
+<meta property="og:url" content="https://powershell.anovelidea.org/modulehelp/PoShEvents/ConvertFrom-EventLogRecord.html">
 
 
 
@@ -26,9 +26,9 @@
 
 
   <meta name="twitter:site" content="@thedavecarroll">
-  <meta name="twitter:title" content="Get-GPOProcessingEvent">
+  <meta name="twitter:title" content="ConvertFrom-EventLogRecord">
   <meta name="twitter:description" content="A blog on PowerShell and IT">
-  <meta name="twitter:url" content="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-GPOProcessingEvent.html">
+  <meta name="twitter:url" content="https://powershell.anovelidea.org/modulehelp/PoShEvents/ConvertFrom-EventLogRecord.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -48,7 +48,7 @@
   
 
 
-<link rel="canonical" href="https://powershell.anovelidea.org/modules/PoShEvents/OnlineHelp/Get-GPOProcessingEvent.html">
+<link rel="canonical" href="https://powershell.anovelidea.org/modulehelp/PoShEvents/ConvertFrom-EventLogRecord.html">
 
 
 
@@ -131,7 +131,7 @@
             </li><li class="masthead__menu-item">
               <a href="/tags/" >Tags</a>
             </li><li class="masthead__menu-item">
-              <a href="/categories/" >Categories</a>
+              <a href="/modules/" >My Modules</a>
             </li><li class="masthead__menu-item">
               <a href="/resources/" >Resources</a>
             </li></ul>
@@ -280,7 +280,7 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Get-GPOProcessingEvent">
+    <meta itemprop="headline" content="ConvertFrom-EventLogRecord">
     
     
     
@@ -294,59 +294,39 @@
 
       <section class="page__content" itemprop="text">
         
-        <h1 id="get-gpoprocessingevent">Get-GPOProcessingEvent</h1>
+        <h1 id="convertfrom-eventlogrecord">ConvertFrom-EventLogRecord</h1>
 
 <h2 id="synopsis">SYNOPSIS</h2>
-<p>Queries the specific computer or group of computers for group policy processing events.</p>
+<p>This function converts EventLogRecords into human readable output.</p>
 
 <h2 id="syntax">SYNTAX</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-GPOProcessingEvent [[-ComputerName] &lt;String[]&gt;] [[-Credential] &lt;PSCredential&gt;] [[-StartTime] &lt;DateTime&gt;]
- [[-EndTime] &lt;DateTime&gt;] [[-MaxEvents] &lt;Int64&gt;] [-Oldest] [-Raw] [-GroupPolicy &lt;Object[]&gt;] [&lt;CommonParameters&gt;]
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ConvertFrom-EventLogRecord [-Events] &lt;EventLogRecord[]&gt; [[-EventRecordType] &lt;String&gt;]
+ [[-GroupPolicy] &lt;Object[]&gt;] [&lt;CommonParameters&gt;]
 </code></pre></div></div>
 
 <h2 id="description">DESCRIPTION</h2>
-<p>Queries the specific computer or group of computers for group policy processing events.</p>
+<p>This function converts EventLogRecords into human readable output.</p>
 
 <h2 id="examples">EXAMPLES</h2>
 
 <h3 id="example-1">Example 1</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\&gt; Get-GPOProcessingEvent -MaxEvents 10 | Out-GridView
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">PS </span>C:\&gt; <span class="nb">Get-WinEvent</span> -LogName System -MaxEvents 5 | ConvertFrom-EventLogRecord
 </code></pre></div></div>
 
-<p>This command will show the last 10 group policy processing events on the local system in gridview.
-You can then sort or enter additional criteria in the gridview.</p>
+<h3 id="example-2">Example 2</h3>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">PS </span>C:\&gt; <span class="nb">Get-WinEvent </span>FilterHashTable <span class="o">=</span> @<span class="o">{</span>ProviderName <span class="o">=</span> <span class="s2">"Service Control Manager"</span><span class="o">}</span> -MaxEvents 5 | ConvertFrom-EventLogRecord -EventRecordType ServiceEvent
+</code></pre></div></div>
 
 <h2 id="parameters">PARAMETERS</h2>
 
-<h3 id="-computername">-ComputerName</h3>
-<p>Gets events from the event logs on the specified computer(s).
-Type the NetBIOS name, an Internet Protocol (IP) address, or the fully qualified domain name of the computer.
-The default value is the local computer.</p>
+<h3 id="-eventrecordtype">-EventRecordType</h3>
+<p>Specifies the event record type which, in turn, determines the custom type and therefore the default properties of the output.</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">String[]</span>
-<span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
-<span class="na">Aliases</span><span class="pi">:</span> <span class="s">IPAddress, __Server, CN</span>
-
-<span class="na">Required</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Position</span><span class="pi">:</span> <span class="s">0</span>
-<span class="na">Default value</span><span class="pi">:</span> <span class="s">None</span>
-<span class="na">Accept pipeline input</span><span class="pi">:</span> <span class="s">True (ByPropertyName, ByValue)</span>
-<span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
-</code></pre></div></div>
-
-<h3 id="-credential">-Credential</h3>
-<p>Specifies a user account that has permission to perform this action.
-The default value is the current user.</p>
-
-<p>Type a user name, such as User01 or Domain01\User01.
-Or, enter a PSCredential object, such as one generated by the Get-Credential cmdlet.
-If you type a user name, you will be prompted for a password.
-If you type only the parameter name, you will be prompted for both a user name and a password.</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">PSCredential</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">String</span>
 <span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
 <span class="na">Aliases</span><span class="pi">:</span>
+<span class="na">Accepted values</span><span class="pi">:</span> <span class="s">PrintDocument, SystemRestartEvent, LogonFailureEvent, OSVersionFromEvent, RemoteLogonEvent, ServiceEvent, GPOProcessingEvent, KMSClientEvent, KMSHostEvent, KMSHostLicenseCheckEvent</span>
 
 <span class="na">Required</span><span class="pi">:</span> <span class="s">False</span>
 <span class="na">Position</span><span class="pi">:</span> <span class="s">1</span>
@@ -355,55 +335,24 @@ If you type only the parameter name, you will be prompted for both a user name a
 <span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
 </code></pre></div></div>
 
-<h3 id="-endtime">-EndTime</h3>
-<p>Specifies the end of the time period for the event log query.</p>
+<h3 id="-events">-Events</h3>
+<p>One or more EventLogRecord objects.</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">DateTime</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">EventLogRecord[]</span>
 <span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
 <span class="na">Aliases</span><span class="pi">:</span>
 
-<span class="na">Required</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Position</span><span class="pi">:</span> <span class="s">3</span>
+<span class="na">Required</span><span class="pi">:</span> <span class="s">True</span>
+<span class="na">Position</span><span class="pi">:</span> <span class="s">0</span>
 <span class="na">Default value</span><span class="pi">:</span> <span class="s">None</span>
-<span class="na">Accept pipeline input</span><span class="pi">:</span> <span class="s">False</span>
+<span class="na">Accept pipeline input</span><span class="pi">:</span> <span class="s">True (ByValue)</span>
 <span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
 </code></pre></div></div>
 
-<h3 id="-maxevents">-MaxEvents</h3>
-<p>Specifies the maximum number of events this function returns.
-Enter an integer.
-The default is to return all the events in the logs.</p>
+<h3 id="-grouppolicy">-GroupPolicy</h3>
+<p>Provide the function all group policy objects in order to have the friendly name presented in the event output. Usually, this can be set to ‘Get-GPO -All’.</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">Int64</span>
-<span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
-<span class="na">Aliases</span><span class="pi">:</span>
-
-<span class="na">Required</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Position</span><span class="pi">:</span> <span class="s">4</span>
-<span class="na">Default value</span><span class="pi">:</span> <span class="s">None</span>
-<span class="na">Accept pipeline input</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
-</code></pre></div></div>
-
-<h3 id="-oldest">-Oldest</h3>
-<p>Returns the events in oldest-first order.
-By default, events are returned in newest-first order.</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">SwitchParameter</span>
-<span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
-<span class="na">Aliases</span><span class="pi">:</span>
-
-<span class="na">Required</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Position</span><span class="pi">:</span> <span class="s">Named</span>
-<span class="na">Default value</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Accept pipeline input</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
-</code></pre></div></div>
-
-<h3 id="-starttime">-StartTime</h3>
-<p>Specifies the beginning of the time period for the event log query.</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">DateTime</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">Object[]</span>
 <span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
 <span class="na">Aliases</span><span class="pi">:</span>
 
@@ -414,40 +363,12 @@ By default, events are returned in newest-first order.</p>
 <span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
 </code></pre></div></div>
 
-<h3 id="-grouppolicy">-GroupPolicy</h3>
-<p>Provide the function all group policy objects in order to have the friendly name presented in the event output.</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">Object[]</span>
-<span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
-<span class="na">Aliases</span><span class="pi">:</span>
-
-<span class="na">Required</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Position</span><span class="pi">:</span> <span class="s">Named</span>
-<span class="na">Default value</span><span class="pi">:</span> <span class="s">None</span>
-<span class="na">Accept pipeline input</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
-</code></pre></div></div>
-
-<h3 id="-raw">-Raw</h3>
-<p>Use this switch to provide the raw event log record for the function.</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Type</span><span class="pi">:</span> <span class="s">SwitchParameter</span>
-<span class="na">Parameter Sets</span><span class="pi">:</span> <span class="s">(All)</span>
-<span class="na">Aliases</span><span class="pi">:</span>
-
-<span class="na">Required</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Position</span><span class="pi">:</span> <span class="s">Named</span>
-<span class="na">Default value</span><span class="pi">:</span> <span class="s">None</span>
-<span class="na">Accept pipeline input</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
-</code></pre></div></div>
-
 <h3 id="commonparameters">CommonParameters</h3>
 <p>This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).</p>
 
 <h2 id="inputs">INPUTS</h2>
 
-<h3 id="systemstring">System.String[]</h3>
+<h3 id="systemdiagnosticseventingreadereventlogrecord">System.Diagnostics.Eventing.Reader.EventLogRecord[]</h3>
 
 <h2 id="outputs">OUTPUTS</h2>
 

@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.12.1 by Michael Rose
+  Minimal Mistakes Jekyll Theme 4.12.2 by Michael Rose
   Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
@@ -10,7 +10,7 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>Unique Email Domains - PowerShell: What A Novel Idea</title>
-<meta name="description" content="So you’re working on getting all of your email domains that’s on-prem into Azure or you simply want to ensure that youron-prem Exchange has been configured for all the domains your user accounts utilize. Your Active Directory domaincontains over 30,000 accounts. How would you go about discovering the unique email domains?">
+<meta name="description" content="Get unique email domains from proxyAddresses for Exchange or Azure.">
 
 
 
@@ -21,7 +21,7 @@
 <meta property="og:url" content="https://powershell.anovelidea.org/powershell/unique-email-domains/">
 
 
-  <meta property="og:description" content="So you’re working on getting all of your email domains that’s on-prem into Azure or you simply want to ensure that youron-prem Exchange has been configured for all the domains your user accounts utilize. Your Active Directory domaincontains over 30,000 accounts. How would you go about discovering the unique email domains?">
+  <meta property="og:description" content="Get unique email domains from proxyAddresses for Exchange or Azure.">
 
 
 
@@ -29,7 +29,7 @@
 
   <meta name="twitter:site" content="@thedavecarroll">
   <meta name="twitter:title" content="Unique Email Domains">
-  <meta name="twitter:description" content="So you’re working on getting all of your email domains that’s on-prem into Azure or you simply want to ensure that youron-prem Exchange has been configured for all the domains your user accounts utilize. Your Active Directory domaincontains over 30,000 accounts. How would you go about discovering the unique email domains?">
+  <meta name="twitter:description" content="Get unique email domains from proxyAddresses for Exchange or Azure.">
   <meta name="twitter:url" content="https://powershell.anovelidea.org/powershell/unique-email-domains/">
 
   
@@ -117,7 +117,7 @@
 
   </head>
 
-  <body class="layout--single">
+  <body class="layout--single wide">
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -135,7 +135,7 @@
             </li><li class="masthead__menu-item">
               <a href="/tags/" >Tags</a>
             </li><li class="masthead__menu-item">
-              <a href="/categories/" >Categories</a>
+              <a href="/modules/" >My Modules</a>
             </li><li class="masthead__menu-item">
               <a href="/resources/" >Resources</a>
             </li></ul>
@@ -285,7 +285,7 @@
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
     <meta itemprop="headline" content="Unique Email Domains">
-    <meta itemprop="description" content="So you’re working on getting all of your email domains that’s on-prem into Azure or you simply want to ensure that youron-prem Exchange has been configured for all the domains your user accounts utilize. Your Active Directory domaincontains over 30,000 accounts. How would you go about discovering the unique email domains?">
+    <meta itemprop="description" content="Get unique email domains from proxyAddresses for Exchange or Azure.">
     <meta itemprop="datePublished" content="August 17, 2018">
     
 
@@ -339,10 +339,9 @@ ForEach-Object cmdlet or the foreach loop. You can use whichever you choose base
 
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$EmailDomains</span> | <span class="nb">Sort-Object</span> -Unique
 
-<span class="c1"># output</span>
-<span class="c1"># anovelidea.org</span>
-<span class="c1"># chronicgoogler.com</span>
-<span class="c1"># gmail.com</span>
+anovelidea.org
+chronicgoogler.com
+gmail.com
 </code></pre></div></div>
 
 <p>Of course, you could have dozens or more unique domains. This short exercise can also reveal typos in domains.</p>
@@ -367,6 +366,10 @@ ForEach-Object cmdlet or the foreach loop. You can use whichever you choose base
   <p class="page__taxonomy">
     <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
     <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#azure" class="page__taxonomy-item" rel="tag">azure</a><span class="sep">, </span>
     
       
       
@@ -433,207 +436,6 @@ ForEach-Object cmdlet or the foreach loop. You can use whichever you choose base
         
           <!-- Start static comments -->
           <div class="js-comments">
-            
-              <h4 class="page__comments-title">Comments</h4>
-              
-
-              
-                
-                
-                
-                
-                
-                <article id="comment1" class="js-comment comment" itemprop="comment" itemscope itemtype="http://schema.org/Comment">
-  <div class="comment__avatar-wrapper">
-    <img class="comment__avatar" src="https://www.gravatar.com/avatar/fd0387e212af38089603b5480e406545?d=mm&s=80" alt="Dave">
-  </div>
-  <div class="comment__content-wrapper">
-    <h3 class="comment__author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-      
-        <span itemprop="name">Dave</span>
-      
-    </h3>
-    <p class="comment__date">
-      
-        <a href="#comment1" itemprop="url">
-        <time datetime="2018-08-19T17:36:50-05:00" itemprop="datePublished">August 19, 2018 at 10:36 PM</time>
-        </a>
-      
-    </p>
-    <div itemprop="text"><p>Testing</p>
-</div>
-  </div>
-</article>
-
-              
-                
-                
-                
-                
-                
-                <article id="comment2" class="js-comment comment" itemprop="comment" itemscope itemtype="http://schema.org/Comment">
-  <div class="comment__avatar-wrapper">
-    <img class="comment__avatar" src="https://www.gravatar.com/avatar/40f9fe2305d1d4dd7b4140613d786a21?d=mm&s=80" alt="Dave">
-  </div>
-  <div class="comment__content-wrapper">
-    <h3 class="comment__author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-      
-        <span itemprop="name">Dave</span>
-      
-    </h3>
-    <p class="comment__date">
-      
-        <a href="#comment2" itemprop="url">
-        <time datetime="2018-08-19T17:58:11-05:00" itemprop="datePublished">August 19, 2018 at 10:58 PM</time>
-        </a>
-      
-    </p>
-    <div itemprop="text"><p>Another test</p>
-</div>
-  </div>
-</article>
-
-              
-                
-                
-                
-                
-                
-                <article id="comment3" class="js-comment comment" itemprop="comment" itemscope itemtype="http://schema.org/Comment">
-  <div class="comment__avatar-wrapper">
-    <img class="comment__avatar" src="https://www.gravatar.com/avatar/fd0387e212af38089603b5480e406545?d=mm&s=80" alt="Dave Carroll">
-  </div>
-  <div class="comment__content-wrapper">
-    <h3 class="comment__author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-      
-        <span itemprop="name">Dave Carroll</span>
-      
-    </h3>
-    <p class="comment__date">
-      
-        <a href="#comment3" itemprop="url">
-        <time datetime="2018-08-19T20:33:43-05:00" itemprop="datePublished">August 20, 2018 at 01:33 AM</time>
-        </a>
-      
-    </p>
-    <div itemprop="text"><p>Third test for GCP</p>
-</div>
-  </div>
-</article>
-
-              
-                
-                
-                
-                
-                
-                <article id="comment4" class="js-comment comment" itemprop="comment" itemscope itemtype="http://schema.org/Comment">
-  <div class="comment__avatar-wrapper">
-    <img class="comment__avatar" src="https://www.gravatar.com/avatar/fd0387e212af38089603b5480e406545?d=mm&s=80" alt="Dave Carroll">
-  </div>
-  <div class="comment__content-wrapper">
-    <h3 class="comment__author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-      
-        <span itemprop="name">Dave Carroll</span>
-      
-    </h3>
-    <p class="comment__date">
-      
-        <a href="#comment4" itemprop="url">
-        <time datetime="2018-08-19T21:36:42-05:00" itemprop="datePublished">August 20, 2018 at 02:36 AM</time>
-        </a>
-      
-    </p>
-    <div itemprop="text"><p>Last test for the night</p>
-</div>
-  </div>
-</article>
-
-              
-                
-                
-                
-                
-                
-                <article id="comment5" class="js-comment comment" itemprop="comment" itemscope itemtype="http://schema.org/Comment">
-  <div class="comment__avatar-wrapper">
-    <img class="comment__avatar" src="https://www.gravatar.com/avatar/fd0387e212af38089603b5480e406545?d=mm&s=80" alt="Dave">
-  </div>
-  <div class="comment__content-wrapper">
-    <h3 class="comment__author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-      
-        <span itemprop="name">Dave</span>
-      
-    </h3>
-    <p class="comment__date">
-      
-        <a href="#comment5" itemprop="url">
-        <time datetime="2018-08-20T23:16:18-05:00" itemprop="datePublished">August 21, 2018 at 04:16 AM</time>
-        </a>
-      
-    </p>
-    <div itemprop="text"><p>Testing Travis</p>
-</div>
-  </div>
-</article>
-
-              
-                
-                
-                
-                
-                
-                <article id="comment6" class="js-comment comment" itemprop="comment" itemscope itemtype="http://schema.org/Comment">
-  <div class="comment__avatar-wrapper">
-    <img class="comment__avatar" src="https://www.gravatar.com/avatar/fd0387e212af38089603b5480e406545?d=mm&s=80" alt="Dave">
-  </div>
-  <div class="comment__content-wrapper">
-    <h3 class="comment__author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-      
-        <span itemprop="name">Dave</span>
-      
-    </h3>
-    <p class="comment__date">
-      
-        <a href="#comment6" itemprop="url">
-        <time datetime="2018-08-21T21:11:00-05:00" itemprop="datePublished">August 22, 2018 at 02:11 AM</time>
-        </a>
-      
-    </p>
-    <div itemprop="text"><p>Testing Travis 2</p>
-</div>
-  </div>
-</article>
-
-              
-                
-                
-                
-                
-                
-                <article id="comment7" class="js-comment comment" itemprop="comment" itemscope itemtype="http://schema.org/Comment">
-  <div class="comment__avatar-wrapper">
-    <img class="comment__avatar" src="https://www.gravatar.com/avatar/fd0387e212af38089603b5480e406545?d=mm&s=80" alt="Dave">
-  </div>
-  <div class="comment__content-wrapper">
-    <h3 class="comment__author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-      
-        <span itemprop="name">Dave</span>
-      
-    </h3>
-    <p class="comment__date">
-      
-        <a href="#comment7" itemprop="url">
-        <time datetime="2018-08-21T22:08:21-05:00" itemprop="datePublished">August 22, 2018 at 03:08 AM</time>
-        </a>
-      
-    </p>
-    <div itemprop="text"><p>Testing Travis 3</p>
-</div>
-  </div>
-</article>
-
-              
             
           </div>
           <!-- End static comments -->
