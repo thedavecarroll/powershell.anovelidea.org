@@ -47,9 +47,12 @@ The LastWriteTime property will be used to update the local file after downloadi
 The Updated property will be used for comparing the remote web file with the local file.
 __For some reason, even though I was writing the LastWriteTime, on a few of the files it was off by a few minutes or seconds.__
 
-### Sync-Sysinternals
+**Note:** I have added a parameter `-InstallLocation` in order to retrieve the locally installed files.
+{: .notice}
 
-The `Sync-Sysinternals` function requires a installation path. It validates it (creating the folder if necessary), uses the
+### Update-Sysinternals
+
+The `Update-Sysinternals` function requires a installation path. It validates it (creating the folder if necessary), uses the
 `Get-Sysinternals` function to get a current list, gets the files from the installation path, and compares the two.
 
 It then proceeds to download the newer files. After each file is downloaded, the function updates the LastWriteTime of
@@ -58,14 +61,33 @@ the local file.
 I included a `-Force` switch just in case someone needed to get the lastest and have the LastWriteTime updated, or to replace
 corrupted files.
 
+Please note that I changed the name from `Sync-Sysinternals` to `Update-Sysinternals`. I also added a new switch parameter
+`IgnoreDownloadErrors` that will not display errors in downloading the individual files.
+I also added the option to include the `InstallLocation` to the PATH system environment variable. Lastly, I changed the
+output types, some to `Write-Warning` and some to `Write-Output`, including a total download statement.
+{: .notice}
+
 ## Scheduling
 
 You could save these files and dot source them in a script that you schedule via Scheduled Tasks or PowerShell Scheduled
 Jobs.
 
+## Split Method
+
+Originally, I had developed and tested these functions in PowerShell Core 6.1 RC. It was only after I posted that I
+decided to test in PowerShell 5.1. I was so bent on getting the code done and this blog post written, that I cut corners,
+and it decided to cut back.
+
+Between the two editions, the `.Split()` method apparently works a little different.
+
+|PSEdition |
+|-|-|
+|PowerShell 5.1 | `.Split('<br>')` splits on each character
+|PowerShell Core | `.Split('<br>')` splits on the entire string
+
 ## Gist
 
-You can see both functions here:
+You can see both updated functions here:
 
 <script src="https://gist.github.com/thedavecarroll/85873332f0d326cd800a040aa408dbbb.js"></script>
 

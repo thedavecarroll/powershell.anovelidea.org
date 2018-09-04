@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-09-03T17:51:20-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Download Newest Sysinternals Tools</title><link href="https://powershell.anovelidea.org/powershell/download-newest-sysinternals/" rel="alternate" type="text/html" title="Download Newest Sysinternals Tools" /><published>2018-09-03T00:00:00-05:00</published><updated>2018-09-03T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/download-newest-sysinternals</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/download-newest-sysinternals/">&lt;h2 id=&quot;preface&quot;&gt;Preface&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-09-03T22:04:29-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Download Newest Sysinternals Tools</title><link href="https://powershell.anovelidea.org/powershell/download-newest-sysinternals/" rel="alternate" type="text/html" title="Download Newest Sysinternals Tools" /><published>2018-09-03T00:00:00-05:00</published><updated>2018-09-03T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/download-newest-sysinternals</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/download-newest-sysinternals/">&lt;h2 id=&quot;preface&quot;&gt;Preface&lt;/h2&gt;
 
 &lt;p&gt;I have a new laptop and have been configuring it as my primary PowerShell development system.&lt;/p&gt;
 
@@ -34,9 +34,11 @@ of objects with Name, Length, LastWriteTime, and Updated.&lt;/p&gt;
 &lt;p&gt;The Updated property will be used for comparing the remote web file with the local file.
 &lt;strong&gt;For some reason, even though I was writing the LastWriteTime, on a few of the files it was off by a few minutes or seconds.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;sync-sysinternals&quot;&gt;Sync-Sysinternals&lt;/h3&gt;
+&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I have added a parameter &lt;code class=&quot;highlighter-rouge&quot;&gt;-InstallLocation&lt;/code&gt; in order to retrieve the locally installed files.&lt;/p&gt;
 
-&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;Sync-Sysinternals&lt;/code&gt; function requires a installation path. It validates it (creating the folder if necessary), uses the
+&lt;h3 id=&quot;update-sysinternals&quot;&gt;Update-Sysinternals&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;Update-Sysinternals&lt;/code&gt; function requires a installation path. It validates it (creating the folder if necessary), uses the
 &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Sysinternals&lt;/code&gt; function to get a current list, gets the files from the installation path, and compares the two.&lt;/p&gt;
 
 &lt;p&gt;It then proceeds to download the newer files. After each file is downloaded, the function updates the LastWriteTime of
@@ -45,14 +47,46 @@ the local file.&lt;/p&gt;
 &lt;p&gt;I included a &lt;code class=&quot;highlighter-rouge&quot;&gt;-Force&lt;/code&gt; switch just in case someone needed to get the lastest and have the LastWriteTime updated, or to replace
 corrupted files.&lt;/p&gt;
 
+&lt;p class=&quot;notice&quot;&gt;Please note that I changed the name from &lt;code class=&quot;highlighter-rouge&quot;&gt;Sync-Sysinternals&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;Update-Sysinternals&lt;/code&gt;. I also added a new switch parameter
+&lt;code class=&quot;highlighter-rouge&quot;&gt;IgnoreDownloadErrors&lt;/code&gt; that will not display errors in downloading the individual files.
+I also added the option to include the &lt;code class=&quot;highlighter-rouge&quot;&gt;InstallLocation&lt;/code&gt; to the PATH system environment variable. Lastly, I changed the
+output types, some to &lt;code class=&quot;highlighter-rouge&quot;&gt;Write-Warning&lt;/code&gt; and some to &lt;code class=&quot;highlighter-rouge&quot;&gt;Write-Output&lt;/code&gt;, including a total download statement.&lt;/p&gt;
+
 &lt;h2 id=&quot;scheduling&quot;&gt;Scheduling&lt;/h2&gt;
 
 &lt;p&gt;You could save these files and dot source them in a script that you schedule via Scheduled Tasks or PowerShell Scheduled
 Jobs.&lt;/p&gt;
 
+&lt;h2 id=&quot;split-method&quot;&gt;Split Method&lt;/h2&gt;
+
+&lt;p&gt;Originally, I had developed and tested these functions in PowerShell Core 6.1 RC. It was only after I posted that I
+decided to test in PowerShell 5.1. I was so bent on getting the code done and this blog post written, that I cut corners,
+and it decided to cut back.&lt;/p&gt;
+
+&lt;p&gt;Between the two editions, the &lt;code class=&quot;highlighter-rouge&quot;&gt;.Split()&lt;/code&gt; method apparently works a little different.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;PSEdition&lt;/th&gt;
+      &lt;th&gt; &lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;PowerShell 5.1&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.Split('&amp;lt;br&amp;gt;')&lt;/code&gt; splits on each character&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;PowerShell Core&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.Split('&amp;lt;br&amp;gt;')&lt;/code&gt; splits on the entire string&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
 &lt;h2 id=&quot;gist&quot;&gt;Gist&lt;/h2&gt;
 
-&lt;p&gt;You can see both functions here:&lt;/p&gt;
+&lt;p&gt;You can see both updated functions here:&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/thedavecarroll/85873332f0d326cd800a040aa408dbbb.js&quot;&gt;&lt;/script&gt;
 

@@ -336,9 +336,11 @@ of objects with Name, Length, LastWriteTime, and Updated.</p>
 <p>The Updated property will be used for comparing the remote web file with the local file.
 <strong>For some reason, even though I was writing the LastWriteTime, on a few of the files it was off by a few minutes or seconds.</strong></p>
 
-<h3 id="sync-sysinternals">Sync-Sysinternals</h3>
+<p class="notice"><strong>Note:</strong> I have added a parameter <code class="highlighter-rouge">-InstallLocation</code> in order to retrieve the locally installed files.</p>
 
-<p>The <code class="highlighter-rouge">Sync-Sysinternals</code> function requires a installation path. It validates it (creating the folder if necessary), uses the
+<h3 id="update-sysinternals">Update-Sysinternals</h3>
+
+<p>The <code class="highlighter-rouge">Update-Sysinternals</code> function requires a installation path. It validates it (creating the folder if necessary), uses the
 <code class="highlighter-rouge">Get-Sysinternals</code> function to get a current list, gets the files from the installation path, and compares the two.</p>
 
 <p>It then proceeds to download the newer files. After each file is downloaded, the function updates the LastWriteTime of
@@ -347,14 +349,46 @@ the local file.</p>
 <p>I included a <code class="highlighter-rouge">-Force</code> switch just in case someone needed to get the lastest and have the LastWriteTime updated, or to replace
 corrupted files.</p>
 
+<p class="notice">Please note that I changed the name from <code class="highlighter-rouge">Sync-Sysinternals</code> to <code class="highlighter-rouge">Update-Sysinternals</code>. I also added a new switch parameter
+<code class="highlighter-rouge">IgnoreDownloadErrors</code> that will not display errors in downloading the individual files.
+I also added the option to include the <code class="highlighter-rouge">InstallLocation</code> to the PATH system environment variable. Lastly, I changed the
+output types, some to <code class="highlighter-rouge">Write-Warning</code> and some to <code class="highlighter-rouge">Write-Output</code>, including a total download statement.</p>
+
 <h2 id="scheduling">Scheduling</h2>
 
 <p>You could save these files and dot source them in a script that you schedule via Scheduled Tasks or PowerShell Scheduled
 Jobs.</p>
 
+<h2 id="split-method">Split Method</h2>
+
+<p>Originally, I had developed and tested these functions in PowerShell Core 6.1 RC. It was only after I posted that I
+decided to test in PowerShell 5.1. I was so bent on getting the code done and this blog post written, that I cut corners,
+and it decided to cut back.</p>
+
+<p>Between the two editions, the <code class="highlighter-rouge">.Split()</code> method apparently works a little different.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>PSEdition</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PowerShell 5.1</td>
+      <td><code class="highlighter-rouge">.Split('&lt;br&gt;')</code> splits on each character</td>
+    </tr>
+    <tr>
+      <td>PowerShell Core</td>
+      <td><code class="highlighter-rouge">.Split('&lt;br&gt;')</code> splits on the entire string</td>
+    </tr>
+  </tbody>
+</table>
+
 <h2 id="gist">Gist</h2>
 
-<p>You can see both functions here:</p>
+<p>You can see both updated functions here:</p>
 
 <script src="https://gist.github.com/thedavecarroll/85873332f0d326cd800a040aa408dbbb.js"></script>
 
