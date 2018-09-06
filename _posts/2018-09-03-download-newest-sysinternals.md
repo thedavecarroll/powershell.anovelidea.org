@@ -3,6 +3,7 @@ layout: pages
 title: "Download Newest Sysinternals Tools"
 excerpt: "Download recently updated Sysinternals tools"
 date: 2018-09-03
+last_modified_at: 2018-09-05
 comments: true
 tags:
   - powershell
@@ -98,3 +99,6 @@ These two functions will allow me (and hopefully you) to keep your local Sysinte
 Feel free to subscribe to my RSS feed to keep notified when I post something new. The link is located in the site's footer.
 
 Thanks for reading!
+
+<blockquote class="twitter-tweet" data-cards="hidden" data-lang="en"><p lang="en" dir="ltr">I&#39;ve been configuring a new laptop and needed a PowerShell way to download the latest Sysinternals tools. I created two functions and have detailed them in a new blog post. <a href="https://t.co/UuKo137aLH">https://t.co/UuKo137aLH</a></p>&mdash; Dave Carroll (@thedavecarroll) <a href="https://twitter.com/thedavecarroll/status/1036752418732756992?ref_src=twsrc%5Etfw">September 3, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
