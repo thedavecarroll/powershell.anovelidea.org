@@ -1,5 +1,5 @@
 ---
-layout: pages
+layout: single
 title: "Download Newest Sysinternals Tools"
 excerpt: "Download recently updated Sysinternals tools"
 date: 2018-09-03
