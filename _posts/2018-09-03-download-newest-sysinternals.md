@@ -48,6 +48,12 @@ The LastWriteTime property will be used to update the local file after downloadi
 The Updated property will be used for comparing the remote web file with the local file.
 __For some reason, even though I was writing the LastWriteTime, on a few of the files it was off by a few minutes or seconds.__
 
+**Update**
+I discovered the reason why I thought the local files timestamps were off. As it turns out, I've discovered 3 distinct
+timestamps for the four files. I suspect that there are three backend servers hosting the content at `live.sysinternals.com`.
+![Three different responses from Get-Sysinternals](/assets/images/get-sysinternals-discrepancy.png "Three different responses from Get-Sysinternals")
+{: .notice--primary}
+
 **Note:** I have added a parameter `-InstallLocation` in order to retrieve the locally installed files.
 {: .notice}
 
