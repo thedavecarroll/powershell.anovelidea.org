@@ -344,7 +344,7 @@ untouched – some entries were out of order.</p>
 and generated a clean set of help files into a temp folder just to harvest the module page. After placing the file into
 the correct path, I updated the front matter for Download Help Link, Help Version, and Locale.</p>
 
-<p class="notice"><strong>Note:</strong> I also added additional front matter YAML to be used by Jekyll, namely layout, classes, and permalink.</p>
+<p class="notice--primary"><strong>Note:</strong> I also added additional front matter YAML to be used by Jekyll, namely layout, classes, and permalink.</p>
 
 <p>As the content for the help files had previously been updated, I didn’t have to do that again. If you’re starting from a
 clean or initial run of <code class="highlighter-rouge">New-MarkdownHelp</code>, you will need to update the content manually.</p>
@@ -405,7 +405,7 @@ TLS 1.2 protocol and tested the URL again successfully.</p>
 <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">[Net.ServicePointManager]</span><span class="p">::</span><span class="n">SecurityProtocol</span> <span class="p">=</span> <span class="p">[</span><span class="n">Net</span><span class="p">.</span><span class="n">SecurityProtocolType</span><span class="p">]::</span><span class="n">Tls</span><span class="p">,[</span><span class="n">Net</span><span class="p">.</span><span class="n">SecurityProtocolType</span><span class="p">]::</span><span class="n">Tls11</span><span class="p">,[</span><span class="n">Net</span><span class="p">.</span><span class="n">SecurityProtocolType</span><span class="p">]::</span><span class="n">Tls12</span>
 </code></pre></div></div>
 
-<p class="notice">A quick search revealed that on February 8, 2018, <a href="https://githubengineering.com/crypto-removal-notice/" target="_blank">GitHub discontinued the use of TLS 1.0 and TLS 1.1</a>.</p>
+<p class="notice--primary">A quick search revealed that on February 8, 2018, <a href="https://githubengineering.com/crypto-removal-notice/" target="_blank">GitHub discontinued the use of TLS 1.0 and TLS 1.1</a>.</p>
 
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Update-Help -Name PoShEvents -Verbose -Force
 </code></pre></div></div>

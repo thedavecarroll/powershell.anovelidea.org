@@ -48,8 +48,14 @@ The LastWriteTime property will be used to update the local file after downloadi
 The Updated property will be used for comparing the remote web file with the local file.
 __For some reason, even though I was writing the LastWriteTime, on a few of the files it was off by a few minutes or seconds.__
 
+**Update**
+I discovered the reason why I thought the local files timestamps were off. As it turns out, I've discovered 3 distinct
+timestamps for the four files. I suspect that there are three backend servers hosting the content at `live.sysinternals.com`.
+![Three different responses from Get-Sysinternals](/assets/images/get-sysinternals-discrepancy.png "Three different responses from Get-Sysinternals")
+{: .notice--primary}
+
 **Note:** I have added a parameter `-InstallLocation` in order to retrieve the locally installed files.
-{: .notice}
+{: .notice--primary}
 
 ### Update-Sysinternals
 
@@ -66,7 +72,7 @@ Please note that I changed the name from `Sync-Sysinternals` to `Update-Sysinter
 `IgnoreDownloadErrors` that will not display errors in downloading the individual files.
 I also added the option to include the `InstallLocation` to the PATH system environment variable. Lastly, I changed the
 output types, some to `Write-Warning` and some to `Write-Output`, including a total download statement.
-{: .notice}
+{: .notice--primary}
 
 ## Scheduling
 
@@ -99,6 +105,11 @@ These two functions will allow me (and hopefully you) to keep your local Sysinte
 Feel free to subscribe to my RSS feed to keep notified when I post something new. The link is located in the site's footer.
 
 Thanks for reading!
+
+**Notice**
+I added the Twitter card to see if it's really usable. I'd like to include the tweets for each blog post so Twitter users
+would have a way to like a post after they read it. Let me know what you think about this idea in the coments below. Thanks!
+{: .notice--primary}
 
 <blockquote class="twitter-tweet" data-cards="hidden" data-lang="en"><p lang="en" dir="ltr">I&#39;ve been configuring a new laptop and needed a PowerShell way to download the latest Sysinternals tools. I created two functions and have detailed them in a new blog post. <a href="https://t.co/UuKo137aLH">https://t.co/UuKo137aLH</a></p>&mdash; Dave Carroll (@thedavecarroll) <a href="https://twitter.com/thedavecarroll/status/1036752418732756992?ref_src=twsrc%5Etfw">September 3, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>

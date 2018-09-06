@@ -50,7 +50,7 @@ and generated a clean set of help files into a temp folder just to harvest the m
 the correct path, I updated the front matter for Download Help Link, Help Version, and Locale.
 
 **Note:** I also added additional front matter YAML to be used by Jekyll, namely layout, classes, and permalink.
-{: .notice}
+{: .notice--primary}
 
 As the content for the help files had previously been updated, I didn't have to do that again. If you're starting from a
 clean or initial run of `New-MarkdownHelp`, you will need to update the content manually.
@@ -122,7 +122,7 @@ Ssl3, Tls
 ```
 
 A quick search revealed that on February 8, 2018, [GitHub discontinued the use of TLS 1.0 and TLS 1.1](https://githubengineering.com/crypto-removal-notice/){:target="_blank"}.
-{: .notice}
+{: .notice--primary}
 
 ```powershell
 Update-Help -Name PoShEvents -Verbose -Force

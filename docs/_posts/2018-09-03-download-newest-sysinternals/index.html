@@ -338,7 +338,12 @@ of objects with Name, Length, LastWriteTime, and Updated.</p>
 <p>The Updated property will be used for comparing the remote web file with the local file.
 <strong>For some reason, even though I was writing the LastWriteTime, on a few of the files it was off by a few minutes or seconds.</strong></p>
 
-<p class="notice"><strong>Note:</strong> I have added a parameter <code class="highlighter-rouge">-InstallLocation</code> in order to retrieve the locally installed files.</p>
+<p class="notice--primary"><strong>Update</strong>
+I discovered the reason why I thought the local files timestamps were off. As it turns out, I’ve discovered 3 distinct
+timestamps for the four files. I suspect that there are three backend servers hosting the content at <code class="highlighter-rouge">live.sysinternals.com</code>.
+<img src="/assets/images/get-sysinternals-discrepancy.png" alt="Three different responses from Get-Sysinternals" title="Three different responses from Get-Sysinternals" /></p>
+
+<p class="notice--primary"><strong>Note:</strong> I have added a parameter <code class="highlighter-rouge">-InstallLocation</code> in order to retrieve the locally installed files.</p>
 
 <h3 id="update-sysinternals">Update-Sysinternals</h3>
 
@@ -351,7 +356,7 @@ the local file.</p>
 <p>I included a <code class="highlighter-rouge">-Force</code> switch just in case someone needed to get the lastest and have the LastWriteTime updated, or to replace
 corrupted files.</p>
 
-<p class="notice">Please note that I changed the name from <code class="highlighter-rouge">Sync-Sysinternals</code> to <code class="highlighter-rouge">Update-Sysinternals</code>. I also added a new switch parameter
+<p class="notice--primary">Please note that I changed the name from <code class="highlighter-rouge">Sync-Sysinternals</code> to <code class="highlighter-rouge">Update-Sysinternals</code>. I also added a new switch parameter
 <code class="highlighter-rouge">IgnoreDownloadErrors</code> that will not display errors in downloading the individual files.
 I also added the option to include the <code class="highlighter-rouge">InstallLocation</code> to the PATH system environment variable. Lastly, I changed the
 output types, some to <code class="highlighter-rouge">Write-Warning</code> and some to <code class="highlighter-rouge">Write-Output</code>, including a total download statement.</p>
@@ -401,6 +406,10 @@ and it decided to cut back.</p>
 <p>Feel free to subscribe to my RSS feed to keep notified when I post something new. The link is located in the site’s footer.</p>
 
 <p>Thanks for reading!</p>
+
+<p class="notice--primary"><strong>Notice</strong>
+I added the Twitter card to see if it’s really usable. I’d like to include the tweets for each blog post so Twitter users
+would have a way to like a post after they read it. Let me know what you think about this idea in the coments below. Thanks!</p>
 
 <blockquote class="twitter-tweet" data-cards="hidden" data-lang="en"><p lang="en" dir="ltr">I&#39;ve been configuring a new laptop and needed a PowerShell way to download the latest Sysinternals tools. I created two functions and have detailed them in a new blog post. <a href="https://t.co/UuKo137aLH">https://t.co/UuKo137aLH</a></p>&mdash; Dave Carroll (@thedavecarroll) <a href="https://twitter.com/thedavecarroll/status/1036752418732756992?ref_src=twsrc%5Etfw">September 3, 2018</a></blockquote>
 <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
