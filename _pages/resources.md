@@ -19,6 +19,8 @@ toc_icon: list
 
 * [The DevOps Collective Site : PowerShell.org](https://www.powershell.org/){:target="_blank"}
 * [Unofficial PowerShell Best Practice and Style Guide](https://github.com/PoshCode/PowerShellPracticeAndStyle){:target="_blank"}
+* [Planet PowerShell RSS Feed](https://www.planetpowershell.com/feed){:target="_blank"}
+* [Twitter #PowerShell tag](https://twitter.com/search?q=%23powershell&src=tyah){:target="_blank"}
 
 ## Microsoft Links
 
