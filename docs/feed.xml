@@ -1,4 +1,114 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-09-03T12:52:02-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">How I Blog</title><link href="https://powershell.anovelidea.org/blog/how-i-blog/" rel="alternate" type="text/html" title="How I Blog" /><published>2018-08-26T00:00:00-05:00</published><updated>2018-08-29T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/blog/how-i-blog</id><content type="html" xml:base="https://powershell.anovelidea.org/blog/how-i-blog/">&lt;p&gt;Someone asked what I used to produce this blog. This post will provide the methodology and details.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-09-08T13:11:54-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Download Newest Sysinternals Tools</title><link href="https://powershell.anovelidea.org/powershell/download-newest-sysinternals/" rel="alternate" type="text/html" title="Download Newest Sysinternals Tools" /><published>2018-09-03T00:00:00-05:00</published><updated>2018-09-05T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/download-newest-sysinternals</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/download-newest-sysinternals/">&lt;h2 id=&quot;preface&quot;&gt;Preface&lt;/h2&gt;
+
+&lt;p&gt;I have a new laptop and have been configuring it as my primary PowerShell development system.&lt;/p&gt;
+
+&lt;p&gt;Today, when I was looking for a way to search for all of my GitHub repositories, I found a couple Gists from
+&lt;a href=&quot;https://jdhitsolutions.com/blog/&quot; target=&quot;_blank&quot;&gt;Jeff Hicks&lt;/a&gt; for
+&lt;a href=&quot;https://gist.github.com/jdhitsolutions/06cb62bf3eb4f0a1f7d82ed39b1e56ca&quot; target=&quot;_blank&quot;&gt;New-GitHubGist&lt;/a&gt; and
+&lt;a href=&quot;https://gist.github.com/jdhitsolutions/345a6b8e4c47440df5fb1dbcb987cb3e&quot; target=&quot;_blank&quot;&gt;SendTo-Gist&lt;/a&gt;. Knowing Jeff
+is a prolific PowerShell blogger, I dug a little deeper and found his
+&lt;a href=&quot;http://jdhitsolutions.com/blog/powershell/4895/friday-fun-a-sysinternals-powershell-workflow/&quot; target=&quot;_blank&quot;&gt;post&lt;/a&gt;
+on using a PowerShell workflow to download Sysinternals.&lt;/p&gt;
+
+&lt;p&gt;That made me realize — I didn’t have Sysinternals installed.&lt;/p&gt;
+
+&lt;h2 id=&quot;sysinternals-required&quot;&gt;Sysinternals Required&lt;/h2&gt;
+
+&lt;p&gt;I needed to install Sysinternals suite, but being that I’m a “find a PowerShell way” person, I started searching.&lt;/p&gt;
+
+&lt;p&gt;First off, Jeff’s workflow, while very enlightening, was a bit overkill for my purpose and I wanted to not be heavy
+handed with downloading all tools.&lt;/p&gt;
+
+&lt;p&gt;My search revealed
+&lt;a href=&quot;https://rcmtech.wordpress.com/2017/01/10/get-or-update-sysinternals-tools-with-powershell/&quot; target=&quot;_blank&quot;&gt;Robin CM’s IT Blog post&lt;/a&gt;
+which I used as a basis for my two functions.&lt;/p&gt;
+
+&lt;h3 id=&quot;get-sysinternals&quot;&gt;Get-Sysinternals&lt;/h3&gt;
+
+&lt;p&gt;The first function, &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Sysinternals&lt;/code&gt;, simply retrieves the full list of Sysinternal files from
+&lt;a href=&quot;https://live.sysinternals.com&quot; target=&quot;_blank&quot;&gt;Sysinternals Live&lt;/a&gt;. The function parses each file and produces an array
+of objects with Name, Length, LastWriteTime, and Updated.&lt;/p&gt;
+
+&lt;p&gt;The LastWriteTime property will be used to update the local file after downloading.&lt;/p&gt;
+
+&lt;p&gt;The Updated property will be used for comparing the remote web file with the local file.
+&lt;strong&gt;For some reason, even though I was writing the LastWriteTime, on a few of the files it was off by a few minutes or seconds.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Update&lt;/strong&gt;
+I discovered the reason why I thought the local files timestamps were off. As it turns out, I’ve discovered 3 distinct
+timestamps for the four files. I suspect that there are three backend servers hosting the content at &lt;code class=&quot;highlighter-rouge&quot;&gt;live.sysinternals.com&lt;/code&gt;.
+&lt;img src=&quot;/assets/images/get-sysinternals-discrepancy.png&quot; alt=&quot;Three different responses from Get-Sysinternals&quot; title=&quot;Three different responses from Get-Sysinternals&quot; /&gt;&lt;/p&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I have added a parameter &lt;code class=&quot;highlighter-rouge&quot;&gt;-InstallLocation&lt;/code&gt; in order to retrieve the locally installed files.&lt;/p&gt;
+
+&lt;h3 id=&quot;update-sysinternals&quot;&gt;Update-Sysinternals&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;Update-Sysinternals&lt;/code&gt; function requires a installation path. It validates it (creating the folder if necessary), uses the
+&lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Sysinternals&lt;/code&gt; function to get a current list, gets the files from the installation path, and compares the two.&lt;/p&gt;
+
+&lt;p&gt;It then proceeds to download the newer files. After each file is downloaded, the function updates the LastWriteTime of
+the local file.&lt;/p&gt;
+
+&lt;p&gt;I included a &lt;code class=&quot;highlighter-rouge&quot;&gt;-Force&lt;/code&gt; switch just in case someone needed to get the lastest and have the LastWriteTime updated, or to replace
+corrupted files.&lt;/p&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;Please note that I changed the name from &lt;code class=&quot;highlighter-rouge&quot;&gt;Sync-Sysinternals&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;Update-Sysinternals&lt;/code&gt;. I also added a new switch parameter
+&lt;code class=&quot;highlighter-rouge&quot;&gt;IgnoreDownloadErrors&lt;/code&gt; that will not display errors in downloading the individual files.
+I also added the option to include the &lt;code class=&quot;highlighter-rouge&quot;&gt;InstallLocation&lt;/code&gt; to the PATH system environment variable. Lastly, I changed the
+output types, some to &lt;code class=&quot;highlighter-rouge&quot;&gt;Write-Warning&lt;/code&gt; and some to &lt;code class=&quot;highlighter-rouge&quot;&gt;Write-Output&lt;/code&gt;, including a total download statement.&lt;/p&gt;
+
+&lt;h2 id=&quot;scheduling&quot;&gt;Scheduling&lt;/h2&gt;
+
+&lt;p&gt;You could save these files and dot source them in a script that you schedule via Scheduled Tasks or PowerShell Scheduled
+Jobs.&lt;/p&gt;
+
+&lt;h2 id=&quot;split-method&quot;&gt;Split Method&lt;/h2&gt;
+
+&lt;p&gt;Originally, I had developed and tested these functions in PowerShell Core 6.1 RC. It was only after I posted that I
+decided to test in PowerShell 5.1. I was so bent on getting the code done and this blog post written, that I cut corners,
+and it decided to cut back.&lt;/p&gt;
+
+&lt;p&gt;Between the two editions, the &lt;code class=&quot;highlighter-rouge&quot;&gt;.Split()&lt;/code&gt; method apparently works a little different.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;PSEdition&lt;/th&gt;
+      &lt;th&gt; &lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;PowerShell 5.1&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.Split('&amp;lt;br&amp;gt;')&lt;/code&gt; splits on each character&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;PowerShell Core&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.Split('&amp;lt;br&amp;gt;')&lt;/code&gt; splits on the entire string&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;gist&quot;&gt;Gist&lt;/h2&gt;
+
+&lt;p&gt;You can see both updated functions here:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/thedavecarroll/85873332f0d326cd800a040aa408dbbb.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;These two functions will allow me (and hopefully you) to keep your local Sysinternals folder up-to-date.&lt;/p&gt;
+
+&lt;p&gt;Feel free to subscribe to my RSS feed to keep notified when I post something new. The link is located in the site’s footer.&lt;/p&gt;
+
+&lt;p&gt;Thanks for reading!&lt;/p&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Notice&lt;/strong&gt;
+I added the Twitter card to see if it’s really usable. I’d like to include the tweets for each blog post so Twitter users
+would have a way to like a post after they read it. Let me know what you think about this idea in the coments below. Thanks!&lt;/p&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-cards=&quot;hidden&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;I&amp;#39;ve been configuring a new laptop and needed a PowerShell way to download the latest Sysinternals tools. I created two functions and have detailed them in a new blog post. &lt;a href=&quot;https://t.co/UuKo137aLH&quot;&gt;https://t.co/UuKo137aLH&lt;/a&gt;&lt;/p&gt;&amp;mdash; Dave Carroll (@thedavecarroll) &lt;a href=&quot;https://twitter.com/thedavecarroll/status/1036752418732756992?ref_src=twsrc%5Etfw&quot;&gt;September 3, 2018&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async=&quot;&quot; src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="sysinternals" /><summary type="html">Download recently updated Sysinternals tools</summary></entry><entry><title type="html">How I Blog</title><link href="https://powershell.anovelidea.org/blog/how-i-blog/" rel="alternate" type="text/html" title="How I Blog" /><published>2018-08-26T00:00:00-05:00</published><updated>2018-08-29T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/blog/how-i-blog</id><content type="html" xml:base="https://powershell.anovelidea.org/blog/how-i-blog/">&lt;p&gt;Someone asked what I used to produce this blog. This post will provide the methodology and details.&lt;/p&gt;
 
 &lt;h2 id=&quot;the-decision-to-blog&quot;&gt;The Decision to Blog&lt;/h2&gt;
 
@@ -204,7 +314,7 @@ configuration file.&lt;/p&gt;
 staticman, staticman_v2, and custom. After checking into them, I saw that the theme author used Staticman V2. It seemed
 the best way to go and it keeps the comments within your grasp and local(ish) to the site.&lt;/p&gt;
 
-&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; The theme author has developed &lt;strong&gt;reply-to&lt;/strong&gt; comments but has not incorporated them into the Minimal Mistakes
+&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; The theme author has developed &lt;strong&gt;reply-to&lt;/strong&gt; comments but has not incorporated them into the Minimal Mistakes
 theme. When I want to get under the hood again of the theme, I will look at implementing it for this site.&lt;/p&gt;
 
 &lt;h3 id=&quot;staticman-api-webhook&quot;&gt;Staticman API Webhook&lt;/h3&gt;
@@ -293,7 +403,11 @@ such as GitHub, Ruby, and Jekyll. It’s taken me several steps toward automatio
 &lt;a href=&quot;https://github.com/thedavecarroll/powershell.anovelidea.org&quot; target=&quot;_blank&quot;&gt;my repo&lt;/a&gt;. Check out the closed Pull
 Requests. Check out the folder structure and the files.&lt;/p&gt;
 
-&lt;p&gt;I hope this post was informative. Feel free to leave a comment below.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;blog&quot;]" /><category term="blog" /><category term="jekyll" /><category term="travis ci" /><category term="github" /><category term="staticman" /><summary type="html">What technologies are used in my blog?</summary></entry><entry><title type="html">Updatable Help</title><link href="https://powershell.anovelidea.org/powershell/updatable-help/" rel="alternate" type="text/html" title="Updatable Help" /><published>2018-08-25T00:00:00-05:00</published><updated>2018-08-25T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/updatable-help</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/updatable-help/">&lt;p&gt;PowerShell has provided a way to update the help files for modules since version 3.0.&lt;/p&gt;
+&lt;p&gt;I hope this post was informative. Feel free to leave a comment below.&lt;/p&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Update&lt;/strong&gt;
+I used the code from &lt;a href=&quot;https://codersblock.com/blog/customizing-github-gists/&quot; target=&quot;_blank&quot;&gt;Coders Block&lt;/a&gt; to change
+the color syntax of GitHub Gists.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;blog&quot;]" /><category term="blog" /><category term="jekyll" /><category term="travis ci" /><category term="github" /><category term="staticman" /><summary type="html">What technologies are used in my blog?</summary></entry><entry><title type="html">Updatable Help</title><link href="https://powershell.anovelidea.org/powershell/updatable-help/" rel="alternate" type="text/html" title="Updatable Help" /><published>2018-08-25T00:00:00-05:00</published><updated>2018-08-25T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/updatable-help</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/updatable-help/">&lt;p&gt;PowerShell has provided a way to update the help files for modules since version 3.0.&lt;/p&gt;
 
 &lt;p&gt;Since creating my first two modules, I have tried adding updatable help support, but came across a few issues. Tonight,
 I finally resolved them for my module PoShEvents.&lt;/p&gt;
@@ -329,7 +443,7 @@ untouched – some entries were out of order.&lt;/p&gt;
 and generated a clean set of help files into a temp folder just to harvest the module page. After placing the file into
 the correct path, I updated the front matter for Download Help Link, Help Version, and Locale.&lt;/p&gt;
 
-&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I also added additional front matter YAML to be used by Jekyll, namely layout, classes, and permalink.&lt;/p&gt;
+&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I also added additional front matter YAML to be used by Jekyll, namely layout, classes, and permalink.&lt;/p&gt;
 
 &lt;p&gt;As the content for the help files had previously been updated, I didn’t have to do that again. If you’re starting from a
 clean or initial run of &lt;code class=&quot;highlighter-rouge&quot;&gt;New-MarkdownHelp&lt;/code&gt;, you will need to update the content manually.&lt;/p&gt;
@@ -390,7 +504,7 @@ TLS 1.2 protocol and tested the URL again successfully.&lt;/p&gt;
 &lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;[Net.ServicePointManager]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SecurityProtocol&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SecurityProtocolType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Tls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SecurityProtocolType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Tls11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SecurityProtocolType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Tls12&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p class=&quot;notice&quot;&gt;A quick search revealed that on February 8, 2018, &lt;a href=&quot;https://githubengineering.com/crypto-removal-notice/&quot; target=&quot;_blank&quot;&gt;GitHub discontinued the use of TLS 1.0 and TLS 1.1&lt;/a&gt;.&lt;/p&gt;
+&lt;p class=&quot;notice--primary&quot;&gt;A quick search revealed that on February 8, 2018, &lt;a href=&quot;https://githubengineering.com/crypto-removal-notice/&quot; target=&quot;_blank&quot;&gt;GitHub discontinued the use of TLS 1.0 and TLS 1.1&lt;/a&gt;.&lt;/p&gt;
 
 &lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Update-Help -Name PoShEvents -Verbose -Force
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -471,7 +585,7 @@ portion.&lt;/p&gt;
 &lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;Notice:&lt;/strong&gt; I used the ForEach() method (available in PowerShell v4 and later), which is typically faster than the
+&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Notice:&lt;/strong&gt; I used the ForEach() method (available in PowerShell v4 and later), which is typically faster than the
 ForEach-Object cmdlet or the foreach loop. You can use whichever you choose based on your PowerShell version.&lt;/p&gt;
 
 &lt;p&gt;Finally, we use Sort-Object -Unique to get the unique domains.&lt;/p&gt;

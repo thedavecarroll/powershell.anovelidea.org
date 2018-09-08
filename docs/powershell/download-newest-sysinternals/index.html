@@ -9,28 +9,28 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Unique Email Domains - PowerShell: What A Novel Idea</title>
-<meta name="description" content="Get unique email domains from proxyAddresses for Exchange or Azure.">
+<!-- begin _includes/seo.html --><title>Download Newest Sysinternals Tools - PowerShell: What A Novel Idea</title>
+<meta name="description" content="Download recently updated Sysinternals tools">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="PowerShell: What A Novel Idea">
-<meta property="og:title" content="Unique Email Domains">
-<meta property="og:url" content="https://powershell.anovelidea.org/_posts/2018-08-17-unique-email-domains/">
+<meta property="og:title" content="Download Newest Sysinternals Tools">
+<meta property="og:url" content="https://powershell.anovelidea.org/powershell/download-newest-sysinternals/">
 
 
-  <meta property="og:description" content="Get unique email domains from proxyAddresses for Exchange or Azure.">
+  <meta property="og:description" content="Download recently updated Sysinternals tools">
 
 
 
 
 
   <meta name="twitter:site" content="@thedavecarroll">
-  <meta name="twitter:title" content="Unique Email Domains">
-  <meta name="twitter:description" content="Get unique email domains from proxyAddresses for Exchange or Azure.">
-  <meta name="twitter:url" content="https://powershell.anovelidea.org/_posts/2018-08-17-unique-email-domains/">
+  <meta name="twitter:title" content="Download Newest Sysinternals Tools">
+  <meta name="twitter:description" content="Download recently updated Sysinternals tools">
+  <meta name="twitter:url" content="https://powershell.anovelidea.org/powershell/download-newest-sysinternals/">
 
   
     <meta name="twitter:card" content="summary">
@@ -41,9 +41,11 @@
 
 
 
-  <meta property="article:published_time" content="2018-08-17T00:00:00-05:00">
+  <meta property="article:published_time" content="2018-09-03T00:00:00-05:00">
 
 
+
+  <meta property="article:modified_time" content="2018-09-05T00:00:00-05:00">
 
 
 
@@ -52,7 +54,7 @@
   
 
 
-<link rel="canonical" href="https://powershell.anovelidea.org/_posts/2018-08-17-unique-email-domains/">
+<link rel="canonical" href="https://powershell.anovelidea.org/powershell/download-newest-sysinternals/">
 
 
 
@@ -275,6 +277,9 @@
     </a>
   </li>
 -->
+<a href="https://www.planetpowershell.com/" target="_blank">
+  <img style="border-radius: 8px; width: 180px" src="/assets/images/planetpowershell.png" alt="Planet PowerShell">
+</a>
     </ul>
   </div>
 </div>
@@ -284,63 +289,142 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Unique Email Domains">
-    <meta itemprop="description" content="Get unique email domains from proxyAddresses for Exchange or Azure.">
-    <meta itemprop="datePublished" content="August 17, 2018">
-    
+    <meta itemprop="headline" content="Download Newest Sysinternals Tools">
+    <meta itemprop="description" content="Download recently updated Sysinternals tools">
+    <meta itemprop="datePublished" content="September 03, 2018">
+    <meta itemprop="dateModified" content="September 05, 2018">
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">Unique Email Domains
+          <h1 id="page-title" class="page__title" itemprop="headline">Download Newest Sysinternals Tools
 </h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  3 minute read
+</p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
-        <p>So you’re working on getting all of your email domains that’s on-prem into Azure or you simply want to ensure that your
-on-prem Exchange has been configured for all the domains your user accounts utilize. Your Active Directory domain
-contains over 30,000 accounts. How would you go about discovering the unique email domains?</p>
+        <h2 id="preface">Preface</h2>
 
-<p>Knowing that the Active Directory attribute proxyAddresses contains the account’s SMTP addreses, we can start there.
-Also, you only want to include only those domains for active accounts. [Note: The proxyAddresses also contains other
-address types, but we are only concerned about SMTP for this excercise.]</p>
+<p>I have a new laptop and have been configuring it as my primary PowerShell development system.</p>
 
-<p>First, let’s get all the proxyAddresses into a variable.</p>
+<p>Today, when I was looking for a way to search for all of my GitHub repositories, I found a couple Gists from
+<a href="https://jdhitsolutions.com/blog/" target="_blank">Jeff Hicks</a> for
+<a href="https://gist.github.com/jdhitsolutions/06cb62bf3eb4f0a1f7d82ed39b1e56ca" target="_blank">New-GitHubGist</a> and
+<a href="https://gist.github.com/jdhitsolutions/345a6b8e4c47440df5fb1dbcb987cb3e" target="_blank">SendTo-Gist</a>. Knowing Jeff
+is a prolific PowerShell blogger, I dug a little deeper and found his
+<a href="http://jdhitsolutions.com/blog/powershell/4895/friday-fun-a-sysinternals-powershell-workflow/" target="_blank">post</a>
+on using a PowerShell workflow to download Sysinternals.</p>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Filter</span> <span class="o">=</span> <span class="s2">"proxyAddresses -like '*' -and enabled -eq 'true'"</span>
-<span class="nv">$ProxyAddresses</span> <span class="o">=</span> <span class="nb">Get-ADUser</span> -Filter <span class="nv">$Filter</span> -Properties proxyAddresses | <span class="nb">Select-Object</span> -ExpandProperty proxyAddresses
-</code></pre></div></div>
+<p>That made me realize — I didn’t have Sysinternals installed.</p>
 
-<p>Next, we will loop through each one, matching on only SMTP addresses. We split on the @ symbol and return the domain
-portion.</p>
+<h2 id="sysinternals-required">Sysinternals Required</h2>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$EmailDomains</span> <span class="o">=</span> <span class="nv">$ProxyAddresses</span>.ForEach<span class="o">(</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="nv">$_</span> -match <span class="s1">'smtp'</span><span class="o">)</span> <span class="o">{</span>
-        <span class="nv">$_</span>.Replace<span class="o">(</span><span class="s1">'smtp:'</span>,<span class="s1">''</span><span class="o">)</span>.Split<span class="o">(</span><span class="s1">'@'</span><span class="o">)[</span>1]
-    <span class="o">}</span>
-<span class="o">})</span>
-</code></pre></div></div>
+<p>I needed to install Sysinternals suite, but being that I’m a “find a PowerShell way” person, I started searching.</p>
 
-<p class="notice"><strong>Notice:</strong> I used the ForEach() method (available in PowerShell v4 and later), which is typically faster than the
-ForEach-Object cmdlet or the foreach loop. You can use whichever you choose based on your PowerShell version.</p>
+<p>First off, Jeff’s workflow, while very enlightening, was a bit overkill for my purpose and I wanted to not be heavy
+handed with downloading all tools.</p>
 
-<p>Finally, we use Sort-Object -Unique to get the unique domains.</p>
+<p>My search revealed
+<a href="https://rcmtech.wordpress.com/2017/01/10/get-or-update-sysinternals-tools-with-powershell/" target="_blank">Robin CM’s IT Blog post</a>
+which I used as a basis for my two functions.</p>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$EmailDomains</span> | <span class="nb">Sort-Object</span> -Unique
+<h3 id="get-sysinternals">Get-Sysinternals</h3>
 
-anovelidea.org
-chronicgoogler.com
-gmail.com
-</code></pre></div></div>
+<p>The first function, <code class="highlighter-rouge">Get-Sysinternals</code>, simply retrieves the full list of Sysinternal files from
+<a href="https://live.sysinternals.com" target="_blank">Sysinternals Live</a>. The function parses each file and produces an array
+of objects with Name, Length, LastWriteTime, and Updated.</p>
 
-<p>Of course, you could have dozens or more unique domains. This short exercise can also reveal typos in domains.</p>
+<p>The LastWriteTime property will be used to update the local file after downloading.</p>
 
-<p>Hopefully, this post was helpful to you in some way.</p>
+<p>The Updated property will be used for comparing the remote web file with the local file.
+<strong>For some reason, even though I was writing the LastWriteTime, on a few of the files it was off by a few minutes or seconds.</strong></p>
 
-<p>Have a great day!</p>
+<p class="notice--primary"><strong>Update</strong>
+I discovered the reason why I thought the local files timestamps were off. As it turns out, I’ve discovered 3 distinct
+timestamps for the four files. I suspect that there are three backend servers hosting the content at <code class="highlighter-rouge">live.sysinternals.com</code>.
+<img src="/assets/images/get-sysinternals-discrepancy.png" alt="Three different responses from Get-Sysinternals" title="Three different responses from Get-Sysinternals" /></p>
+
+<p class="notice--primary"><strong>Note:</strong> I have added a parameter <code class="highlighter-rouge">-InstallLocation</code> in order to retrieve the locally installed files.</p>
+
+<h3 id="update-sysinternals">Update-Sysinternals</h3>
+
+<p>The <code class="highlighter-rouge">Update-Sysinternals</code> function requires a installation path. It validates it (creating the folder if necessary), uses the
+<code class="highlighter-rouge">Get-Sysinternals</code> function to get a current list, gets the files from the installation path, and compares the two.</p>
+
+<p>It then proceeds to download the newer files. After each file is downloaded, the function updates the LastWriteTime of
+the local file.</p>
+
+<p>I included a <code class="highlighter-rouge">-Force</code> switch just in case someone needed to get the lastest and have the LastWriteTime updated, or to replace
+corrupted files.</p>
+
+<p class="notice--primary">Please note that I changed the name from <code class="highlighter-rouge">Sync-Sysinternals</code> to <code class="highlighter-rouge">Update-Sysinternals</code>. I also added a new switch parameter
+<code class="highlighter-rouge">IgnoreDownloadErrors</code> that will not display errors in downloading the individual files.
+I also added the option to include the <code class="highlighter-rouge">InstallLocation</code> to the PATH system environment variable. Lastly, I changed the
+output types, some to <code class="highlighter-rouge">Write-Warning</code> and some to <code class="highlighter-rouge">Write-Output</code>, including a total download statement.</p>
+
+<h2 id="scheduling">Scheduling</h2>
+
+<p>You could save these files and dot source them in a script that you schedule via Scheduled Tasks or PowerShell Scheduled
+Jobs.</p>
+
+<h2 id="split-method">Split Method</h2>
+
+<p>Originally, I had developed and tested these functions in PowerShell Core 6.1 RC. It was only after I posted that I
+decided to test in PowerShell 5.1. I was so bent on getting the code done and this blog post written, that I cut corners,
+and it decided to cut back.</p>
+
+<p>Between the two editions, the <code class="highlighter-rouge">.Split()</code> method apparently works a little different.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>PSEdition</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PowerShell 5.1</td>
+      <td><code class="highlighter-rouge">.Split('&lt;br&gt;')</code> splits on each character</td>
+    </tr>
+    <tr>
+      <td>PowerShell Core</td>
+      <td><code class="highlighter-rouge">.Split('&lt;br&gt;')</code> splits on the entire string</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="gist">Gist</h2>
+
+<p>You can see both updated functions here:</p>
+
+<script src="https://gist.github.com/thedavecarroll/85873332f0d326cd800a040aa408dbbb.js"></script>
+
+<h2 id="summary">Summary</h2>
+
+<p>These two functions will allow me (and hopefully you) to keep your local Sysinternals folder up-to-date.</p>
+
+<p>Feel free to subscribe to my RSS feed to keep notified when I post something new. The link is located in the site’s footer.</p>
+
+<p>Thanks for reading!</p>
+
+<p class="notice--primary"><strong>Notice</strong>
+I added the Twitter card to see if it’s really usable. I’d like to include the tweets for each blog post so Twitter users
+would have a way to like a post after they read it. Let me know what you think about this idea in the coments below. Thanks!</p>
+
+<blockquote class="twitter-tweet" data-cards="hidden" data-lang="en"><p lang="en" dir="ltr">I&#39;ve been configuring a new laptop and needed a PowerShell way to download the latest Sysinternals tools. I created two functions and have detailed them in a new blog post. <a href="https://t.co/UuKo137aLH">https://t.co/UuKo137aLH</a></p>&mdash; Dave Carroll (@thedavecarroll) <a href="https://twitter.com/thedavecarroll/status/1036752418732756992?ref_src=twsrc%5Etfw">September 3, 2018</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 
         
       </section>
@@ -361,15 +445,11 @@ gmail.com
     
       
       
-      <a href="/tags/#azure" class="page__taxonomy-item" rel="tag">azure</a><span class="sep">, </span>
+      <a href="/tags/#powershell" class="page__taxonomy-item" rel="tag">powershell</a><span class="sep">, </span>
     
       
       
-      <a href="/tags/#exchange" class="page__taxonomy-item" rel="tag">exchange</a><span class="sep">, </span>
-    
-      
-      
-      <a href="/tags/#powershell" class="page__taxonomy-item" rel="tag">powershell</a>
+      <a href="/tags/#sysinternals" class="page__taxonomy-item" rel="tag">sysinternals</a>
     
     </span>
   </p>
@@ -377,10 +457,31 @@ gmail.com
 
 
 
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#powershell" class="page__taxonomy-item" rel="tag">powershell</a>
+    
+    </span>
+  </p>
+
+
 
         
-            <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted:</strong> <time datetime="2018-08-17T00:00:00-05:00">August 17, 2018</time></p>
+            <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted:</strong> <time datetime="2018-09-03T00:00:00-05:00">September 03, 2018</time></p>
         
+        
+            <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-09-05">September 05, 2018</time></p>
         
 
       </footer>
@@ -388,6 +489,16 @@ gmail.com
       
 
       
+  <nav class="pagination">
+    
+      <a href="/blog/how-i-blog/" class="pagination--pager" title="How I Blog
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
     </div>
 
     
@@ -398,6 +509,67 @@ gmail.com
         
           <!-- Start static comments -->
           <div class="js-comments">
+            
+              <h4 class="page__comments-title">Comments</h4>
+              
+
+              
+                
+                
+                
+                
+                
+                <article id="comment1" class="js-comment comment" itemprop="comment" itemscope itemtype="http://schema.org/Comment">
+  <div class="comment__avatar-wrapper">
+    <img class="comment__avatar" src="https://www.gravatar.com/avatar/7400079578fa7ea548606c80eb72668c?d=mm&s=80" alt="jkavpowershell">
+  </div>
+  <div class="comment__content-wrapper">
+    <h3 class="comment__author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      
+        <span itemprop="name">jkavpowershell</span>
+      
+    </h3>
+    <p class="comment__date">
+      
+        <a href="#comment1" itemprop="url">
+        <time datetime="2018-09-06T07:30:51-05:00" itemprop="datePublished">September 06, 2018 at 12:30 PM</time>
+        </a>
+      
+    </p>
+    <div itemprop="text"><p>I just use install-package -Name sysinternals -ProviderName Chocolatey -confirm:$false -force</p>
+</div>
+  </div>
+</article>
+
+              
+                
+                
+                
+                
+                
+                <article id="comment2" class="js-comment comment" itemprop="comment" itemscope itemtype="http://schema.org/Comment">
+  <div class="comment__avatar-wrapper">
+    <img class="comment__avatar" src="https://www.gravatar.com/avatar/3808223fae397f8065780dfae42d388e?d=mm&s=80" alt="Tom">
+  </div>
+  <div class="comment__content-wrapper">
+    <h3 class="comment__author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      
+        <span itemprop="name">Tom</span>
+      
+    </h3>
+    <p class="comment__date">
+      
+        <a href="#comment2" itemprop="url">
+        <time datetime="2018-09-06T08:05:21-05:00" itemprop="datePublished">September 06, 2018 at 01:05 PM</time>
+        </a>
+      
+    </p>
+    <div itemprop="text"><p>This is great. Thanks for sharing!</p>
+</div>
+  </div>
+</article>
+
+              
             
           </div>
           <!-- End static comments -->
@@ -430,7 +602,7 @@ gmail.com
                 <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
               </div>
               <div class="form-group hidden" style="display: none;">
-                <input type="hidden" name="options[slug]" value="">
+                <input type="hidden" name="options[slug]" value="download-newest-sysinternals">
                 <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
                 <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
                 <input type="hidden" name="options[reCaptcha][siteKey]" value="6LfTsmoUAAAAAKI2qS8kGdIxL5rAxjr4vKfD1yH8">

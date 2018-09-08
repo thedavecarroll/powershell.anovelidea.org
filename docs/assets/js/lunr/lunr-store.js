@@ -23,4 +23,9 @@ var store = [{
         "excerpt":"Someone asked what I used to produce this blog. This post will provide the methodology and details. The Decision to Blog I’ve hosted a personal website on various platforms since early 2000. I’ve used FTP, SFTP, FrontPage, WebDAV,Dreamweaver, WordPress, and probably some others that I’ve forgotten about. Using WordPress, I...","categories": ["blog"],
         "tags": ["blog","jekyll","travis ci","github","staticman"],
         "url": "https://powershell.anovelidea.org/blog/how-i-blog/",
+        "teaser":null},{
+        "title": "Download Newest Sysinternals Tools",
+        "excerpt":"Preface I have a new laptop and have been configuring it as my primary PowerShell development system. Today, when I was looking for a way to search for all of my GitHub repositories, I found a couple Gists fromJeff Hicks forNew-GitHubGist andSendTo-Gist. Knowing Jeffis a prolific PowerShell blogger, I dug...","categories": ["powershell"],
+        "tags": ["powershell","sysinternals"],
+        "url": "https://powershell.anovelidea.org/powershell/download-newest-sysinternals/",
         "teaser":null}]
