@@ -1,6 +1,23 @@
 #!/usr/bin/env bash
 set -e # halt script on error
 
+# ------------------------------------------------------------------------------
+function sitemap_ping {
+
+    echo "------------------------------------------------------------------------------------------------------------------------"
+    echo "Pinging new sitemap"
+    echo
+
+    echo "  Google"
+    wget -O- http://www.google.com/webmasters/tools/ping?sitemap=https%3A%2F%2Fpowershell.anovelidea.org%2Fsitemap.xml
+
+    echo "  Bing"
+    wget -O- http://www.bing.com/ping?siteMap=https%3A%2F%2Fpowershell.anovelidea.org%2Fsitemap.xml
+
+    echo
+    echo "------------------------------------------------------------------------------------------------------------------------"
+}
+
 echo
 echo "------------------------------------------------------------------------------------------------------------------------"
 if [ "$TRAVIS_PULL_REQUEST" != "false" -a "$TRAVIS_BRANCH" == "comments" ]; then
@@ -17,6 +34,8 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" -a "$TRAVIS_BRANCH" == "comments" ]; then
     echo
     echo "------------------------------------------------------------------------------------------------------------------------"
 
+    sitemap_ping
+
     exit 0
 
 elif [ "$TRAVIS_BRANCH" == "master" ]; then
@@ -32,6 +51,8 @@ elif [ "$TRAVIS_BRANCH" == "master" ]; then
     echo "Proofing links complete"
     echo
     echo "------------------------------------------------------------------------------------------------------------------------"
+
+    sitemap_ping
 
     exit 0
 
