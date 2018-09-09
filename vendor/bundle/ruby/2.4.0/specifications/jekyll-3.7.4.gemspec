@@ -1,15 +1,15 @@
 # -*- encoding: utf-8 -*-
-# stub: jekyll 3.7.3 ruby lib
+# stub: jekyll 3.7.4 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "jekyll".freeze
-  s.version = "3.7.3"
+  s.version = "3.7.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib".freeze]
   s.authors = ["Tom Preston-Werner".freeze]
   s.bindir = "exe".freeze
-  s.date = "2018-02-25"
+  s.date = "2018-09-07"
   s.description = "Jekyll is a simple, blog aware, static site generator.".freeze
   s.email = "tom@mojombo.com".freeze
   s.executables = ["jekyll".freeze]

@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
-# stub: github-pages 191 ruby lib
+# stub: github-pages 192 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "github-pages".freeze
-  s.version = "191"
+  s.version = "192"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib".freeze]
   s.authors = ["GitHub, Inc.".freeze]
-  s.date = "2018-08-13"
+  s.date = "2018-09-08"
   s.description = "Bootstrap the GitHub Pages Jekyll environment locally.".freeze
   s.email = "support@github.com".freeze
   s.executables = ["github-pages".freeze]
@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<jekyll>.freeze, ["= 3.7.3"])
+      s.add_runtime_dependency(%q<jekyll>.freeze, ["= 3.7.4"])
       s.add_runtime_dependency(%q<jekyll-sass-converter>.freeze, ["= 1.5.2"])
       s.add_runtime_dependency(%q<kramdown>.freeze, ["= 1.17.0"])
       s.add_runtime_dependency(%q<jekyll-commonmark-ghpages>.freeze, ["= 0.1.5"])
@@ -75,7 +75,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jekyll_test_plugin_malicious>.freeze, ["~> 0.2"])
       s.add_development_dependency(%q<rubocop>.freeze, ["< 5.0", ">= 0.48.1"])
     else
-      s.add_dependency(%q<jekyll>.freeze, ["= 3.7.3"])
+      s.add_dependency(%q<jekyll>.freeze, ["= 3.7.4"])
       s.add_dependency(%q<jekyll-sass-converter>.freeze, ["= 1.5.2"])
       s.add_dependency(%q<kramdown>.freeze, ["= 1.17.0"])
       s.add_dependency(%q<jekyll-commonmark-ghpages>.freeze, ["= 0.1.5"])
@@ -126,7 +126,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<rubocop>.freeze, ["< 5.0", ">= 0.48.1"])
     end
   else
-    s.add_dependency(%q<jekyll>.freeze, ["= 3.7.3"])
+    s.add_dependency(%q<jekyll>.freeze, ["= 3.7.4"])
     s.add_dependency(%q<jekyll-sass-converter>.freeze, ["= 1.5.2"])
     s.add_dependency(%q<kramdown>.freeze, ["= 1.17.0"])
     s.add_dependency(%q<jekyll-commonmark-ghpages>.freeze, ["= 0.1.5"])
