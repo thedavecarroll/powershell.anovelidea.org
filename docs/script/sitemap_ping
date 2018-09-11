@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+echo
+echo "Pinging new sitemap"
+
+echo "--------------------------------------------------------------------------------"
+echo "Google"
+wget -O- http://www.google.com/webmasters/tools/ping?sitemap=https%3A%2F%2Fpowershell.anovelidea.org%2Fsitemap.xml
+
+echo "--------------------------------------------------------------------------------"
+echo "Bing"
+wget -O- http://www.bing.com/ping?siteMap=https%3A%2F%2Fpowershell.anovelidea.org%2Fsitemap.xml
+
+echo
+echo "------------------------------------------------------------------------------------------------------------------------"
