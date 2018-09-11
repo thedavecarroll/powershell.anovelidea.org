@@ -4,6 +4,7 @@ rvm:
 
 before_script:
  - chmod +x ./script/cibuild # or do this locally and commit
+ - chmod +x ./script/sitemap_ping
 
 # Assume bundler is being used, therefore
 # the `install` step will run `bundle install` by default.
@@ -36,3 +37,5 @@ deploy:
   verbose: true
   on:
     branch: master
+
+after_script: ./script/sitemap_ping
