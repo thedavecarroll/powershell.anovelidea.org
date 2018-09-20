@@ -521,6 +521,48 @@ on the <strong>Hey, Scripting Guy!</strong> blog, MVP and Honorary Scripting Guy
           <!-- Start static comments -->
           <div class="js-comments">
             
+              <h4 class="page__comments-title">Comments</h4>
+              
+
+              
+                
+                
+                
+                
+                
+                <article id="comment1" class="js-comment comment" itemprop="comment" itemscope itemtype="http://schema.org/Comment">
+  <div class="comment__avatar-wrapper">
+    <img class="comment__avatar" src="https://www.gravatar.com/avatar/d7d29e9573b5da44d9886df24fcc6142?d=mm&s=80" alt="Kevin Marquette">
+  </div>
+  <div class="comment__content-wrapper">
+    <h3 class="comment__author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      
+        <span itemprop="name"><a rel="external nofollow" itemprop="url" href="https://kevinmarquette.github.io">Kevin Marquette</a></span>
+      
+    </h3>
+    <p class="comment__date">
+      
+        <a href="#comment1" itemprop="url">
+        <time datetime="2018-09-20T04:12:11-05:00" itemprop="datePublished">September 20, 2018 at 09:12 AM</time>
+        </a>
+      
+    </p>
+    <div itemprop="text"><p>I also had no idea that <code class="highlighter-rouge">ForEach-Object</code> supported <code class="highlighter-rouge">-WhatIf</code> this way. I do have one scenario where this would be very handy.</p>
+
+<p>One lesser known feature of <code class="highlighter-rouge">ForEach-Object</code> is that it has an alternate parameter set that takes just a string. If that maps to a property name on the object, you will get the value. If it maps to a method on the object, it will get executed. So, you can use <code class="highlighter-rouge">-WhatIf</code> in this way:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-Process slack | % Close -WhatIf
+</code></pre></div></div>
+
+<p>I would never use this magic in a script, but I use it all the time when on the console. I can now see myself using <code class="highlighter-rouge">-WhatIf</code> like this quite often.</p>
+
+<p>Thank you for pointing this out.</p>
+</div>
+  </div>
+</article>
+
+              
+            
           </div>
           <!-- End static comments -->
 
