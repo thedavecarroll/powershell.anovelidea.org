@@ -28,4 +28,9 @@ var store = [{
         "excerpt":"Preface I have a new laptop and have been configuring it as my primary PowerShell development system. Today, when I was looking for a way to search for all of my GitHub repositories, I found a couple Gists fromJeff Hicks forNew-GitHubGist andSendTo-Gist. Knowing Jeffis a prolific PowerShell blogger, I dug...","categories": ["powershell"],
         "tags": ["powershell","sysinternals"],
         "url": "https://powershell.anovelidea.org/powershell/download-newest-sysinternals/",
+        "teaser":null},{
+        "title": "ForEach-Object -WhatIf",
+        "excerpt":"Preface While working on my PoShDynDnsApi module, I came across an issue withwith a function I had predominantly borrowed from a TechNet blog post from Jamie Nelson.Specifically, in my function Update-DynDnsRecord that called the Compare-ObjectProperties function, when I used the-WhatIf parameter, I unexpectedly received the following: What if: Performing the...","categories": ["powershell"],
+        "tags": ["powershell","foreach-object","function","ad hoc function"],
+        "url": "https://powershell.anovelidea.org/powershell/foreach-object-whatif/",
         "teaser":null}]

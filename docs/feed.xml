@@ -1,4 +1,122 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-09-10T19:27:09-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Download Newest Sysinternals Tools</title><link href="https://powershell.anovelidea.org/powershell/download-newest-sysinternals/" rel="alternate" type="text/html" title="Download Newest Sysinternals Tools" /><published>2018-09-03T00:00:00-05:00</published><updated>2018-09-05T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/download-newest-sysinternals</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/download-newest-sysinternals/">&lt;h2 id=&quot;preface&quot;&gt;Preface&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-09-19T23:08:46-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">ForEach-Object -WhatIf</title><link href="https://powershell.anovelidea.org/powershell/foreach-object-whatif/" rel="alternate" type="text/html" title="ForEach-Object -WhatIf" /><published>2018-09-19T00:00:00-05:00</published><updated>2018-09-19T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/foreach-object-whatif</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/foreach-object-whatif/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/foreach-object-whatif.png&quot; alt=&quot;ForEach-Object -WhatIf&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;preface&quot;&gt;Preface&lt;/h2&gt;
+
+&lt;p&gt;While working on my &lt;a href=&quot;https://github.com/thedavecarroll/PoShDynDnsApi&quot; target=&quot;_blank&quot;&gt;PoShDynDnsApi&lt;/a&gt; module, I came across an issue with
+with a function I had predominantly borrowed from a &lt;a href=&quot;https://blogs.technet.microsoft.com/janesays/2017/04/25/compare-all-properties-of-two-objects-in-windows-powershell/&quot; target=&quot;_blank&quot;&gt;TechNet blog post from Jamie Nelson&lt;/a&gt;.
+Specifically, in my function &lt;code class=&quot;highlighter-rouge&quot;&gt;Update-DynDnsRecord&lt;/code&gt; that called the &lt;code class=&quot;highlighter-rouge&quot;&gt;Compare-ObjectProperties&lt;/code&gt; function, when I used the
+&lt;code class=&quot;highlighter-rouge&quot;&gt;-WhatIf&lt;/code&gt; parameter, I unexpectedly received the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: ipaddress Address {get;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;.
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: string Name {get;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;set;}&quot;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: int TTL {get;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;.
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: string Type {get;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;set;}&quot;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: string Zone {get;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;.
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: ipaddress Address {get;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;set;}&quot;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: string Name {get;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;.
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: int TTL {get;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;set;}&quot;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: string Type {get;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;.
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: string Zone {get;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;set;}&quot;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;Compare-ObjectProperties&lt;/code&gt; seemed to be throwing these additional What If statements. I saw where the &lt;code class=&quot;highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt;
+alias of &lt;code class=&quot;highlighter-rouge&quot;&gt;%&lt;/code&gt; was used a few times and determined that these two lines were the cause.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$objprops&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ReferenceObject&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;Get-Member&lt;/span&gt; -MemberType Property,NoteProperty | % Name
+&lt;span class=&quot;nv&quot;&gt;$objprops&lt;/span&gt; +&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DifferenceObject&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;Get-Member&lt;/span&gt; -MemberType Property,NoteProperty | % Name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;foreach-object&quot;&gt;ForEach-Object&lt;/h2&gt;
+
+&lt;h3 id=&quot;-whatif&quot;&gt;-WhatIf&lt;/h3&gt;
+
+&lt;p&gt;I checked out the &lt;code class=&quot;highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/foreach-object?view=powershell-5.1&quot; target=&quot;_blank&quot;&gt;docs page&lt;/a&gt;
+and saw that it supports &lt;code class=&quot;highlighter-rouge&quot;&gt;-WhatIf&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;-Confirm&lt;/code&gt; parameters. That’s something that I had never considered. In fact, the
+more I read, the more I realized that &lt;code class=&quot;highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt; was much more than a simple iterative command.&lt;/p&gt;
+
+&lt;h3 id=&quot;-begin--process-and--end&quot;&gt;-Begin, -Process, and -End&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt; provides a ParameterSet that includes the parameters &lt;code class=&quot;highlighter-rouge&quot;&gt;-Begin&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;-Process&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;-End&lt;/code&gt;, all as ScriptBlocks.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Hey! Those look like the processing methods of an advanced function.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In fact, comparing the processing methods to the parameters revealed they served basically the same purpose.&lt;/p&gt;
+
+&lt;h3 id=&quot;ad-hoc-advanced-function-but-with-caveats&quot;&gt;Ad Hoc Advanced Function But with Caveats&lt;/h3&gt;
+
+&lt;p&gt;That the &lt;code class=&quot;highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt; cmdlet could be used essentially as an ad hoc advanced function was an epiphany.&lt;/p&gt;
+
+&lt;p&gt;This wasn’t as miraculous of a discovery as I had originally thought the further testing I performed.&lt;/p&gt;
+
+&lt;h4 id=&quot;script-blocks-and--whatif&quot;&gt;Script Blocks and -WhatIf&lt;/h4&gt;
+
+&lt;p&gt;I had hoped that I could provide &lt;code class=&quot;highlighter-rouge&quot;&gt;-Begin&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;-Process&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;-End&lt;/code&gt; parameters along with &lt;code class=&quot;highlighter-rouge&quot;&gt;-WhatIf&lt;/code&gt; as illustrated in the
+following code:&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;PS &lt;/span&gt;C:\&amp;gt; &lt;span class=&quot;s1&quot;&gt;'testing1'&lt;/span&gt;,&lt;span class=&quot;s1&quot;&gt;'testing2'&lt;/span&gt; |  &lt;span class=&quot;k&quot;&gt;ForEach&lt;/span&gt;-Object -Begin &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;Write-Output&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Starting'&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; -Process &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;Write-Output&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Processing &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; -End &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Write-Output&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Ending'&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; -WhatIf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;What I expected was not how PowerShell responded.&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;ForEach-Object : The -WhatIf and -Confirm parameters are not supported for script blocks.
+At line:1 char:26
++ ... esting2' |  ForEach-Object -Begin { write-Output 'Starting' } -Proces ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo          : InvalidOperation: (:) [ForEach-Object], InvalidOperationException
++ FullyQualifiedErrorId : NoShouldProcessForScriptBlockSet,Microsoft.PowerShell.Commands.ForEachObjectCommand
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You cannot use the script blocks and WhatIf. Okay, I wondered if there were other restrictions.&lt;/p&gt;
+
+&lt;h4 id=&quot;script-blocks-and--verbose&quot;&gt;Script Blocks and -Verbose&lt;/h4&gt;
+
+&lt;p&gt;In checking how &lt;code class=&quot;highlighter-rouge&quot;&gt;-Verbose&lt;/code&gt; was handled, I discovered the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;PS &lt;/span&gt;C:\&amp;gt; &lt;span class=&quot;s1&quot;&gt;'testing1'&lt;/span&gt;,&lt;span class=&quot;s1&quot;&gt;'testing2'&lt;/span&gt; |  &lt;span class=&quot;k&quot;&gt;ForEach&lt;/span&gt;-Object -Begin &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;Write-Output&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Starting'&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; -Process &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;Write-Output&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Processing &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; -Message &lt;span class=&quot;s1&quot;&gt;'Process block'&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; -End &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;Write-verbose&lt;/span&gt; -Message &lt;span class=&quot;s1&quot;&gt;'Ending'&lt;/span&gt; -Verbose
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; -Verbose
+Starting
+Processing testing1
+Processing testing2
+VERBOSE: Ending
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Foreach-Object&lt;/code&gt; didn’t pass the &lt;code class=&quot;highlighter-rouge&quot;&gt;-Verbose&lt;/code&gt; common parameter to any code within the script blocks.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Now that I know that &lt;code class=&quot;highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt; supports &lt;code class=&quot;highlighter-rouge&quot;&gt;-WhatIf&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;-Confirm&lt;/code&gt; parameters, I am better equipped to handle them
+in my future functions and scripts.&lt;/p&gt;
+
+&lt;p&gt;Also, I debunked my original thought that &lt;code class=&quot;highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt; could be a viable replacement for an advanced function.  Not
+passing &lt;code class=&quot;highlighter-rouge&quot;&gt;-Verbose&lt;/code&gt; and potentially other common parameters (I didn’t test any others) is, to me, a significant
+deal-breaker.&lt;/p&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I never considered forgoing advanced functions, just that the cmdlet could be an ad hoc supplement.&lt;/p&gt;
+
+&lt;p&gt;This doesn’t mean that we shouldn’t consider using the &lt;code class=&quot;highlighter-rouge&quot;&gt;-Begin&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;-Process&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;-End&lt;/code&gt; script block parameters, as I’m
+sure there are use cases when they make perfect sense. The PowerShell team thought so, otherwise they wouldn’t have
+included them in the cmdlet.&lt;/p&gt;
+
+&lt;p&gt;My discovery and exploration of the &lt;code class=&quot;highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt; cmdlet and a few of its parameters, increased my understanding of it
+and PowerShell. I hope it helps you as well.&lt;/p&gt;
+
+&lt;h2 id=&quot;further-reading&quot;&gt;Further Reading&lt;/h2&gt;
+
+&lt;p&gt;In a &lt;a href=&quot;https://blogs.technet.microsoft.com/heyscriptingguy/2014/07/08/getting-to-know-foreach-and-foreach-object/&quot; target=&quot;_blank&quot;&gt;guest post&lt;/a&gt;
+on the &lt;strong&gt;Hey, Scripting Guy!&lt;/strong&gt; blog, MVP and Honorary Scripting Guy &lt;a href=&quot;https://learn-powershell.net/&quot; target=&quot;_blank&quot;&gt;Boe Prox&lt;/a&gt; &lt;a href=&quot;https://twitter.com/proxb&quot; target=&quot;_blank&quot;&gt;@proxb&lt;/a&gt; examines the ForEach-Object cmdlet compared to the ForEach statement.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="foreach-object" /><category term="function" /><category term="ad hoc function" /><summary type="html">While working on my PoShDynDnsApi module, I came across an issue...I checked out the ForEach-Object and saw that it supports -WhatIf and -Confirm parameters.</summary></entry><entry><title type="html">Download Newest Sysinternals Tools</title><link href="https://powershell.anovelidea.org/powershell/download-newest-sysinternals/" rel="alternate" type="text/html" title="Download Newest Sysinternals Tools" /><published>2018-09-03T00:00:00-05:00</published><updated>2018-09-05T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/download-newest-sysinternals</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/download-newest-sysinternals/">&lt;h2 id=&quot;preface&quot;&gt;Preface&lt;/h2&gt;
 
 &lt;p&gt;I have a new laptop and have been configuring it as my primary PowerShell development system.&lt;/p&gt;
 

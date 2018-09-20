@@ -9,28 +9,28 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Download Newest Sysinternals Tools - PowerShell: What A Novel Idea</title>
-<meta name="description" content="Download recently updated Sysinternals tools">
+<!-- begin _includes/seo.html --><title>ForEach-Object -WhatIf - PowerShell: What A Novel Idea</title>
+<meta name="description" content="While working on my PoShDynDnsApi module, I came across an issue…I checked out the ForEach-Object and saw that it supports -WhatIf and -Confirm parameters.">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="PowerShell: What A Novel Idea">
-<meta property="og:title" content="Download Newest Sysinternals Tools">
-<meta property="og:url" content="https://powershell.anovelidea.org/powershell/download-newest-sysinternals/">
+<meta property="og:title" content="ForEach-Object -WhatIf">
+<meta property="og:url" content="https://powershell.anovelidea.org/powershell/foreach-object-whatif/">
 
 
-  <meta property="og:description" content="Download recently updated Sysinternals tools">
+  <meta property="og:description" content="While working on my PoShDynDnsApi module, I came across an issue…I checked out the ForEach-Object and saw that it supports -WhatIf and -Confirm parameters.">
 
 
 
 
 
   <meta name="twitter:site" content="@thedavecarroll">
-  <meta name="twitter:title" content="Download Newest Sysinternals Tools">
-  <meta name="twitter:description" content="Download recently updated Sysinternals tools">
-  <meta name="twitter:url" content="https://powershell.anovelidea.org/powershell/download-newest-sysinternals/">
+  <meta name="twitter:title" content="ForEach-Object -WhatIf">
+  <meta name="twitter:description" content="While working on my PoShDynDnsApi module, I came across an issue…I checked out the ForEach-Object and saw that it supports -WhatIf and -Confirm parameters.">
+  <meta name="twitter:url" content="https://powershell.anovelidea.org/powershell/foreach-object-whatif/">
 
   
     <meta name="twitter:card" content="summary">
@@ -41,11 +41,9 @@
 
 
 
-  <meta property="article:published_time" content="2018-09-03T00:00:00-05:00">
+  <meta property="article:published_time" content="2018-09-19T00:00:00-05:00">
 
 
-
-  <meta property="article:modified_time" content="2018-09-05T00:00:00-05:00">
 
 
 
@@ -54,7 +52,7 @@
   
 
 
-<link rel="canonical" href="https://powershell.anovelidea.org/powershell/download-newest-sysinternals/">
+<link rel="canonical" href="https://powershell.anovelidea.org/powershell/foreach-object-whatif/">
 
 
 
@@ -289,15 +287,15 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Download Newest Sysinternals Tools">
-    <meta itemprop="description" content="Download recently updated Sysinternals tools">
-    <meta itemprop="datePublished" content="September 03, 2018">
-    <meta itemprop="dateModified" content="September 05, 2018">
+    <meta itemprop="headline" content="ForEach-Object -WhatIf">
+    <meta itemprop="description" content="While working on my PoShDynDnsApi module, I came across an issue…I checked out the ForEach-Object and saw that it supports -WhatIf and -Confirm parameters.">
+    <meta itemprop="datePublished" content="September 19, 2018">
+    
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">Download Newest Sysinternals Tools
+          <h1 id="page-title" class="page__title" itemprop="headline">ForEach-Object -WhatIf
 </h1>
           
             <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
@@ -313,118 +311,125 @@
 
       <section class="page__content" itemprop="text">
         
-        <h2 id="preface">Preface</h2>
+        <p class="full"><img src="https://powershell.anovelidea.org//assets/images/foreach-object-whatif.png" alt="ForEach-Object -WhatIf" /></p>
 
-<p>I have a new laptop and have been configuring it as my primary PowerShell development system.</p>
+<h2 id="preface">Preface</h2>
 
-<p>Today, when I was looking for a way to search for all of my GitHub repositories, I found a couple Gists from
-<a href="https://jdhitsolutions.com/blog/" target="_blank">Jeff Hicks</a> for
-<a href="https://gist.github.com/jdhitsolutions/06cb62bf3eb4f0a1f7d82ed39b1e56ca" target="_blank">New-GitHubGist</a> and
-<a href="https://gist.github.com/jdhitsolutions/345a6b8e4c47440df5fb1dbcb987cb3e" target="_blank">SendTo-Gist</a>. Knowing Jeff
-is a prolific PowerShell blogger, I dug a little deeper and found his
-<a href="http://jdhitsolutions.com/blog/powershell/4895/friday-fun-a-sysinternals-powershell-workflow/" target="_blank">post</a>
-on using a PowerShell workflow to download Sysinternals.</p>
+<p>While working on my <a href="https://github.com/thedavecarroll/PoShDynDnsApi" target="_blank">PoShDynDnsApi</a> module, I came across an issue with
+with a function I had predominantly borrowed from a <a href="https://blogs.technet.microsoft.com/janesays/2017/04/25/compare-all-properties-of-two-objects-in-windows-powershell/" target="_blank">TechNet blog post from Jamie Nelson</a>.
+Specifically, in my function <code class="highlighter-rouge">Update-DynDnsRecord</code> that called the <code class="highlighter-rouge">Compare-ObjectProperties</code> function, when I used the
+<code class="highlighter-rouge">-WhatIf</code> parameter, I unexpectedly received the following:</p>
 
-<p>That made me realize — I didn’t have Sysinternals installed.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">What if: Performing the operation "Retrieve the value for property 'Name'" on target "InputObject: ipaddress Address {get;</span><span class="nb">set</span><span class="p">;</span><span class="o">}</span><span class="s2">".
+</span><span class="gp">What if: Performing the operation "Retrieve the value for property 'Name'" on target "InputObject: string Name {get;</span><span class="s2">set;}"</span><span class="nb">.</span>
+<span class="gp">What if: Performing the operation "Retrieve the value for property 'Name'" on target "InputObject: int TTL {get;</span><span class="nb">set</span><span class="p">;</span><span class="o">}</span><span class="s2">".
+</span><span class="gp">What if: Performing the operation "Retrieve the value for property 'Name'" on target "InputObject: string Type {get;</span><span class="s2">set;}"</span><span class="nb">.</span>
+<span class="gp">What if: Performing the operation "Retrieve the value for property 'Name'" on target "InputObject: string Zone {get;</span><span class="nb">set</span><span class="p">;</span><span class="o">}</span><span class="s2">".
+</span><span class="gp">What if: Performing the operation "Retrieve the value for property 'Name'" on target "InputObject: ipaddress Address {get;</span><span class="s2">set;}"</span><span class="nb">.</span>
+<span class="gp">What if: Performing the operation "Retrieve the value for property 'Name'" on target "InputObject: string Name {get;</span><span class="nb">set</span><span class="p">;</span><span class="o">}</span><span class="s2">".
+</span><span class="gp">What if: Performing the operation "Retrieve the value for property 'Name'" on target "InputObject: int TTL {get;</span><span class="s2">set;}"</span><span class="nb">.</span>
+<span class="gp">What if: Performing the operation "Retrieve the value for property 'Name'" on target "InputObject: string Type {get;</span><span class="nb">set</span><span class="p">;</span><span class="o">}</span><span class="s2">".
+</span><span class="gp">What if: Performing the operation "Retrieve the value for property 'Name'" on target "InputObject: string Zone {get;</span><span class="s2">set;}"</span><span class="nb">.</span>
+</code></pre></div></div>
 
-<h2 id="sysinternals-required">Sysinternals Required</h2>
+<p>The <code class="highlighter-rouge">Compare-ObjectProperties</code> seemed to be throwing these additional What If statements. I saw where the <code class="highlighter-rouge">ForEach-Object</code>
+alias of <code class="highlighter-rouge">%</code> was used a few times and determined that these two lines were the cause.</p>
 
-<p>I needed to install Sysinternals suite, but being that I’m a “find a PowerShell way” person, I started searching.</p>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$objprops</span> <span class="o">=</span> <span class="nv">$ReferenceObject</span> | <span class="nb">Get-Member</span> -MemberType Property,NoteProperty | % Name
+<span class="nv">$objprops</span> +<span class="o">=</span> <span class="nv">$DifferenceObject</span> | <span class="nb">Get-Member</span> -MemberType Property,NoteProperty | % Name
+</code></pre></div></div>
 
-<p>First off, Jeff’s workflow, while very enlightening, was a bit overkill for my purpose and I wanted to not be heavy
-handed with downloading all tools.</p>
+<h2 id="foreach-object">ForEach-Object</h2>
 
-<p>My search revealed
-<a href="https://rcmtech.wordpress.com/2017/01/10/get-or-update-sysinternals-tools-with-powershell/" target="_blank">Robin CM’s IT Blog post</a>
-which I used as a basis for my two functions.</p>
+<h3 id="-whatif">-WhatIf</h3>
 
-<h3 id="get-sysinternals">Get-Sysinternals</h3>
+<p>I checked out the <code class="highlighter-rouge">ForEach-Object</code> <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/foreach-object?view=powershell-5.1" target="_blank">docs page</a>
+and saw that it supports <code class="highlighter-rouge">-WhatIf</code> and <code class="highlighter-rouge">-Confirm</code> parameters. That’s something that I had never considered. In fact, the
+more I read, the more I realized that <code class="highlighter-rouge">ForEach-Object</code> was much more than a simple iterative command.</p>
 
-<p>The first function, <code class="highlighter-rouge">Get-Sysinternals</code>, simply retrieves the full list of Sysinternal files from
-<a href="https://live.sysinternals.com" target="_blank">Sysinternals Live</a>. The function parses each file and produces an array
-of objects with Name, Length, LastWriteTime, and Updated.</p>
+<h3 id="-begin--process-and--end">-Begin, -Process, and -End</h3>
 
-<p>The LastWriteTime property will be used to update the local file after downloading.</p>
+<p><code class="highlighter-rouge">ForEach-Object</code> provides a ParameterSet that includes the parameters <code class="highlighter-rouge">-Begin</code>, <code class="highlighter-rouge">-Process</code>, and <code class="highlighter-rouge">-End</code>, all as ScriptBlocks.</p>
 
-<p>The Updated property will be used for comparing the remote web file with the local file.
-<strong>For some reason, even though I was writing the LastWriteTime, on a few of the files it was off by a few minutes or seconds.</strong></p>
+<blockquote>
+  <p>Hey! Those look like the processing methods of an advanced function.</p>
+</blockquote>
 
-<p class="notice--primary"><strong>Update</strong>
-I discovered the reason why I thought the local files timestamps were off. As it turns out, I’ve discovered 3 distinct
-timestamps for the four files. I suspect that there are three backend servers hosting the content at <code class="highlighter-rouge">live.sysinternals.com</code>.
-<img src="/assets/images/get-sysinternals-discrepancy.png" alt="Three different responses from Get-Sysinternals" title="Three different responses from Get-Sysinternals" /></p>
+<p>In fact, comparing the processing methods to the parameters revealed they served basically the same purpose.</p>
 
-<p class="notice--primary"><strong>Note:</strong> I have added a parameter <code class="highlighter-rouge">-InstallLocation</code> in order to retrieve the locally installed files.</p>
+<h3 id="ad-hoc-advanced-function-but-with-caveats">Ad Hoc Advanced Function But with Caveats</h3>
 
-<h3 id="update-sysinternals">Update-Sysinternals</h3>
+<p>That the <code class="highlighter-rouge">ForEach-Object</code> cmdlet could be used essentially as an ad hoc advanced function was an epiphany.</p>
 
-<p>The <code class="highlighter-rouge">Update-Sysinternals</code> function requires a installation path. It validates it (creating the folder if necessary), uses the
-<code class="highlighter-rouge">Get-Sysinternals</code> function to get a current list, gets the files from the installation path, and compares the two.</p>
+<p>This wasn’t as miraculous of a discovery as I had originally thought the further testing I performed.</p>
 
-<p>It then proceeds to download the newer files. After each file is downloaded, the function updates the LastWriteTime of
-the local file.</p>
+<h4 id="script-blocks-and--whatif">Script Blocks and -WhatIf</h4>
 
-<p>I included a <code class="highlighter-rouge">-Force</code> switch just in case someone needed to get the lastest and have the LastWriteTime updated, or to replace
-corrupted files.</p>
+<p>I had hoped that I could provide <code class="highlighter-rouge">-Begin</code>, <code class="highlighter-rouge">-Process</code>, and <code class="highlighter-rouge">-End</code> parameters along with <code class="highlighter-rouge">-WhatIf</code> as illustrated in the
+following code:</p>
 
-<p class="notice--primary">Please note that I changed the name from <code class="highlighter-rouge">Sync-Sysinternals</code> to <code class="highlighter-rouge">Update-Sysinternals</code>. I also added a new switch parameter
-<code class="highlighter-rouge">IgnoreDownloadErrors</code> that will not display errors in downloading the individual files.
-I also added the option to include the <code class="highlighter-rouge">InstallLocation</code> to the PATH system environment variable. Lastly, I changed the
-output types, some to <code class="highlighter-rouge">Write-Warning</code> and some to <code class="highlighter-rouge">Write-Output</code>, including a total download statement.</p>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">PS </span>C:\&gt; <span class="s1">'testing1'</span>,<span class="s1">'testing2'</span> |  <span class="k">ForEach</span>-Object -Begin <span class="o">{</span>
+    <span class="nb">Write-Output</span> <span class="s1">'Starting'</span>
+    <span class="o">}</span> -Process <span class="o">{</span>
+        <span class="nb">Write-Output</span> <span class="s2">"Processing </span><span class="nv">$_</span><span class="s2">"</span>
+    <span class="o">}</span> -End <span class="o">{</span> <span class="nb">Write-Output</span> <span class="s1">'Ending'</span>
+    <span class="o">}</span> -WhatIf
+</code></pre></div></div>
 
-<h2 id="scheduling">Scheduling</h2>
+<p>What I expected was not how PowerShell responded.</p>
 
-<p>You could save these files and dot source them in a script that you schedule via Scheduled Tasks or PowerShell Scheduled
-Jobs.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">ForEach-Object : The -WhatIf and -Confirm parameters are not supported for script blocks.
+At line:1 char:26
++ ... esting2' |  ForEach-Object -Begin { write-Output 'Starting' } -Proces ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo          : InvalidOperation: (:) [ForEach-Object], InvalidOperationException
++ FullyQualifiedErrorId : NoShouldProcessForScriptBlockSet,Microsoft.PowerShell.Commands.ForEachObjectCommand
+</span></code></pre></div></div>
 
-<h2 id="split-method">Split Method</h2>
+<p>You cannot use the script blocks and WhatIf. Okay, I wondered if there were other restrictions.</p>
 
-<p>Originally, I had developed and tested these functions in PowerShell Core 6.1 RC. It was only after I posted that I
-decided to test in PowerShell 5.1. I was so bent on getting the code done and this blog post written, that I cut corners,
-and it decided to cut back.</p>
+<h4 id="script-blocks-and--verbose">Script Blocks and -Verbose</h4>
 
-<p>Between the two editions, the <code class="highlighter-rouge">.Split()</code> method apparently works a little different.</p>
+<p>In checking how <code class="highlighter-rouge">-Verbose</code> was handled, I discovered the following:</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>PSEdition</th>
-      <th> </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>PowerShell 5.1</td>
-      <td><code class="highlighter-rouge">.Split('&lt;br&gt;')</code> splits on each character</td>
-    </tr>
-    <tr>
-      <td>PowerShell Core</td>
-      <td><code class="highlighter-rouge">.Split('&lt;br&gt;')</code> splits on the entire string</td>
-    </tr>
-  </tbody>
-</table>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">PS </span>C:\&gt; <span class="s1">'testing1'</span>,<span class="s1">'testing2'</span> |  <span class="k">ForEach</span>-Object -Begin <span class="o">{</span>
+    <span class="nb">Write-Output</span> <span class="s1">'Starting'</span>
+    <span class="o">}</span> -Process <span class="o">{</span>
+        <span class="nb">Write-Output</span> <span class="s2">"Processing </span><span class="nv">$_</span><span class="s2">"</span>
+        <span class="nb">Write-Verbose</span> -Message <span class="s1">'Process block'</span>
+    <span class="o">}</span> -End <span class="o">{</span>
+        <span class="nb">Write-verbose</span> -Message <span class="s1">'Ending'</span> -Verbose
+    <span class="o">}</span> -Verbose
+Starting
+Processing testing1
+Processing testing2
+VERBOSE: Ending
+</code></pre></div></div>
 
-<h2 id="gist">Gist</h2>
+<p><code class="highlighter-rouge">Foreach-Object</code> didn’t pass the <code class="highlighter-rouge">-Verbose</code> common parameter to any code within the script blocks.</p>
 
-<p>You can see both updated functions here:</p>
+<h2 id="conclusion">Conclusion</h2>
 
-<script src="https://gist.github.com/thedavecarroll/85873332f0d326cd800a040aa408dbbb.js"></script>
+<p>Now that I know that <code class="highlighter-rouge">ForEach-Object</code> supports <code class="highlighter-rouge">-WhatIf</code> and <code class="highlighter-rouge">-Confirm</code> parameters, I am better equipped to handle them
+in my future functions and scripts.</p>
 
-<h2 id="summary">Summary</h2>
+<p>Also, I debunked my original thought that <code class="highlighter-rouge">ForEach-Object</code> could be a viable replacement for an advanced function.  Not
+passing <code class="highlighter-rouge">-Verbose</code> and potentially other common parameters (I didn’t test any others) is, to me, a significant
+deal-breaker.</p>
 
-<p>These two functions will allow me (and hopefully you) to keep your local Sysinternals folder up-to-date.</p>
+<p class="notice--primary"><strong>Note:</strong> I never considered forgoing advanced functions, just that the cmdlet could be an ad hoc supplement.</p>
 
-<p>Feel free to subscribe to my RSS feed to keep notified when I post something new. The link is located in the site’s footer.</p>
+<p>This doesn’t mean that we shouldn’t consider using the <code class="highlighter-rouge">-Begin</code>, <code class="highlighter-rouge">-Process</code>, and <code class="highlighter-rouge">-End</code> script block parameters, as I’m
+sure there are use cases when they make perfect sense. The PowerShell team thought so, otherwise they wouldn’t have
+included them in the cmdlet.</p>
 
-<p>Thanks for reading!</p>
+<p>My discovery and exploration of the <code class="highlighter-rouge">ForEach-Object</code> cmdlet and a few of its parameters, increased my understanding of it
+and PowerShell. I hope it helps you as well.</p>
 
-<p class="notice--primary"><strong>Notice</strong>
-I added the Twitter card to see if it’s really usable. I’d like to include the tweets for each blog post so Twitter users
-would have a way to like a post after they read it. Let me know what you think about this idea in the coments below. Thanks!</p>
+<h2 id="further-reading">Further Reading</h2>
 
-<blockquote class="twitter-tweet" data-cards="hidden" data-lang="en"><p lang="en" dir="ltr">I&#39;ve been configuring a new laptop and needed a PowerShell way to download the latest Sysinternals tools. I created two functions and have detailed them in a new blog post. <a href="https://t.co/UuKo137aLH">https://t.co/UuKo137aLH</a></p>&mdash; Dave Carroll (@thedavecarroll) <a href="https://twitter.com/thedavecarroll/status/1036752418732756992?ref_src=twsrc%5Etfw">September 3, 2018</a></blockquote>
-<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
+<p>In a <a href="https://blogs.technet.microsoft.com/heyscriptingguy/2014/07/08/getting-to-know-foreach-and-foreach-object/" target="_blank">guest post</a>
+on the <strong>Hey, Scripting Guy!</strong> blog, MVP and Honorary Scripting Guy <a href="https://learn-powershell.net/" target="_blank">Boe Prox</a> <a href="https://twitter.com/proxb" target="_blank">@proxb</a> examines the ForEach-Object cmdlet compared to the ForEach statement.</p>
 
         
       </section>
@@ -445,11 +450,19 @@ would have a way to like a post after they read it. Let me know what you think a
     
       
       
-      <a href="/tags/#powershell" class="page__taxonomy-item" rel="tag">powershell</a><span class="sep">, </span>
+      <a href="/tags/#ad-hoc-function" class="page__taxonomy-item" rel="tag">ad hoc function</a><span class="sep">, </span>
     
       
       
-      <a href="/tags/#sysinternals" class="page__taxonomy-item" rel="tag">sysinternals</a>
+      <a href="/tags/#foreach-object" class="page__taxonomy-item" rel="tag">foreach-object</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#function" class="page__taxonomy-item" rel="tag">function</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#powershell" class="page__taxonomy-item" rel="tag">powershell</a>
     
     </span>
   </p>
@@ -478,10 +491,8 @@ would have a way to like a post after they read it. Let me know what you think a
 
 
         
-            <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted:</strong> <time datetime="2018-09-03T00:00:00-05:00">September 03, 2018</time></p>
+            <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted:</strong> <time datetime="2018-09-19T00:00:00-05:00">September 19, 2018</time></p>
         
-        
-            <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-09-05">September 05, 2018</time></p>
         
 
       </footer>
@@ -491,12 +502,11 @@ would have a way to like a post after they read it. Let me know what you think a
       
   <nav class="pagination">
     
-      <a href="/blog/how-i-blog/" class="pagination--pager" title="How I Blog
+      <a href="/powershell/download-newest-sysinternals/" class="pagination--pager" title="Download Newest Sysinternals Tools
 ">Previous</a>
     
     
-      <a href="/powershell/foreach-object-whatif/" class="pagination--pager" title="ForEach-Object -WhatIf
-">Next</a>
+      <a href="#" class="pagination--pager disabled">Next</a>
     
   </nav>
 
@@ -510,67 +520,6 @@ would have a way to like a post after they read it. Let me know what you think a
         
           <!-- Start static comments -->
           <div class="js-comments">
-            
-              <h4 class="page__comments-title">Comments</h4>
-              
-
-              
-                
-                
-                
-                
-                
-                <article id="comment1" class="js-comment comment" itemprop="comment" itemscope itemtype="http://schema.org/Comment">
-  <div class="comment__avatar-wrapper">
-    <img class="comment__avatar" src="https://www.gravatar.com/avatar/7400079578fa7ea548606c80eb72668c?d=mm&s=80" alt="jkavpowershell">
-  </div>
-  <div class="comment__content-wrapper">
-    <h3 class="comment__author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-      
-        <span itemprop="name">jkavpowershell</span>
-      
-    </h3>
-    <p class="comment__date">
-      
-        <a href="#comment1" itemprop="url">
-        <time datetime="2018-09-06T07:30:51-05:00" itemprop="datePublished">September 06, 2018 at 12:30 PM</time>
-        </a>
-      
-    </p>
-    <div itemprop="text"><p>I just use install-package -Name sysinternals -ProviderName Chocolatey -confirm:$false -force</p>
-</div>
-  </div>
-</article>
-
-              
-                
-                
-                
-                
-                
-                <article id="comment2" class="js-comment comment" itemprop="comment" itemscope itemtype="http://schema.org/Comment">
-  <div class="comment__avatar-wrapper">
-    <img class="comment__avatar" src="https://www.gravatar.com/avatar/3808223fae397f8065780dfae42d388e?d=mm&s=80" alt="Tom">
-  </div>
-  <div class="comment__content-wrapper">
-    <h3 class="comment__author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-      
-        <span itemprop="name">Tom</span>
-      
-    </h3>
-    <p class="comment__date">
-      
-        <a href="#comment2" itemprop="url">
-        <time datetime="2018-09-06T08:05:21-05:00" itemprop="datePublished">September 06, 2018 at 01:05 PM</time>
-        </a>
-      
-    </p>
-    <div itemprop="text"><p>This is great. Thanks for sharing!</p>
-</div>
-  </div>
-</article>
-
-              
             
           </div>
           <!-- End static comments -->
@@ -603,7 +552,7 @@ would have a way to like a post after they read it. Let me know what you think a
                 <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
               </div>
               <div class="form-group hidden" style="display: none;">
-                <input type="hidden" name="options[slug]" value="download-newest-sysinternals">
+                <input type="hidden" name="options[slug]" value="foreach-object-whatif">
                 <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
                 <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
                 <input type="hidden" name="options[reCaptcha][siteKey]" value="6LfTsmoUAAAAAKI2qS8kGdIxL5rAxjr4vKfD1yH8">
