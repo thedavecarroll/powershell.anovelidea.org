@@ -32,7 +32,7 @@ DNS REST API, such as the user for the current session and when the session was 
 single hashtable started making sense to me.
 
 Since [the use of global variables are frowned upon](https://www.itprotoday.com/management-mobility/what-do-not-do-powershell-part-11){:target="_blank"},
-I started searching for more information on module variables. [Mike Robbins](https://mikefrobbins.com/) wrote a blog post
+I started searching for more information on module variables. [Mike Robbins](https://mikefrobbins.com/){:target="_blank"} wrote a blog post
 last year that dealt specifically with module variables. [What is this Module Scope in PowerShell that you Speak of?](https://mikefrobbins.com/2017/06/08/what-is-this-module-scope-in-powershell-that-you-speak-of/){:target="_blank"}
 is a tremendous resource on the topic.
 
