@@ -33,4 +33,9 @@ var store = [{
         "excerpt":"Preface While working on my PoShDynDnsApi module, I came across an issue withwith a function I had predominantly borrowed from a TechNet blog post from Jamie Nelson.Specifically, in my function Update-DynDnsRecord that called the Compare-ObjectProperties function, when I used the-WhatIf parameter, I unexpectedly received the following: What if: Performing the...","categories": ["powershell"],
         "tags": ["powershell","foreach-object","function","ad hoc function"],
         "url": "https://powershell.anovelidea.org/powershell/foreach-object-whatif/",
+        "teaser":null},{
+        "title": "How I Implement Module Variables",
+        "excerpt":"Preface Originally, I used globally scoped variables for my PoShDynDnsApi moduleto store the API URL, the authentication token, and the API version. These three variables were created during the initialconnection to the service then updated or removed as needed. A week or so ago, I was talking with a previous...","categories": ["powershell"],
+        "tags": ["powershell","module","module variables","global variables"],
+        "url": "https://powershell.anovelidea.org/powershell/how-i-implement-module-variables/",
         "teaser":null}]

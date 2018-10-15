@@ -1,4 +1,221 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-09-21T17:11:36-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">ForEach-Object -WhatIf</title><link href="https://powershell.anovelidea.org/powershell/foreach-object-whatif/" rel="alternate" type="text/html" title="ForEach-Object -WhatIf" /><published>2018-09-19T00:00:00-05:00</published><updated>2018-09-19T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/foreach-object-whatif</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/foreach-object-whatif/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/foreach-object-whatif.png&quot; alt=&quot;ForEach-Object -WhatIf&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-10-14T20:55:37-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">How I Implement Module Variables</title><link href="https://powershell.anovelidea.org/powershell/how-i-implement-module-variables/" rel="alternate" type="text/html" title="How I Implement Module Variables" /><published>2018-10-14T00:00:00-05:00</published><updated>2018-10-14T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/how-i-implement-module-variables</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/how-i-implement-module-variables/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/module-variables.png&quot; alt=&quot;How I Implement Module Variables&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;preface&quot;&gt;Preface&lt;/h2&gt;
+
+&lt;p&gt;Originally, I used globally scoped variables for my &lt;a href=&quot;https://github.com/thedavecarroll/PoShDynDnsApi&quot; target=&quot;_blank&quot;&gt;PoShDynDnsApi module&lt;/a&gt;
+to store the API URL, the authentication token, and the API version. These three variables were created during the initial
+connection to the service then updated or removed as needed.&lt;/p&gt;
+
+&lt;p&gt;A week or so ago, I was talking with a previous co-worker that just happens to be a .Net developer. We were reminiscing
+and checking out some PowerShell code that we’d written. He pointed out that I could create a pseudo-namespace, a la
+hashtable, to store the values for all the modules variables. At first, I was reluctant to change the method I was using
+for my variables. After all, my module was nearly complete - I was just working on the help files.&lt;/p&gt;
+
+&lt;p&gt;But, the idea started expanding in my mind. I had thought about tracking other elements of the session with Dyn’s Managed
+DNS REST API, such as the user for the current session and when the session was created. Grouping the elements into a
+single hashtable started making sense to me.&lt;/p&gt;
+
+&lt;p&gt;Since &lt;a href=&quot;https://www.itprotoday.com/management-mobility/what-do-not-do-powershell-part-11&quot; target=&quot;_blank&quot;&gt;the use of global variables are frowned upon&lt;/a&gt;,
+I started searching for more information on module variables. &lt;a href=&quot;https://mikefrobbins.com/&quot;&gt;Mike Robbins&lt;/a&gt; wrote a blog post
+last year that dealt specifically with module variables. &lt;a href=&quot;https://mikefrobbins.com/2017/06/08/what-is-this-module-scope-in-powershell-that-you-speak-of/&quot; target=&quot;_blank&quot;&gt;What is this Module Scope in PowerShell that you Speak of?&lt;/a&gt;
+is a tremendous resource on the topic.&lt;/p&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Full Disclosure:&lt;/strong&gt; The PoShDynDnsApi module is the first module I’ve written which really needed to use module variables.
+The information in this post represents a focused attention to and research on module variables.&lt;/p&gt;
+
+&lt;h2 id=&quot;variables-scopes&quot;&gt;Variables Scopes&lt;/h2&gt;
+
+&lt;p&gt;There are four named scopes: Global, Local, Script, and Private. We will only concern ourselves with the script scope
+which, as we learned from Mike’s post (and those he referenced), can be considered the module scope.&lt;/p&gt;
+
+&lt;p&gt;Read &lt;a href=&quot;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_scopes?view=powershell-6&quot; target=&quot;_blank&quot;&gt;about_Scopes&lt;/a&gt;
+for more details.&lt;/p&gt;
+
+&lt;h2 id=&quot;module-variables-aka-script-scoped-variables&quot;&gt;Module Variables, aka Script-Scoped Variables&lt;/h2&gt;
+
+&lt;p&gt;Some modules require its commands to reference shared dynamic content. This content could be authentication or remote
+service session data. It really could be anything that needs to be passed around between module commands but shouldn’t
+be directly accessible by the end user.&lt;/p&gt;
+
+&lt;p&gt;You have a few options in creating module variables - individual variables, a hashtable (sometimes referred to as
+pseudo-namespace), or a combination of the two.&lt;/p&gt;
+
+&lt;h3 id=&quot;individual-module-variables&quot;&gt;Individual Module Variables&lt;/h3&gt;
+
+&lt;p&gt;Individual module variables would be the simplest to implement, but would take a little extra coding should you want to
+expose the values of the variables to the user’s session.&lt;/p&gt;
+
+&lt;p&gt;For example, you could have the following in your script module’s .psm1:&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;New-Variable&lt;/span&gt; -Name MyAuthToken -Value &lt;span class=&quot;s2&quot;&gt;&quot;some long hash&quot;&lt;/span&gt; -Scope Script -Force
+&lt;span class=&quot;nb&quot;&gt;New-Variable&lt;/span&gt; -Name MyRESTApiUrl -Value &lt;span class=&quot;s1&quot;&gt;'https://some.url.com/REST'&lt;/span&gt; -Scope Script -Option ReadOnly -Force
+&lt;span class=&quot;nb&quot;&gt;New-Variable&lt;/span&gt; -Name MyRESTSessionStart -Value &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt; -Scope Script -Force
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And, if you needed to expose the session start variable, you could create a module function, perhaps named &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-MySessionStartTime&lt;/code&gt;,
+and simply return the module variable.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;Get-MySessionStartTime &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$MyRESTSessionStart&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;hashtable-as-module-variable-aka-pseudo-namespace&quot;&gt;Hashtable as Module Variable, aka Pseudo-Namespace&lt;/h3&gt;
+
+&lt;p&gt;Using a single hashtable as a module variable is similar to using individual module variables.&lt;/p&gt;
+
+&lt;p&gt;In your script module’s .psm1, you could declare the module variable as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ordered]@&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    ClientUrl           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'https://api.dynect.net'&lt;/span&gt;
+    ApiVersion          &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+    AuthToken           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+    StartTime           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+    RefreshTime         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;New-Variable&lt;/span&gt; -Name DynDnsSession  -Value &lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt; -Scope Script -Force
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Let’s assume that your module will be establishing a session with a RESTful API and you will be storing the authentication
+token. Inside the &lt;code class=&quot;highlighter-rouge&quot;&gt;Connect-MyRESTService&lt;/code&gt; function, you would need to update the hashtable open successful login to the
+service.&lt;/p&gt;
+
+&lt;p&gt;For example, the following updates the values of the specified key values.&lt;/p&gt;
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Session&lt;/span&gt;.Data.status -eq &lt;span class=&quot;s1&quot;&gt;'success'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.AuthToken &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Session&lt;/span&gt;.Data.data.token
+    &lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.ApiVersion &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Session&lt;/span&gt;.Data.data.version
+    &lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.StartTime &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;System.DateTime]::Now
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once you do this, those new values are available any command within the function for this PowerShell session.&lt;/p&gt;
+
+&lt;h3 id=&quot;exposing-module-variables&quot;&gt;Exposing Module Variables&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;There’s no reason for the variable to be accessible from outside of the module and having it accessible in that manner
+can only lead to trouble. - Mike Robbins&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;While a significant point of using module variables is to avoid the global scope, there are times when some or all of the
+module variables would need to be exposed to the current PowerShell session.&lt;/p&gt;
+
+&lt;p&gt;You would need to create a public module function to return the desired variables.&lt;/p&gt;
+
+&lt;p class=&quot;notice--warning&quot;&gt;&lt;strong&gt;Warning:&lt;/strong&gt; Unless you want users updating the values external to the module functions, your function that returns the
+module variables should not return a referenced object. Please see &lt;a href=&quot;https://kevinmarquette.github.io/2016-11-06-powershell-hashtable-everything-you-wanted-to-know-about/#copying-hashtables&quot; target=&quot;_blank&quot;&gt;Kevin Marquette’s blog post on hashtables&lt;/a&gt;.
+There is also a previous &lt;a href=&quot;https://www.reddit.com/r/PowerShell/comments/6rq03i/powershell_challenge_create_a_copy_of_a_hashtable/&quot; target=&quot;_blank&quot;&gt;PowerShell challenge on Reddit&lt;/a&gt;
+that goes deep into the rabbit hole on the topic of copying a hashtable.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;Get-DynDnsSession &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;CmdLetBinding&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+
+    &lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;ConvertTo-Json&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;ConvertFrom-Json&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I use the conversion to and from Json which returns a deserialized object. For my purpose, this is an adequate solution.&lt;/p&gt;
+
+&lt;h3 id=&quot;use-cases&quot;&gt;Use Cases&lt;/h3&gt;
+
+&lt;p&gt;As you can see from the example, any number of elements can be saved, updated, and accessible to any command within the
+module. The number of elements are essentially limitless, however, I would suggest grouping the type of elements tracked
+to individual module variables, i.e. keep session information in one variable and perhaps module usage data in another.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Use Cases&lt;/th&gt;
+      &lt;th&gt; &lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Authentication Tokens&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;Authentication tokens are returned for some services, namely REST or SOAP APIs. You typically need to reference this token with each call to the service. This makes the auth token a great choice to store in a module variable.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Who Am I&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;You can store the user name associated with the session to verify later, should a permissions issue arises.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Timers&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;The service session start time, refresh time, and possibly elapsed time could be useful.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Other Session Data&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;Perhaps you want to track the a portion of the service session command history. You could do this using LastCommand, LastCommandTime, LastCommandResults, or other elements.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;my-poshdyndnsapi-module-variable&quot;&gt;My PoShDynDnsApi Module Variable&lt;/h2&gt;
+
+&lt;p&gt;Here is how I’m implementing a module variable.&lt;/p&gt;
+
+&lt;p&gt;In my module’s .psm1, I create the module variable with several keys.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ordered]@&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    ClientUrl           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'https://api.dynect.net'&lt;/span&gt;
+    User                &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+    Customer            &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+    ApiVersion          &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+    AuthToken           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+    StartTime           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+    ElapsedTime         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+    LastCommand         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+    LastCommandTime     &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+    LastCommandResults  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+    RefreshTime         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;New-Variable&lt;/span&gt; -Name DynDnsSession -Value &lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt; -Scope Script -Force
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;When &lt;code class=&quot;highlighter-rouge&quot;&gt;Connect-DynDnsSession&lt;/code&gt; successfully creates a session, I set the value for certain keys.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.User &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$User&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.Customer &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Customer&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Session&lt;/span&gt;.Data.status -eq &lt;span class=&quot;s1&quot;&gt;'success'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.AuthToken &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Session&lt;/span&gt;.Data.data.token
+    &lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.ApiVersion &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Session&lt;/span&gt;.Data.data.version
+    &lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.StartTime &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;System.DateTime]::Now
+    &lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.ElapsedTime &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;System.Diagnostics.Stopwatch]::StartNew&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;Write&lt;/span&gt;-DynDnsOutput -DynDnsResponse &lt;span class=&quot;nv&quot;&gt;$Session&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;When &lt;code class=&quot;highlighter-rouge&quot;&gt;Disconnect-DynDnsSession&lt;/code&gt; is issued, I clear the values for those  keys.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.AuthToken &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.User &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.Customer &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.StartTime &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.ElapsedTime &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.RefreshTime &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Also, since each function that connects to the REST service uses the an &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-WebRequest&lt;/code&gt; wrapper function -
+&lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-DynDnsRequest&lt;/code&gt;, I’m able to update the LastCommandTime and LastCommand keys.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Data&lt;/span&gt;.status -eq &lt;span class=&quot;s1&quot;&gt;'success'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.LastCommandTime &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;System.DateTime]::Now
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;$MyCommand&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Get-PSCallStack&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;Where&lt;/span&gt;-Object &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;.Command -notmatch &lt;span class=&quot;s1&quot;&gt;'DynDnsRequest|DynDnsOutput|ScriptBlock'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;Select-Object&lt;/span&gt; -First 1
+&lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.LastCommand &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$MyCommand&lt;/span&gt;.Command
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The LastCommandResults variable is updated within the &lt;code class=&quot;highlighter-rouge&quot;&gt;Write-DynDnsOutput&lt;/code&gt; formatter function and contains the same data as
+the Information stream is provided.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;Send-DynDnsSession&lt;/code&gt; command updates the RefreshTime key.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;I hope that you found this post enlightening or at least it has you thinking about the topic of module variables.&lt;/p&gt;
+
+&lt;p&gt;Please let me know if you have a better method of handling module variables or if you have any questions or comments.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="module" /><category term="module variables" /><category term="global variables" /><summary type="html">Originally, I used globally scoped variables for one of my modules to keep track of session data, but now I use a module variable.</summary></entry><entry><title type="html">ForEach-Object -WhatIf</title><link href="https://powershell.anovelidea.org/powershell/foreach-object-whatif/" rel="alternate" type="text/html" title="ForEach-Object -WhatIf" /><published>2018-09-19T00:00:00-05:00</published><updated>2018-09-19T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/foreach-object-whatif</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/foreach-object-whatif/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/foreach-object-whatif.png&quot; alt=&quot;ForEach-Object -WhatIf&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;preface&quot;&gt;Preface&lt;/h2&gt;
 
