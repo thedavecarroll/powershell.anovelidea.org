@@ -177,9 +177,9 @@ $DynDnsSession = [ordered]@{
 New-Variable -Name DynDnsSession -Value $DynDnsSession -Scope Script -Force
 ```
 
-**Update:** A few readers wondered why I was using `New-Variable` instead of simply using `$Script:DynDnsSession` when I
-create the hashtable. They both produce the same behavior. I suppose I was wanting to make sure it was scoped correctly,
-that it was overwritten with `-Force` switch, and that it was more __PowerShell-y__.
+**Update:** A few readers wondered why I was using `New-Variable` instead of simply using `$Script:DynDnsSession` or
+`$DynDnsSession` when I create the hashtable. They both produce the same behavior. I suppose I was wanting to make sure
+it was scoped correctly, that it was overwritten with `-Force` switch, and that it was more __PowerShell-y__.
 {: .notice--info}
 
 When `Connect-DynDnsSession` successfully creates a session, I set the value for certain keys.
