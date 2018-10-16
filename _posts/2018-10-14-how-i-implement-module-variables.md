@@ -3,6 +3,7 @@ layout: single
 title: "How I Implement Module Variables"
 excerpt: "Originally, I used globally scoped variables for one of my modules to keep track of session data, but now I use a module variable."
 date: 2018-10-14
+last_modified_at: 2018-10-16
 comments: true
 tags:
   - powershell
@@ -22,10 +23,11 @@ Originally, I used globally scoped variables for my [PoShDynDnsApi module](https
 to store the API URL, the authentication token, and the API version. These three variables were created during the initial
 connection to the service then updated or removed as needed.
 
-A week or so ago, I was talking with a previous co-worker that just happens to be a .Net developer. We were reminiscing
-and checking out some PowerShell code that we'd written. He pointed out that I could create a pseudo-namespace, a la
-hashtable, to store the values for all the modules variables. At first, I was reluctant to change the method I was using
-for my variables. After all, my module was nearly complete - I was just working on the help files.
+A week or so ago, I was talking with a previous co-worker, [Steven Maglio](http://stevenmaglio.blogspot.com/){:target="_blank"},
+that just happens to be a .Net developer. We were reminiscing and checking out some PowerShell code that we'd written.
+He pointed out that I could create a pseudo-namespace, a la hashtable, to store the values for all the modules variables.
+At first, I was reluctant to change the method I was using for my variables. After all, my module was nearly complete - I
+was just working on the help files.
 
 But, the idea started expanding in my mind. I had thought about tracking other elements of the session with Dyn's Managed
 DNS REST API, such as the user for the current session and when the session was created. Grouping the elements into a
@@ -101,6 +103,7 @@ token. Inside the `Connect-MyRESTService` function, you would need to update the
 service.
 
 For example, the following updates the values of the specified key values.
+
 ```powershell
 if ($Session.Data.status -eq 'success') {
     $DynDnsSession.AuthToken = $Session.Data.data.token
@@ -173,6 +176,11 @@ $DynDnsSession = [ordered]@{
 }
 New-Variable -Name DynDnsSession -Value $DynDnsSession -Scope Script -Force
 ```
+
+**Update:** A few readers wondered why I was using `New-Variable` instead of simply using `$Script:DynDnsSession` when I
+create the hashtable. They both produce the same behavior. I suppose I was wanting to make sure it was scoped correctly,
+that it was overwritten with `-Force` switch, and that it was more __PowerShell-y__.
+{: .notice--info}
 
 When `Connect-DynDnsSession` successfully creates a session, I set the value for certain keys.
 

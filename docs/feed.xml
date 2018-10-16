@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-10-14T21:01:06-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">How I Implement Module Variables</title><link href="https://powershell.anovelidea.org/powershell/how-i-implement-module-variables/" rel="alternate" type="text/html" title="How I Implement Module Variables" /><published>2018-10-14T00:00:00-05:00</published><updated>2018-10-14T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/how-i-implement-module-variables</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/how-i-implement-module-variables/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/module-variables.png&quot; alt=&quot;How I Implement Module Variables&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-10-16T16:42:35-05:00</updated><id>https://powershell.anovelidea.org/</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">How I Implement Module Variables</title><link href="https://powershell.anovelidea.org/powershell/how-i-implement-module-variables/" rel="alternate" type="text/html" title="How I Implement Module Variables" /><published>2018-10-14T00:00:00-05:00</published><updated>2018-10-16T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/how-i-implement-module-variables</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/how-i-implement-module-variables/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/module-variables.png&quot; alt=&quot;How I Implement Module Variables&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;preface&quot;&gt;Preface&lt;/h2&gt;
 
@@ -6,10 +6,11 @@
 to store the API URL, the authentication token, and the API version. These three variables were created during the initial
 connection to the service then updated or removed as needed.&lt;/p&gt;
 
-&lt;p&gt;A week or so ago, I was talking with a previous co-worker that just happens to be a .Net developer. We were reminiscing
-and checking out some PowerShell code that we’d written. He pointed out that I could create a pseudo-namespace, a la
-hashtable, to store the values for all the modules variables. At first, I was reluctant to change the method I was using
-for my variables. After all, my module was nearly complete - I was just working on the help files.&lt;/p&gt;
+&lt;p&gt;A week or so ago, I was talking with a previous co-worker, &lt;a href=&quot;http://stevenmaglio.blogspot.com/&quot; target=&quot;_blank&quot;&gt;Steven Maglio&lt;/a&gt;,
+that just happens to be a .Net developer. We were reminiscing and checking out some PowerShell code that we’d written.
+He pointed out that I could create a pseudo-namespace, a la hashtable, to store the values for all the modules variables.
+At first, I was reluctant to change the method I was using for my variables. After all, my module was nearly complete - I
+was just working on the help files.&lt;/p&gt;
 
 &lt;p&gt;But, the idea started expanding in my mind. I had thought about tracking other elements of the session with Dyn’s Managed
 DNS REST API, such as the user for the current session and when the session was created. Grouping the elements into a
@@ -81,6 +82,7 @@ token. Inside the &lt;code class=&quot;highlighter-rouge&quot;&gt;Connect-MyREST
 service.&lt;/p&gt;
 
 &lt;p&gt;For example, the following updates the values of the specified key values.&lt;/p&gt;
+
 &lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Session&lt;/span&gt;.Data.status -eq &lt;span class=&quot;s1&quot;&gt;'success'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.AuthToken &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Session&lt;/span&gt;.Data.data.token
     &lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.ApiVersion &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Session&lt;/span&gt;.Data.data.version
@@ -171,6 +173,10 @@ to individual module variables, i.e. keep session information in one variable an
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;New-Variable&lt;/span&gt; -Name DynDnsSession -Value &lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt; -Scope Script -Force
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;Update:&lt;/strong&gt; A few readers wondered why I was using &lt;code class=&quot;highlighter-rouge&quot;&gt;New-Variable&lt;/code&gt; instead of simply using &lt;code class=&quot;highlighter-rouge&quot;&gt;$Script:DynDnsSession&lt;/code&gt; when I
+create the hashtable. They both produce the same behavior. I suppose I was wanting to make sure it was scoped correctly,
+that it was overwritten with &lt;code class=&quot;highlighter-rouge&quot;&gt;-Force&lt;/code&gt; switch, and that it was more &lt;strong&gt;PowerShell-y&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;When &lt;code class=&quot;highlighter-rouge&quot;&gt;Connect-DynDnsSession&lt;/code&gt; successfully creates a session, I set the value for certain keys.&lt;/p&gt;
 
