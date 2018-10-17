@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
-# stub: jekyll-watch 2.1.1 ruby lib
+# stub: jekyll-watch 2.1.2 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "jekyll-watch".freeze
-  s.version = "2.1.1"
+  s.version = "2.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib".freeze]
   s.authors = ["Parker Moore".freeze]
-  s.date = "2018-10-10"
+  s.date = "2018-10-17"
   s.email = ["parkrmoore@gmail.com".freeze]
   s.homepage = "https://github.com/jekyll/jekyll-watch".freeze
   s.licenses = ["MIT".freeze]
