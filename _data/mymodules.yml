@@ -19,7 +19,7 @@
 - name: PoShDynDnsApi
   description: 'PowerShell module used to interact with Dyn Managed DNS REST API.'
   help: 'None'
-  onlinehelp: false
+  onlinehelp: true
   updatablehelp: false
   pester: false
   build: false
