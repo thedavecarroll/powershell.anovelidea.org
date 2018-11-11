@@ -174,7 +174,6 @@ $DynDnsSession = [ordered]@{
     LastCommandResults  = $null
     RefreshTime         = $null
 }
-New-Variable -Name DynDnsSession -Value $DynDnsSession -Scope Script -Force
 ```
 
 **Update:** A few readers wondered why I was using `New-Variable` instead of simply using `$Script:DynDnsSession` or
