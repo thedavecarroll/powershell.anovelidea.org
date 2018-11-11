@@ -133,13 +133,23 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## RELATED LINKS
 
 [Add-DynDnsRecord](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Add-DynDnsRecord.html)
+
 [Remove-DynDnsRecord](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Remove-DynDnsRecord.html)
+
 [Get A Records (API)](https://help.dyn.com/get-a-records-api/)
+
 [Get PTR Records (API)](https://help.dyn.com/get-ptr-records-api/)
+
 [Get CNAME Records (API)](https://help.dyn.com/get-cname-records-api/)
+
 [Get SRV Records (API)](https://help.dyn.com/get-srv-records-api/)
+
 [Get TXT Records (API)](https://help.dyn.com/get-txt-records-api/)
+
 [Get MX Records (API)](https://help.dyn.com/get-mx-records-api/)
+
 [Get NS Records (API)](https://help.dyn.com/get-ns-records-api/)
+
 [Get SOA Records (API)](https://help.dyn.com/get-soa-records-api/)
+
 [Get All Records (API)](https://help.dyn.com/get-all-records-api/)

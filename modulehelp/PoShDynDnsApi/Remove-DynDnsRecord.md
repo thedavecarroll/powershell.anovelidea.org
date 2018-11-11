@@ -119,11 +119,19 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## RELATED LINKS
 
 [Get-DynDnsRecord](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Get-DynDnsRecord.html)
+
 [Add-DynDnsRecord](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Add-DynDnsRecord.html)
+
 [Update-DynDnsRecord](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Update-DynDnsRecord.html)
+
 [Delete A Records (API)](https://help.dyn.com/delete-a-records-api/)
+
 [Delete CNAME Records (API)](https://help.dyn.com/delete-cname-records-api/)
+
 [Delete MX Records (API)](https://help.dyn.com/delete-mx-records-api/)
+
 [Delete PTR Records (API)](https://help.dyn.com/delete-ptr-records-api/)
+
 [Delete SRV Records (API)](https://help.dyn.com/delete-srv-records-api/)
+
 [Delete TXT Records (API)](https://help.dyn.com/delete-txt-records-api/)

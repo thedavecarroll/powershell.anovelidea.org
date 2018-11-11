@@ -99,5 +99,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## RELATED LINKS
 
 [Lock-DynDnsZone](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Lock-DynDnsZone.html)
+
 [Update Zone (API)](https://help.dyn.com/update-zone-api/)
+
 [Freeze / Unfreeze Zone (API)](https://help.dyn.com/freeze-unfreeze-zone-api/)

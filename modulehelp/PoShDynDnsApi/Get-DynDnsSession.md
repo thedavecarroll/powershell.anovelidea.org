@@ -63,5 +63,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## RELATED LINKS
 
 [Connect-DynDnsSession](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Disconnect-DynDnsSession.html)
+
 [Disconnect-DynDnsSession](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Disconnect-DynDnsSession.html)
+
 [Send-DynDnsSession](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Send-DynDnsSession.html)

@@ -87,5 +87,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## RELATED LINKS
 
 [Get-DynDnsHttpRedirect](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Get-DynDnsHttpRedirect.html)
+
 [Add-DynDnsHttpRedirect](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Add-DynDnsHttpRedirect.html)
+
 [Create HTTP Redirect (API)](https://help.dyn.com/create-http-redirect-api/)

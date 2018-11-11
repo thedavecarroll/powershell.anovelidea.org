@@ -222,7 +222,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## RELATED LINKS
 
 [Get-DynDnsZone](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Get-DynDnsZone.html)
+
 [Remove-DynDnsZone](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Remove-DynDnsZone.html)
+
 [Publish-DynDnsZoneChanges](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Publish-DynDnsZoneChanges.html)
+
 [Create Primary Zone (API)](https://help.dyn.com/create-primary-zone-api/)
+
 [Upload Zone File (API)](https://help.dyn.com/upload-zone-file-api/)

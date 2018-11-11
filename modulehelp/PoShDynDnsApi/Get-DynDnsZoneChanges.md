@@ -88,5 +88,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## RELATED LINKS
 
 [Publish-DynDnsZoneChanges](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Publish-DynDnsZoneChanges.html)
+
 [Undo-DynDnsZoneChanges](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Undo-DynDnsZoneChanges.html)
+
 [Get Zone ChangeSet (API)](https://help.dyn.com/get-zone-changeset-api/)

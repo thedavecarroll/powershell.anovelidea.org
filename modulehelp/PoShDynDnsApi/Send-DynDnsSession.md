@@ -50,7 +50,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## RELATED LINKS
 
 [Connect-DynDnsSession](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Connect-DynDnsSession.html)
+
 [Disconnect-DynDnsSession](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Disconnect-DynDnsSession.html)
+
 [Test-DynDnsSession](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Test-DynDnsSession.html)
+
 [Get-DynDnsSession](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Get-DynDnsSession.html)
+
 [Session Keep Alive (API)](https://help.dyn.com/session-keep-alive/)

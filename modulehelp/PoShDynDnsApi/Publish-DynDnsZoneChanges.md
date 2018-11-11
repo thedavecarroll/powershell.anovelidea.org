@@ -149,5 +149,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## RELATED LINKS
 
 [Get-DynDnsZoneChanges](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Get-DynDnsZoneChanges.html)
+
 [Undo-DynDnsZoneChanges](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Undo-DynDnsZoneChanges.html)
+
 [Update Zone (API)](https://help.dyn.com/update-zone-api/)
