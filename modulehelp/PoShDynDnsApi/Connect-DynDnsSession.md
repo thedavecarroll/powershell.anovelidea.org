@@ -133,7 +133,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## RELATED LINKS
 
 [Disconnect-DynDnsSession](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Disconnect-DynDnsSession.html)
+
 [Send-DynDnsSession](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Send-DynDnsSession.html)
+
 [Test-DynDnsSession](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Test-DynDnsSession.html)
+
 [Get-DynDnsSession](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Get-DynDnsSession.html)
+
 [Session Log-in (API)](https://help.dyn.com/session-log-in/)

@@ -125,5 +125,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## RELATED LINKS
 
 [Get-DynDnsHttpRedirect](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Get-DynDnsHttpRedirect.html)
+
 [Get HTTP Redirect (API)](https://help.dyn.com/get-http-redirect-api/)
+
 [Delete HTTP Redirect (API)](https://help.dyn.com/delete-http-redirect-api/)

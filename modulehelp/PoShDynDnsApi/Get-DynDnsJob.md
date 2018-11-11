@@ -80,4 +80,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## RELATED LINKS
 
 [Get-DynDnsHistory](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Get-DynDnsHistory.html)
+
 [Get Job (API)](https://help.dyn.com/get-job/)

@@ -120,4 +120,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## RELATED LINKS
 
 [Get All DNS Tasks (API)](https://help.dyn.com/get-all-dns-tasks-api/)
+
 [Get One DNS Task (API)](https://help.dyn.com/get-one-dns-task-api/)
