@@ -59,6 +59,21 @@ Delete the pending changes for the specified zone, showing when no changes are p
 
 ## PARAMETERS
 
+### -Zone
+Delete pending changes to the specified zone.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Confirm
 Prompts you for confirmation before running the command.
 
@@ -105,23 +120,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Zone
-Delete pending changes to the specified zone.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters [http://go.microsoft.com/fwlink/?LinkID=113216](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -136,5 +136,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## RELATED LINKS
 
 [Get-DynDnsZoneChanges](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Get-DynDnsZoneChanges.html)
+
 [Publish-DynDnsZoneChanges](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Publish-DynDnsZoneChanges.html)
+
 [Delete Zone ChangeSet (API)](https://help.dyn.com/delete-zone-change-set-api/)
