@@ -52,6 +52,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## RELATED LINKS
 
 [Connect-DynDnsSession.](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Connect-DynDnsSession.html)
+
 [Send-DynDnsSession](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Send-DynDnsSession.html)
+
 [Test-DynDnsSession](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Test-DynDnsSession.html)
+
 [Session Log-out (API)](https://help.dyn.com/session-log-out/)
