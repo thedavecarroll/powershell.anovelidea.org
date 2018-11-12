@@ -23,7 +23,7 @@ Remove-DynDnsNode [-Zone] <String> [-Node] <String> [-Force] [-WhatIf] [-Confirm
 ## DESCRIPTION
 The command `Remove-DynDnsNode` removes the indicated node, any records within the node, and any nodes underneath the node.
 
-**NOTE: Use this method ONLY for cleaning up a zone. Regular node or record deletes should use the Delete A Records (API) method. Once all node records are removed, the node is automatically removed.**
+>**NOTE:** Use this method ONLY for cleaning up a zone. Regular node or record deletes should use the Delete A Records (API) method. Once all node records are removed, the node is automatically removed.
 
 ## EXAMPLES
 
@@ -161,6 +161,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Get-DynDnsZoneList.](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Get-DynDnsZoneList.html)
+[Get-DynDnsZoneList](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Get-DynDnsZoneList.html)
 
 [Delete Zone Node (API)](https://help.dyn.com/delete-zone-node-api/)
