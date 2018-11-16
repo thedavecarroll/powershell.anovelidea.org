@@ -90,23 +90,8 @@ Update the DNS A record for the hostname `www2.anovelidea.org`. Show the origina
 
 ## PARAMETERS
 
-### -Confirm
-Prompts you for confirmation before running the command.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -DynDnsRecord
-A DNS record which has prevously been published to the zone of any supported type: A, TXT, CNAME, MX, SRV, PTR, SOA.
+A DNS record which has previously been published to the zone of any supported type: A, TXT, CNAME, MX, SRV, PTR, SOA.
 
 The value should be created using the `Get-DynDnsRecord` command.
 
@@ -134,6 +119,21 @@ Aliases:
 
 Required: True
 Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the command.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

@@ -57,6 +57,21 @@ Terminates a current session and creates a new session to the Dyn Managed DNS AP
 
 ## PARAMETERS
 
+### -User
+The Dyn API user (not DynID).
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: ApiUserName, UserName
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Customer
 The customer name for the Dyn API user.
 
@@ -67,21 +82,6 @@ Aliases: CustomerName
 
 Required: True
 Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Force
-Discards an existing, valid session before creating a new session.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -102,16 +102,16 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -User
-The Dyn API user (not DynID).
+### -Force
+Discards an existing, valid session before creating a new session.
 
 ```yaml
-Type: String
+Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: ApiUserName, UserName
+Aliases:
 
-Required: True
-Position: 0
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

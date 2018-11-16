@@ -50,6 +50,36 @@ Create a new HTTP redirect service to permanently redirect newtest.anovelidea.or
 
 ## PARAMETERS
 
+### -Zone
+The zone in which to create the HTTP Redirect service.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Node
+A node in the specified zone. If the node does not end with the domain of the zone, it will be appended.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Confirm
 Prompts you for confirmation before running the command.
 
@@ -80,40 +110,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Node
-A node in the specified zone. If the node does not end with the domain of the zone, it will be appended.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ResponseCode
-The HTTP response code to return for redirection.
-
-301 - Permanent redirect\
-302 - Temporary redirect
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-Accepted values: 301, 302
-
-Required: False
-Position: 3
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Url
 The target URL where the client is sent. Must begin with either `http://` or `https://`.
 
@@ -129,6 +125,26 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ResponseCode
+The HTTP response code to return for redirection.
+
+301 - Permanent redirect
+
+302 - Temporary redirect
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+Accepted values: 301, 302
+
+Required: False
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -WhatIf
 Shows what would happen if the command runs. The command is not run.
 
@@ -139,21 +155,6 @@ Aliases: wi
 
 Required: False
 Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Zone
-The zone in which to create the HTTP Redirect service.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

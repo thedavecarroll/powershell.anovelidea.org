@@ -52,16 +52,35 @@ Publish the zone changes to the zone.
 
 ## PARAMETERS
 
-### -Confirm
-Prompts you for confirmation before running the command.
+### -Zone
+Publish pending changes to the specified zone.
 
 ```yaml
-Type: SwitchParameter
+Type: String
 Parameter Sets: (All)
-Aliases: cf
+Aliases:
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Notes
+Record any notes for the publication of this zone version, such as a reference number or short text describing why the
+changes occurred.
+
+The text **REST-Api-PoSh** will be prepended before adding to the zone change record. If the `Notes` parameter is
+omitted, the Notes field will only contain **REST-Api-PoSh**.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
 Required: False
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -85,19 +104,16 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Notes
-Record any notes for the publication of this zone version, such as a reference number or short text describing why the changes occurred.
-
-The text **REST-Api-PoSh** will be prepended before adding to the zone change record. If the `Notes` parameter is
-omitted, the Notes field will only contain **REST-Api-PoSh**.
+### -Confirm
+Prompts you for confirmation before running the command.
 
 ```yaml
-Type: String
+Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: cf
 
 Required: False
-Position: 1
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -113,21 +129,6 @@ Aliases: wi
 
 Required: False
 Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Zone
-Publish pending changes to the specified zone.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

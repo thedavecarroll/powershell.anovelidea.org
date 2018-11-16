@@ -87,31 +87,16 @@ Demonstrates an attempt to add an a record that currently exists.
 
 ## PARAMETERS
 
-### -Confirm
-Prompts you for confirmation before running the command.
+### -Zone
+The zone in which to create the DNS record.
 
 ```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -DynDnsRecord
-A DynDnsRecord object.
-
-```yaml
-Type: DynDnsRecord
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 2
+Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -132,6 +117,36 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -DynDnsRecord
+A DynDnsRecord object.
+
+```yaml
+Type: DynDnsRecord
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the command.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -WhatIf
 Shows what would happen if the command runs. The command is not run.
 
@@ -147,20 +162,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Zone
-The zone in which to create the DNS record.
 
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
 
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
