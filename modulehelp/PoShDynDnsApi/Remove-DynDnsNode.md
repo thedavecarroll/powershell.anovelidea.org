@@ -69,16 +69,31 @@ must be used if the node contains any records or child nodes.
 
 ## PARAMETERS
 
-### -Confirm
-Prompts you for confirmation before running the command.
+### -Zone
+The zone in which to delete the specified node, records, and child nodes.
 
 ```yaml
-Type: SwitchParameter
+Type: String
 Parameter Sets: (All)
-Aliases: cf
+Aliases:
 
-Required: False
-Position: Named
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Node
+A node in the specified zone. If the node does not end with the domain of the zone, it will be appended.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -100,16 +115,16 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Node
-A node in the specified zone. If the node does not end with the domain of the zone, it will be appended.
+### -Confirm
+Prompts you for confirmation before running the command.
 
 ```yaml
-Type: String
+Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: cf
 
-Required: True
-Position: 1
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -126,21 +141,6 @@ Aliases: wi
 
 Required: False
 Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Zone
-The zone in which to delete the specified node, records, and child nodes.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

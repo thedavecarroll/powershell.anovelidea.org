@@ -91,15 +91,15 @@ Create a primary DNS zone by importing a file.
 
 ## PARAMETERS
 
-### -Confirm
-Prompts you for confirmation before running the command.
+### -Zone
+The fully qualified name of the DNS domain for which to create the a primary zone.
 
 ```yaml
-Type: SwitchParameter
+Type: String
 Parameter Sets: (All)
-Aliases: cf
+Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -161,13 +161,13 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -WhatIf
-Shows what would happen if the command runs. The command is not run.
+### -ZoneFile
+The contents of a RFC1035 style Master file. A zone file for BIND or tinydns will also be accepted.
 
 ```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
+Type: String
+Parameter Sets: ZoneFile
+Aliases:
 
 Required: False
 Position: Named
@@ -176,28 +176,28 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Zone
-The fully qualified name of the DNS domain for which to create the a primary zone.
+### -Confirm
+Prompts you for confirmation before running the command.
 
 ```yaml
-Type: String
+Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: cf
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ZoneFile
-The contents of a RFC1035 style Master file. A zone file for BIND or tinydns will also be accepted.
+### -WhatIf
+Shows what would happen if the command runs. The command is not run.
 
 ```yaml
-Type: String
-Parameter Sets: ZoneFile
-Aliases:
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
 
 Required: False
 Position: Named

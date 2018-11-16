@@ -49,21 +49,6 @@ Retrieve all HTTP redirects and delete the ones indicated.
 
 ## PARAMETERS
 
-### -Confirm
-Prompts you for confirmation before running the command.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -DynDnsHttpRedirect
 One or more `DynDnsHttpRedirect` objects obtained from the command `Get-DynDnsHttpRedirect`.
 
@@ -86,6 +71,21 @@ Indicates to wait to publish the deletion of the redirect service until the next
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the command.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
 
 Required: False
 Position: Named

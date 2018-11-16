@@ -61,6 +61,21 @@ List all NameServer (NS) records in the zone `anovelidea.org`.
 
 ## PARAMETERS
 
+### -Zone
+The zone in which to query for the specific record type.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Node
 A node in the specified zone. If the node does not end with the domain of the zone, it will be appended.
 
@@ -97,21 +112,6 @@ Accepted values: SOA, NS, MX, TXT, SRV, CNAME, PTR, A, All
 
 Required: False
 Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Zone
-The zone in which to query for the specific record type.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

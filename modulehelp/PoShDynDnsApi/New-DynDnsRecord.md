@@ -113,12 +113,12 @@ Create a DynDnsRecord_SRV object.
 
 ## PARAMETERS
 
-### -CName
-Specifies the alias, i.e. fully-qualified domain name, of the zone node.
+### -IPv4Address
+Specifies the IP address.
 
 ```yaml
-Type: String
-Parameter Sets: CNAMERecord
+Type: IPAddress
+Parameter Sets: ARecord
 Aliases:
 
 Required: True
@@ -128,12 +128,12 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -IPv4Address
-Specifies the IP address.
+### -CName
+Specifies the alias, i.e. fully-qualified domain name, of the zone node.
 
 ```yaml
-Type: IPAddress
-Parameter Sets: ARecord
+Type: String
+Parameter Sets: CNAMERecord
 Aliases:
 
 Required: True
@@ -158,42 +158,12 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Port
-Specifies the TCP or UDP port on which the service is to be found.
-
-```yaml
-Type: Int32
-Parameter Sets: SRVRecord
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Preference
 Specifies the preference value used to prioritize mail delivery if multiple mail servers are available.
 
 ```yaml
 Type: String
 Parameter Sets: MXRecord
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Priority
-Specifies the priority of the target host, lower value means more preferred.
-
-```yaml
-Type: Int32
-Parameter Sets: SRVRecord
 Aliases:
 
 Required: True
@@ -218,21 +188,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -TTL
-The Time-To-Live (TTL) to be used for the the DNS record.
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Target
 Specifies the canonical hostname of the machine providing the service.
 
@@ -248,14 +203,27 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Text
-Specifies a string of abritrary text.
-
-This is typically used to set the Sender Policy Framework (SPF) record or prove ownership of the zone to a third-party.
+### -Port
+Specifies the TCP or UDP port on which the service is to be found.
 
 ```yaml
-Type: String
-Parameter Sets: TXTRecord
+Type: Int32
+Parameter Sets: SRVRecord
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Priority
+Specifies the priority of the target host, lower value means more preferred.
+
+```yaml
+Type: Int32
+Parameter Sets: SRVRecord
 Aliases:
 
 Required: True
@@ -274,6 +242,38 @@ Parameter Sets: SRVRecord
 Aliases:
 
 Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Text
+Specifies a string of arbitrary text.
+
+This is typically used to set the Sender Policy Framework (SPF) record or prove ownership of the zone to a third-party.
+
+```yaml
+Type: String
+Parameter Sets: TXTRecord
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TTL
+The Time-To-Live (TTL) to be used for the the DNS record.
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False

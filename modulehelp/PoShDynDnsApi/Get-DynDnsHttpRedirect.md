@@ -41,21 +41,6 @@ Retrieve HTTP redirect service for node `redirect.anovelidea.org`.
 
 ## PARAMETERS
 
-### -Node
-A node in the specified zone. If the node does not end with the domain of the zone, it will be appended.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Zone
 The zone in which to create the HTTP redirect service.
 
@@ -66,6 +51,21 @@ Aliases:
 
 Required: True
 Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Node
+A node in the specified zone. If the node does not end with the domain of the zone, it will be appended.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
