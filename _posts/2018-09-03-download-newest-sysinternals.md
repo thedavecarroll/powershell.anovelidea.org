@@ -108,7 +108,7 @@ Thanks for reading!
 
 **Notice**
 I added the Twitter card to see if it's really usable. I'd like to include the tweets for each blog post so Twitter users
-would have a way to like a post after they read it. Let me know what you think about this idea in the coments below. Thanks!
+would have a way to like a post after they read it. Let me know what you think about this idea in the comments below. Thanks!
 {: .notice--primary}
 
 <blockquote class="twitter-tweet" data-cards="hidden" data-lang="en"><p lang="en" dir="ltr">I&#39;ve been configuring a new laptop and needed a PowerShell way to download the latest Sysinternals tools. I created two functions and have detailed them in a new blog post. <a href="https://t.co/UuKo137aLH">https://t.co/UuKo137aLH</a></p>&mdash; Dave Carroll (@thedavecarroll) <a href="https://twitter.com/thedavecarroll/status/1036752418732756992?ref_src=twsrc%5Etfw">September 3, 2018</a></blockquote>
