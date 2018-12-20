@@ -1,4 +1,144 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-11-16T17:25:39-06:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">How I Implement Module Variables</title><link href="https://powershell.anovelidea.org/powershell/how-i-implement-module-variables/" rel="alternate" type="text/html" title="How I Implement Module Variables" /><published>2018-10-14T00:00:00-05:00</published><updated>2018-10-16T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/how-i-implement-module-variables</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/how-i-implement-module-variables/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/module-variables.png&quot; alt=&quot;How I Implement Module Variables&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-12-19T22:40:16-06:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Windows Forms</title><link href="https://powershell.anovelidea.org/powershell/windows-forms/" rel="alternate" type="text/html" title="Windows Forms" /><published>2018-12-19T00:00:00-06:00</published><updated>2018-12-19T00:00:00-06:00</updated><id>https://powershell.anovelidea.org/powershell/windows-forms</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/windows-forms/">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/windows-form-example.png&quot; alt=&quot;Windows Forms&quot; /&gt;&lt;/p&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;It’s been too long since I’ve posted any content and I wanted to get something out to let you know that I’m still here.&lt;/p&gt;
+
+&lt;p&gt;Recently, I was tasked to provide a GUI for a PowerShell script. Okay, I think I tasked myself, but it was an interesting
+foray into the .Net &lt;code class=&quot;highlighter-rouge&quot;&gt;[System.Windows.Forms]&lt;/code&gt; class.&lt;/p&gt;
+
+&lt;p&gt;As one does to find script inspiration - some might call this a starting point - I took to my favorite search engine and
+found numerous scripts built with &lt;a href=&quot;https://www.sapien.com/software/powershell_studio&quot; target=&quot;_blank&quot;&gt;SAPIEN Technologies PowerShell Studio&lt;/a&gt;
+as well as manually coded scripts on GitHub.&lt;/p&gt;
+
+&lt;p&gt;Since a requirement for my task was that I could not use any external application, I was forced to use the manually
+coded option.&lt;/p&gt;
+
+&lt;h2 id=&quot;functions&quot;&gt;Functions&lt;/h2&gt;
+
+&lt;p&gt;One of the common threads I noticed in the handful of scripts I found was that they really didn’t offer options for
+parameters. I’ve been a big proponent for creating tools, aka functions, since I first began writing PowerShell code. So,
+I set out gathering some tools that I thought I would need. &lt;strong&gt;The functions I created are by no means complete, nor is
+the list comprehensive.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Basically, my GUI script needed to be able to the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Create a form&lt;/li&gt;
+  &lt;li&gt;Display some controls
+    &lt;ul&gt;
+      &lt;li&gt;Header, used as a section label&lt;/li&gt;
+      &lt;li&gt;Buttons, which must performs some actions&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Display columnar data in a grid
+    &lt;ul&gt;
+      &lt;li&gt;Highlight certain rows based on a value of a cell&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Display the current status in the status bar of the form&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;create-a-form&quot;&gt;Create a form&lt;/h3&gt;
+
+&lt;p&gt;The first thing I needed to do was instantiate a new form object. I wrote &lt;code class=&quot;highlighter-rouge&quot;&gt;New-WindowsForm&lt;/code&gt; to handle this. At minimum, I needed
+to provide the title for the form (which is displayed in the title bar of the form) and the height and width (in pixels).
+I decided to also add a switch (&lt;code class=&quot;highlighter-rouge&quot;&gt;-NoIcon&lt;/code&gt;) that would hide the default icon in the title bar. By default, hard-coded that
+is, the form will autosize and provide scrollbars.&lt;/p&gt;
+
+&lt;p&gt;I then wrote &lt;code class=&quot;highlighter-rouge&quot;&gt;Set-WindowsForm&lt;/code&gt; that allows me to add an array of labels, an array of buttons, a data grid view, a status
+strip, and a script block for the on load event.&lt;/p&gt;
+
+&lt;h3 id=&quot;display-some-controls&quot;&gt;Display some controls&lt;/h3&gt;
+
+&lt;p&gt;I wrote &lt;code class=&quot;highlighter-rouge&quot;&gt;New-FormLabel&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;New-FormButton&lt;/code&gt; both with text to display, height, width, x-axis draw starting point, and
+y-axis draw starting point. For &lt;code class=&quot;highlighter-rouge&quot;&gt;New-FormButton&lt;/code&gt;, I also included a parameter for action (a scriptblock) and an
+anchorstyle (this lets the close button always be on the right side connected to the edge of the form).&lt;/p&gt;
+
+&lt;p&gt;The button’s action could be a very complex scriptblock that can load a file to use, set the filename for a log, update
+the data, and update the status bar.&lt;/p&gt;
+
+&lt;h3 id=&quot;display-columnar-data&quot;&gt;Display columnar data&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;[System.Windows.Forms.DataGridView]&lt;/code&gt; class was used to display my data and to highlight the rows that needed it. I
+wrote &lt;code class=&quot;highlighter-rouge&quot;&gt;New-DataGridView&lt;/code&gt; to instantiate an instance of the class. With &lt;code class=&quot;highlighter-rouge&quot;&gt;Update-DataGridView&lt;/code&gt;, I’m able to pass in the
+data, a DataGridView object, and a &lt;code class=&quot;highlighter-rouge&quot;&gt;[hashtable]&lt;/code&gt; that I use for to determine how to highlight the row. This part was
+very tricky.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$RowHighlight&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; @&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;'Cell'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'ProcessName'&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;'Values'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; @&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;'PowerShell'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Green'&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;'Chrome'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Red'&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then in the &lt;code class=&quot;highlighter-rouge&quot;&gt;Update-DataGridView&lt;/code&gt;, I have this code:&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RowHighlight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$Cell&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$RowHighlight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Cell'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;foreach&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Row&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DataGridView&lt;/span&gt;.Rows&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CellValue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Row&lt;/span&gt;.Cells[&lt;span class=&quot;nv&quot;&gt;$Cell&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;.Value
+    &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CellValue&lt;/span&gt;.Gettype&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt; -Verbose
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RowHighlight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Values'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;.ContainsKey&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CellValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Setting row based on &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Cell&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; cell of &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CellValue&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; to &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RowHighlight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Values'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CellValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; color&quot;&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;$Row&lt;/span&gt;.DefaultCellStyle.BackColor &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$RowHighlight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Values'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CellValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Setting &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Cell&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; cell for &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CellValue&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; to &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RowHighlight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Values'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;.Default&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; color&quot;&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;$Row&lt;/span&gt;.DefaultCellStyle.BackColor &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$RowHighlight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Values'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Default'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Actually, this function is the only one that provides Verbose output at the moment. If I find myself using this ad hoc
+module often, I’ll spiffy it up with plenty &lt;code class=&quot;highlighter-rouge&quot;&gt;Write-Verbose&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Write-Warning&lt;/code&gt; statements.&lt;/p&gt;
+
+&lt;h3 id=&quot;display-the-current-status-in-the-status-bar-of-the-form&quot;&gt;Display the current status in the status bar of the form&lt;/h3&gt;
+
+&lt;p&gt;Refreshing the data would take some time. Loading a file or writing a file would take some time. I wanted to be able to
+tell the user (myself, at this point) that things were happening. Enter the &lt;code class=&quot;highlighter-rouge&quot;&gt;[System.Windows.Forms.StatusStrip]&lt;/code&gt; class.&lt;/p&gt;
+
+&lt;p&gt;In a similar fashion as the form, I created &lt;code class=&quot;highlighter-rouge&quot;&gt;New-StatusStrip&lt;/code&gt; and a &lt;code class=&quot;highlighter-rouge&quot;&gt;Set-StatusStrip&lt;/code&gt; functions. The first creates a,
+more-or-less, &lt;em&gt;empty&lt;/em&gt; object. The latter function does all of the heavy lifting. It will display the operation, progress,
+and the progress values.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-module-and-example-script&quot;&gt;The Module and Example Script&lt;/h2&gt;
+
+&lt;p&gt;Now that we have the tools you need to create a quick GUI, let’s create the script that will use them. This simple script
+will display the form, load specific processes highlighting them based on what we want, and provide a way to refresh the
+data.&lt;/p&gt;
+
+&lt;p&gt;Here is the module and example script.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/thedavecarroll/f7e7eced888d34eeb2776536c333d3b5.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;in-action&quot;&gt;In Action&lt;/h2&gt;
+
+&lt;p&gt;Here is a demonstration on how this works.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/windows-form-in-action.gif&quot; alt=&quot;Windows Forms example in action&quot; title=&quot;Windows Forms example in action&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;bonus&quot;&gt;Bonus&lt;/h2&gt;
+
+&lt;p&gt;Something else that most forms provide is a way to open a file and to save a file. I have included &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-OpenFileDialog&lt;/code&gt;
+and &lt;code class=&quot;highlighter-rouge&quot;&gt;Set-SaveFileDialog&lt;/code&gt; to do just that. These are currently very basic and could use some long-term care (more
+parameters).&lt;/p&gt;
+
+&lt;h2 id=&quot;next-steps&quot;&gt;Next Steps&lt;/h2&gt;
+
+&lt;p&gt;If I use this ad hoc module more, I would need to convert it to fully formed module, via plaster template. I know many
+improvements can be made on accepting more properties for the various components. Again, this was a quick proof-of-concept.&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;And that’s how I came to write an ad hoc (not fully baked, developed, bare-boned, or whatever you want to call it) module
+for displaying a GUI using the &lt;code class=&quot;highlighter-rouge&quot;&gt;[System.Windows.Forms]&lt;/code&gt; class.&lt;/p&gt;
+
+&lt;p&gt;I hope you’ve found this interesting or informative. If you have any comments or questions, please post them below.&lt;/p&gt;
+
+&lt;p&gt;Thanks for reading!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="WindowsForms" /><category term="Forms" /><category term="DataGridView" /><category term="PowerShell GUI" /><summary type="html">Recently, I was tasked to provide a GUI for a PowerShell script. Okay, I think I tasked myself, but it was an interesting foray into the .Net [System.Windows.Forms] class...One of the common threads I noticed in the handful of scripts I found was that they really didn't offer options for parameters. I've been a big proponent for creating tools, aka functions, since I first began writing PowerShell code. So, I set out gathering some tools that I thought I would need.</summary></entry><entry><title type="html">How I Implement Module Variables</title><link href="https://powershell.anovelidea.org/powershell/how-i-implement-module-variables/" rel="alternate" type="text/html" title="How I Implement Module Variables" /><published>2018-10-14T00:00:00-05:00</published><updated>2018-10-16T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/how-i-implement-module-variables</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/how-i-implement-module-variables/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/module-variables.png&quot; alt=&quot;How I Implement Module Variables&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;preface&quot;&gt;Preface&lt;/h2&gt;
 
@@ -445,7 +585,7 @@ and it decided to cut back.&lt;/p&gt;
 
 &lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Notice&lt;/strong&gt;
 I added the Twitter card to see if it’s really usable. I’d like to include the tweets for each blog post so Twitter users
-would have a way to like a post after they read it. Let me know what you think about this idea in the coments below. Thanks!&lt;/p&gt;
+would have a way to like a post after they read it. Let me know what you think about this idea in the comments below. Thanks!&lt;/p&gt;
 
 &lt;blockquote class=&quot;twitter-tweet&quot; data-cards=&quot;hidden&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;I&amp;#39;ve been configuring a new laptop and needed a PowerShell way to download the latest Sysinternals tools. I created two functions and have detailed them in a new blog post. &lt;a href=&quot;https://t.co/UuKo137aLH&quot;&gt;https://t.co/UuKo137aLH&lt;/a&gt;&lt;/p&gt;&amp;mdash; Dave Carroll (@thedavecarroll) &lt;a href=&quot;https://twitter.com/thedavecarroll/status/1036752418732756992?ref_src=twsrc%5Etfw&quot;&gt;September 3, 2018&lt;/a&gt;&lt;/blockquote&gt;
 &lt;script async=&quot;&quot; src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="sysinternals" /><summary type="html">Download recently updated Sysinternals tools</summary></entry><entry><title type="html">How I Blog</title><link href="https://powershell.anovelidea.org/blog/how-i-blog/" rel="alternate" type="text/html" title="How I Blog" /><published>2018-08-26T00:00:00-05:00</published><updated>2018-08-29T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/blog/how-i-blog</id><content type="html" xml:base="https://powershell.anovelidea.org/blog/how-i-blog/">&lt;p&gt;Someone asked what I used to produce this blog. This post will provide the methodology and details.&lt;/p&gt;

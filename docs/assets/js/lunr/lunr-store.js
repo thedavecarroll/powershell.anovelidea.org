@@ -38,4 +38,9 @@ var store = [{
         "excerpt":"Preface Originally, I used globally scoped variables for my PoShDynDnsApi moduleto store the API URL, the authentication token, and the API version. These three variables were created during the initialconnection to the service then updated or removed as needed. A week or so ago, I was talking with a previous...","categories": ["powershell"],
         "tags": ["powershell","module","module variables","global variables"],
         "url": "https://powershell.anovelidea.org/powershell/how-i-implement-module-variables/",
+        "teaser":null},{
+        "title": "Windows Forms",
+        "excerpt":"Introduction It’s been too long since I’ve posted any content and I wanted to get something out to let you know that I’m still here. Recently, I was tasked to provide a GUI for a PowerShell script. Okay, I think I tasked myself, but it was an interestingforay into the...","categories": ["powershell"],
+        "tags": ["WindowsForms","Forms","DataGridView","PowerShell GUI"],
+        "url": "https://powershell.anovelidea.org/powershell/windows-forms/",
         "teaser":null}]
