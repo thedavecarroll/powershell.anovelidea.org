@@ -12,7 +12,7 @@ search: false
 # Get-DynDnsHistory
 
 ## SYNOPSIS
-The command `Get-DynDnsHistory` shows the history of commands that are send to the Dyn Managed DNS REST API.
+The command `Get-DynDnsHistory` shows the history of commands that are sent to the Dyn Managed DNS REST API.
 
 ## SYNTAX
 
@@ -32,7 +32,7 @@ Get-DynDnsHistory [-First <Int32>] [-Last <Int32>] [-Skip <Int32>] [<CommonParam
 ```
 
 ## DESCRIPTION
-The command `Get-DynDnsHistory` shows the history of commands that are send to the Dyn Managed DNS REST API.
+The command `Get-DynDnsHistory` shows the history of commands that are sent to the Dyn Managed DNS REST API.
 
 The following properties are included:
 
