@@ -161,6 +161,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Get-DynDnsZoneList](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Get-DynDnsZoneList.html)
+[Get-DynDnsNodeList](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Get-DynDnsNodeList.html)
 
 [Delete Zone Node (API)](https://help.dyn.com/delete-zone-node-api/)

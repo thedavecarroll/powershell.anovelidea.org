@@ -83,8 +83,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Add-DynDnsNode](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Add-DynDnsNode.html)
-
 [Remove-DynDnsNode](https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Remove-DynDnsNode.html)
 
 [Get Node List (API)](https://help.dyn.com/get-node-list-api/)
