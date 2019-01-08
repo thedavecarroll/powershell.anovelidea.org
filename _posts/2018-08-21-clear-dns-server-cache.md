@@ -28,7 +28,7 @@ Next, we find all name servers in the domain and show only the hostname.
 $DomainControllers = (Resolve-DnsName -Name $DomainName -Type NS).Where({ $_.Type -eq 'NS' }).NameHost
 ```
 
-Lastly, we excecute the clear command for each one.
+Lastly, we execute the clear command for each one.
 
 ```powershell
 $DomainControllers.ForEach({ Clear-DnsServerCache -ComputerName $_ -Force })
