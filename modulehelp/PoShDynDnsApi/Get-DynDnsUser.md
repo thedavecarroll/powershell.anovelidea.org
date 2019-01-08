@@ -32,7 +32,7 @@ PS C:\> Get-DynDnsUser
 
 User         : admin
 Status       : active
-CustomerName : Dave Carroll
+CustomerName : ##########
 Nickname     : AnotherUser
 FirstName    : David
 LastName     : Carroll
@@ -40,9 +40,9 @@ Email        : admin@anovelidea.org
 Phone        : ###-###-####
 Groups       : {Default}
 
-User         : dcarroll
+User         : ######
 Status       : active
-CustomerName : Dave Carroll
+CustomerName : ##########
 Nickname     : owner
 FirstName    : Dave
 LastName     : Carroll

@@ -34,9 +34,9 @@ the Information stream which can be accessed, at time of command execution, via 
 PS C:\> Get-DynDnsJob -JobId 836040075
 
 
-User         : dcarroll
+User         : ######
 Status       : active
-CustomerName : Dave Carroll
+CustomerName : ##########
 Nickname     : owner
 FirstName    : Dave
 LastName     : Carroll
