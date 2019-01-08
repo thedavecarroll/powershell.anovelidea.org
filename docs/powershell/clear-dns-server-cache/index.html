@@ -325,7 +325,7 @@
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$DomainControllers</span> <span class="o">=</span> <span class="o">(</span><span class="nb">Resolve-DnsName</span> -Name <span class="nv">$DomainName</span> -Type NS<span class="o">)</span>.Where<span class="o">({</span> <span class="nv">$_</span>.Type -eq <span class="s1">'NS'</span> <span class="o">})</span>.NameHost
 </code></pre></div></div>
 
-<p>Lastly, we excecute the clear command for each one.</p>
+<p>Lastly, we execute the clear command for each one.</p>
 
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$DomainControllers</span>.ForEach<span class="o">({</span> <span class="nb">Clear</span>-DnsServerCache -ComputerName <span class="nv">$_</span> -Force <span class="o">})</span>
 </code></pre></div></div>
@@ -559,7 +559,7 @@
   </ul>
 </div>
 
-<div class="page__footer-copyright">&copy; 2018 Dave Carroll. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+<div class="page__footer-copyright">&copy; 2019 Dave Carroll. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
 
       </footer>
     </div>

@@ -43,4 +43,9 @@ var store = [{
         "excerpt":"Introduction It’s been too long since I’ve posted any content and I wanted to get something out to let you know that I’m still here. Recently, I was tasked to provide a GUI for a PowerShell script. Okay, I think I tasked myself, but it was an interestingforay into the...","categories": ["powershell"],
         "tags": ["WindowsForms","Forms","DataGridView","PowerShell GUI"],
         "url": "https://powershell.anovelidea.org/powershell/windows-forms/",
+        "teaser":null},{
+        "title": "Introducing the PoShDynDnsApi Module",
+        "excerpt":"Sometime in Early 2018 Manager: Hey, Dave. I need you to add all of our domains as Accepted Domains in Exchange Online.Me: Okay. How many do we have?Manager: Maybe 50?Me *finally gets access to Dyn and checks*: We have over 170 in Dyn.Manager: Yeah, all those.Me: We will need to...","categories": ["powershell"],
+        "tags": ["powershell","module","dns","dyn","rest api","dyndns managed service","dyn managed dns rest api"],
+        "url": "https://powershell.anovelidea.org/powershell/module-poshdyndnsapi/",
         "teaser":null}]

@@ -16,9 +16,9 @@ So you're working on getting all of your email domains that's on-prem into Azure
 on-prem Exchange has been configured for all the domains your user accounts utilize. Your Active Directory domain
 contains over 30,000 accounts. How would you go about discovering the unique email domains?
 
-Knowing that the Active Directory attribute proxyAddresses contains the account's SMTP addreses, we can start there.
+Knowing that the Active Directory attribute proxyAddresses contains the account's SMTP addresses, we can start there.
 Also, you only want to include only those domains for active accounts. [Note: The proxyAddresses also contains other
-address types, but we are only concerned about SMTP for this excercise.]
+address types, but we are only concerned about SMTP for this exercise.]
 
 First, let's get all the proxyAddresses into a variable.
 

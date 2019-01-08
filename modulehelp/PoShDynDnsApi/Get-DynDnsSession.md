@@ -34,8 +34,8 @@ PS C:\> Get-DynDnsSession
 
 
 ClientUrl   : https://api.dynect.net
-User        : dcarroll
-Customer    : thedavecarroll
+User        : ######
+Customer    : ########
 ApiVersion  : 3.7.11
 AuthToken   : ******************************************************************=
 StartTime   : 11/10/2018 10:33:51 PM

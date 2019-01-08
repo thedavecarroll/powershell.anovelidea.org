@@ -35,7 +35,7 @@ PS C:\> Get-DynDnsTask
 TaskId       : 273365607
 Created      : 9/13/2018 8:49:24 PM
 Modified     : 9/13/2018 8:49:26 PM
-CustomerName : thedavecarroll
+CustomerName : ########
 Zone         : anovelidea.org
 TaskName     : ProvisionZone
 Status       : complete
@@ -51,7 +51,7 @@ Debug        :
 TaskId       : 273794012
 Created      : 9/16/2018 1:29:27 PM
 Modified     : 9/16/2018 1:29:28 PM
-CustomerName : thedavecarroll
+CustomerName : ########
 Zone         : anovelidea.org
 TaskName     : ImportZonefile
 Status       : complete
@@ -73,7 +73,7 @@ PS C:\> Get-DynDnsTask -TaskId 273786284
 TaskId       : 273786284
 Created      : 9/16/2018 12:21:35 PM
 Modified     : 9/16/2018 12:21:37 PM
-CustomerName : thedavecarroll
+CustomerName : ########
 Zone         : anovelidea.org
 TaskName     : ShutdownZone
 Status       : complete

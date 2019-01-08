@@ -32,7 +32,7 @@ PS C:\> Get-DynDnsZoneNotes -Zone anovelidea.org
 Zone         : anovelidea.org
 Timestamp    : 9/16/2018 9:37:12 PM
 Type         : publish
-User         : dcarroll
+User         : ######
 SerialNumber : 2018091701
 Note         : anovelidea.org
                 add A 74.125.21.121
@@ -43,7 +43,7 @@ Note         : anovelidea.org
 Zone         : anovelidea.org
 Timestamp    : 9/16/2018 2:43:11 PM
 Type         : task
-User         : dcarroll
+User         : ######
 SerialNumber : 0
 Note         : Results of ImportZonefile 273800391 (complete):
 
@@ -63,7 +63,7 @@ PS C:\> Get-DynDnsZoneNotes -Zone anovelidea.org -Limit 1
 Zone         : anovelidea.org
 Timestamp    : 9/16/2018 9:37:12 PM
 Type         : publish
-User         : dcarroll
+User         : ######
 SerialNumber : 2018091701
 Note         : anovelidea.org
                 add A 74.125.21.121

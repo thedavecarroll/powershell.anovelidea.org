@@ -1,4 +1,166 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2018-12-30T23:11:56-06:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Windows Forms</title><link href="https://powershell.anovelidea.org/powershell/windows-forms/" rel="alternate" type="text/html" title="Windows Forms" /><published>2018-12-19T00:00:00-06:00</published><updated>2018-12-19T00:00:00-06:00</updated><id>https://powershell.anovelidea.org/powershell/windows-forms</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/windows-forms/">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2019-01-07T20:28:55-06:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Introducing the PoShDynDnsApi Module</title><link href="https://powershell.anovelidea.org/powershell/module-poshdyndnsapi/" rel="alternate" type="text/html" title="Introducing the PoShDynDnsApi Module" /><published>2019-01-07T00:00:00-06:00</published><updated>2019-01-07T00:00:00-06:00</updated><id>https://powershell.anovelidea.org/powershell/module-poshdyndnsapi</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/module-poshdyndnsapi/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/dyndnsconnect.png&quot; alt=&quot;Connect-DynDnsSession&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;sometime-in-early-2018&quot;&gt;Sometime in Early 2018&lt;/h2&gt;
+
+&lt;p&gt;Manager: Hey, Dave. I need you to add all of our domains as Accepted Domains in Exchange Online.&lt;br /&gt;
+Me: Okay. How many do we have?&lt;br /&gt;
+Manager: Maybe 50?&lt;br /&gt;
+Me *finally gets access to Dyn and checks*: We have over 170 in Dyn.&lt;br /&gt;
+Manager: Yeah, all those.&lt;br /&gt;
+Me: We will need to create a TXT record in Dyn Managed DNS to prove ownership of the domain in Azure first.&lt;br /&gt;
+Manager: Do your thing.&lt;br /&gt;
+Me *sqeeeeee*: Okay.&lt;/p&gt;
+
+&lt;p&gt;Narrator: And this is how Dave started tinkering with the Dyn Managed DNS REST API.&lt;/p&gt;
+
+&lt;h2 id=&quot;introducing-the-poshdyndnsapi-module&quot;&gt;Introducing the PoShDynDnsApi Module&lt;/h2&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;PoShDynDnsApi&lt;/code&gt; module, version 0.1.0, is now available in the &lt;a href=&quot;http://bit.ly/PoShDynDnsApi&quot; target=&quot;_blank&quot;&gt;PowerShell Gallery&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;PoShDynDnsApi is an unofficial PowerShell module used to interact with Dyn Managed DNS REST API.&lt;/p&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Notice:&lt;/strong&gt; I am not affiliated with Dyn and I am not paid to develop this module which began to simplify my day-to-day work. This module has become a learning tool for me to hone my PowerShell skills. I pay $7 monthly in order to have an account that allows me to have a single zone for testing the module.&lt;/p&gt;
+
+&lt;h3 id=&quot;commands&quot;&gt;Commands&lt;/h3&gt;
+
+&lt;p&gt;There are currently 28 commands available to the user.&lt;/p&gt;
+
+&lt;p&gt;To see complete examples and command syntax, please visit the &lt;a href=&quot;https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/&quot; target=&quot;_blank&quot;&gt;module help&lt;/a&gt; site.&lt;/p&gt;
+
+&lt;h4 id=&quot;session&quot;&gt;Session&lt;/h4&gt;
+
+&lt;p&gt;You can used the following commands to create, extend, test, or remove a session. Additionally, you can view the current session information or view the current session history.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Connect-DynDnsSession&lt;/li&gt;
+  &lt;li&gt;Send-DynDnsSession&lt;/li&gt;
+  &lt;li&gt;Test-DynDnsSession&lt;/li&gt;
+  &lt;li&gt;Disconnect-DynDnsSession&lt;/li&gt;
+  &lt;li&gt;Get-DynDnsSession&lt;/li&gt;
+  &lt;li&gt;Get-DynDnsHistory&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;zone&quot;&gt;Zone&lt;/h4&gt;
+
+&lt;p&gt;Use the following commands to create a zone by providing required parameters or by providing a zone file, and you can view the zone record. You can also remove a zone. You can view pending changes and publish them or discard them. And you can view the publish notes. Additionally, you can freeze or thaw the zone.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Add-DynDnsZone&lt;/li&gt;
+  &lt;li&gt;Get-DynDnsZone&lt;/li&gt;
+  &lt;li&gt;Get-DynDnsZoneNotes&lt;/li&gt;
+  &lt;li&gt;Remove-DynDnsZone&lt;/li&gt;
+  &lt;li&gt;Get-DynDnsZoneChanges&lt;/li&gt;
+  &lt;li&gt;Publish-DynDnsZoneChanges&lt;/li&gt;
+  &lt;li&gt;Undo-DynDnsZoneChanges&lt;/li&gt;
+  &lt;li&gt;Lock-DynDnsZone&lt;/li&gt;
+  &lt;li&gt;Unlock-DynDnsZone&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/dyndnszone.png&quot; alt=&quot;Get-DynDnsZone&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;record&quot;&gt;Record&lt;/h4&gt;
+
+&lt;p&gt;Use the follow commands to view, add, update, or remove DNS records of the following types: A, TXT, CNAME, MX, SRV, or PTR. There is a command to create a new record object that can be used to add or update a record.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Get-DynDnsRecord&lt;/li&gt;
+  &lt;li&gt;New-DynDnsRecord&lt;/li&gt;
+  &lt;li&gt;Add-DynDnsRecord&lt;/li&gt;
+  &lt;li&gt;Update-DynDnsRecord&lt;/li&gt;
+  &lt;li&gt;Remove-DynDnsRecord&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/dyndnsrecord.png&quot; alt=&quot;Get-DynDnsRecord&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;httpredirect&quot;&gt;HttpRedirect&lt;/h4&gt;
+
+&lt;p&gt;Use the following commands to view, create, or delete an HTTP redirect service.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Get-DynDnsHttpRedirect&lt;/li&gt;
+  &lt;li&gt;Add-DynDnsHttpRedirect&lt;/li&gt;
+  &lt;li&gt;Remove-DynDnsHttpRedirect&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;node&quot;&gt;Node&lt;/h4&gt;
+
+&lt;p&gt;Use the following commands to list nodes and remove a node.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note: Add commands such as &lt;code class=&quot;highlighter-rouge&quot;&gt;Add-DynDnsRecord&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Add-DynDnsHttpRedirect&lt;/code&gt; will create the node prior to adding the record or service.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Get-DynDnsNodeList&lt;/li&gt;
+  &lt;li&gt;Remove-DynDnsNode&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/dyndnsnodelist.png&quot; alt=&quot;Get-DynDnsNodeList&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;miscellaneous&quot;&gt;Miscellaneous&lt;/h4&gt;
+
+&lt;p&gt;These commands will allow you to view users, jobs, or tasks.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Get-DynDnsUser&lt;/li&gt;
+  &lt;li&gt;Get-DynDnsTask&lt;/li&gt;
+  &lt;li&gt;Get-DynDnsJob&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;more-information&quot;&gt;More Information&lt;/h3&gt;
+
+&lt;p&gt;Please check out the following links for more information on the Dyn Managed DNS REST API.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://help.dyn.com/dns-api-guide/&quot; target=&quot;_blank&quot;&gt;DNS API Quick-Start Guide&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://help.dyn.com/understanding-works-api/&quot; target=&quot;_blank&quot;&gt;Understanding How The API Works&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://help.dyn.com/rest-resources/&quot; target=&quot;_blank&quot;&gt;REST Resources&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://help.dyn.com/rest/&quot; target=&quot;_blank&quot;&gt;RESTful API Interface&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/dyndnsdisconnect.png&quot; alt=&quot;Disconnect-DynDnsSession&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;my-first-rest-api-interaction&quot;&gt;My First REST API Interaction&lt;/h2&gt;
+
+&lt;p&gt;I am a PowerShell developer (just now starting calling myself that) with a background in multiple scripting languages, identity management, and much of the Microsoft technology stack. I have connected to MS SQL, Oracle SQL, and mySQL databases with vbScript, PHP, and PowerShell. But, I had never connected to a REST API until I started working on proof of concepts for connecting to Dyn’s API.&lt;/p&gt;
+
+&lt;h3 id=&quot;powershell-lessons-learned&quot;&gt;PowerShell Lessons Learned&lt;/h3&gt;
+
+&lt;p&gt;Over the course of the months I’ve spent developing this module, I have learned several lessons about writing better PowerShell scripts and modules.&lt;/p&gt;
+
+&lt;h4 id=&quot;globally-scoped-module-variables&quot;&gt;Globally Scoped Module Variables&lt;/h4&gt;
+
+&lt;p&gt;This should be avoided. Any variable declared at the module level (in the psm1 file) is scoped to the module.&lt;/p&gt;
+
+&lt;h4 id=&quot;dot-sourcing-custom-class-ps1-files&quot;&gt;Dot-sourcing Custom Class ps1 Files&lt;/h4&gt;
+
+&lt;p&gt;The generally accepted way to have classes available to the module is to include them in the module’s psm1 (most likely through a compile process).&lt;/p&gt;
+
+&lt;h4 id=&quot;default-parameter-values-from-read-host&quot;&gt;Default Parameter Values from Read-Host&lt;/h4&gt;
+
+&lt;p&gt;Using this essentially makes the parameter mandatory and may not be part of the &lt;code class=&quot;highlighter-rouge&quot;&gt;$PSBoundParameters&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;cross-edition-and-cross-platform&quot;&gt;Cross Edition and Cross-Platform&lt;/h4&gt;
+
+&lt;p&gt;The difference between Invoke-RestMethod and Invoke-WebRequest in Windows PowerShell and PowerShell Core posed significant roadblocks to make the module cross platform. I will blog about this process soon.&lt;/p&gt;
+
+&lt;h4 id=&quot;plaster-psake-and-pester&quot;&gt;Plaster, PSake, and Pester&lt;/h4&gt;
+
+&lt;p&gt;I have spent a lot of time working on my module scaffolding while writing the module. I have a good understanding of Plaster templates, have a PSake build script that at least gets me to a compiled module state, and have starting devising my logic for general unit and integration tests.&lt;/p&gt;
+
+&lt;h4 id=&quot;provide-a-solution-sooner-than-later&quot;&gt;Provide a Solution Sooner than Later&lt;/h4&gt;
+
+&lt;p&gt;In general, I’m a perfectionist. Everything has to be just right. This module has taken many months of coding to get it to this point, albeit not consistent coding. But I realized while talking with &lt;a href=&quot;http://stevenmaglio.blogspot.com/&quot; target=&quot;_blank&quot;&gt;Steven Maglio&lt;/a&gt;, that I was going about it wrong. Actually, he told me it was wrong. DevOps is about quick iterations. Get something into the user’s hands and update as you go along. That was the catalyst I needed to do a final, manual test (thankfully, as I had to fix a bug), then deploy to the PowerShell Gallery.&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;I believe the PoShDynDnsApi module is a powerful and easy tool to manage your Dyn Managed DNS service. I hope you will, too.&lt;/p&gt;
+
+&lt;p&gt;If you discover issues, please submit a &lt;a href=&quot;https://github.com/thedavecarroll/PoShDynDnsApi/issues/new?labels=bug&amp;amp;template=bug_report.md&amp;amp;title=%5BBUG%5D&quot; target=&quot;_blank&quot;&gt;bug report&lt;/a&gt; via GitHub.&lt;/p&gt;
+
+&lt;p&gt;If you would like a new feature or command that interacts with the Dyn Managed DNS REST API, please submit the &lt;a href=&quot;https://github.com/thedavecarroll/PoShDynDnsApi/issues/new?labels=enhancement&amp;amp;template=feature_request.md&amp;amp;title=%5BNew+Feature%5D&quot; target=&quot;_blank&quot;&gt;feature request&lt;/a&gt; via GitHub.&lt;/p&gt;
+
+&lt;p&gt;If you just want to comment on how much you like the module or this blog post, please leave it below.&lt;/p&gt;
+
+&lt;p&gt;PowerShell to the people!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="module" /><category term="dns" /><category term="dyn" /><category term="rest api" /><category term="dyndns managed service" /><category term="dyn managed dns rest api" /><summary type="html">PoShDynDnsApi is an unofficial PowerShell module used to interact with Dyn Managed DNS REST API.</summary></entry><entry><title type="html">Windows Forms</title><link href="https://powershell.anovelidea.org/powershell/windows-forms/" rel="alternate" type="text/html" title="Windows Forms" /><published>2018-12-19T00:00:00-06:00</published><updated>2018-12-19T00:00:00-06:00</updated><id>https://powershell.anovelidea.org/powershell/windows-forms</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/windows-forms/">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
 &lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/windows-form-example.png&quot; alt=&quot;Windows Forms&quot; /&gt;&lt;/p&gt;
 
@@ -768,6 +930,7 @@ for each, but then decided to use a data file.&lt;/p&gt;
 in this folder and provide the data as variables.&lt;/p&gt;
 
 &lt;h4 id=&quot;sample-data&quot;&gt;Sample data&lt;/h4&gt;
+
 &lt;pre&gt;
 - name: PoShEvents
   description: 'PowerShell module to query Windows Event Logs.'
@@ -1025,7 +1188,7 @@ the change permanent, I updated the registry.&lt;/p&gt;
 &lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$DomainControllers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Resolve-DnsName&lt;/span&gt; -Name &lt;span class=&quot;nv&quot;&gt;$DomainName&lt;/span&gt; -Type NS&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.Where&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;.Type -eq &lt;span class=&quot;s1&quot;&gt;'NS'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;.NameHost
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Lastly, we excecute the clear command for each one.&lt;/p&gt;
+&lt;p&gt;Lastly, we execute the clear command for each one.&lt;/p&gt;
 
 &lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$DomainControllers&lt;/span&gt;.ForEach&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Clear&lt;/span&gt;-DnsServerCache -ComputerName &lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt; -Force &lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -1045,9 +1208,9 @@ the change permanent, I updated the registry.&lt;/p&gt;
 on-prem Exchange has been configured for all the domains your user accounts utilize. Your Active Directory domain
 contains over 30,000 accounts. How would you go about discovering the unique email domains?&lt;/p&gt;
 
-&lt;p&gt;Knowing that the Active Directory attribute proxyAddresses contains the account’s SMTP addreses, we can start there.
+&lt;p&gt;Knowing that the Active Directory attribute proxyAddresses contains the account’s SMTP addresses, we can start there.
 Also, you only want to include only those domains for active accounts. [Note: The proxyAddresses also contains other
-address types, but we are only concerned about SMTP for this excercise.]&lt;/p&gt;
+address types, but we are only concerned about SMTP for this exercise.]&lt;/p&gt;
 
 &lt;p&gt;First, let’s get all the proxyAddresses into a variable.&lt;/p&gt;
 
