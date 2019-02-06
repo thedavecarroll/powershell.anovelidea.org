@@ -12,7 +12,7 @@ toc_icon: list
 ## PowerShell Blogs
 
 * [Michael Simmons' ILovePowerShell.com](https://www.ILovePowerShell.com){:target="_blank"}
-* [Kevin Marquette on PowerShell Theory](https://kevinmarquette.github.io){:target="_blank"}
+* [Kevin Marquette's PowerShell Explained](https://powershellexplained.com/?utm_source=thedavecarroll&utm_medium=blog){:target="_blank"}
 * [Warren Frame's Rambling Cookie Monster](https://ramblingcookiemonster.github.io/){:target="_blank"}
 
 ## PowerShell Links
@@ -24,5 +24,5 @@ toc_icon: list
 
 ## Microsoft Links
 
-* [Offical PoweShell Core Repo](https://github.com/PowerShell/PowerShell){:target="_blank"}
+* [Official PowerShell Core GitHub Repo](https://github.com/PowerShell/PowerShell){:target="_blank"}
 * [Visual Studio Code](https://code.visualstudio.com/){:target="_blank"}
