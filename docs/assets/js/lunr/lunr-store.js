@@ -48,4 +48,9 @@ var store = [{
         "excerpt":"Sometime in Early 2018 Manager: Hey, Dave. I need you to add all of our domains as Accepted Domains in Exchange Online.Me: Okay. How many do we have?Manager: Maybe 50?Me *finally gets access to Dyn and checks*: We have over 170 in Dyn.Manager: Yeah, all those.Me: We will need to...","categories": ["powershell"],
         "tags": ["powershell","module","dns","dyn","rest api","dyndns managed service","dyn managed dns rest api"],
         "url": "https://powershell.anovelidea.org/powershell/module-poshdyndnsapi/",
+        "teaser":null},{
+        "title": "Using the PSGSuite Module for G Suite",
+        "excerpt":"Introduction About a week ago, I was scrolling through Reddit and came across a post in r/sysadmin,Get list of aliases in Gsuite/Gmail. I took a few minutes to install and configure PSGSuite, a module for interacting with G Suite(Google Apps) API that I heard about sometime last year. In short...","categories": ["powershell"],
+        "tags": ["psgsuite","g suite","google api","google cloud"],
+        "url": "https://powershell.anovelidea.org/powershell/using-psgsuite-module/",
         "teaser":null}]

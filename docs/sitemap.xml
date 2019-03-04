@@ -41,6 +41,10 @@
 <lastmod>2019-01-07T00:00:00-06:00</lastmod>
 </url>
 <url>
+<loc>https://powershell.anovelidea.org/powershell/using-psgsuite-module/</loc>
+<lastmod>2019-03-03T00:00:00-06:00</lastmod>
+</url>
+<url>
 <loc>https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Add-DynDnsHttpRedirect.html</loc>
 </url>
 <url>
@@ -189,5 +193,8 @@
 </url>
 <url>
 <loc>https://powershell.anovelidea.org/page2/</loc>
+</url>
+<url>
+<loc>https://powershell.anovelidea.org/page3/</loc>
 </url>
 </urlset>

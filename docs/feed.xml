@@ -1,4 +1,436 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2019-02-06T17:28:52-06:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Introducing the PoShDynDnsApi Module</title><link href="https://powershell.anovelidea.org/powershell/module-poshdyndnsapi/" rel="alternate" type="text/html" title="Introducing the PoShDynDnsApi Module" /><published>2019-01-07T00:00:00-06:00</published><updated>2019-01-07T00:00:00-06:00</updated><id>https://powershell.anovelidea.org/powershell/module-poshdyndnsapi</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/module-poshdyndnsapi/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/dyndnsconnect.png&quot; alt=&quot;Connect-DynDnsSession&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2019-03-03T21:59:23-06:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Using the PSGSuite Module for G Suite</title><link href="https://powershell.anovelidea.org/powershell/using-psgsuite-module/" rel="alternate" type="text/html" title="Using the PSGSuite Module for G Suite" /><published>2019-03-03T00:00:00-06:00</published><updated>2019-03-03T00:00:00-06:00</updated><id>https://powershell.anovelidea.org/powershell/using-psgsuite-module</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/using-psgsuite-module/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/gsuite-reddit-post.png&quot; alt=&quot;r/sysadmin&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;About a week ago, I was scrolling through Reddit and came across a post in &lt;strong&gt;r/sysadmin&lt;/strong&gt;,
+&lt;a href=&quot;https://www.reddit.com/r/sysadmin/comments/aujdao/get_list_of_aliases_in_gsuitegmail/&quot; target=&quot;_blank&quot;&gt;Get list of aliases in Gsuite/Gmail&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I took a few minutes to install and configure &lt;a href=&quot;https://github.com/scrthq/PSGSuite&quot; target=&quot;_blank&quot;&gt;PSGSuite&lt;/a&gt;, a module for interacting with G Suite
+(Google Apps) API that I heard about sometime last year. In short order, I was able to provide a response to the post.&lt;/p&gt;
+
+&lt;p&gt;This module allows you to work with GSuite users, groups, sheets, and more. See the &lt;a href=&quot;https://github.com/scrthq/PSGSuite/wiki/&quot; target=&quot;_blank&quot;&gt;wiki&lt;/a&gt; for details.&lt;/p&gt;
+
+&lt;p&gt;This post will take you through creating organizational units, users, and groups, and assigning users to groups, and
+listing users with email aliases.&lt;/p&gt;
+
+&lt;p&gt;For fun, I’ve created a custom schema and attribute, &lt;code class=&quot;highlighter-rouge&quot;&gt;EmployeeType&lt;/code&gt;, that will help categorize our users.&lt;/p&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I manually created a &lt;code class=&quot;highlighter-rouge&quot;&gt;/test&lt;/code&gt; organizational unit and blocked automatic assignment of a license since I’m using my
+personal G Suite account. I don’t want any surprises at the end of the month.&lt;/p&gt;
+
+&lt;h3 id=&quot;disclosure&quot;&gt;Disclosure&lt;/h3&gt;
+
+&lt;p&gt;I am not affiliated with &lt;code class=&quot;highlighter-rouge&quot;&gt;PSGSuite&lt;/code&gt; project, other than being a very new, casual user of the module. Please visit the
+&lt;a href=&quot;https://github.com/scrthq/PSGSuite&quot; target=&quot;_blank&quot;&gt;GitHub repo&lt;/a&gt; or &lt;a href=&quot;https://github.com/scrthq/PSGSuite/wiki/&quot; target=&quot;_blank&quot;&gt;wiki&lt;/a&gt; for help with commands or to raise an issue.&lt;/p&gt;
+
+&lt;h2 id=&quot;basic-user-process&quot;&gt;Basic User Process&lt;/h2&gt;
+
+&lt;p&gt;This list covers the basic workflow that we will be following.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Create Organizational Units&lt;/li&gt;
+  &lt;li&gt;Create Groups&lt;/li&gt;
+  &lt;li&gt;Create Users&lt;/li&gt;
+  &lt;li&gt;Assign Users to Groups&lt;/li&gt;
+  &lt;li&gt;Get User Account Info&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;h3 id=&quot;psgsuite-module&quot;&gt;PSGSuite Module&lt;/h3&gt;
+
+&lt;p&gt;I followed the project’s wiki &lt;a href=&quot;https://github.com/scrthq/PSGSuite/wiki/Initial-Setup&quot; target=&quot;_blank&quot;&gt;Initial Setup&lt;/a&gt; page and the configuration went smoothly and quickly.&lt;/p&gt;
+
+&lt;h3 id=&quot;custom-attribute-in-g-suite&quot;&gt;Custom Attribute in G Suite&lt;/h3&gt;
+
+&lt;p&gt;Here are the basic steps I used to create the custom attribute in G Suite.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Login to &lt;a href=&quot;https://admin.google.com&quot; target=&quot;_blank&quot;&gt;https://admin.google.com&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Go to Users.&lt;/li&gt;
+  &lt;li&gt;Click on &lt;strong&gt;Manage Custom Attributes&lt;/strong&gt; icon, next to Download Users.&lt;/li&gt;
+  &lt;li&gt;Click on &lt;strong&gt;ADD CUSTOM ATTRIBUTE&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;For Category, I used CustomUniversity. This will be the name of the custom schema that is applied to users.&lt;/li&gt;
+  &lt;li&gt;For Description, I used ‘All custom attributes for the university’.&lt;/li&gt;
+  &lt;li&gt;Then, in the entry for Custom Fields, I used the following:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+      &lt;th&gt;Info Type&lt;/th&gt;
+      &lt;th&gt;Visibility&lt;/th&gt;
+      &lt;th&gt;No. of Values&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;EmployeeType&lt;/td&gt;
+      &lt;td&gt;text&lt;/td&gt;
+      &lt;td&gt;visible to domain&lt;/td&gt;
+      &lt;td&gt;single value&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Once I saved the custom schema, I verified that I had entered everything correctly by managing user attributes again and
+selecting the category.&lt;/p&gt;
+
+&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/gsuite-custom-attribute.png&quot; alt=&quot;r/sysadmin&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;data&quot;&gt;Data&lt;/h3&gt;
+
+&lt;p&gt;I created the following data in a Google Sheets spreadsheet called &lt;strong&gt;UserManagement&lt;/strong&gt;. These two sheets will be used to
+provide the required data for all steps of the process.&lt;/p&gt;
+
+&lt;h4 id=&quot;sheet-users&quot;&gt;Sheet: Users&lt;/h4&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;FullName&lt;/th&gt;
+      &lt;th&gt;GivenName&lt;/th&gt;
+      &lt;th&gt;FamilyName&lt;/th&gt;
+      &lt;th&gt;Email&lt;/th&gt;
+      &lt;th&gt;EmployeeType&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Donald Edwards&lt;/td&gt;
+      &lt;td&gt;Donald&lt;/td&gt;
+      &lt;td&gt;Edwards&lt;/td&gt;
+      &lt;td&gt;don@anovelidea.org&lt;/td&gt;
+      &lt;td&gt;Staff&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Leslie Myers&lt;/td&gt;
+      &lt;td&gt;Leslie&lt;/td&gt;
+      &lt;td&gt;Myers&lt;/td&gt;
+      &lt;td&gt;leslie@anovelidea.org&lt;/td&gt;
+      &lt;td&gt;Staff&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Emily Jones&lt;/td&gt;
+      &lt;td&gt;Emily&lt;/td&gt;
+      &lt;td&gt;Jones&lt;/td&gt;
+      &lt;td&gt;emily@anovelidea.org&lt;/td&gt;
+      &lt;td&gt;Faculty&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Larry Brooks&lt;/td&gt;
+      &lt;td&gt;Larry&lt;/td&gt;
+      &lt;td&gt;Brooks&lt;/td&gt;
+      &lt;td&gt;larry@anovelidea.org&lt;/td&gt;
+      &lt;td&gt;Faculty&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&quot;sheet-groups&quot;&gt;Sheet: Groups&lt;/h4&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+      &lt;th&gt;Email&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+      &lt;th&gt;OrgUnitPath&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Business&lt;/td&gt;
+      &lt;td&gt;business@anovelidea.org&lt;/td&gt;
+      &lt;td&gt;Business Department&lt;/td&gt;
+      &lt;td&gt;/test/business&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Academics&lt;/td&gt;
+      &lt;td&gt;academics@anovelidea.org&lt;/td&gt;
+      &lt;td&gt;Academics Department&lt;/td&gt;
+      &lt;td&gt;/test/academics&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I used &lt;a href=&quot;https://github.com/dfinke/NameIT&quot; target=&quot;_blank&quot;&gt;Doug Finke’s NameIT&lt;/a&gt; module to produce random names.&lt;/p&gt;
+
+&lt;h2 id=&quot;user-process&quot;&gt;User Process&lt;/h2&gt;
+
+&lt;p&gt;To begin, we need to import the module and then use the command &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-GSDriveFileList&lt;/code&gt; to find the Google Sheet where our
+data is stored.&lt;/p&gt;
+
+&lt;p&gt;Next, we use the command &lt;code class=&quot;highlighter-rouge&quot;&gt;Import-GSSheet&lt;/code&gt; to import our user and group data.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Import module&lt;/span&gt;
+Import-Module -Name PSGSuite
+
+&lt;span class=&quot;c1&quot;&gt;# Discover spreadsheet Id in drive file list&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$Spreadsheet&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Get-GSDriveFileList -Filter &lt;span class=&quot;s2&quot;&gt;&quot;name = 'UserManagement'&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Get data from each sheet from Google spreadsheet&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$UserData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Import-GSSheet -SpreadsheetId &lt;span class=&quot;nv&quot;&gt;$Spreadsheet&lt;/span&gt;.Id -SheetName &lt;span class=&quot;s1&quot;&gt;'Users'&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$GroupData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Import-GSSheet -SpreadsheetId &lt;span class=&quot;nv&quot;&gt;$Spreadsheet&lt;/span&gt;.Id -SheetName &lt;span class=&quot;s1&quot;&gt;'Groups'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;create-organizational-units&quot;&gt;Create Organizational Units&lt;/h3&gt;
+
+&lt;p&gt;We use &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-GSOrganizationalUnit&lt;/code&gt; to determine if the OU exists. And then we use &lt;code class=&quot;highlighter-rouge&quot;&gt;New-GSOrganizationalUnit &lt;/code&gt; to create
+it if it does not.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;foreach&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Group&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$GroupData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$SplitPath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Group&lt;/span&gt;.OrgUnitPath -Split &lt;span class=&quot;s1&quot;&gt;'/'&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$ParentPath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$SplitPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;0..&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$SplitPath&lt;/span&gt;.Count -2&lt;span class=&quot;o&quot;&gt;)]&lt;/span&gt; -join &lt;span class=&quot;s1&quot;&gt;'/'&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$OUPath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$SplitPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-1]
+
+    &lt;span class=&quot;nv&quot;&gt;$OrgUnit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Get-GSOrganizationalUnit -SearchBase &lt;span class=&quot;nv&quot;&gt;$Group&lt;/span&gt;.OrgUnitPath -SearchScope Base -ErrorAction SilentlyContinue
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$OrgUnit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;Org Unit {0} exists at {1}&quot;&lt;/span&gt; -f &lt;span class=&quot;nv&quot;&gt;$OrgUnit&lt;/span&gt;.OrgUnitPath,&lt;span class=&quot;nv&quot;&gt;$OrgUnit&lt;/span&gt;.ParentOrgUnitPath
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;Org Unit {0} does not exist; attempting to create in {1}&quot;&lt;/span&gt; -f &lt;span class=&quot;nv&quot;&gt;$Group&lt;/span&gt;.OrgUnitPath,&lt;span class=&quot;nv&quot;&gt;$ParentPath&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nv&quot;&gt;$GSOrgUnit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; New-GSOrganizationalUnit -Name &lt;span class=&quot;nv&quot;&gt;$OUPath&lt;/span&gt;.ToLower&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; -ParentOrgUnitPath &lt;span class=&quot;nv&quot;&gt;$ParentPath&lt;/span&gt; -Description &lt;span class=&quot;nv&quot;&gt;$Group&lt;/span&gt;.Description
+            &lt;span class=&quot;s2&quot;&gt;&quot;Created {0} : {1}&quot;&lt;/span&gt; -f &lt;span class=&quot;nv&quot;&gt;$GSOrgUnit&lt;/span&gt;.OrgUnitPath,&lt;span class=&quot;nv&quot;&gt;$GSOrgUnit&lt;/span&gt;.Description
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;Unable to create {0}&quot;&lt;/span&gt; -f &lt;span class=&quot;nv&quot;&gt;$Group&lt;/span&gt;.OrgUnitPath
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;create-groups&quot;&gt;Create Groups&lt;/h3&gt;
+
+&lt;p&gt;We verify the whether the* Use the command &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-GSGroup&lt;/code&gt; to check if the group exists. If the group does not already
+exist, use &lt;code class=&quot;highlighter-rouge&quot;&gt;New-GSGroup&lt;/code&gt; to create the group from the spreadsheet.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;foreach&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Group&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$GroupData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$GSGroup&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Get-GSGroup -Group &lt;span class=&quot;nv&quot;&gt;$Group&lt;/span&gt;.Name -ErrorAction SilentlyContinue
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GSGroup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;Group {0} exists&quot;&lt;/span&gt; -f &lt;span class=&quot;nv&quot;&gt;$Group&lt;/span&gt;.Name
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;Group {0} does not exist; attempting to create&quot;&lt;/span&gt; -f &lt;span class=&quot;nv&quot;&gt;$Group&lt;/span&gt;.Name
+        &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nv&quot;&gt;$NewGSGroup&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; New-GSGroup -Name &lt;span class=&quot;nv&quot;&gt;$Group&lt;/span&gt;.Name -Email &lt;span class=&quot;nv&quot;&gt;$Group&lt;/span&gt;.Email -Description &lt;span class=&quot;nv&quot;&gt;$Group&lt;/span&gt;.Description
+            &lt;span class=&quot;s2&quot;&gt;&quot;Created {0} : {1}&quot;&lt;/span&gt; -f &lt;span class=&quot;nv&quot;&gt;$NewGSGroup&lt;/span&gt;.Name,&lt;span class=&quot;nv&quot;&gt;$NewGSGroup&lt;/span&gt;.Description
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;Unable to create {0}&quot;&lt;/span&gt; -f &lt;span class=&quot;nv&quot;&gt;$Group&lt;/span&gt;.Name
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;create-users&quot;&gt;Create Users&lt;/h3&gt;
+
+&lt;p&gt;Create the users listed in the spreadsheet.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;First, determine the department based on the user type.&lt;/li&gt;
+  &lt;li&gt;Using the department, set the variable for the org unit path.&lt;/li&gt;
+  &lt;li&gt;Create the required hashtable for CustomSchemas to add the EmployeeType to the user.&lt;/li&gt;
+  &lt;li&gt;Generate a random secure password.&lt;/li&gt;
+  &lt;li&gt;Using the command &lt;code class=&quot;highlighter-rouge&quot;&gt;New-GSUser&lt;/code&gt;, create the new user.&lt;/li&gt;
+  &lt;li&gt;If the user is successfully created, use the command &lt;code class=&quot;highlighter-rouge&quot;&gt;New-GSUserAlias&lt;/code&gt; for best effort to create an email alias based on the user’s full name.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;foreach&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$User&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$UserData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$Domain&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$User&lt;/span&gt;.Email.Split&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'@'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)[&lt;/span&gt;1]
+    &lt;span class=&quot;k&quot;&gt;switch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$User&lt;/span&gt;.UserType&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;'Faculty'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Department&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Academics'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;'Staff'&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Department&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Business'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# Set OU path&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$OrgUnitPath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$GroupData&lt;/span&gt;.Where&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;.Name -eq &lt;span class=&quot;nv&quot;&gt;$Department&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;.OrgUnitPath
+
+    &lt;span class=&quot;c1&quot;&gt;# Set employee type custom schema&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$CustomSchemas&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; @&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        CustomUniversity &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; @&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            EmployeeType &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$User&lt;/span&gt;.UserType
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# Set a random secure string&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$Password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ConvertTo-SecureString&lt;/span&gt; -String &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Get-RandomPassword&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; -AsPlainText -Force
+
+    &lt;span class=&quot;nv&quot;&gt;$NewGSUserParams&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; @&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        PrimaryEmail &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$User&lt;/span&gt;.Email
+        FullName &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$User&lt;/span&gt;.FullName
+        GivenName &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$User&lt;/span&gt;.GivenName
+        FamilyName &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$User&lt;/span&gt;.FamilyName
+        OrgUnitPath &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$OrgUnitPath&lt;/span&gt;
+        CustomSchemas &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$CustomSchemas&lt;/span&gt;
+        Password &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Password&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$NewUser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; New-GSUser @NewGSUserParams -ErrorAction SilentlyContinue
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$NewUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;'Created user {0} with primary email {1}'&lt;/span&gt; -f &lt;span class=&quot;nv&quot;&gt;$User&lt;/span&gt;.FullName,&lt;span class=&quot;nv&quot;&gt;$User&lt;/span&gt;.Email
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;'Failed to create user {0}'&lt;/span&gt; -f &lt;span class=&quot;nv&quot;&gt;$User&lt;/span&gt;.Email
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    New-GSUserAlias -User &lt;span class=&quot;nv&quot;&gt;$NewUser&lt;/span&gt;.PrimaryEmail -Alias &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$NewUser&lt;/span&gt;.Name.FullName.Replace&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt;,&lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;,&lt;span class=&quot;nv&quot;&gt;$Domain&lt;/span&gt; -join &lt;span class=&quot;s1&quot;&gt;'@'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; -ErrorAction SilentlyContinue | Out-Null
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-RandomPassword&lt;/code&gt; function is a mock-up and currently only returns a string value.&lt;/p&gt;
+
+&lt;h3 id=&quot;assign-users-to-groups&quot;&gt;Assign Users to Groups&lt;/h3&gt;
+
+&lt;p&gt;Next, we use &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-GSUserList&lt;/code&gt; to get a list of all users in the parent OU, and then add the user to the group with
+&lt;code class=&quot;highlighter-rouge&quot;&gt;Add-GSGroupMember&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$UserToGroupList&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Get-GSUserList -SearchBase &lt;span class=&quot;s1&quot;&gt;'/test'&lt;/span&gt; -SearchScope Subtree
+&lt;span class=&quot;k&quot;&gt;foreach&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$User&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$UserToGroupList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;switch&lt;/span&gt; -regex &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$User&lt;/span&gt;.OrgUnitPath&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;'academics'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$GroupName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Academics'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;'business'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$GroupName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Business'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        Add-GSGroupMember -Identity &lt;span class=&quot;nv&quot;&gt;$GroupName&lt;/span&gt; -Member &lt;span class=&quot;nv&quot;&gt;$User&lt;/span&gt;.User -ErrorAction Stop | Out-Null
+        &lt;span class=&quot;s1&quot;&gt;'Added {0} to group {1}'&lt;/span&gt; -f &lt;span class=&quot;nv&quot;&gt;$User&lt;/span&gt;.User,&lt;span class=&quot;nv&quot;&gt;$GroupName&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;'Failed to add {0} to group {1}'&lt;/span&gt; -f &lt;span class=&quot;nv&quot;&gt;$User&lt;/span&gt;.User,&lt;span class=&quot;nv&quot;&gt;$GroupName&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;listing-all-email-addresses-including-aliases&quot;&gt;Listing All Email Addresses Including Aliases&lt;/h3&gt;
+
+&lt;p&gt;When I commented on the Reddit post referenced above, it was with option 1. During the writing of this post, I created
+option 2 as a more real-world example of what data can be brought out of the GSUser object.&lt;/p&gt;
+
+&lt;h4 id=&quot;option-1&quot;&gt;Option 1&lt;/h4&gt;
+
+&lt;p&gt;This option uses the commands &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-GSUserList&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-GSUserAlias&lt;/code&gt; to retrieve the data.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Get-GSUserList -SearchBase &lt;span class=&quot;s1&quot;&gt;'/test'&lt;/span&gt; -SearchScope Subtree | &lt;span class=&quot;k&quot;&gt;ForEach&lt;/span&gt;-Object &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    Get-GSUserAlias -User &lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;.User | &lt;span class=&quot;nb&quot;&gt;Select-Object&lt;/span&gt; -Property PrimaryEmail,AliasValue
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;PrimaryEmail&lt;/th&gt;
+      &lt;th&gt;AliasValue&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;don@anovelidea.org&lt;/td&gt;
+      &lt;td&gt;DonaldEdwards@anovelidea.org&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;emily@anovelidea.org&lt;/td&gt;
+      &lt;td&gt;EmilyJones@anovelidea.org&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;larry@anovelidea.org&lt;/td&gt;
+      &lt;td&gt;LarryBrooks@anovelidea.org&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;leslie@anovelidea.org&lt;/td&gt;
+      &lt;td&gt;LeslieMyers@anovelidea.org&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&quot;option-2&quot;&gt;Option 2&lt;/h4&gt;
+
+&lt;p&gt;This option also uses the command &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-GSUserList&lt;/code&gt;, but it uses the more versatile command &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-GSUser&lt;/code&gt; to retrieve all
+pertinent data.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$UserList&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Get-GSUserList -SearchBase &lt;span class=&quot;s1&quot;&gt;'/test'&lt;/span&gt; -SearchScope Subtree | &lt;span class=&quot;k&quot;&gt;ForEach&lt;/span&gt;-Object &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    Get-GSUser -User &lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;.User | &lt;span class=&quot;nb&quot;&gt;Select-Object&lt;/span&gt; -Property Name,PrimaryEmail,OrgUnitPath,Aliases,CustomSchemas,CreationTime,LastLoginTime
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$Format&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; @&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Name'&lt;/span&gt;;&lt;span class=&quot;nv&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;={&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;.Name.FullName&lt;span class=&quot;o&quot;&gt;}}&lt;/span&gt;,@&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'PrimaryEmail'&lt;/span&gt;;&lt;span class=&quot;nv&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;={&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;.PrimaryEmail&lt;span class=&quot;o&quot;&gt;}}&lt;/span&gt;,@&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'CreationTime'&lt;/span&gt;;&lt;span class=&quot;nv&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;={&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;.CreationTime&lt;span class=&quot;o&quot;&gt;}}&lt;/span&gt;,
+    @&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Aliases'&lt;/span&gt;;&lt;span class=&quot;nv&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;={&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;.Aliases -join &lt;span class=&quot;s1&quot;&gt;','&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}}&lt;/span&gt;,@&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'OrgUnitPath'&lt;/span&gt;;&lt;span class=&quot;nv&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;={&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;.OrgUnitPath&lt;span class=&quot;o&quot;&gt;}}&lt;/span&gt;,
+    @&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'EmployeeType'&lt;/span&gt;;&lt;span class=&quot;nv&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;={&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;.CustomSchemas[&lt;span class=&quot;s1&quot;&gt;'CustomUniversity'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;.EmployeeType&lt;span class=&quot;o&quot;&gt;}}&lt;/span&gt;,@&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'LastLoginTime'&lt;/span&gt;;&lt;span class=&quot;nv&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;={&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;.LastLoginTime&lt;span class=&quot;o&quot;&gt;}}&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$UserList&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;Select-Object&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Format&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;Format-Table&lt;/span&gt; -AutoSize
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+      &lt;th&gt;PrimaryEmail&lt;/th&gt;
+      &lt;th&gt;CreationTime&lt;/th&gt;
+      &lt;th&gt;Aliases&lt;/th&gt;
+      &lt;th&gt;OrgUnitPath&lt;/th&gt;
+      &lt;th&gt;EmployeeType&lt;/th&gt;
+      &lt;th&gt;LastLoginTime&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Donald Edwards&lt;/td&gt;
+      &lt;td&gt;don@anovelidea.org&lt;/td&gt;
+      &lt;td&gt;3/3/2019 7:13:47 PM&lt;/td&gt;
+      &lt;td&gt;DonaldEdwards@anovelidea.org&lt;/td&gt;
+      &lt;td&gt;/test/business&lt;/td&gt;
+      &lt;td&gt;Staff&lt;/td&gt;
+      &lt;td&gt;12/31/1969 6:00:00 PM&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Emily Jones&lt;/td&gt;
+      &lt;td&gt;emily@anovelidea.org&lt;/td&gt;
+      &lt;td&gt;3/3/2019 7:13:53 PM&lt;/td&gt;
+      &lt;td&gt;EmilyJones@anovelidea.org&lt;/td&gt;
+      &lt;td&gt;/test/academics&lt;/td&gt;
+      &lt;td&gt;Faculty&lt;/td&gt;
+      &lt;td&gt;12/31/1969 6:00:00 PM&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Larry Brooks&lt;/td&gt;
+      &lt;td&gt;larry@anovelidea.org&lt;/td&gt;
+      &lt;td&gt;3/3/2019 7:13:56 PM&lt;/td&gt;
+      &lt;td&gt;LarryBrooks@anovelidea.org&lt;/td&gt;
+      &lt;td&gt;/test/academics&lt;/td&gt;
+      &lt;td&gt;Faculty&lt;/td&gt;
+      &lt;td&gt;12/31/1969 6:00:00 PM&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Leslie Myers&lt;/td&gt;
+      &lt;td&gt;leslie@anovelidea.org&lt;/td&gt;
+      &lt;td&gt;3/3/2019 7:13:50 PM&lt;/td&gt;
+      &lt;td&gt;LeslieMyers@anovelidea.org&lt;/td&gt;
+      &lt;td&gt;/test/business&lt;/td&gt;
+      &lt;td&gt;Staff&lt;/td&gt;
+      &lt;td&gt;12/31/1969 6:00:00 PM&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&quot;bonus&quot;&gt;Bonus&lt;/h4&gt;
+
+&lt;p&gt;Of course, you could easily send the data back into a Google sheet or export it to CSV or Excel.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$UserList&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;Select-Object&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Format&lt;/span&gt; | Export-GSSheet -NewSheetTitle &lt;span class=&quot;s1&quot;&gt;'AccountCreationLog'&lt;/span&gt; -User &lt;span class=&quot;s1&quot;&gt;'primaryadmin@anovelidea.org'&lt;/span&gt; -SheetName &lt;span class=&quot;s1&quot;&gt;'AccountCreation'&lt;/span&gt; -Launch
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And here is what the end result will look like.&lt;/p&gt;
+
+&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/gsuite-account-creation-log.png&quot; alt=&quot;AccountCreationLog&quot; /&gt;&lt;/p&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; Doug Finke also has an outstanding module, &lt;a href=&quot;https://github.com/dfinke/ImportExcel&quot; target=&quot;_blank&quot;&gt;ImportExcel&lt;/a&gt;, that will help you get your data
+into an Excel spreadsheet.&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;As you can see based on these relatively simple examples, there is a great deal of automation for a G Suite organization
+that you can perform using the &lt;code class=&quot;highlighter-rouge&quot;&gt;PSGSuite&lt;/code&gt; module.&lt;/p&gt;
+
+&lt;p&gt;I hope these examples will help you understand how to start using the &lt;code class=&quot;highlighter-rouge&quot;&gt;PSGSuite&lt;/code&gt; module, or at least have piqued your
+curiosity to learn more on your own.&lt;/p&gt;
+
+&lt;p&gt;If this blog post has helped you, please leave a comment below.&lt;/p&gt;
+
+&lt;p&gt;PowerShell to the People!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="psgsuite" /><category term="g suite" /><category term="google api" /><category term="google cloud" /><summary type="html">Examples on how to create OUs, groups, and users with the PSGSuite PowerShell Module.</summary></entry><entry><title type="html">Introducing the PoShDynDnsApi Module</title><link href="https://powershell.anovelidea.org/powershell/module-poshdyndnsapi/" rel="alternate" type="text/html" title="Introducing the PoShDynDnsApi Module" /><published>2019-01-07T00:00:00-06:00</published><updated>2019-01-07T00:00:00-06:00</updated><id>https://powershell.anovelidea.org/powershell/module-poshdyndnsapi</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/module-poshdyndnsapi/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/dyndnsconnect.png&quot; alt=&quot;Connect-DynDnsSession&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;sometime-in-early-2018&quot;&gt;Sometime in Early 2018&lt;/h2&gt;
 
@@ -1244,22 +1676,4 @@ gmail.com
 
 &lt;p&gt;Hopefully, this post was helpful to you in some way.&lt;/p&gt;
 
-&lt;p&gt;Have a great day!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="exchange" /><category term="azure" /><summary type="html">Get unique email domains from proxyAddresses for Exchange or Azure.</summary></entry><entry><title type="html">Welcome to My PowerShell Blog</title><link href="https://powershell.anovelidea.org/blog/blog-inception/" rel="alternate" type="text/html" title="Welcome to My PowerShell Blog" /><published>2018-08-14T00:00:00-05:00</published><updated>2018-08-17T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/blog/blog-inception</id><content type="html" xml:base="https://powershell.anovelidea.org/blog/blog-inception/">&lt;p&gt;Greetings fellow PowerShell aficionados!&lt;/p&gt;
-
-&lt;p&gt;I feel I must begin with a confession: I was not an early adopter of PowerShell.&lt;/p&gt;
-
-&lt;p&gt;I began using PowerShell because I had no other choice. I needed to manage the Live@EDU environment at the college where I worked. Who had time to learn something that was only going to be used with that particular setup? Not this guy. Boy, was I wrong.&lt;/p&gt;
-
-&lt;p&gt;The more I needed to do with my environment, the more PowerShell quietly raised its hand.&lt;/p&gt;
-
-&lt;p&gt;In the summer of 2010, I took on the challenge of forcing myself to learn PowerShell by way of converting a complex set of VBScript scripts into PowerShell. In a few short weeks, perhaps with a couple all-nighters, I had crafted a replacement solution that connected to Orcale, Microsoft SQL, and MySQL databases. It interfaced with Active Directory, Live@EDU, and Sun One LDAP. It used a .Net log4j logging and dot sourced modularized code (some of which were my own functions). It was an amazing homebrew identity management solution.&lt;/p&gt;
-
-&lt;p&gt;Each year after that, my PowerShell skills grew and grew. I had/have a PowerShell session open basically all of the time. As much as I could, I tried using PowerShell commands instead of the GUI.&lt;/p&gt;
-
-&lt;p&gt;In 2012, I started working with someone that &lt;a href=&quot;https://www.ILovePowerShell.com&quot; target=&quot;_blank&quot;&gt;loved PowerShell&lt;/a&gt; as much as I did. We challenged each other and learned from it. I wrote functions and dot-sourced them in my profile. I started dabbling in modules, but just didn’t make the time to delve fully into them.&lt;/p&gt;
-
-&lt;p&gt;Over the last couple years, I switched from PowerShell ISE to VS Code, started using git repositories (internal and GitHub), and created my first few real modules.&lt;/p&gt;
-
-&lt;p&gt;And I’ve decided to start blogging about PowerShell.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;I’ve had the domain &lt;code class=&quot;highlighter-rouge&quot;&gt;anovelidea.org&lt;/code&gt; since early 2000. If you want a break from PowerShell and IT in general, you can check out &lt;a href=&quot;http://www.anovelidea.org&quot; target=&quot;_blank&quot;&gt;my other website&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;blog&quot;]" /><category term="blog" /><category term="powershell" /><summary type="html">Greetings fellow PowerShell aficionados!...I've decided to start blogging about PowerShell.</summary></entry></feed>
+&lt;p&gt;Have a great day!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="exchange" /><category term="azure" /><summary type="html">Get unique email domains from proxyAddresses for Exchange or Azure.</summary></entry></feed>
