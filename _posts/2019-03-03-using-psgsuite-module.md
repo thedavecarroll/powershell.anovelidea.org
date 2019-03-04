@@ -150,8 +150,8 @@ foreach ($Group in $GroupData) {
 
 ### Create Groups
 
-We verify the whether the* Use the command `Get-GSGroup` to check if the group exists. If the group does not already
-exist, use `New-GSGroup` to create the group from the spreadsheet.
+Using the command `Get-GSGroup`, we check if the group exists. If the group does not already exist, use `New-GSGroup` to
+create the group from the spreadsheet.
 
 ```powershell
 foreach ($Group in $GroupData) {
