@@ -9,6 +9,7 @@ tags:
   - g suite
   - google api
   - google cloud
+  - how to
 category:
   - powershell
 ---

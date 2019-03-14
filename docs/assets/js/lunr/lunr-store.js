@@ -51,6 +51,6 @@ var store = [{
         "teaser":null},{
         "title": "Using the PSGSuite Module for G Suite",
         "excerpt":"Introduction About a week ago, I was scrolling through Reddit and came across a post in r/sysadmin,Get list of aliases in Gsuite/Gmail. I took a few minutes to install and configure PSGSuite, a module for interacting with G Suite(Google Apps) API that I heard about sometime last year. In short...","categories": ["powershell"],
-        "tags": ["psgsuite","g suite","google api","google cloud"],
+        "tags": ["psgsuite","g suite","google api","google cloud","how to"],
         "url": "https://powershell.anovelidea.org/powershell/using-psgsuite-module/",
         "teaser":null}]
