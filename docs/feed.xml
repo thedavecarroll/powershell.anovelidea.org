@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2019-05-09T00:08:52-05:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Design Deep Dive : PoShDynDnsApi</title><link href="https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi/" rel="alternate" type="text/html" title="Design Deep Dive : PoShDynDnsApi" /><published>2019-05-08T00:00:00-05:00</published><updated>2019-05-08T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi/">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2019-05-09T00:26:43-05:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Design Deep Dive : PoShDynDnsApi</title><link href="https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi/" rel="alternate" type="text/html" title="Design Deep Dive : PoShDynDnsApi" /><published>2019-05-08T00:00:00-05:00</published><updated>2019-05-08T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi/">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
 &lt;p&gt;In January, I published the first release of the PoShDynDnsApi module to the &lt;a href=&quot;http://bit.ly/PoShDynDnsApi&quot; target=&quot;_blank&quot;&gt;PowerShellGallery&lt;/a&gt;,
 along with a &lt;a href=&quot;http://bit.ly/2GXJjnt&quot; target=&quot;_blank&quot;&gt;blog post introducing the module&lt;/a&gt;. It was the culmination of months of
@@ -74,7 +74,7 @@ provided access to the Dyn Managed DNS service with a maximum of one domain.&lt;
 &lt;p&gt;Each API has specific requirements for establishing a session, creating resources, querying resources, modifying
 resources, and deleting resources.&lt;/p&gt;
 
-&lt;p&gt;For more details, please visit &lt;a href=&quot;http://bit.ly/PoShDynDnsApi&quot; target=&quot;_blank&quot;&gt;Dyn’s DNS API Quick-Start Guide&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;For more details, please visit &lt;a href=&quot;https://help.dyn.com/dns-api-guide/&quot; target=&quot;_blank&quot;&gt;Dyn’s DNS API Quick-Start Guide&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;powershell-web-cmdlets&quot;&gt;PowerShell Web Cmdlets&lt;/h2&gt;
 
@@ -125,8 +125,8 @@ available since Windows PowerShell 3.0.&lt;/p&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;The table data was distilled from a series of blog posts (&lt;a href=&quot;https://help.dyn.com/dns-api-guide/&quot; target=&quot;_blank&quot;&gt;Part 1&lt;/a&gt;, &lt;a href=&quot;https://get-powershellblog.blogspot.com/2017/11/powershell-core-web-cmdlets-in-depth.html&quot; target=&quot;_blank&quot;&gt;Part 2&lt;/a&gt;,
-and &lt;a href=&quot;https://get-powershellblog.blogspot.com/2017/12/powershell-core-web-cmdlets-in-depth.html&quot; target=&quot;_blank&quot;&gt;Part 3&lt;/a&gt;) on &lt;em&gt;PowerShell Core Web Cmdlets in Depth&lt;/em&gt; by &lt;a href=&quot;https://get-powershellblog.blogspot.com/2017/12/powershell-core-web-cmdlets-in-depth_24.html&quot; target=&quot;_blank&quot;&gt;Mark Kraus&lt;/a&gt;. Please
+&lt;p&gt;The table data was distilled from a series of blog posts (&lt;a href=&quot;https://get-powershellblog.blogspot.com/2017/11/powershell-core-web-cmdlets-in-depth.html&quot; target=&quot;_blank&quot;&gt;Part 1&lt;/a&gt;, &lt;a href=&quot;https://get-powershellblog.blogspot.com/2017/12/powershell-core-web-cmdlets-in-depth.html&quot; target=&quot;_blank&quot;&gt;Part 2&lt;/a&gt;,
+and &lt;a href=&quot;https://get-powershellblog.blogspot.com/2017/12/powershell-core-web-cmdlets-in-depth_24.html&quot; target=&quot;_blank&quot;&gt;Part 3&lt;/a&gt;) on &lt;em&gt;PowerShell Core Web Cmdlets in Depth&lt;/em&gt; by &lt;a href=&quot;https://twitter.com/markekraus&quot; target=&quot;_blank&quot;&gt;Mark Kraus&lt;/a&gt;. Please
 check out Mark’s posts for details, as he’s pretty much a leading authority since he’s writing most of the feature work
 for them.&lt;/p&gt;
 

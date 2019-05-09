@@ -75,7 +75,7 @@ Dyn provides two APIs which can be used to interact with the Managed DNS Service
 Each API has specific requirements for establishing a session, creating resources, querying resources, modifying
 resources, and deleting resources.
 
-For more details, please visit [Dyn's DNS API Quick-Start Guide][1]{:target="_blank"}.
+For more details, please visit [Dyn's DNS API Quick-Start Guide][3]{:target="_blank"}.
 
 ## PowerShell Web Cmdlets
 
@@ -97,8 +97,8 @@ The following table provides a quick overview of the major changes between the w
 |Windows PowerShell |Desktop   | System.Net.WebRequest                  | System.Net.WebResponse              | No                    | Single string, joined by commas | HttpWebResponse.Headers
 |PowerShell Core    |Core      | System.Net.Http.HttpClient (.Net 4.5+) | System.Net.Http.HttpResponseMessage | Yes                   | Sting array                     | HttpResponseMessage.Content.Headers
 
-The table data was distilled from a series of blog posts ([Part 1][3]{:target="_blank"}, [Part 2][4]{:target="_blank"},
-and [Part 3][5]{:target="_blank"}) on _PowerShell Core Web Cmdlets in Depth_ by [Mark Kraus][6]{:target="_blank"}. Please
+The table data was distilled from a series of blog posts ([Part 1][4]{:target="_blank"}, [Part 2][5]{:target="_blank"},
+and [Part 3][6]{:target="_blank"}) on _PowerShell Core Web Cmdlets in Depth_ by [Mark Kraus][7]{:target="_blank"}. Please
 check out Mark's posts for details, as he's pretty much a leading authority since he's writing most of the feature work
 for them.
 
