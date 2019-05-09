@@ -53,4 +53,9 @@ var store = [{
         "excerpt":"Introduction About a week ago, I was scrolling through Reddit and came across a post in r/sysadmin,Get list of aliases in Gsuite/Gmail. I took a few minutes to install and configure PSGSuite, a module for interacting with G Suite(Google Apps) API that I heard about sometime last year. In short...","categories": ["powershell"],
         "tags": ["psgsuite","g suite","google api","google cloud","how to"],
         "url": "https://powershell.anovelidea.org/powershell/using-psgsuite-module/",
+        "teaser":null},{
+        "title": "Design Deep Dive : PoShDynDnsApi",
+        "excerpt":"Introduction In January, I published the first release of the PoShDynDnsApi module to the PowerShellGallery,along with a blog post introducing the module. It was the culmination of months ofoften-distracted work that began nearly a year prior. In this post, I want to give you a peek into my development process....","categories": ["powershell"],
+        "tags": ["powershell","module","xplat","cross platform","rest api","webrequest","httpclient","external help","online help","updatable help","dyn managed dns"],
+        "url": "https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi/",
         "teaser":null}]

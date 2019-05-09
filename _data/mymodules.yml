@@ -21,6 +21,6 @@
   help: 'External file'
   onlinehelp: true
   updatablehelp: false
-  pester: true
+  pester: false
   build: true
   psgallery: true

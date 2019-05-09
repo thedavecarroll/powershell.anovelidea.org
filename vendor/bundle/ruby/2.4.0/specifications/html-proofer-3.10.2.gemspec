@@ -15,10 +15,10 @@ Gem::Specification.new do |s|
   s.files = ["bin/htmlproofer".freeze]
   s.homepage = "https://github.com/gjtorikian/html-proofer".freeze
   s.licenses = ["MIT".freeze]
-  s.rubygems_version = "3.0.2".freeze
+  s.rubygems_version = "3.0.3".freeze
   s.summary = "A set of tests to validate your HTML output. These tests check if your image references are legitimate, if they have alt tags, if your internal links are working, and so on. It's intended to be an all-in-one checker for your documentation output.".freeze
 
-  s.installed_by_version = "3.0.2" if s.respond_to? :installed_by_version
+  s.installed_by_version = "3.0.3" if s.respond_to? :installed_by_version
 
   if s.respond_to? :specification_version then
     s.specification_version = 4

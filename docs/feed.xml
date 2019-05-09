@@ -1,4 +1,557 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2019-03-13T23:05:10-05:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Using the PSGSuite Module for G Suite</title><link href="https://powershell.anovelidea.org/powershell/using-psgsuite-module/" rel="alternate" type="text/html" title="Using the PSGSuite Module for G Suite" /><published>2019-03-03T00:00:00-06:00</published><updated>2019-03-03T00:00:00-06:00</updated><id>https://powershell.anovelidea.org/powershell/using-psgsuite-module</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/using-psgsuite-module/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/gsuite-reddit-post.png&quot; alt=&quot;r/sysadmin&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2019-05-09T00:08:52-05:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Design Deep Dive : PoShDynDnsApi</title><link href="https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi/" rel="alternate" type="text/html" title="Design Deep Dive : PoShDynDnsApi" /><published>2019-05-08T00:00:00-05:00</published><updated>2019-05-08T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi/">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;In January, I published the first release of the PoShDynDnsApi module to the &lt;a href=&quot;http://bit.ly/PoShDynDnsApi&quot; target=&quot;_blank&quot;&gt;PowerShellGallery&lt;/a&gt;,
+along with a &lt;a href=&quot;http://bit.ly/2GXJjnt&quot; target=&quot;_blank&quot;&gt;blog post introducing the module&lt;/a&gt;. It was the culmination of months of
+often-distracted work that began nearly a year prior.&lt;/p&gt;
+
+&lt;p&gt;In this post, I want to give you a peek into my development process.&lt;/p&gt;
+
+&lt;h2 id=&quot;topics-covered&quot;&gt;Topics Covered&lt;/h2&gt;
+
+&lt;p&gt;Below are the topics that I will cover in this post.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Dyn Managed DNS Service
+    &lt;ul&gt;
+      &lt;li&gt;Managed DNS API&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;PowerShell Web Cmdlets
+    &lt;ul&gt;
+      &lt;li&gt;Changes Between Windows PowerShell and PowerShell Core&lt;/li&gt;
+      &lt;li&gt;Strictly RESTing&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Testing Tool&lt;/li&gt;
+  &lt;li&gt;Module Variables
+    &lt;ul&gt;
+      &lt;li&gt;Session&lt;/li&gt;
+      &lt;li&gt;History&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;API Request
+    &lt;ul&gt;
+      &lt;li&gt;Invoke-DynDnsRequestDesktop&lt;/li&gt;
+      &lt;li&gt;Invoke-DynDnsRequestCore&lt;/li&gt;
+      &lt;li&gt;Invoke-DynDnsRequest&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Output
+    &lt;ul&gt;
+      &lt;li&gt;Classes&lt;/li&gt;
+      &lt;li&gt;Output Streams&lt;/li&gt;
+      &lt;li&gt;Write-DynDnsOutput&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Help&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;dyn-managed-dns-service&quot;&gt;Dyn Managed DNS Service&lt;/h2&gt;
+
+&lt;p&gt;When I first started working on this module, I had access to Dyn’s Managed DNS through an employer. When I left them in
+October 2018, I obviously lost my access to Dyn.&lt;/p&gt;
+
+&lt;p&gt;I wanted to continue development on the module. Originally, I contacted Dyn (turned out to be Sales) and they really had
+no clue what I was talking about. I poked around their website and saw that they offered a Developer account that
+provided access to the Dyn Managed DNS service with a maximum of one domain.&lt;/p&gt;
+
+&lt;p&gt;By the way, the Managed DNS service is not the same as Dynamic DNS (DDNS).&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The Managed DNS service fully hosts your domain, allowing you to add records, get reports per record or domain, set granular permissions, and more.&lt;/li&gt;
+  &lt;li&gt;The DDNS service allows your hosts/devices to auto-register with their service providing you access to your device via its hostname, typically &lt;code class=&quot;highlighter-rouge&quot;&gt;myuniquehostname.dyndns.org&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;managed-dns-api&quot;&gt;Managed DNS API&lt;/h3&gt;
+
+&lt;p&gt;Dyn provides two APIs which can be used to interact with the Managed DNS Service.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;RESTful&lt;/code&gt; API&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SOAP 1.1&lt;/code&gt; API&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Each API has specific requirements for establishing a session, creating resources, querying resources, modifying
+resources, and deleting resources.&lt;/p&gt;
+
+&lt;p&gt;For more details, please visit &lt;a href=&quot;http://bit.ly/PoShDynDnsApi&quot; target=&quot;_blank&quot;&gt;Dyn’s DNS API Quick-Start Guide&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;powershell-web-cmdlets&quot;&gt;PowerShell Web Cmdlets&lt;/h2&gt;
+
+&lt;p&gt;In the world of PowerShell, one typically would use the commands &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-WebRequest&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-RestMethod&lt;/code&gt;, both
+available since Windows PowerShell 3.0.&lt;/p&gt;
+
+&lt;p&gt;In fact, the Windows PowerShell version uses &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-WebRequest&lt;/code&gt; under the hood.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;But why not &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-RestMethod&lt;/code&gt;, Dave?&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Glad you asked. I’ll be covering that further down in the post.&lt;/p&gt;
+
+&lt;h3 id=&quot;changes-between-windows-powershell-and-powershell-core&quot;&gt;Changes Between Windows PowerShell and PowerShell Core&lt;/h3&gt;
+
+&lt;p&gt;The following table provides a quick overview of the major changes between the web cmdlets from Windows PowerShell and PowerShell Core.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Version&lt;/th&gt;
+      &lt;th&gt;PSEdition&lt;/th&gt;
+      &lt;th&gt;Primary .NET API&lt;/th&gt;
+      &lt;th&gt;Response Object&lt;/th&gt;
+      &lt;th&gt;Strict Header Parsing&lt;/th&gt;
+      &lt;th&gt;Headers Values&lt;/th&gt;
+      &lt;th&gt;Content Headers&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Windows PowerShell&lt;/td&gt;
+      &lt;td&gt;Desktop&lt;/td&gt;
+      &lt;td&gt;System.Net.WebRequest&lt;/td&gt;
+      &lt;td&gt;System.Net.WebResponse&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+      &lt;td&gt;Single string, joined by commas&lt;/td&gt;
+      &lt;td&gt;HttpWebResponse.Headers&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;PowerShell Core&lt;/td&gt;
+      &lt;td&gt;Core&lt;/td&gt;
+      &lt;td&gt;System.Net.Http.HttpClient (.Net 4.5+)&lt;/td&gt;
+      &lt;td&gt;System.Net.Http.HttpResponseMessage&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+      &lt;td&gt;Sting array&lt;/td&gt;
+      &lt;td&gt;HttpResponseMessage.Content.Headers&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The table data was distilled from a series of blog posts (&lt;a href=&quot;https://help.dyn.com/dns-api-guide/&quot; target=&quot;_blank&quot;&gt;Part 1&lt;/a&gt;, &lt;a href=&quot;https://get-powershellblog.blogspot.com/2017/11/powershell-core-web-cmdlets-in-depth.html&quot; target=&quot;_blank&quot;&gt;Part 2&lt;/a&gt;,
+and &lt;a href=&quot;https://get-powershellblog.blogspot.com/2017/12/powershell-core-web-cmdlets-in-depth.html&quot; target=&quot;_blank&quot;&gt;Part 3&lt;/a&gt;) on &lt;em&gt;PowerShell Core Web Cmdlets in Depth&lt;/em&gt; by &lt;a href=&quot;https://get-powershellblog.blogspot.com/2017/12/powershell-core-web-cmdlets-in-depth_24.html&quot; target=&quot;_blank&quot;&gt;Mark Kraus&lt;/a&gt;. Please
+check out Mark’s posts for details, as he’s pretty much a leading authority since he’s writing most of the feature work
+for them.&lt;/p&gt;
+
+&lt;h3 id=&quot;strictly-resting&quot;&gt;Strictly RESTing&lt;/h3&gt;
+
+&lt;p&gt;While I was developing a proof of concept in PowerShell Core, I immediately hit a wall. It seems that, in this PSEdition,
+Microsoft prohibits sending a JSON payload via the GET method. This led me to initially targeting Windows PowerShell.&lt;/p&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; I believe it was the body with GET method, but I’m not 100% sure. There is also major differences in how the
+two PSEditions handle errors.&lt;/p&gt;
+
+&lt;h2 id=&quot;testing-tool&quot;&gt;Testing Tool&lt;/h2&gt;
+
+&lt;p&gt;For testing external to PowerShell, I use the &lt;a href=&quot;https://insomnia.rest/&quot; target=&quot;_blank&quot;&gt;Insomnia REST Client&lt;/a&gt;. I find the UI to be very
+clean and the application to be all that I need in a REST client. There are many REST clients like it, but this one is
+mine (of choice).&lt;/p&gt;
+
+&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/design-deep-dive-poshdyndnsapi-insomnia.png&quot; alt=&quot;InsomniaRESTClient&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;module-variables&quot;&gt;Module Variables&lt;/h2&gt;
+
+&lt;p&gt;My blog post in October 2018 on module variables received a lot of views, largely due to a gracious retweet from &lt;a href=&quot;https://twitter.com/concentrateddon&quot; target=&quot;_blank&quot;&gt;Don
+Jones&lt;/a&gt;. In it, I describe how I began using module variables, aka script scoped variables.&lt;/p&gt;
+
+&lt;p&gt;Originally, I had created globally scoped variables for the API client URL, the API version, and the authentication
+token. The first was created in the module’s psm1 file, while the others were created in the &lt;code class=&quot;highlighter-rouge&quot;&gt;Connect-DynDnsSession&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Looking back on my original implementation, all I can say is that I was (and still am) learning.&lt;/p&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;A Note About Global Variables:&lt;/strong&gt; There are some people, like my friend &lt;a href=&quot;http://stevenmaglio.blogspot.com/&quot; target=&quot;_blank&quot;&gt;Steven Maglio&lt;/a&gt;, who
+attests a globally scoped hashtable allows for quick edits and could be valuable in debugging and sanity checking.&lt;/p&gt;
+
+&lt;h3 id=&quot;session&quot;&gt;Session&lt;/h3&gt;
+
+&lt;p&gt;The Dyn API requires an authentication token to be sent with each call, so we definitely need that in a variable. I
+wanted to also include the API client URL and API version. Essentially, the following is what I had in the first
+iteration of the module.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;New-Variable&lt;/span&gt; -Name DynDnsApiClient -Value &lt;span class=&quot;s1&quot;&gt;'https://api.dynect.net'&lt;/span&gt; -Scope Global -Option ReadOnly -Force
+&lt;span class=&quot;nb&quot;&gt;Set-Variable&lt;/span&gt; -Name DynDnsAuthToken -Value &lt;span class=&quot;nv&quot;&gt;$Session&lt;/span&gt;.data.token -Scope global
+&lt;span class=&quot;nb&quot;&gt;Set-Variable&lt;/span&gt; -Name DynDnsApiVersion -Value &lt;span class=&quot;s2&quot;&gt;&quot;API-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Session&lt;/span&gt;.data.version&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; -Scope global
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As I continued working on the module, I realized that having the user and customer (company) information would allow a
+user to validate that the correct account was being used.&lt;/p&gt;
+
+&lt;p&gt;Lastly, the authentication token has an expiration. I wanted to track when the session was originally created, how long
+the session has been active, and when the session has been extended.&lt;/p&gt;
+
+&lt;p&gt;Here is the current session variable hashtable as it stands today.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ordered]@&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    ClientUrl           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'https://api.dynect.net'&lt;/span&gt;
+    User                &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+    Customer            &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+    ApiVersion          &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+    AuthToken           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+    StartTime           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+    ElapsedTime         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+    RefreshTime         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;User&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;Customer&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;ApiVersion&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;AuthToken&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;StartTime&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;ElapsedTime&lt;/code&gt; properties are updated when a new session
+starts.&lt;/p&gt;
+
+&lt;p&gt;The cool thing with &lt;code class=&quot;highlighter-rouge&quot;&gt;ElapsedTime&lt;/code&gt; property is that it is a timer, using &lt;code class=&quot;highlighter-rouge&quot;&gt;[System.Diagnostics.Stopwatch]::StartNew()&lt;/code&gt;.
+The stopwatch continues during the PowerShell session while you have the module loaded. I reset it to &lt;code class=&quot;highlighter-rouge&quot;&gt;$null&lt;/code&gt; when the
+API session is terminated.&lt;/p&gt;
+
+&lt;h3 id=&quot;history&quot;&gt;History&lt;/h3&gt;
+
+&lt;p&gt;All responses from the API includes a &lt;code class=&quot;highlighter-rouge&quot;&gt;job_id&lt;/code&gt;. You can use it to retrieve the results from a previous job in the same
+session by making a call against the URL &lt;code class=&quot;highlighter-rouge&quot;&gt;https://api.dynect.net/REST/Job/&amp;lt;job_id&amp;gt;/&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;I first started including the &lt;code class=&quot;highlighter-rouge&quot;&gt;job_id&lt;/code&gt; in the Information output stream (more on that later), but realized that it was
+transient and someone would have to use the common parameter &lt;code class=&quot;highlighter-rouge&quot;&gt;InformationAction&lt;/code&gt; with each command.&lt;/p&gt;
+
+&lt;p&gt;I needed a way for a user to easily retrieve the &lt;code class=&quot;highlighter-rouge&quot;&gt;job_id&lt;/code&gt;’s from previously run commands, therefore another module
+variable, &lt;code class=&quot;highlighter-rouge&quot;&gt;$DynDnsHistory&lt;/code&gt;, was born.&lt;/p&gt;
+
+&lt;p&gt;The instantiation is very simple, just an empty &lt;code class=&quot;highlighter-rouge&quot;&gt;System.Collections.ArrayList&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsHistory&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;New-Object &lt;/span&gt;System.Collections.ArrayList
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then, during the output processing, I add the &lt;code class=&quot;highlighter-rouge&quot;&gt;$InformationOutput&lt;/code&gt; object.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$InformationOutput&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;DynDnsHistory]::New&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;@&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    Command &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Command&lt;/span&gt;
+    Status &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Status&lt;/span&gt;
+    JobId &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$JobId&lt;/span&gt;
+    Method &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DynDnsResponse&lt;/span&gt;.Response.Method
+    Uri &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DynDnsResponse&lt;/span&gt;.Response.Uri
+    StatusCode &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DynDnsResponse&lt;/span&gt;.Response.StatusCode
+    StatusDescription &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DynDnsResponse&lt;/span&gt;.Response.StatusDescription
+    ElapsedTime &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;{0:N3}&quot;&lt;/span&gt; -f &lt;span class=&quot;nv&quot;&gt;$DynDnsResponse&lt;/span&gt;.ElapsedTime
+    Arguments &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$FilteredArguments&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;void]&lt;span class=&quot;nv&quot;&gt;$DynDnsHistory&lt;/span&gt;.Add&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$InformationOutput&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I believe it provides the user enough information about the calls to the API during an active session. The &lt;code class=&quot;highlighter-rouge&quot;&gt;JobId&lt;/code&gt;
+property of the object is the same as the raw &lt;code class=&quot;highlighter-rouge&quot;&gt;job_id&lt;/code&gt; provided in the response by the API.&lt;/p&gt;
+
+&lt;h2 id=&quot;api-requests&quot;&gt;API Requests&lt;/h2&gt;
+
+&lt;p&gt;At the heart of the module is two private functions. The first one, &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-DynDnsRequest&lt;/code&gt;, does the heavy lifting by
+interfacing with the REST API. The second one, &lt;code class=&quot;highlighter-rouge&quot;&gt;Write-DynDnsOutput&lt;/code&gt;, provides all output to the user; this command is
+discussed further down page.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-DynDnsRequest&lt;/code&gt; is an alias which points to the correct PSEdition version of the command.&lt;/p&gt;
+
+&lt;p&gt;In the module’s psm1, I have the following code:&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PSEdition&lt;/span&gt; -eq &lt;span class=&quot;s1&quot;&gt;'Core'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;Set-Alias&lt;/span&gt; -Name &lt;span class=&quot;s1&quot;&gt;'Invoke-DynDnsRequest'&lt;/span&gt; -Value &lt;span class=&quot;s1&quot;&gt;'Invoke-DynDnsRequestCore'&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;Set-Alias&lt;/span&gt; -Name &lt;span class=&quot;s1&quot;&gt;'Invoke-DynDnsRequest'&lt;/span&gt; -Value &lt;span class=&quot;s1&quot;&gt;'Invoke-DynDnsRequestDesktop'&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;invoke-dyndnsrequest&quot;&gt;Invoke-DynDnsRequest&lt;/h3&gt;
+
+&lt;p&gt;As previously mentioned, the &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-DynDnsRequest&lt;/code&gt; command is an alias. Both &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-DynDnsRequestDesktop&lt;/code&gt; and
+&lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-DynDnsRequestCore&lt;/code&gt; have the same parameters and parameter sets.&lt;/p&gt;
+
+&lt;p&gt;The commands have two parameter sets, &lt;code class=&quot;highlighter-rouge&quot;&gt;Default&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Session&lt;/code&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Default Parameter Set
+    &lt;ul&gt;
+      &lt;li&gt;Method
+        &lt;ul&gt;
+          &lt;li&gt;Validate Set: Get, Post, Put, Delete&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;UriPath&lt;/li&gt;
+      &lt;li&gt;Body&lt;/li&gt;
+      &lt;li&gt;SkipSessionCheck
+        &lt;ul&gt;
+          &lt;li&gt;Some commands make two queries against the API; it is unlikely the session will expire between the two calls.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Session Parameter Set
+    &lt;ul&gt;
+      &lt;li&gt;Body
+        &lt;ul&gt;
+          &lt;li&gt;Validated JSON&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;SessionAction
+        &lt;ul&gt;
+          &lt;li&gt;Validate Set: Connect, Disconnect, Test, Send&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The content is converted to JSON, and the custom &lt;code class=&quot;highlighter-rouge&quot;&gt;[DynDnsHttpResponse]&lt;/code&gt; object is built and added to the
+&lt;code class=&quot;highlighter-rouge&quot;&gt;[DynDnsRestResponse]&lt;/code&gt; object.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;DynDnsRestResponse]::New&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;PsCustomObject]@&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        Response    &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Response&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;Data&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Data&lt;/span&gt;
+        ElapsedTime &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ElapsedTime&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;invoke-dyndnsrequestdesktop&quot;&gt;Invoke-DynDnsRequestDesktop&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-DynDnsRequestDesktop&lt;/code&gt; is a wrapper command for &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-WebRequest&lt;/code&gt;. Each parameter set builds a &lt;code class=&quot;highlighter-rouge&quot;&gt;$RestParams&lt;/code&gt;
+variable that is used as a splat to &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-WebRequest&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The following code shows how I use the &lt;code class=&quot;highlighter-rouge&quot;&gt;[System.IO.StreamReader]&lt;/code&gt; construct to handle any errors from the API.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$StopWatch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;System.Diagnostics.Stopwatch]::StartNew&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$OriginalProgressPreference&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ProgressPreference&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ProgressPreference&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'SilentlyContinue'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$DynDnsResponse&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Invoke-WebRequest&lt;/span&gt; @RestParams -ErrorVariable ErrorResponse
+    &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DynDnsResponse&lt;/span&gt;.Content
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$DynDnsResponse&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ErrorResponse&lt;/span&gt;.ErrorRecord.Exception.Response
+    &lt;span class=&quot;nv&quot;&gt;$ResponseReader&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;System.IO.StreamReader]::new&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsResponse&lt;/span&gt;.GetResponseStream&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ResponseReader&lt;/span&gt;.ReadToEnd&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$ResponseReader&lt;/span&gt;.Close&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ElapsedTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$StopWatch&lt;/span&gt;.Elapsed.TotalSeconds
+&lt;span class=&quot;nv&quot;&gt;$StopWatch&lt;/span&gt;.Stop&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ProgressPreference&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$OriginalProgressPreference&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; I do not use &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-RestMethod&lt;/code&gt; since I want to access more than just the API response. I want the HTTP
+status code, description, URI, and method used. Some of these are available, but I would have to pass them from the
+&lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-DynDnsRequestDesktop&lt;/code&gt;  to the &lt;code class=&quot;highlighter-rouge&quot;&gt;Write-DynDnsOutput&lt;/code&gt; command. Having all of this, the data, and the elapsed time
+in one object is very useful.&lt;/p&gt;
+
+&lt;h3 id=&quot;invoke-dyndnsrequestcore&quot;&gt;Invoke-DynDnsRequestCore&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-DynDnsRequestCore&lt;/code&gt; is a custom command based on the &lt;code class=&quot;highlighter-rouge&quot;&gt;System.Net.Http.HttpClient&lt;/code&gt; class. This was the first
+time that I’ve worked with this class and there were some challenges.&lt;/p&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; The &lt;code class=&quot;highlighter-rouge&quot;&gt;System.Net.Http.HttpClient&lt;/code&gt; class allows for reuse of the &lt;code class=&quot;highlighter-rouge&quot;&gt;HttpClient&lt;/code&gt;, however, I dispose of each
+connection with each call to the API.&lt;/p&gt;
+
+&lt;p&gt;I build the &lt;code class=&quot;highlighter-rouge&quot;&gt;HttpClient&lt;/code&gt; using the following code:&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$HttpClient&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;System.Net.Http.Httpclient]::new&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$HttpClient&lt;/span&gt;.Timeout &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;System.TimeSpan]::new&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;0, 0, 90&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$HttpClient&lt;/span&gt;.DefaultRequestHeaders.TransferEncodingChunked &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$false&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$Accept&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;System.Net.Http.Headers.MediaTypeWithQualityHeaderValue]::new&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'application/json'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$HttpClient&lt;/span&gt;.DefaultRequestHeaders.Accept.Add&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Accept&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$HttpClient&lt;/span&gt;.BaseAddress &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Uri]&lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;.ClientUrl
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then for each API call type, I add the AuthToken to the &lt;code class=&quot;highlighter-rouge&quot;&gt;HttpClient&lt;/code&gt; (when applicable) and then build and execute the
+&lt;code class=&quot;highlighter-rouge&quot;&gt;HttpRequest&lt;/code&gt; and retrieve the &lt;code class=&quot;highlighter-rouge&quot;&gt;HttpResponseMessage&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;See how I build the content in the following code:&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$StopWatch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;System.Diagnostics.Stopwatch]::StartNew&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$HttpResponseMessage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HttpClient&lt;/span&gt;.SendAsync&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HttpRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HttpResponseMessage&lt;/span&gt;.IsFaulted&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$PsCmdlet&lt;/span&gt;.ThrowTerminatingError&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HttpResponseMessage&lt;/span&gt;.Exception&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$Result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HttpResponseMessage&lt;/span&gt;.Result
+&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Result&lt;/span&gt;.Content.ReadAsStringAsync&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;.Result | &lt;span class=&quot;nb&quot;&gt;ConvertFrom-Json&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ElapsedTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$StopWatch&lt;/span&gt;.Elapsed.TotalSeconds
+&lt;span class=&quot;nv&quot;&gt;$StopWatch&lt;/span&gt;.Stop&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;output&quot;&gt;Output&lt;/h2&gt;
+
+&lt;p&gt;To process the &lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke-DynDnsRequest&lt;/code&gt; responses, I decided on writing a single function to parse the response data.
+Additionally, I decided on using custom classes (first introduced in Windows PowerShell 5.0) and most of the output
+streams.&lt;/p&gt;
+
+&lt;h3 id=&quot;classes&quot;&gt;Classes&lt;/h3&gt;
+
+&lt;p&gt;I wanted to simulate the output objects of Microsoft DNS commands, like &lt;code class=&quot;highlighter-rouge&quot;&gt;Resolve-DnsName&lt;/code&gt;, and similar property names.
+The custom classes allow me to strongly type the output objects.&lt;/p&gt;
+
+&lt;p&gt;I also wanted to include the raw API data, so my base class &lt;code class=&quot;highlighter-rouge&quot;&gt;DynDnsRawData&lt;/code&gt; starts there.&lt;/p&gt;
+
+&lt;p&gt;Here are the custom classes currently used by the module with indentation indicating a child class.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;DynDnsRawData
+    &lt;ul&gt;
+      &lt;li&gt;DynDnsRecord
+        &lt;ul&gt;
+          &lt;li&gt;DynDnsRecord_A&lt;/li&gt;
+          &lt;li&gt;DynDnsRecord_TXT&lt;/li&gt;
+          &lt;li&gt;DynDnsRecord_CNAME&lt;/li&gt;
+          &lt;li&gt;DynDnsRecord_MX&lt;/li&gt;
+          &lt;li&gt;DynDnsRecord_SRV&lt;/li&gt;
+          &lt;li&gt;DynDnsRecord_PTR&lt;/li&gt;
+          &lt;li&gt;DynDnsRecord_NS&lt;/li&gt;
+          &lt;li&gt;DynDnsRecord_SOA&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;DynDnsTask&lt;/li&gt;
+      &lt;li&gt;DynDnsZone&lt;/li&gt;
+      &lt;li&gt;DynDnsZoneNote&lt;/li&gt;
+      &lt;li&gt;DynDnsZoneChanges&lt;/li&gt;
+      &lt;li&gt;DynDnsHttpRedirect&lt;/li&gt;
+      &lt;li&gt;DynDnsUser&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;DynDnsHttpResponse&lt;/li&gt;
+  &lt;li&gt;DynDnsRestResponse&lt;/li&gt;
+  &lt;li&gt;DynDnsHistory&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here is how I create the classes used by &lt;code class=&quot;highlighter-rouge&quot;&gt;DynDnsRecord_A&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class &lt;/span&gt;DynDnsRawData &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    hidden &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;PSCustomObject]&lt;span class=&quot;nv&quot;&gt;$RawData&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class &lt;/span&gt;DynDnsRecord : DynDnsRawData &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Zone&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Type&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$TTL&lt;/span&gt;
+    hidden &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RecordId&lt;/span&gt;
+
+    DynDnsRecord &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
+    DynDnsRecord &lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;PSCustomObject]&lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;.Zone &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;.zone
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;.Name &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;.fqdn
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;.Type &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;.record_type
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;.TTL &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;.ttl
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;.RecordId &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;.record_id
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;.RawData &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class &lt;/span&gt;DynDnsRecord_A : DynDnsRecord &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ipaddress]&lt;span class=&quot;nv&quot;&gt;$Address&lt;/span&gt;
+
+    DynDnsRecord_A &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    DynDnsRecord_A &lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;PSCustomObject]&lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;.Zone &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;.zone
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;.Name &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;.fqdn
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;.Type &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;.record_type
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;.TTL &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;.ttl
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;.Address &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;.rdata.address
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;.RecordId &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;.record_id
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;.RawData &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And here is a quick look at the class type names and property members.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;C:\&amp;gt; &lt;span class=&quot;k&quot;&gt;using &lt;/span&gt;module PoShDynDnsApi
+C:\&amp;gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;DynDnsRecord_A]::new&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;Select-Object&lt;/span&gt; -ExpandProperty PSTypeNames
+DynDnsRecord_A
+DynDnsRecord
+DynDnsRawData
+System.Object
+
+C:\&amp;gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;DynDnsRecord_A]::new&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;Get-Member&lt;/span&gt; -MemberType Property -Force
+
+   TypeName: DynDnsRecord_A
+
+Name     MemberType Definition
+----     ---------- ----------
+Address  Property   ipaddress Address &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;get;set;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+Name     Property   &lt;span class=&quot;kt&quot;&gt;string &lt;/span&gt;Name &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;get;set;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+RawData  Property   psobject RawData &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;get;set;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+RecordId Property   &lt;span class=&quot;kt&quot;&gt;string &lt;/span&gt;RecordId &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;get;set;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+TTL      Property   &lt;span class=&quot;kt&quot;&gt;int &lt;/span&gt;TTL &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;get;set;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;Type     &lt;/span&gt;Property   &lt;span class=&quot;kt&quot;&gt;string &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;get;set;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+Zone     Property   &lt;span class=&quot;kt&quot;&gt;string &lt;/span&gt;Zone &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;get;set;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;output-streams&quot;&gt;Output Streams&lt;/h3&gt;
+
+&lt;p&gt;For the output streams, I use 5 out of the 6 streams available in PowerShell versions 5.0 and higher.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Output/Success&lt;/li&gt;
+  &lt;li&gt;Verbose&lt;/li&gt;
+  &lt;li&gt;Error
+    &lt;ul&gt;
+      &lt;li&gt;These are the &lt;strong&gt;hard&lt;/strong&gt; errors.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Warning
+    &lt;ul&gt;
+      &lt;li&gt;Not all errors returned by the API should be considered an error. These would be &lt;strong&gt;soft errors&lt;/strong&gt;.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Information
+    &lt;ul&gt;
+      &lt;li&gt;Detailed in the &lt;code class=&quot;highlighter-rouge&quot;&gt;Write-DynDnsOutput&lt;/code&gt; section below.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;write-dyndnsoutput&quot;&gt;Write-DynDnsOutput&lt;/h3&gt;
+
+&lt;p&gt;The command &lt;code class=&quot;highlighter-rouge&quot;&gt;Write-DynDnsOutput&lt;/code&gt; takes the response object and pulls the &lt;code class=&quot;highlighter-rouge&quot;&gt;status&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;job_id&lt;/code&gt; from the API response.
+Next, it determines the original command called using &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-PSCallStack&lt;/code&gt; and extracts the arguments, omitting the common
+parameters.&lt;/p&gt;
+
+&lt;p&gt;The command details is then added to the &lt;code class=&quot;highlighter-rouge&quot;&gt;$InformationOutput&lt;/code&gt; variable which is written to the Information stream and
+added to the &lt;code class=&quot;highlighter-rouge&quot;&gt;$DynDnHistory&lt;/code&gt; module variable. The Warning and Error messages are processed next.&lt;/p&gt;
+
+&lt;p&gt;Finally, the data is converted to the appropriate custom class and sent to standard output.&lt;/p&gt;
+
+&lt;h2 id=&quot;help&quot;&gt;Help&lt;/h2&gt;
+
+&lt;p&gt;Instead of including comment-based help in the functions themselves, I elected to use the PowerShell help system. I
+provide external and online help. With the help of &lt;a href=&quot;https://www.powershellgallery.com/packages/platyPS&quot; target=&quot;_blank&quot;&gt;platyPS&lt;/a&gt;, I was able to
+create the external MAML-xml file and the markdown for the online help.&lt;/p&gt;
+
+&lt;p&gt;I plan on providing updatable help within the next release or two. PlatyPS can help with that, too.&lt;/p&gt;
+
+&lt;p&gt;For online help, I wrote a script that iterated through the exported commands which would build a file for each command
+with the YML front matter specific to the template I created for online help on my blog.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;foreach&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Command&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Get-Command -Module &lt;span class=&quot;nv&quot;&gt;$ModuleName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$Link&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;modulehelp/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ModuleName&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Command&lt;/span&gt;.Name&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.html&quot;&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$FrontMatter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; @&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;'layout'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'onlinehelp'&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;'search'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'false'&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;'classes'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'wide'&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;'permalink'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Link&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nv&quot;&gt;$OnlineVersionUri&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://powershell.anovelidea.org/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Link&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+
+    &lt;span class=&quot;nv&quot;&gt;$NewMarkdownHelpParams&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; @&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        Command             &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Command&lt;/span&gt;
+        OutputFolder        &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$OutputFolder&lt;/span&gt;
+        Metadata            &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$FrontMatter&lt;/span&gt;
+        OnlineVersionUrl    &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$OnlineVersionUri&lt;/span&gt;
+        Force               &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$true&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    New-MarkdownHelp @NewMarkdownHelpParams
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;And that is basically how I went about creating the &lt;code class=&quot;highlighter-rouge&quot;&gt;PoShDynDnsApi&lt;/code&gt; module. Much like this post, it was a long journey,
+but one that I’m glad I started. Thank you for reading this post. I hope it can serve as a spark for your module writing.&lt;/p&gt;
+
+&lt;p&gt;If you have any questions, find errors (typos too!), or have suggestions that can make my module better, please leave a
+comment below. Thank you, again.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="module" /><category term="xplat" /><category term="cross platform" /><category term="rest api" /><category term="webrequest" /><category term="httpclient" /><category term="external help" /><category term="online help" /><category term="updatable help" /><category term="dyn managed dns" /><summary type="html">In this post, I want to give you a peek into my development process for the PoShDynDnsApi module.</summary></entry><entry><title type="html">Using the PSGSuite Module for G Suite</title><link href="https://powershell.anovelidea.org/powershell/using-psgsuite-module/" rel="alternate" type="text/html" title="Using the PSGSuite Module for G Suite" /><published>2019-03-03T00:00:00-06:00</published><updated>2019-03-03T00:00:00-06:00</updated><id>https://powershell.anovelidea.org/powershell/using-psgsuite-module</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/using-psgsuite-module/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/gsuite-reddit-post.png&quot; alt=&quot;r/sysadmin&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -1636,44 +2189,4 @@ the change permanent, I updated the registry.&lt;/p&gt;
   &lt;li&gt;&lt;a href=&quot;https://docs.microsoft.com/en-us/powershell/module/dnsserver/clear-dnsservercache&quot; target=&quot;_blank&quot;&gt;Clear-DnsServerCache&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Have a great day!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="dns" /><category term="dns cache" /><summary type="html">Clear the DNS server cache on all domain controllers.</summary></entry><entry><title type="html">Unique Email Domains</title><link href="https://powershell.anovelidea.org/powershell/unique-email-domains/" rel="alternate" type="text/html" title="Unique Email Domains" /><published>2018-08-17T00:00:00-05:00</published><updated>2018-08-17T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/unique-email-domains</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/unique-email-domains/">&lt;p&gt;So you’re working on getting all of your email domains that’s on-prem into Azure or you simply want to ensure that your
-on-prem Exchange has been configured for all the domains your user accounts utilize. Your Active Directory domain
-contains over 30,000 accounts. How would you go about discovering the unique email domains?&lt;/p&gt;
-
-&lt;p&gt;Knowing that the Active Directory attribute proxyAddresses contains the account’s SMTP addresses, we can start there.
-Also, you only want to include only those domains for active accounts. [Note: The proxyAddresses also contains other
-address types, but we are only concerned about SMTP for this exercise.]&lt;/p&gt;
-
-&lt;p&gt;First, let’s get all the proxyAddresses into a variable.&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$Filter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;proxyAddresses -like '*' -and enabled -eq 'true'&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ProxyAddresses&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Get-ADUser&lt;/span&gt; -Filter &lt;span class=&quot;nv&quot;&gt;$Filter&lt;/span&gt; -Properties proxyAddresses | &lt;span class=&quot;nb&quot;&gt;Select-Object&lt;/span&gt; -ExpandProperty proxyAddresses
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Next, we will loop through each one, matching on only SMTP addresses. We split on the @ symbol and return the domain
-portion.&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$EmailDomains&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ProxyAddresses&lt;/span&gt;.ForEach&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt; -match &lt;span class=&quot;s1&quot;&gt;'smtp'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;.Replace&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'smtp:'&lt;/span&gt;,&lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.Split&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'@'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)[&lt;/span&gt;1]
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Notice:&lt;/strong&gt; I used the ForEach() method (available in PowerShell v4 and later), which is typically faster than the
-ForEach-Object cmdlet or the foreach loop. You can use whichever you choose based on your PowerShell version.&lt;/p&gt;
-
-&lt;p&gt;Finally, we use Sort-Object -Unique to get the unique domains.&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$EmailDomains&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;Sort-Object&lt;/span&gt; -Unique
-
-anovelidea.org
-chronicgoogler.com
-gmail.com
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Of course, you could have dozens or more unique domains. This short exercise can also reveal typos in domains.&lt;/p&gt;
-
-&lt;p&gt;Hopefully, this post was helpful to you in some way.&lt;/p&gt;
-
-&lt;p&gt;Have a great day!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="exchange" /><category term="azure" /><summary type="html">Get unique email domains from proxyAddresses for Exchange or Azure.</summary></entry></feed>
+&lt;p&gt;Have a great day!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="dns" /><category term="dns cache" /><summary type="html">Clear the DNS server cache on all domain controllers.</summary></entry></feed>

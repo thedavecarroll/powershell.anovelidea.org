@@ -1,5 +1,5 @@
 current directory: /home/travis/build/thedavecarroll/powershell.anovelidea.org/vendor/bundle/ruby/2.4.0/gems/commonmarker-0.17.13/ext/commonmarker
-/home/travis/.rvm/rubies/ruby-2.4.1/bin/ruby -I /home/travis/.rvm/rubies/ruby-2.4.1/lib/ruby/site_ruby/2.4.0 -r ./siteconf20181220-4752-ul3lvh.rb extconf.rb
+/home/travis/.rvm/rubies/ruby-2.4.1/bin/ruby -I /home/travis/.rvm/rubies/ruby-2.4.1/lib/ruby/site_ruby/2.4.0 -r ./siteconf20190509-4957-1udx3a3.rb extconf.rb
 creating Makefile
 
 current directory: /home/travis/build/thedavecarroll/powershell.anovelidea.org/vendor/bundle/ruby/2.4.0/gems/commonmarker-0.17.13/ext/commonmarker
@@ -401,4 +401,4 @@ linking shared-object commonmarker/commonmarker.so
 
 current directory: /home/travis/build/thedavecarroll/powershell.anovelidea.org/vendor/bundle/ruby/2.4.0/gems/commonmarker-0.17.13/ext/commonmarker
 make "DESTDIR=" install
-/usr/bin/install -m 0755 commonmarker.so ./.gem.20181220-4752-1gg2z79/commonmarker
+/usr/bin/install -m 0755 commonmarker.so ./.gem.20190509-4957-1x713uv/commonmarker
