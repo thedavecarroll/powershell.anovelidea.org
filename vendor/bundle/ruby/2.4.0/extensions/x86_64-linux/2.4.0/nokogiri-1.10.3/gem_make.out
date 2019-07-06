@@ -1,5 +1,5 @@
 current directory: /home/travis/build/thedavecarroll/powershell.anovelidea.org/vendor/bundle/ruby/2.4.0/gems/nokogiri-1.10.3/ext/nokogiri
-/home/travis/.rvm/rubies/ruby-2.4.1/bin/ruby -I /home/travis/.rvm/rubies/ruby-2.4.1/lib/ruby/site_ruby/2.4.0 -r ./siteconf20190509-4957-q9dab5.rb extconf.rb
+/home/travis/.rvm/rubies/ruby-2.4.1/bin/ruby -I /home/travis/.rvm/rubies/ruby-2.4.1/lib/ruby/site_ruby/2.4.0 -r ./siteconf20190706-5037-12t0ckd.rb extconf.rb
 checking if the C compiler accepts ... yes
 Building nokogiri using system libraries.
 WARNING: libxml2 version 2.9.3 or later is highly recommended, but proceeding anyway.
@@ -126,4 +126,4 @@ rm -rf /home/travis/build/thedavecarroll/powershell.anovelidea.org/vendor/bundle
 
 current directory: /home/travis/build/thedavecarroll/powershell.anovelidea.org/vendor/bundle/ruby/2.4.0/gems/nokogiri-1.10.3/ext/nokogiri
 make "DESTDIR=" install
-/usr/bin/install -m 0755 nokogiri.so ./.gem.20190509-4957-1ktcwvr/nokogiri
+/usr/bin/install -m 0755 nokogiri.so ./.gem.20190706-5037-1fzl4xk/nokogiri

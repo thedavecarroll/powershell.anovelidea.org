@@ -43,6 +43,7 @@ The following properties are included:
 |Status|The result from the Dyn API
 |JobId|The job id for this particular call to the Dyn API
 |Method|The REST method for this call
+|Body|The JSON body sent by the call
 |Uri|The full URL used in the call
 |StatusCode|The HTTP status code
 |StatusDescription|A description of the status code
@@ -55,50 +56,107 @@ The following properties are included:
 ```powershell
 PS C:\> Get-DynDnsHistory
 
-
-Timestamp         : 11/10/2018 4:33:50 PM
-Command           : Test-DynDnsSession
-Status            :
-JobId             :
-Method            :
-Uri               :
-StatusCode        :
-StatusDescription :
-ElapsedTime       :
-Arguments         : {}
-
-Timestamp         : 11/10/2018 4:33:51 PM
-Command           : Connect-DynDnsSession
-Status            : success
-JobId             : 860420327
-Method            : POST
-Uri               : https://api.dynect.net/REST/Session/
-StatusCode        : 200
-StatusDescription : OK
-ElapsedTime       : 0.798
-Arguments         : {}
-
-Timestamp         : 11/10/2018 4:33:55 PM
+Timestamp         : 7/4/2019 5:52:15 PM
 Command           : Test-DynDnsSession
 Status            : success
-JobId             : 860420509
+JobId             : 1888466029
 Method            : GET
+Body              :
 Uri               : https://api.dynect.net/REST/Session/
-StatusCode        : 200
+StatusCode        : OK
 StatusDescription : OK
-ElapsedTime       : 0.150
+ElapsedTime       : 0.505
 Arguments         : {}
 
-Timestamp         : 11/10/2018 4:33:55 PM
-Command           : Add-DynDnsHttpRedirect
+Timestamp         : 7/4/2019 5:52:15 PM
+Command           : Test-DynDnsSession
 Status            : success
-JobId             : 860420521
-Method            : POST
-Uri               : https://api.dynect.net/REST/HTTPRedirect/anovelidea.org/myredirect.anovelidea.org
-StatusCode        : 200
+JobId             : 1888466048
+Method            : GET
+Body              :
+Uri               : https://api.dynect.net/REST/Session/
+StatusCode        : OK
 StatusDescription : OK
-ElapsedTime       : 0.358
-Arguments         : {IncludeUri, Url, Node, Zone...}
+ElapsedTime       : 0.466
+Arguments         : {}
+
+Timestamp         : 7/4/2019 5:52:15 PM
+Command           : Get-DynDnsZoneChanges
+Status            : success
+JobId             : 1888466071
+Method            : Get
+Body              :
+Uri               : https://api.dynect.net/REST/ZoneChanges/anovelidea.org
+StatusCode        : OK
+StatusDescription : OK
+ElapsedTime       : 0.461
+Arguments         : {Zone}
+
+Timestamp         : 7/4/2019 5:52:19 PM
+Command           : Publish-DynDnsZoneChanges
+Status            : success
+JobId             : 1888466252
+Method            : Put
+Body              : {
+                      "publish": true,
+                      "notes": "REST-Api-PoSh: Test HTTP redirect deletion"
+                    }
+Uri               : https://api.dynect.net/REST/Zone/anovelidea.org
+StatusCode        : OK
+StatusDescription : OK
+ElapsedTime       : 0.564
+Arguments         : {Zone}
+
+Timestamp         : 7/4/2019 5:52:15 PM
+Command           : Test-DynDnsSession
+Status            : success
+JobId             : 1888466029
+Method            : GET
+Body              :
+Uri               : https://api.dynect.net/REST/Session/
+StatusCode        : OK
+StatusDescription : OK
+ElapsedTime       : 0.505
+Arguments         : {}
+
+Timestamp         : 7/4/2019 5:52:15 PM
+Command           : Test-DynDnsSession
+Status            : success
+JobId             : 1888466048
+Method            : GET
+Body              :
+Uri               : https://api.dynect.net/REST/Session/
+StatusCode        : OK
+StatusDescription : OK
+ElapsedTime       : 0.466
+Arguments         : {}
+
+Timestamp         : 7/4/2019 5:52:15 PM
+Command           : Get-DynDnsZoneChanges
+Status            : success
+JobId             : 1888466071
+Method            : Get
+Body              :
+Uri               : https://api.dynect.net/REST/ZoneChanges/anovelidea.org
+StatusCode        : OK
+StatusDescription : OK
+ElapsedTime       : 0.461
+Arguments         : {Zone}
+
+Timestamp         : 7/4/2019 5:52:19 PM
+Command           : Publish-DynDnsZoneChanges
+Status            : success
+JobId             : 1888466252
+Method            : Put
+Body              : {
+                      "publish": true,
+                      "notes": "REST-Api-PoSh: Test HTTP redirect deletion"
+                    }
+Uri               : https://api.dynect.net/REST/Zone/anovelidea.org
+StatusCode        : OK
+StatusDescription : OK
+ElapsedTime       : 0.564
+Arguments         : {Zone}
 ```
 
 List all the commands sent to the Dyn Managed DNS REST API.
