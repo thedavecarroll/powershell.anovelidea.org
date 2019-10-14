@@ -1,4 +1,4 @@
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I.    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic     -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lpthread -ldl -lcrypt -lm   -lc "
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I.    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic     -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -9,7 +9,7 @@ checked program was:
 6: }
 /* end */
 
-"gcc -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I.    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC    -Werror -c conftest.c"
+"gcc -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I.    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC    -Werror -c conftest.c"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -19,8 +19,8 @@ checked program was:
 
 "pkg-config --exists libxml-2.0"
 | pkg-config --libs libxml-2.0
-=> "-lxml2  \n"
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I.    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic     -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+=> "-lxml2\n"
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I.    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic     -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -32,11 +32,11 @@ checked program was:
 /* end */
 
 | pkg-config --cflags-only-I libxml-2.0
-=> "-I/usr/include/libxml2  \n"
+=> "-I/usr/include/libxml2\n"
 | pkg-config --cflags-only-other libxml-2.0
-=> " \n"
+=> "\n"
 | pkg-config --libs-only-l libxml-2.0
-=> "-lxml2  \n"
+=> "-lxml2\n"
 package configuration for libxml-2.0
 cflags: 
 ldflags: 
@@ -44,8 +44,8 @@ libs: -lxml2
 
 "pkg-config --exists libxslt"
 | pkg-config --libs libxslt
-=> "-lxslt -lxml2  \n"
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline  conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic      -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+=> "-lxslt -lxml2\n"
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline  conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic      -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -57,11 +57,11 @@ checked program was:
 /* end */
 
 | pkg-config --cflags-only-I libxslt
-=> "-I/usr/include/libxml2  \n"
+=> "-I/usr/include/libxml2\n"
 | pkg-config --cflags-only-other libxslt
-=> " \n"
+=> "\n"
 | pkg-config --libs-only-l libxslt
-=> "-lxslt -lxml2  \n"
+=> "-lxslt -lxml2\n"
 package configuration for libxslt
 cflags: 
 ldflags: 
@@ -69,8 +69,8 @@ libs: -lxslt -lxml2
 
 "pkg-config --exists libexslt"
 | pkg-config --libs libexslt
-=> "-lexslt -lxslt -lxml2  \n"
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline   conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic       -lxml2 -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby -lexslt -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+=> "-lexslt -lxslt -lxml2\n"
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline   conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic       -lxml2 -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby -lexslt -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -82,17 +82,17 @@ checked program was:
 /* end */
 
 | pkg-config --cflags-only-I libexslt
-=> "-I/usr/include/libxml2  \n"
+=> "-I/usr/include/libxml2\n"
 | pkg-config --cflags-only-other libexslt
-=> " \n"
+=> "\n"
 | pkg-config --libs-only-l libexslt
-=> "-lexslt -lxslt -lxml2  \n"
+=> "-lexslt -lxslt -lxml2\n"
 package configuration for libexslt
 cflags: 
 ldflags: 
 libs: -lexslt -lxslt -lxml2
 
-"gcc -E -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline     conftest.c -o conftest.i"
+"gcc -E -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline     conftest.c -o conftest.i"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -100,7 +100,7 @@ checked program was:
 3: #include <libxml/xmlversion.h>
 /* end */
 
-"gcc -E -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline     conftest.c -o conftest.i"
+"gcc -E -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline     conftest.c -o conftest.i"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -111,14 +111,7 @@ checked program was:
 6: #endif
 /* end */
 
-"gcc -E -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline     conftest.c -o conftest.i"
-conftest.c:5:2: error: #error libxml2 is older than 2.9.3
- #error libxml2 is older than 2.9.3
-  ^
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+"gcc -E -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline     conftest.c -o conftest.i"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -131,7 +124,7 @@ checked program was:
 
 have_func: checking for xmlParseDoc() in libxml/parser.h... -------------------- yes
 
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -155,17 +148,17 @@ checked program was:
 
 have_func: checking for xsltParseStylesheetDoc() in libxslt/xslt.h... -------------------- yes
 
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 conftest.c: In function ‘t’:
 conftest.c:15:57: error: ‘xsltParseStylesheetDoc’ undeclared (first use in this function)
  int t(void) { void ((*volatile p)()); p = (void ((*)()))xsltParseStylesheetDoc; return !p; }
                                                          ^
 conftest.c:15:57: note: each undeclared identifier is reported only once for each function it appears in
 conftest.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -185,7 +178,7 @@ checked program was:
 15: int t(void) { void ((*volatile p)()); p = (void ((*)()))xsltParseStylesheetDoc; return !p; }
 /* end */
 
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -210,7 +203,7 @@ checked program was:
 
 have_func: checking for exsltFuncRegister() in libexslt/exslt.h... -------------------- yes
 
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -234,17 +227,17 @@ checked program was:
 
 have_func: checking for xmlHasFeature()... -------------------- yes
 
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 conftest.c: In function ‘t’:
 conftest.c:13:57: error: ‘xmlHasFeature’ undeclared (first use in this function)
  int t(void) { void ((*volatile p)()); p = (void ((*)()))xmlHasFeature; return !p; }
                                                          ^
 conftest.c:13:57: note: each undeclared identifier is reported only once for each function it appears in
 conftest.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -262,7 +255,7 @@ checked program was:
 13: int t(void) { void ((*volatile p)()); p = (void ((*)()))xmlHasFeature; return !p; }
 /* end */
 
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -285,17 +278,17 @@ checked program was:
 
 have_func: checking for xmlFirstElementChild()... -------------------- yes
 
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 conftest.c: In function ‘t’:
 conftest.c:13:57: error: ‘xmlFirstElementChild’ undeclared (first use in this function)
  int t(void) { void ((*volatile p)()); p = (void ((*)()))xmlFirstElementChild; return !p; }
                                                          ^
 conftest.c:13:57: note: each undeclared identifier is reported only once for each function it appears in
 conftest.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -313,7 +306,7 @@ checked program was:
 13: int t(void) { void ((*volatile p)()); p = (void ((*)()))xmlFirstElementChild; return !p; }
 /* end */
 
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -336,17 +329,17 @@ checked program was:
 
 have_func: checking for xmlRelaxNGSetParserStructuredErrors()... -------------------- yes
 
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 conftest.c: In function ‘t’:
 conftest.c:13:57: error: ‘xmlRelaxNGSetParserStructuredErrors’ undeclared (first use in this function)
  int t(void) { void ((*volatile p)()); p = (void ((*)()))xmlRelaxNGSetParserStructuredErrors; return !p; }
                                                          ^
 conftest.c:13:57: note: each undeclared identifier is reported only once for each function it appears in
 conftest.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -364,7 +357,7 @@ checked program was:
 13: int t(void) { void ((*volatile p)()); p = (void ((*)()))xmlRelaxNGSetParserStructuredErrors; return !p; }
 /* end */
 
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -387,17 +380,17 @@ checked program was:
 
 have_func: checking for xmlRelaxNGSetParserStructuredErrors()... -------------------- yes
 
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 conftest.c: In function ‘t’:
 conftest.c:13:57: error: ‘xmlRelaxNGSetParserStructuredErrors’ undeclared (first use in this function)
  int t(void) { void ((*volatile p)()); p = (void ((*)()))xmlRelaxNGSetParserStructuredErrors; return !p; }
                                                          ^
 conftest.c:13:57: note: each undeclared identifier is reported only once for each function it appears in
 conftest.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -415,7 +408,7 @@ checked program was:
 13: int t(void) { void ((*volatile p)()); p = (void ((*)()))xmlRelaxNGSetParserStructuredErrors; return !p; }
 /* end */
 
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -438,17 +431,17 @@ checked program was:
 
 have_func: checking for xmlRelaxNGSetValidStructuredErrors()... -------------------- yes
 
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 conftest.c: In function ‘t’:
 conftest.c:13:57: error: ‘xmlRelaxNGSetValidStructuredErrors’ undeclared (first use in this function)
  int t(void) { void ((*volatile p)()); p = (void ((*)()))xmlRelaxNGSetValidStructuredErrors; return !p; }
                                                          ^
 conftest.c:13:57: note: each undeclared identifier is reported only once for each function it appears in
 conftest.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -466,7 +459,7 @@ checked program was:
 13: int t(void) { void ((*volatile p)()); p = (void ((*)()))xmlRelaxNGSetValidStructuredErrors; return !p; }
 /* end */
 
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -489,17 +482,17 @@ checked program was:
 
 have_func: checking for xmlSchemaSetValidStructuredErrors()... -------------------- yes
 
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 conftest.c: In function ‘t’:
 conftest.c:13:57: error: ‘xmlSchemaSetValidStructuredErrors’ undeclared (first use in this function)
  int t(void) { void ((*volatile p)()); p = (void ((*)()))xmlSchemaSetValidStructuredErrors; return !p; }
                                                          ^
 conftest.c:13:57: note: each undeclared identifier is reported only once for each function it appears in
 conftest.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -517,7 +510,7 @@ checked program was:
 13: int t(void) { void ((*volatile p)()); p = (void ((*)()))xmlSchemaSetValidStructuredErrors; return !p; }
 /* end */
 
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -540,17 +533,17 @@ checked program was:
 
 have_func: checking for xmlSchemaSetParserStructuredErrors()... -------------------- yes
 
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 conftest.c: In function ‘t’:
 conftest.c:13:57: error: ‘xmlSchemaSetParserStructuredErrors’ undeclared (first use in this function)
  int t(void) { void ((*volatile p)()); p = (void ((*)()))xmlSchemaSetParserStructuredErrors; return !p; }
                                                          ^
 conftest.c:13:57: note: each undeclared identifier is reported only once for each function it appears in
 conftest.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -568,7 +561,7 @@ checked program was:
 13: int t(void) { void ((*volatile p)()); p = (void ((*)()))xmlSchemaSetParserStructuredErrors; return !p; }
 /* end */
 
-"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -ldl -lcrypt -lm   -lc "
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0 -I. -I/usr/include/libxml2 -I/usr/include/libxml2 -I/usr/include/libxml2    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline    conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.4.1/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.4.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic        -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lxml2 -lxslt -lxml2 -lexslt -lxslt -lxml2 -lpthread -lgmp -ldl -lcrypt -lm   -lc "
 checked program was:
 /* begin */
  1: #include "ruby.h"

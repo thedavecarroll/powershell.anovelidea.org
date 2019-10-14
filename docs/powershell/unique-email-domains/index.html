@@ -321,31 +321,31 @@ address types, but we are only concerned about SMTP for this exercise.]</p>
 
 <p>First, let’s get all the proxyAddresses into a variable.</p>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Filter</span> <span class="o">=</span> <span class="s2">"proxyAddresses -like '*' -and enabled -eq 'true'"</span>
-<span class="nv">$ProxyAddresses</span> <span class="o">=</span> <span class="nb">Get-ADUser</span> -Filter <span class="nv">$Filter</span> -Properties proxyAddresses | <span class="nb">Select-Object</span> -ExpandProperty proxyAddresses
-</code></pre></div></div>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"proxyAddresses -like '*' -and enabled -eq 'true'"</span><span class="w">
+</span><span class="nv">$ProxyAddresses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Get-ADUser</span><span class="w"> </span><span class="nt">-Filter</span><span class="w"> </span><span class="nv">$Filter</span><span class="w"> </span><span class="nt">-Properties</span><span class="w"> </span><span class="nx">proxyAddresses</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Select-Object</span><span class="w"> </span><span class="nt">-ExpandProperty</span><span class="w"> </span><span class="nx">proxyAddresses</span><span class="w">
+</span></code></pre></div></div>
 
 <p>Next, we will loop through each one, matching on only SMTP addresses. We split on the @ symbol and return the domain
 portion.</p>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$EmailDomains</span> <span class="o">=</span> <span class="nv">$ProxyAddresses</span>.ForEach<span class="o">(</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="nv">$_</span> -match <span class="s1">'smtp'</span><span class="o">)</span> <span class="o">{</span>
-        <span class="nv">$_</span>.Replace<span class="o">(</span><span class="s1">'smtp:'</span>,<span class="s1">''</span><span class="o">)</span>.Split<span class="o">(</span><span class="s1">'@'</span><span class="o">)[</span>1]
-    <span class="o">}</span>
-<span class="o">})</span>
-</code></pre></div></div>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$EmailDomains</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$ProxyAddresses</span><span class="o">.</span><span class="nf">ForEach</span><span class="p">(</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="bp">$_</span><span class="w"> </span><span class="o">-match</span><span class="w"> </span><span class="s1">'smtp'</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="bp">$_</span><span class="o">.</span><span class="nf">Replace</span><span class="p">(</span><span class="s1">'smtp:'</span><span class="p">,</span><span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="nf">Split</span><span class="p">(</span><span class="s1">'@'</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">})</span><span class="w">
+</span></code></pre></div></div>
 
 <p class="notice--primary"><strong>Notice:</strong> I used the ForEach() method (available in PowerShell v4 and later), which is typically faster than the
 ForEach-Object cmdlet or the foreach loop. You can use whichever you choose based on your PowerShell version.</p>
 
 <p>Finally, we use Sort-Object -Unique to get the unique domains.</p>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$EmailDomains</span> | <span class="nb">Sort-Object</span> -Unique
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$EmailDomains</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Sort-Object</span><span class="w"> </span><span class="nt">-Unique</span><span class="w">
 
-anovelidea.org
-chronicgoogler.com
-gmail.com
-</code></pre></div></div>
+</span><span class="nf">anovelidea.org</span><span class="w">
+</span><span class="nf">chronicgoogler.com</span><span class="w">
+</span><span class="nf">gmail.com</span><span class="w">
+</span></code></pre></div></div>
 
 <p>Of course, you could have dozens or more unique domains. This short exercise can also reveal typos in domains.</p>
 

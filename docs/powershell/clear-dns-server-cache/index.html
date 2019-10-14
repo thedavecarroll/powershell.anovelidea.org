@@ -317,23 +317,23 @@
 
 <p>First, we need to get the name of the domain. Of course, if you already know the name, you can simply use it.</p>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$DomainName</span> <span class="o">=</span> <span class="nb">Get-ADDomain</span> | <span class="nb">Select-Object</span> -ExpandProperty DnsRoot
-</code></pre></div></div>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$DomainName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Get-ADDomain</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Select-Object</span><span class="w"> </span><span class="nt">-ExpandProperty</span><span class="w"> </span><span class="nx">DnsRoot</span><span class="w">
+</span></code></pre></div></div>
 
 <p>Next, we find all name servers in the domain and show only the hostname.</p>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$DomainControllers</span> <span class="o">=</span> <span class="o">(</span><span class="nb">Resolve-DnsName</span> -Name <span class="nv">$DomainName</span> -Type NS<span class="o">)</span>.Where<span class="o">({</span> <span class="nv">$_</span>.Type -eq <span class="s1">'NS'</span> <span class="o">})</span>.NameHost
-</code></pre></div></div>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$DomainControllers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nf">Resolve-DnsName</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nv">$DomainName</span><span class="w"> </span><span class="nt">-Type</span><span class="w"> </span><span class="nx">NS</span><span class="p">)</span><span class="o">.</span><span class="nf">Where</span><span class="p">({</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">Type</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="s1">'NS'</span><span class="w"> </span><span class="p">})</span><span class="o">.</span><span class="nf">NameHost</span><span class="w">
+</span></code></pre></div></div>
 
 <p>Lastly, we execute the clear command for each one.</p>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$DomainControllers</span>.ForEach<span class="o">({</span> <span class="nb">Clear</span>-DnsServerCache -ComputerName <span class="nv">$_</span> -Force <span class="o">})</span>
-</code></pre></div></div>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$DomainControllers</span><span class="o">.</span><span class="nf">ForEach</span><span class="p">({</span><span class="w"> </span><span class="nf">Clear-DnsServerCache</span><span class="w"> </span><span class="nt">-ComputerName</span><span class="w"> </span><span class="bp">$_</span><span class="w"> </span><span class="nt">-Force</span><span class="w"> </span><span class="p">})</span><span class="w">
+</span></code></pre></div></div>
 
 <p>Of course, there are a few shortcuts you can do to get this to a one-liner.</p>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(</span><span class="nb">Resolve-DnsName</span> -Name <span class="o">(</span><span class="nb">Get-ADDomain</span> | <span class="nb">Select-Object</span> -ExpandProperty DnsRoot -Type NS<span class="o">)</span>.Where<span class="o">({</span> <span class="nv">$_</span>.Type -eq <span class="s1">'NS'</span> <span class="o">})</span>.NameHost.ForEach<span class="o">({</span> <span class="nb">Clear</span>-DnsServerCache -ComputerName <span class="nv">$_</span> -Force <span class="o">})</span>
-</code></pre></div></div>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nf">Resolve-DnsName</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="p">(</span><span class="nf">Get-ADDomain</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Select-Object</span><span class="w"> </span><span class="nt">-ExpandProperty</span><span class="w"> </span><span class="nx">DnsRoot</span><span class="w"> </span><span class="nt">-Type</span><span class="w"> </span><span class="nx">NS</span><span class="p">)</span><span class="o">.</span><span class="nf">Where</span><span class="p">({</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">Type</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="s1">'NS'</span><span class="w"> </span><span class="p">})</span><span class="o">.</span><span class="nf">NameHost</span><span class="o">.</span><span class="nf">ForEach</span><span class="p">({</span><span class="w"> </span><span class="nf">Clear-DnsServerCache</span><span class="w"> </span><span class="nt">-ComputerName</span><span class="w"> </span><span class="bp">$_</span><span class="w"> </span><span class="nt">-Force</span><span class="w"> </span><span class="p">})</span><span class="w">
+</span></code></pre></div></div>
 
 <p>For more information, please see the following Microsoft docs:</p>
 

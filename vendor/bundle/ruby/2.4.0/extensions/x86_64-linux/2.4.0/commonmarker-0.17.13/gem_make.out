@@ -1,5 +1,5 @@
 current directory: /home/travis/build/thedavecarroll/powershell.anovelidea.org/vendor/bundle/ruby/2.4.0/gems/commonmarker-0.17.13/ext/commonmarker
-/home/travis/.rvm/rubies/ruby-2.4.1/bin/ruby -I /home/travis/.rvm/rubies/ruby-2.4.1/lib/ruby/site_ruby/2.4.0 -r ./siteconf20190917-5245-5rrjpg.rb extconf.rb
+/home/travis/.rvm/rubies/ruby-2.4.1/bin/ruby -I /home/travis/.rvm/rubies/ruby-2.4.1/lib/ruby/site_ruby/2.4.0 -r ./siteconf20191014-6659-1u4f8pz.rb extconf.rb
 creating Makefile
 
 current directory: /home/travis/build/thedavecarroll/powershell.anovelidea.org/vendor/bundle/ruby/2.4.0/gems/commonmarker-0.17.13/ext/commonmarker
@@ -28,10 +28,10 @@ arena.c:88:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaratio
    void *new_ptr = arena_calloc(1, size);
    ^
 arena.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 compiling autolink.c
 autolink.c: In function ‘www_match’:
 autolink.c:178:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
@@ -62,10 +62,10 @@ autolink.c:415:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclar
    cmark_mem *mem = cmark_get_default_mem_allocator();
    ^
 autolink.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 compiling blocks.c
 blocks.c: In function ‘cmark_parser_reset’:
 blocks.c:118:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
@@ -107,10 +107,10 @@ blocks.c:1295:7: warning: ISO C90 forbids mixed declarations and code [-Wdeclara
        int matches_end_condition;
        ^
 blocks.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 compiling buffer.c
 buffer.c: In function ‘cmark_strbuf_grow’:
 buffer.c:54:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
@@ -125,32 +125,32 @@ buffer.c:187:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclarat
    bufsize_t i;
    ^
 buffer.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 compiling cmark.c
 compiling cmark_ctype.c
 compiling commonmark.c
 commonmark.c: In function ‘S_render_node’:
-commonmark.c:409:18: warning: assignment discards ‘const’ qualifier from pointer target type [enabled by default]
+commonmark.c:409:18: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
        emph_delim = "_";
                   ^
-commonmark.c:411:18: warning: assignment discards ‘const’ qualifier from pointer target type [enabled by default]
+commonmark.c:411:18: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
        emph_delim = "*";
                   ^
 commonmark.c:478:7: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
        char n[32];
        ^
 commonmark.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 compiling commonmarker.c
 In file included from houdini.h:9:0,
                  from commonmarker.c:3:
-config.h:8:0: warning: "HAVE_STDBOOL_H" redefined [enabled by default]
+config.h:8:0: warning: "HAVE_STDBOOL_H" redefined
  #define HAVE_STDBOOL_H
  ^
 In file included from /home/travis/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/ruby/ruby.h:24:0,
@@ -214,10 +214,10 @@ commonmarker.c:1093:3: warning: ISO C90 forbids mixed declarations and code [-Wd
    cmark_mem *mem = cmark_node_mem(node);
    ^
 commonmarker.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 compiling core-extensions.c
 compiling ext_scanners.c
 compiling footnotes.c
@@ -234,10 +234,10 @@ html.c:399:7: warning: ISO C90 forbids mixed declarations and code [-Wdeclaratio
        char n[32];
        ^
 html.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 compiling inlines.c
 inlines.c: In function ‘adjust_subj_node_newlines’:
 inlines.c:269:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
@@ -267,10 +267,10 @@ inlines.c:871:7: warning: ISO C90 forbids mixed declarations and code [-Wdeclara
        cmark_node *node = make_raw_html(subj, subj->pos - matchlen - 1, subj->pos - 1, contents);
        ^
 inlines.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 compiling iterator.c
 iterator.c: In function ‘cmark_iter_new’:
 iterator.c:13:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
@@ -285,10 +285,10 @@ iterator.c:132:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclar
    cmark_iter *iter = cmark_iter_new(root);
    ^
 iterator.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 compiling latex.c
 latex.c: In function ‘get_link_type’:
 latex.c:165:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
@@ -298,10 +298,10 @@ latex.c:177:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclarati
    const char *title = cmark_node_get_title(node);
    ^
 latex.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 compiling linked_list.c
 compiling man.c
 man.c: In function ‘S_render_node’:
@@ -309,10 +309,10 @@ man.c:132:9: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration
          char list_number_s[LIST_NUMBER_SIZE];
          ^
 man.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 compiling map.c
 compiling node.c
 node.c: In function ‘S_node_unlink’:
@@ -342,10 +342,10 @@ node.c:885:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaratio
    cmark_node *old_last_child = node->last_child;
    ^
 node.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 compiling plaintext.c
 compiling plugin.c
 compiling references.c
@@ -355,10 +355,10 @@ registry.c:23:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclara
    cmark_llist *syntax_extensions_list = cmark_plugin_steal_syntax_extensions(plugin),
    ^
 registry.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 compiling render.c
 compiling scanners.c
 compiling strikethrough.c
@@ -367,10 +367,10 @@ strikethrough.c:157:3: warning: ISO C90 forbids mixed declarations and code [-Wd
    cmark_mem *mem = cmark_get_default_mem_allocator();
    ^
 strikethrough.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 compiling syntax_extension.c
 compiling table.c
 table.c: In function ‘row_from_string’:
@@ -390,10 +390,10 @@ table.c:626:7: warning: ISO C90 forbids mixed declarations and code [-Wdeclarati
        int i = 0;
        ^
 table.c: At top level:
-cc1: warning: unrecognized command line option "-Wno-self-assign" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-constant-logical-operand" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-parentheses-equality" [enabled by default]
-cc1: warning: unrecognized command line option "-Wno-tautological-compare" [enabled by default]
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-tautological-compare’
 compiling tagfilter.c
 compiling utf8.c
 compiling xml.c
@@ -401,4 +401,4 @@ linking shared-object commonmarker/commonmarker.so
 
 current directory: /home/travis/build/thedavecarroll/powershell.anovelidea.org/vendor/bundle/ruby/2.4.0/gems/commonmarker-0.17.13/ext/commonmarker
 make "DESTDIR=" install
-/usr/bin/install -m 0755 commonmarker.so ./.gem.20190917-5245-was1zs/commonmarker
+/usr/bin/install -m 0755 commonmarker.so ./.gem.20191014-6659-130495t/commonmarker

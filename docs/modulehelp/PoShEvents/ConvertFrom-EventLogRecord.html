@@ -314,12 +314,12 @@
 <h2 id="examples">EXAMPLES</h2>
 
 <h3 id="example-1">Example 1</h3>
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">PS </span>C:\&gt; <span class="nb">Get-WinEvent</span> -LogName System -MaxEvents 5 | ConvertFrom-EventLogRecord
-</code></pre></div></div>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">PS</span><span class="w"> </span><span class="nx">C:\</span><span class="err">&gt;</span><span class="w"> </span><span class="nx">Get-WinEvent</span><span class="w"> </span><span class="nt">-LogName</span><span class="w"> </span><span class="nx">System</span><span class="w"> </span><span class="nt">-MaxEvents</span><span class="w"> </span><span class="nx">5</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">ConvertFrom-EventLogRecord</span><span class="w">
+</span></code></pre></div></div>
 
 <h3 id="example-2">Example 2</h3>
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">PS </span>C:\&gt; <span class="nb">Get-WinEvent </span>FilterHashTable <span class="o">=</span> @<span class="o">{</span>ProviderName <span class="o">=</span> <span class="s2">"Service Control Manager"</span><span class="o">}</span> -MaxEvents 5 | ConvertFrom-EventLogRecord -EventRecordType ServiceEvent
-</code></pre></div></div>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">PS</span><span class="w"> </span><span class="nx">C:\</span><span class="err">&gt;</span><span class="w"> </span><span class="nx">Get-WinEvent</span><span class="w"> </span><span class="nx">FilterHashTable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="nx">ProviderName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Service Control Manager"</span><span class="p">}</span><span class="w"> </span><span class="nt">-MaxEvents</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">ConvertFrom-EventLogRecord</span><span class="w"> </span><span class="nt">-EventRecordType</span><span class="w"> </span><span class="nx">ServiceEvent</span><span class="w">
+</span></code></pre></div></div>
 
 <h2 id="parameters">PARAMETERS</h2>
 
@@ -332,7 +332,7 @@
 <span class="na">Accepted values</span><span class="pi">:</span> <span class="s">PrintDocument, SystemRestartEvent, LogonFailureEvent, OSVersionFromEvent, RemoteLogonEvent, ServiceEvent, GPOProcessingEvent, KMSClientEvent, KMSHostEvent, KMSHostLicenseCheckEvent</span>
 
 <span class="na">Required</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Position</span><span class="pi">:</span> <span class="s">1</span>
+<span class="na">Position</span><span class="pi">:</span> <span class="m">1</span>
 <span class="na">Default value</span><span class="pi">:</span> <span class="s">None</span>
 <span class="na">Accept pipeline input</span><span class="pi">:</span> <span class="s">False</span>
 <span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
@@ -346,7 +346,7 @@
 <span class="na">Aliases</span><span class="pi">:</span>
 
 <span class="na">Required</span><span class="pi">:</span> <span class="s">True</span>
-<span class="na">Position</span><span class="pi">:</span> <span class="s">0</span>
+<span class="na">Position</span><span class="pi">:</span> <span class="m">0</span>
 <span class="na">Default value</span><span class="pi">:</span> <span class="s">None</span>
 <span class="na">Accept pipeline input</span><span class="pi">:</span> <span class="s">True (ByValue)</span>
 <span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>
@@ -360,7 +360,7 @@
 <span class="na">Aliases</span><span class="pi">:</span>
 
 <span class="na">Required</span><span class="pi">:</span> <span class="s">False</span>
-<span class="na">Position</span><span class="pi">:</span> <span class="s">2</span>
+<span class="na">Position</span><span class="pi">:</span> <span class="m">2</span>
 <span class="na">Default value</span><span class="pi">:</span> <span class="s">None</span>
 <span class="na">Accept pipeline input</span><span class="pi">:</span> <span class="s">False</span>
 <span class="na">Accept wildcard characters</span><span class="pi">:</span> <span class="s">False</span>

@@ -31,8 +31,8 @@ rubyhdrdir = $(includedir)/$(RUBY_VERSION_NAME)
 vendorarchdir = $(vendorlibdir)/$(sitearch)
 vendorlibdir = $(vendordir)/$(ruby_version)
 vendordir = $(rubylibprefix)/vendor_ruby
-sitearchdir = $(DESTDIR)./.gem.20190917-5245-was1zs
-sitelibdir = $(DESTDIR)./.gem.20190917-5245-was1zs
+sitearchdir = $(DESTDIR)./.gem.20191014-6659-130495t
+sitelibdir = $(DESTDIR)./.gem.20191014-6659-130495t
 sitedir = $(rubylibprefix)/site_ruby
 rubyarchdir = $(rubylibdir)/$(arch)
 rubylibdir = $(rubylibprefix)/$(ruby_version)
@@ -79,7 +79,7 @@ cflags   = $(optflags) $(debugflags) $(warnflags)
 cxxflags = $(optflags) $(debugflags) $(warnflags)
 optflags = -O3 -fno-fast-math
 debugflags = -ggdb3
-warnflags = -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format
+warnflags = -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wno-maybe-uninitialized
 CCDLFLAGS = -fPIC
 CFLAGS   = $(CCDLFLAGS) $(cflags)  -fPIC -std=c99 $(ARCH_FLAG)
 INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir)
@@ -87,7 +87,7 @@ DEFS     =
 CPPFLAGS =   $(DEFS) $(cppflags)
 CXXFLAGS = $(CCDLFLAGS) $(cxxflags) $(ARCH_FLAG)
 ldflags  = -L. -fstack-protector -rdynamic -Wl,-export-dynamic
-dldflags =  
+dldflags = -Wl,--compress-debug-sections=zlib 
 ARCH_FLAG = 
 DLDFLAGS = $(ldflags) $(dldflags) $(ARCH_FLAG)
 LDSHARED = $(CC) -shared
@@ -134,11 +134,11 @@ extout =
 extout_prefix = 
 target_prefix = /commonmarker
 LOCAL_LIBS = 
-LIBS = $(LIBRUBYARG_SHARED)  -lpthread -ldl -lcrypt -lm   -lc
+LIBS = $(LIBRUBYARG_SHARED)  -lpthread -lgmp -ldl -lcrypt -lm   -lc
 ORIG_SRCS = arena.c autolink.c blocks.c buffer.c cmark.c cmark_ctype.c commonmark.c commonmarker.c core-extensions.c ext_scanners.c footnotes.c houdini_href_e.c houdini_html_e.c houdini_html_u.c html.c inlines.c iterator.c latex.c linked_list.c man.c map.c node.c plaintext.c plugin.c references.c registry.c render.c scanners.c strikethrough.c syntax_extension.c table.c tagfilter.c utf8.c xml.c
 SRCS = $(ORIG_SRCS) 
 OBJS = arena.o autolink.o blocks.o buffer.o cmark.o cmark_ctype.o commonmark.o commonmarker.o core-extensions.o ext_scanners.o footnotes.o houdini_href_e.o houdini_html_e.o houdini_html_u.o html.o inlines.o iterator.o latex.o linked_list.o man.o map.o node.o plaintext.o plugin.o references.o registry.o render.o scanners.o strikethrough.o syntax_extension.o table.o tagfilter.o utf8.o xml.o
-HDRS = $(srcdir)/cmark-gfm-extensions_export.h $(srcdir)/cmark-gfm-core-extensions.h $(srcdir)/ext_scanners.h $(srcdir)/iterator.h $(srcdir)/tagfilter.h $(srcdir)/houdini.h $(srcdir)/commonmarker.h $(srcdir)/cmark_ctype.h $(srcdir)/cmark-gfm_version.h $(srcdir)/footnotes.h $(srcdir)/node.h $(srcdir)/cmark-gfm.h $(srcdir)/config.h $(srcdir)/render.h $(srcdir)/syntax_extension.h $(srcdir)/strikethrough.h $(srcdir)/html.h $(srcdir)/plugin.h $(srcdir)/scanners.h $(srcdir)/chunk.h $(srcdir)/utf8.h $(srcdir)/map.h $(srcdir)/autolink.h $(srcdir)/parser.h $(srcdir)/cmark-gfm-extension_api.h $(srcdir)/inlines.h $(srcdir)/references.h $(srcdir)/buffer.h $(srcdir)/cmark-gfm_export.h $(srcdir)/table.h $(srcdir)/registry.h
+HDRS = $(srcdir)/commonmarker.h $(srcdir)/render.h $(srcdir)/strikethrough.h $(srcdir)/cmark-gfm_version.h $(srcdir)/config.h $(srcdir)/parser.h $(srcdir)/cmark-gfm-core-extensions.h $(srcdir)/iterator.h $(srcdir)/cmark-gfm-extensions_export.h $(srcdir)/inlines.h $(srcdir)/map.h $(srcdir)/cmark_ctype.h $(srcdir)/tagfilter.h $(srcdir)/scanners.h $(srcdir)/cmark-gfm_export.h $(srcdir)/html.h $(srcdir)/footnotes.h $(srcdir)/houdini.h $(srcdir)/chunk.h $(srcdir)/table.h $(srcdir)/node.h $(srcdir)/syntax_extension.h $(srcdir)/cmark-gfm.h $(srcdir)/references.h $(srcdir)/plugin.h $(srcdir)/ext_scanners.h $(srcdir)/autolink.h $(srcdir)/registry.h $(srcdir)/buffer.h $(srcdir)/cmark-gfm-extension_api.h $(srcdir)/utf8.h
 LOCAL_HDRS = 
 TARGET = commonmarker
 TARGET_NAME = commonmarker

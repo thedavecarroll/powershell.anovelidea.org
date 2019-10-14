@@ -335,9 +335,9 @@ Specifically, in my function <code class="highlighter-rouge">Update-DynDnsRecord
 <p>The <code class="highlighter-rouge">Compare-ObjectProperties</code> seemed to be throwing these additional What If statements. I saw where the <code class="highlighter-rouge">ForEach-Object</code>
 alias of <code class="highlighter-rouge">%</code> was used a few times and determined that these two lines were the cause.</p>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$objprops</span> <span class="o">=</span> <span class="nv">$ReferenceObject</span> | <span class="nb">Get-Member</span> -MemberType Property,NoteProperty | % Name
-<span class="nv">$objprops</span> +<span class="o">=</span> <span class="nv">$DifferenceObject</span> | <span class="nb">Get-Member</span> -MemberType Property,NoteProperty | % Name
-</code></pre></div></div>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$objprops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$ReferenceObject</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Get-Member</span><span class="w"> </span><span class="nt">-MemberType</span><span class="w"> </span><span class="nx">Property</span><span class="p">,</span><span class="nx">NoteProperty</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nf">Name</span><span class="w">
+</span><span class="nv">$objprops</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">$DifferenceObject</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Get-Member</span><span class="w"> </span><span class="nt">-MemberType</span><span class="w"> </span><span class="nx">Property</span><span class="p">,</span><span class="nx">NoteProperty</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nf">Name</span><span class="w">
+</span></code></pre></div></div>
 
 <h2 id="foreach-object">ForEach-Object</h2>
 
@@ -368,13 +368,13 @@ more I read, the more I realized that <code class="highlighter-rouge">ForEach-Ob
 <p>I had hoped that I could provide <code class="highlighter-rouge">-Begin</code>, <code class="highlighter-rouge">-Process</code>, and <code class="highlighter-rouge">-End</code> parameters along with <code class="highlighter-rouge">-WhatIf</code> as illustrated in the
 following code:</p>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">PS </span>C:\&gt; <span class="s1">'testing1'</span>,<span class="s1">'testing2'</span> |  <span class="k">ForEach</span>-Object -Begin <span class="o">{</span>
-    <span class="nb">Write-Output</span> <span class="s1">'Starting'</span>
-    <span class="o">}</span> -Process <span class="o">{</span>
-        <span class="nb">Write-Output</span> <span class="s2">"Processing </span><span class="nv">$_</span><span class="s2">"</span>
-    <span class="o">}</span> -End <span class="o">{</span> <span class="nb">Write-Output</span> <span class="s1">'Ending'</span>
-    <span class="o">}</span> -WhatIf
-</code></pre></div></div>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">PS</span><span class="w"> </span><span class="nx">C:\</span><span class="err">&gt;</span><span class="w"> </span><span class="s1">'testing1'</span><span class="p">,</span><span class="s1">'testing2'</span><span class="w"> </span><span class="o">|</span><span class="w">  </span><span class="nf">ForEach-Object</span><span class="w"> </span><span class="nt">-Begin</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nf">Write-Output</span><span class="w"> </span><span class="s1">'Starting'</span><span class="w">
+    </span><span class="p">}</span><span class="w"> </span><span class="nt">-Process</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nf">Write-Output</span><span class="w"> </span><span class="s2">"Processing </span><span class="bp">$_</span><span class="s2">"</span><span class="w">
+    </span><span class="p">}</span><span class="w"> </span><span class="nt">-End</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nf">Write-Output</span><span class="w"> </span><span class="s1">'Ending'</span><span class="w">
+    </span><span class="p">}</span><span class="w"> </span><span class="nt">-WhatIf</span><span class="w">
+</span></code></pre></div></div>
 
 <p>What I expected was not how PowerShell responded.</p>
 
@@ -392,19 +392,19 @@ At line:1 char:26
 
 <p>In checking how <code class="highlighter-rouge">-Verbose</code> was handled, I discovered the following:</p>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">PS </span>C:\&gt; <span class="s1">'testing1'</span>,<span class="s1">'testing2'</span> |  <span class="k">ForEach</span>-Object -Begin <span class="o">{</span>
-    <span class="nb">Write-Output</span> <span class="s1">'Starting'</span>
-    <span class="o">}</span> -Process <span class="o">{</span>
-        <span class="nb">Write-Output</span> <span class="s2">"Processing </span><span class="nv">$_</span><span class="s2">"</span>
-        <span class="nb">Write-Verbose</span> -Message <span class="s1">'Process block'</span>
-    <span class="o">}</span> -End <span class="o">{</span>
-        <span class="nb">Write-verbose</span> -Message <span class="s1">'Ending'</span> -Verbose
-    <span class="o">}</span> -Verbose
-Starting
-Processing testing1
-Processing testing2
-VERBOSE: Ending
-</code></pre></div></div>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">PS</span><span class="w"> </span><span class="nx">C:\</span><span class="err">&gt;</span><span class="w"> </span><span class="s1">'testing1'</span><span class="p">,</span><span class="s1">'testing2'</span><span class="w"> </span><span class="o">|</span><span class="w">  </span><span class="nf">ForEach-Object</span><span class="w"> </span><span class="nt">-Begin</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nf">Write-Output</span><span class="w"> </span><span class="s1">'Starting'</span><span class="w">
+    </span><span class="p">}</span><span class="w"> </span><span class="nt">-Process</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nf">Write-Output</span><span class="w"> </span><span class="s2">"Processing </span><span class="bp">$_</span><span class="s2">"</span><span class="w">
+        </span><span class="nf">Write-Verbose</span><span class="w"> </span><span class="nt">-Message</span><span class="w"> </span><span class="s1">'Process block'</span><span class="w">
+    </span><span class="p">}</span><span class="w"> </span><span class="nt">-End</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nf">Write-verbose</span><span class="w"> </span><span class="nt">-Message</span><span class="w"> </span><span class="s1">'Ending'</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w">
+    </span><span class="p">}</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w">
+</span><span class="nf">Starting</span><span class="w">
+</span><span class="nf">Processing</span><span class="w"> </span><span class="nx">testing1</span><span class="w">
+</span><span class="nf">Processing</span><span class="w"> </span><span class="nx">testing2</span><span class="w">
+</span><span class="nf">VERBOSE:</span><span class="w"> </span><span class="nx">Ending</span><span class="w">
+</span></code></pre></div></div>
 
 <p><code class="highlighter-rouge">Foreach-Object</code> didn’t pass the <code class="highlighter-rouge">-Verbose</code> common parameter to any code within the script blocks.</p>
 

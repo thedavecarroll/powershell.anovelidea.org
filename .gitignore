@@ -13,3 +13,9 @@ Gemfile.lock
 node_modules
 npm-debug.log*
 docs/
+test/
+.github/
+/*.png
+.editorconfig
+CHANGELOG
+package-lock.json

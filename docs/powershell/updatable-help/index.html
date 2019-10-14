@@ -354,8 +354,8 @@ clean or initial run of <code class="highlighter-rouge">New-MarkdownHelp</code>,
 
 <p>Then, I recreated the external help file.</p>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>New-ExternalHelp -Path .\powershell.anovelidea.org\modulehelp\PoShEvents -OutputPath .\PoShEvents\PoShEvents\en-US\ -Force
-</code></pre></div></div>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">New-ExternalHelp</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="o">.</span><span class="nx">\powershell.anovelidea.org\modulehelp\PoShEvents</span><span class="w"> </span><span class="nt">-OutputPath</span><span class="w"> </span><span class="o">.</span><span class="nx">\PoShEvents\PoShEvents\en-US\</span><span class="w"> </span><span class="nt">-Force</span><span class="w">
+</span></code></pre></div></div>
 
 <h2 id="testing-updatable-help">Testing Updatable Help</h2>
 
@@ -365,8 +365,8 @@ clean or initial run of <code class="highlighter-rouge">New-MarkdownHelp</code>,
 
 <p>First, let’s see if we can <code class="highlighter-rouge">Update-Help</code> from the local source.</p>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Update-Help -Module PoShEvents -SourcePath .\powershell.anovelidea.org\modulehelp\PoShEvents\ -Force -Verbose
-</code></pre></div></div>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">Update-Help</span><span class="w"> </span><span class="nt">-Module</span><span class="w"> </span><span class="nx">PoShEvents</span><span class="w"> </span><span class="nt">-SourcePath</span><span class="w"> </span><span class="o">.</span><span class="nx">\powershell.anovelidea.org\modulehelp\PoShEvents\</span><span class="w"> </span><span class="nt">-Force</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w">
+</span></code></pre></div></div>
 
 <div style="color: gold" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">VERBOSE: Performing the operation "Update-Help" on target "PoShEvents, Current Version: 0.2.1, Available Version: 0.2.1, UICulture: en-US".
 VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\about_PoShEvents.help.txt. Culture en-US Version 0.2.1
@@ -381,9 +381,9 @@ VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\Po
 <code class="highlighter-rouge">*HelpContent.zip</code> help files to the location indicated by the module’s <code class="highlighter-rouge">HelpInfoUri</code>. After this is done, you should
 verify that you can access the URL successfully by using <code class="highlighter-rouge">Invoke-WebRequest</code>. Ideally, the StatusCode should be 200.</p>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ModInfo</span> <span class="o">=</span> Get-Module -Name PoShEvents | <span class="nb">Select-Object</span> -Property Name,Guid,HelpInfoURI
-<span class="o">(</span><span class="nb">Invoke-WebRequest</span> -Uri <span class="s2">"</span><span class="k">$(</span><span class="nv">$ModInfo</span>.HelpInfoUri<span class="k">)$(</span><span class="nv">$ModInfo</span>.Name<span class="k">)</span><span class="s2">_</span><span class="k">$(</span><span class="nv">$ModInfo</span>.Guid<span class="k">)</span><span class="s2">_HelpInfo.xml"</span><span class="o">)</span>.StatusCode
-</code></pre></div></div>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ModInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Get-Module</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nx">PoShEvents</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Select-Object</span><span class="w"> </span><span class="nt">-Property</span><span class="w"> </span><span class="nx">Name</span><span class="p">,</span><span class="nx">Guid</span><span class="p">,</span><span class="nx">HelpInfoURI</span><span class="w">
+</span><span class="p">(</span><span class="nf">Invoke-WebRequest</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$ModInfo</span><span class="o">.</span><span class="nf">HelpInfoUri</span><span class="p">)</span><span class="err">$</span><span class="p">(</span><span class="nv">$ModInfo</span><span class="o">.</span><span class="nf">Name</span><span class="p">)</span><span class="nf">_</span><span class="err">$</span><span class="p">(</span><span class="nv">$ModInfo</span><span class="o">.</span><span class="nf">Guid</span><span class="p">)</span><span class="nf">_HelpInfo.xml</span><span class="s2">").StatusCode
+</span></code></pre></div></div>
 
 <p>My result was not ideal.</p>
 
@@ -399,19 +399,19 @@ internal workings when you use the <code class="highlighter-rouge">-Verbose</cod
 <p>Checking the security protocol that my default PowerShell session used, I saw why my testing failed. I included the
 TLS 1.2 protocol and tested the URL again successfully.</p>
 
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">[Net.ServicePointManager]</span><span class="p">::</span><span class="n">SecurityProtocol</span>
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">Net</span><span class="p">.</span><span class="n">ServicePointManager</span><span class="p">]::</span><span class="n">SecurityProtocol</span>
 </code></pre></div></div>
 
 <div style="color: whitesmoke" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">Ssl3, Tls
 </span></code></pre></div></div>
 
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">[Net.ServicePointManager]</span><span class="p">::</span><span class="n">SecurityProtocol</span> <span class="p">=</span> <span class="p">[</span><span class="n">Net</span><span class="p">.</span><span class="n">SecurityProtocolType</span><span class="p">]::</span><span class="n">Tls</span><span class="p">,[</span><span class="n">Net</span><span class="p">.</span><span class="n">SecurityProtocolType</span><span class="p">]::</span><span class="n">Tls11</span><span class="p">,[</span><span class="n">Net</span><span class="p">.</span><span class="n">SecurityProtocolType</span><span class="p">]::</span><span class="n">Tls12</span>
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">Net</span><span class="p">.</span><span class="n">ServicePointManager</span><span class="p">]::</span><span class="n">SecurityProtocol</span> <span class="p">=</span> <span class="p">[</span><span class="n">Net</span><span class="p">.</span><span class="n">SecurityProtocolType</span><span class="p">]::</span><span class="n">Tls</span><span class="p">,[</span><span class="n">Net</span><span class="p">.</span><span class="n">SecurityProtocolType</span><span class="p">]::</span><span class="n">Tls11</span><span class="p">,[</span><span class="n">Net</span><span class="p">.</span><span class="n">SecurityProtocolType</span><span class="p">]::</span><span class="n">Tls12</span>
 </code></pre></div></div>
 
 <p class="notice--primary">A quick search revealed that on February 8, 2018, <a href="https://githubengineering.com/crypto-removal-notice/" target="_blank">GitHub discontinued the use of TLS 1.0 and TLS 1.1</a>.</p>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Update-Help -Name PoShEvents -Verbose -Force
-</code></pre></div></div>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">Update-Help</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nx">PoShEvents</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w"> </span><span class="nt">-Force</span><span class="w">
+</span></code></pre></div></div>
 
 <div style="color: gold" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">VERBOSE: Resolving URI: "https://powershell.anovelidea.org/modulehelp/PoShEvents"
 VERBOSE: Your connection has been redirected to the following URI: "http://powershell.anovelidea.org/modulehelp/PoShEvents/"
@@ -425,12 +425,12 @@ VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\Po
 <p>Setting <code class="highlighter-rouge">[Net.ServicePointManager]::SecurityProtocol</code>, as I did, only applies to the current PowerShell session. To make
 the change permanent, I updated the registry.</p>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># set strong cryptography on 64 bit .Net Framework (version 4 and above)</span>
-<span class="nb">Set-ItemProperty</span> -Path <span class="s1">'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NetFramework\v4.0.30319'</span> -Name <span class="s1">'SchUseStrongCrypto'</span> -Value <span class="s1">'1'</span> -Type DWord
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># set strong cryptography on 64 bit .Net Framework (version 4 and above)</span><span class="w">
+</span><span class="nf">Set-ItemProperty</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="s1">'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NetFramework\v4.0.30319'</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="s1">'SchUseStrongCrypto'</span><span class="w"> </span><span class="nt">-Value</span><span class="w"> </span><span class="s1">'1'</span><span class="w"> </span><span class="nt">-Type</span><span class="w"> </span><span class="nx">DWord</span><span class="w">
 
-<span class="c1"># set strong cryptography on 32 bit .Net Framework (version 4 and above)</span>
-<span class="nb">Set-ItemProperty</span> -Path <span class="s1">'HKLM:\SOFTWARE\Microsoft\.NetFramework\v4.0.30319'</span> -Name <span class="s1">'SchUseStrongCrypto'</span> -Value <span class="s1">'1'</span> -Type DWord
-</code></pre></div></div>
+</span><span class="c"># set strong cryptography on 32 bit .Net Framework (version 4 and above)</span><span class="w">
+</span><span class="nf">Set-ItemProperty</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="s1">'HKLM:\SOFTWARE\Microsoft\.NetFramework\v4.0.30319'</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="s1">'SchUseStrongCrypto'</span><span class="w"> </span><span class="nt">-Value</span><span class="w"> </span><span class="s1">'1'</span><span class="w"> </span><span class="nt">-Type</span><span class="w"> </span><span class="nx">DWord</span><span class="w">
+</span></code></pre></div></div>
 
 <h2 id="conclusion">Conclusion</h2>
 
