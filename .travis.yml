@@ -4,7 +4,7 @@ rvm:
 
 sudo: false
 cache: bundler
-gemfile: docs/Gemfile
+gemfile: Gemfile
 
 branches:
   only:
