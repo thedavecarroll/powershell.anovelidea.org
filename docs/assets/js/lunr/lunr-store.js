@@ -58,4 +58,9 @@ var store = [{
         "excerpt":"Introduction In January, I published the first release of the PoShDynDnsApi module to the PowerShellGallery, along with a blog post introducing the module. It was the culmination of months of often-distracted work that began nearly a year prior. In this post, I want to give you a peek into my...","categories": ["powershell"],
         "tags": ["powershell","module","xplat","cross platform","rest api","webrequest","httpclient","external help","online help","updatable help","dyn managed dns"],
         "url": "https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi/",
+        "teaser":null},{
+        "title": "PowerShell Beginners Have to Start Somewhere",
+        "excerpt":"Introduction Iron Scripter grew out of the scripting games at PowerShell Summit and the quote below comes from the introductory post on the Iron Scripter site. The Chairman has decided that it is in the best interests of his Iron Scripters, and those that wish to attain that valued designation,...","categories": ["powershell"],
+        "tags": ["powershell","powershell concepts","learn powershell","powershell beginner","iron scripter","iron scripter challenge","iron scripter walk-through"],
+        "url": "https://powershell.anovelidea.org/powershell/iron-scripter-challenge-beginner-walk-through/",
         "teaser":null}]

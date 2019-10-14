@@ -1,4 +1,531 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2019-10-14T11:46:11-05:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Design Deep Dive : PoShDynDnsApi</title><link href="https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi/" rel="alternate" type="text/html" title="Design Deep Dive : PoShDynDnsApi" /><published>2019-05-08T00:00:00-05:00</published><updated>2019-05-08T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi/">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2019-10-14T15:37:57-05:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">PowerShell Beginners Have to Start Somewhere</title><link href="https://powershell.anovelidea.org/powershell/iron-scripter-challenge-beginner-walk-through/" rel="alternate" type="text/html" title="PowerShell Beginners Have to Start Somewhere" /><published>2019-10-13T00:00:00-05:00</published><updated>2019-10-13T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/iron-scripter-challenge-beginner-walk-through</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/iron-scripter-challenge-beginner-walk-through/">&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/iron-scripter-beginner.png&quot; alt=&quot;IronScripter&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;Iron Scripter grew out of the scripting games at PowerShell Summit and the quote below comes from the introductory post
+on the &lt;a href=&quot;https://ironscripter.us&quot; target=&quot;_blank&quot;&gt;Iron Scripter site&lt;/a&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The Chairman has decided that it is in the best interests of his Iron Scripters, and those that wish to attain that
+valued designation,  that training continue year-round. To that end, he has commissioned a series of PowerShell
+challenges. These challenges will range in complexity and be tagged accordingly.&lt;/p&gt;
+
+  &lt;p&gt;— Iron Scripter, Let The PowerShell Challenges Begin, June 7, 2019&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;I’ve completed three of the online Iron Scripter challenges and, as I finished the last one, I decided to go back
+through the ones that I skipped.&lt;/p&gt;
+
+&lt;p&gt;The beginner challenge seemed like a great opportunity to discuss some PowerShell concepts.&lt;/p&gt;
+
+&lt;p&gt;If you are new to PowerShell or just have a little knowledge or experience with it, please continue reading.&lt;/p&gt;
+
+&lt;h2 id=&quot;powershell-concepts&quot;&gt;PowerShell Concepts&lt;/h2&gt;
+
+&lt;p&gt;In this post, you will learn about the following PowerShell concepts.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;PowerShell Editions&lt;/li&gt;
+  &lt;li&gt;Help System
+    &lt;ul&gt;
+      &lt;li&gt;Conceptual Help&lt;/li&gt;
+      &lt;li&gt;Get-Help&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Commands
+    &lt;ul&gt;
+      &lt;li&gt;Verb-Noun Naming Convention
+        &lt;ul&gt;
+          &lt;li&gt;Verb&lt;/li&gt;
+          &lt;li&gt;Noun&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Types
+        &lt;ul&gt;
+          &lt;li&gt;Cmdlets&lt;/li&gt;
+          &lt;li&gt;Functions&lt;/li&gt;
+          &lt;li&gt;Aliases&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Variables
+    &lt;ul&gt;
+      &lt;li&gt;Environment Variables&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Parameters
+    &lt;ul&gt;
+      &lt;li&gt;Positional&lt;/li&gt;
+      &lt;li&gt;Default Values&lt;/li&gt;
+      &lt;li&gt;Unique Names, i.e. Shortened&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Pipeline&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;powershell-beginners-have-to-start-somewhere&quot;&gt;PowerShell Beginners Have to Start Somewhere&lt;/h2&gt;
+
+&lt;p&gt;Here is the &lt;a href=&quot;https://ironscripter.us/powershell-beginners-have-to-start-somewhere/&quot; target=&quot;_blank&quot;&gt;link&lt;/a&gt; to original “PowerShell Beginners Have to Start Somewhere” challenge.&lt;/p&gt;
+
+&lt;h2 id=&quot;challenge-directions&quot;&gt;Challenge Directions&lt;/h2&gt;
+
+&lt;p&gt;Get all files in a given folder including subfolders and display a result that shows the total number of files, the
+total size of all files, the average file size, the computer name, and the date when you ran the command.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;This should not be written as a script or function. It should be one or two lines of PowerShell that you would type at&lt;/em&gt;
+&lt;em&gt;the console to generate the desired result.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;powershell-editions&quot;&gt;PowerShell Editions&lt;/h2&gt;
+
+&lt;p&gt;PowerShell currently comes in three editions: Windows PowerShell, PowerShell Core, and PowerShell.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Edition&lt;/th&gt;
+      &lt;th&gt;Operating System&lt;/th&gt;
+      &lt;th&gt;Versions&lt;/th&gt;
+      &lt;th&gt;PSEdition&lt;/th&gt;
+      &lt;th&gt;.Net Version&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Windows PowerShell&lt;/td&gt;
+      &lt;td&gt;Windows only&lt;/td&gt;
+      &lt;td&gt;1.0-5.1&lt;/td&gt;
+      &lt;td&gt;Desktop&lt;/td&gt;
+      &lt;td&gt;.Net Framework&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;PowerShell Core&lt;/td&gt;
+      &lt;td&gt;Windows, Linux, MacOS&lt;/td&gt;
+      &lt;td&gt;6.x&lt;/td&gt;
+      &lt;td&gt;Core&lt;/td&gt;
+      &lt;td&gt;.Net Core 2.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;PowerShell&lt;/td&gt;
+      &lt;td&gt;Windows, Linux, MacOS&lt;/td&gt;
+      &lt;td&gt;7.x&lt;/td&gt;
+      &lt;td&gt;Core&lt;/td&gt;
+      &lt;td&gt;.Net Core 3.0&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;For more information on PowerShell editions, visit Microsoft Docs entry for
+&lt;a href=&quot;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_editions?view=powershell-6&amp;amp;viewFallbackFrom=powershell-5.1&quot; target=&quot;_blank&quot;&gt;About PowerShell Editions&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p class=&quot;notice--success&quot;&gt;For this challenge, let’s assume Windows PowerShell edition will be used.&lt;/p&gt;
+
+&lt;h2 id=&quot;help-system&quot;&gt;Help System&lt;/h2&gt;
+
+&lt;p&gt;Before we start the challenge, you should know how to get help for the various commands and concepts that we will cover
+in this post.&lt;/p&gt;
+
+&lt;p&gt;The first concept is PowerShell’s Help system. You access it primarily via the &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Help&lt;/code&gt; command. It is a command that
+you should know how to use as it will provide you invaluable information on your PowerShell learning path.&lt;/p&gt;
+
+&lt;p&gt;In a PowerShell console, enter the following statement. Note that the command is not case sensitive.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;get-help&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In the console, you should see details on the Powershell Help system.&lt;/p&gt;
+
+&lt;h3 id=&quot;conceptual-help&quot;&gt;Conceptual Help&lt;/h3&gt;
+
+&lt;p&gt;If you wanted to know more about PowerShell concepts, you can always use &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Help&lt;/code&gt;. For example, if you wanted to know
+more about variables, you can type the following in the console.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;get-help&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;variables&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The output is a list of topics that contain the word &lt;em&gt;variables&lt;/em&gt;. In the list, you should see several entries that start
+with &lt;em&gt;about&lt;/em&gt; with a category of &lt;em&gt;HelpFile&lt;/em&gt;. This type of help is called &lt;em&gt;conceptual help&lt;/em&gt; and can provide information on
+concepts or even modules. Modules, a grouping of commands for a specific task, are outside the scope for this challenge.&lt;/p&gt;
+
+&lt;p&gt;You can narrow your command to only search for the concept &lt;em&gt;about_variables&lt;/em&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;get-help&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;about_variables&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;get-help&quot;&gt;Get-Help&lt;/h3&gt;
+
+&lt;p&gt;As this is a challenge walk-through for beginners, we will be using &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Help&lt;/code&gt; significantly. Let’s see what the Help
+system has for this command.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;Get-Help&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Get-Help&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Though it seems redundant, the statement is using the command to display information about itself. At the end of the
+output, you should see the following lines.&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;REMARKS
+    To see the examples, type: &quot;Get-Help Get-Help -examples&quot;.
+    For more information, type: &quot;Get-Help Get-Help -detailed&quot;.
+    For technical information, type: &quot;Get-Help Get-Help -full&quot;.
+    For online help, type: &quot;Get-Help Get-Help -online&quot;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The words after the dashes, such as &lt;code class=&quot;highlighter-rouge&quot;&gt;-examples&lt;/code&gt;, are parameters for the &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Help&lt;/code&gt; command. More on parameters later.&lt;/p&gt;
+
+&lt;h2 id=&quot;verb-noun-naming-convention&quot;&gt;Verb-Noun Naming Convention&lt;/h2&gt;
+
+&lt;p&gt;You might be wondering about the &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Help&lt;/code&gt; command itself, specifically why is there a dash between &lt;em&gt;get&lt;/em&gt; and &lt;em&gt;help&lt;/em&gt;.
+The names of PowerShell commands are typically (and best practice) in the form of &lt;em&gt;verb&lt;/em&gt;-_noun_.&lt;/p&gt;
+
+&lt;h3 id=&quot;verb&quot;&gt;Verb&lt;/h3&gt;
+
+&lt;p&gt;The first part of the name is a verb and identifies the type of action the command does. There are standard verbs that
+are allowed which are grouped based on what on the verb normally acts upon.&lt;/p&gt;
+
+&lt;p&gt;Use &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Verb&lt;/code&gt; to list the verbs available and their groups. Don’t worry about knowing all of the verbs.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;get-verb&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p class=&quot;notice--success&quot;&gt;For this challenge, we will use the verbs: &lt;em&gt;Get&lt;/em&gt;, &lt;em&gt;Measure&lt;/em&gt;, and &lt;em&gt;Select&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;noun&quot;&gt;Noun&lt;/h3&gt;
+
+&lt;p&gt;The second part of the command name after the dash is the &lt;em&gt;noun&lt;/em&gt;. The verb acts upon the noun. In the case of
+&lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Help&lt;/code&gt;, the command will &lt;em&gt;get&lt;/em&gt; information on &lt;em&gt;help&lt;/em&gt;. The noun could be &lt;em&gt;object&lt;/em&gt;, &lt;em&gt;item&lt;/em&gt;, &lt;em&gt;service&lt;/em&gt;, &lt;em&gt;path&lt;/em&gt;, or any
+number of other things.&lt;/p&gt;
+
+&lt;p class=&quot;notice--success&quot;&gt;For this challenge, we will use the nouns: &lt;em&gt;ChildItem&lt;/em&gt;, &lt;em&gt;Object&lt;/em&gt;, and &lt;em&gt;Date&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;command-types&quot;&gt;Command Types&lt;/h2&gt;
+
+&lt;p&gt;There are several types of commands, such as cmdlets, functions, and aliases. Even PowerShell scripts are considered a
+type of command just like applications, such as &lt;em&gt;notepad.exe&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;cmdlet&quot;&gt;Cmdlet&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Help&lt;/code&gt; is an example of a cmdlet. PowerShell &lt;em&gt;cmdlets&lt;/em&gt; (pronounced &lt;em&gt;command-lets&lt;/em&gt; or &lt;em&gt;command-let&lt;/em&gt; for singular) are
+commands that are typically written in .NET (or .NET Core) C# programming language and compiled.&lt;/p&gt;
+
+&lt;h3 id=&quot;function&quot;&gt;Function&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Verb&lt;/code&gt; is an example of a function. PowerShell &lt;em&gt;functions&lt;/em&gt; are self-contained PowerShell statements. Basic and
+advanced functions can be written. Advanced functions provides greater control over the input, processing, and output of
+the command. To learn more about functions, see the conceptual help using &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Help about_Functions&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p class=&quot;notice--success&quot;&gt;For this challenge, we will not use functions.&lt;/p&gt;
+
+&lt;h3 id=&quot;alias&quot;&gt;Alias&lt;/h3&gt;
+
+&lt;p&gt;A PowerShell &lt;em&gt;alias&lt;/em&gt; is an alternate name for another command. Aliases are typically short forms of command names and
+save you several keystrokes at the console.&lt;/p&gt;
+
+&lt;p&gt;There are several default aliases. To see all aliases configured in your current session, you can use &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Alias&lt;/code&gt;. To
+learn more about aliases, see the conceptual help using &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Help about_Aliases&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p class=&quot;notice--success&quot;&gt;For this challenge, we will use aliases.&lt;/p&gt;
+
+&lt;p&gt;Note: When you start writing your own scripts or functions, you should always use the command’s full name, and never use
+aliases. Full command names are easier to read for other users of your code, or even your future self.&lt;/p&gt;
+
+&lt;h2 id=&quot;walk-through-step-1&quot;&gt;Walk-Through Step 1&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Get all files in a given folder including subfolders.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;A quick internet search, using &lt;em&gt;powershell list files&lt;/em&gt;, should reveal that the command you would use to list files or
+folders is &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-ChildItem&lt;/code&gt;. For ease of use, we will assign the output to a variable, &lt;code class=&quot;highlighter-rouge&quot;&gt;$files&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p class=&quot;notice&quot;&gt;I also provided a hint that we would be using a command with the noun of &lt;em&gt;ChildItem&lt;/em&gt; in the
+&lt;strong&gt;Verb-Noun Naming Convention&lt;/strong&gt; section above.&lt;/p&gt;
+
+&lt;p&gt;By default, &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-ChildItem&lt;/code&gt; returns the top-level folders &lt;em&gt;and&lt;/em&gt; files. We only want files and we want to get all
+subfolders.&lt;/p&gt;
+
+&lt;p&gt;If you are unsure how to tell &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-ChildItem&lt;/code&gt; to only return files or how to get all subfolders, review the output from
+&lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Help -Name Get-ChildItem -Detailed&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The command for our first directive could look like the following.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$files&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gci&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-file&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The command explained:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;$files&lt;/code&gt; is the name of the variable that will receive the results from the command.&lt;/li&gt;
+  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;gci&lt;/code&gt; is an alias for &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-ChildItem&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;-r&lt;/code&gt; represents the &lt;code class=&quot;highlighter-rouge&quot;&gt;-Recurse&lt;/code&gt; switch parameter for &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-ChildItem&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;-file&lt;/code&gt; switch parameter tells &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-ChildItem&lt;/code&gt; to only return files.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;variables&quot;&gt;Variables&lt;/h3&gt;
+
+&lt;p&gt;Variables allow you to store the results of a command which you can reference later. There are different types of
+variables - user-defined, automatic, and preference. Variables are stored in memory and may be accessed during the
+current PowerShell console session. User-defined variables can be manually removed from memory.&lt;/p&gt;
+
+&lt;p&gt;For more information on the types of variables, see the conceptual help using &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Help about_Variables&lt;/code&gt;,
+&lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Help about_Automatic_Variables&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Help about_Preference_Variables&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;get-childitem-aliases&quot;&gt;Get-ChildItem Aliases&lt;/h3&gt;
+
+&lt;p&gt;Let’s look at the aliases for &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-ChildItem&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;Get-Alias&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Definition&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Get-ChildItem&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;CommandType     Name                                               Version    Source
+-----------     ----                                               -------    ------
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;Alias           dir -&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;Get-ChildItem
+&lt;span class=&quot;gp&quot;&gt;Alias           gci -&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;Get-ChildItem
+&lt;span class=&quot;gp&quot;&gt;Alias           ls -&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;Get-ChildItem
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;From this output, you can see that there are three aliases for &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-ChildItem&lt;/code&gt;.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The alias &lt;code class=&quot;highlighter-rouge&quot;&gt;dir&lt;/code&gt; helps persons that are familiar with DOS commands.&lt;/li&gt;
+  &lt;li&gt;The alias &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; helps persons that are familiar with Linux commands.&lt;/li&gt;
+  &lt;li&gt;And the alias &lt;code class=&quot;highlighter-rouge&quot;&gt;gci&lt;/code&gt; is just an abbreviation for the cmdlet.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;parameters&quot;&gt;Parameters&lt;/h3&gt;
+
+&lt;p&gt;Parameters, such as &lt;code class=&quot;highlighter-rouge&quot;&gt;Recurse&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Definition&lt;/code&gt;, allow you to provide input to PowerShell commands.&lt;/p&gt;
+
+&lt;h4 id=&quot;positional-parameters&quot;&gt;Positional Parameters&lt;/h4&gt;
+
+&lt;p&gt;By examining help again using &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Help -Name Get-ChildItem -Full&lt;/code&gt;, we see that &lt;code class=&quot;highlighter-rouge&quot;&gt;Path&lt;/code&gt; is the only parameter with a
+position of &lt;em&gt;0&lt;/em&gt;. This means that the first item immediately after the cmdlet name, that is not another parameter, will
+be assigned to the &lt;code class=&quot;highlighter-rouge&quot;&gt;Path&lt;/code&gt; parameter. Other cmdlets and custom functions could have one or more positional parameters.&lt;/p&gt;
+
+&lt;h4 id=&quot;parameter-default-values&quot;&gt;Parameter Default Values&lt;/h4&gt;
+
+&lt;p&gt;The command for the challenge technically uses a &lt;em&gt;default value&lt;/em&gt; for the &lt;code class=&quot;highlighter-rouge&quot;&gt;Path&lt;/code&gt; parameter. After reviewing the cmdlet help
+again, we see that &lt;code class=&quot;highlighter-rouge&quot;&gt;Path&lt;/code&gt; has a default value of &lt;em&gt;current directory&lt;/em&gt;. If you do not specify a path (or the &lt;code class=&quot;highlighter-rouge&quot;&gt;LiteralPath&lt;/code&gt;
+parameter), the command will automatically return results for the current directory. To learn more about default values,
+see &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Help about_Parameters_Default_Values&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;shortened-parameter-names&quot;&gt;Shortened Parameter Names&lt;/h4&gt;
+
+&lt;p&gt;With one of the directives that this solution should be entered in the PowerShell console, I have chosen to use aliases
+and shortened parameters.&lt;/p&gt;
+
+&lt;p&gt;Parameter names can be shortened, as long as they uniquely identify a parameter. For instance, &lt;code class=&quot;highlighter-rouge&quot;&gt;-r&lt;/code&gt; is sufficient since
+there are no other parameters that begin with the letter &lt;em&gt;r&lt;/em&gt;. However, for &lt;code class=&quot;highlighter-rouge&quot;&gt;-file&lt;/code&gt;, there is more than one parameter
+that begins with the letter &lt;em&gt;f&lt;/em&gt;. You can see from the cmdlet help, or from auto-completion at the prompt, that there are
+three parameters that begin with the letter &lt;em&gt;f&lt;/em&gt;, four for PowerShell Core.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Filter&lt;/li&gt;
+  &lt;li&gt;Force&lt;/li&gt;
+  &lt;li&gt;File&lt;/li&gt;
+  &lt;li&gt;FollowSymlink (PowerShell Core)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For uniqueness, you can see that to return only files, you will need to use the full parameter name, &lt;code class=&quot;highlighter-rouge&quot;&gt;-File&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Parameter names are not case sensitive.&lt;/p&gt;
+
+&lt;p&gt;Note: As with &lt;em&gt;aliases&lt;/em&gt;, when you start writing your own scripts or functions, you should always use the parameter’s
+full name, and never use shortened or rely on the parameter’s position.&lt;/p&gt;
+
+&lt;h2 id=&quot;walk-through-step-2&quot;&gt;Walk-Through Step 2&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;[D]isplay a result that shows the total number of files, the total size of all files, the average file size, the
+computer name, and the date when you ran the command.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The second step of the challenge is to display the following output.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Total number of files&lt;/li&gt;
+  &lt;li&gt;Total size of all files&lt;/li&gt;
+  &lt;li&gt;Average file size&lt;/li&gt;
+  &lt;li&gt;The computer name&lt;/li&gt;
+  &lt;li&gt;Date when executed&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We can satisfy the requirements at least a couple different ways, but there are two components that are identical for
+both.&lt;/p&gt;
+
+&lt;h3 id=&quot;number-file-size-average&quot;&gt;Number, File Size, Average&lt;/h3&gt;
+
+&lt;p&gt;When you checked out help for &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-ChildItem&lt;/code&gt;, you may recall reading that &lt;em&gt;file size&lt;/em&gt; corresponds to the &lt;code class=&quot;highlighter-rouge&quot;&gt;length&lt;/code&gt;
+property. A quick internet search, using &lt;em&gt;powershell file length sum&lt;/em&gt;, should reveal the &lt;code class=&quot;highlighter-rouge&quot;&gt;Measure-Object&lt;/code&gt; cmdlet, which
+has an alias of &lt;code class=&quot;highlighter-rouge&quot;&gt;measure&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s examine help for &lt;code class=&quot;highlighter-rouge&quot;&gt;Measure-Object&lt;/code&gt; a slightly different way than we have previously.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;Get-Help&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Measure-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Online&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The statement above will open your default browser to the online help version for the cmdlet. We saw the &lt;code class=&quot;highlighter-rouge&quot;&gt;online&lt;/code&gt;
+switch parameter when we looked at the help for &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Help&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;measuring-files&quot;&gt;Measuring $files&lt;/h3&gt;
+
+&lt;p&gt;Let’s look at how we can get the first three items in the list using &lt;code class=&quot;highlighter-rouge&quot;&gt;Measure-Object&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Example 2 in the online help shows how to measure files.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;This command displays the Minimum, Maximum, and Sum of the sizes of all files in the current directory, and the
+average size of a file in the directory.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;For this challenge, we need the sum and the average of the length attribute. From the online help, we know that
+&lt;code class=&quot;highlighter-rouge&quot;&gt;Average&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Sum&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;Property&lt;/code&gt; are the parameters we need to use.&lt;/p&gt;
+
+&lt;p&gt;Let’s use the cmdlet alias, positional parameter for &lt;code class=&quot;highlighter-rouge&quot;&gt;Property&lt;/code&gt; (position &lt;em&gt;0&lt;/em&gt;), and shortened form for the last two
+parameters.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$files&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;measure&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This results in something like the following.&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Count    : 11316
+Average  : 11022.5791799222
+Sum      : 124731506
+Maximum  :
+Minimum  :
+Property : Length
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Disregard the actual values, as they will be different. What is important
+is that we see the average and the sum of the length, along with a &lt;em&gt;count&lt;/em&gt; property. That actually satisfies the first
+three requirements for output.&lt;/p&gt;
+
+&lt;h2 id=&quot;more-concepts&quot;&gt;More Concepts&lt;/h2&gt;
+
+&lt;h3 id=&quot;get-computer-name&quot;&gt;Get Computer Name&lt;/h3&gt;
+
+&lt;p&gt;Now, how do we get name of the computer? A quick search for &lt;em&gt;powershell get name of computer&lt;/em&gt; reveals a new type of
+variable, &lt;code class=&quot;highlighter-rouge&quot;&gt;$env:COMPUTERNAME&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;environment-variables&quot;&gt;Environment Variables&lt;/h4&gt;
+
+&lt;p&gt;The variable &lt;code class=&quot;highlighter-rouge&quot;&gt;$env:COMPUTERNAME&lt;/code&gt; holds the name of the local computer. It is just one of many environment variables and
+is an &lt;em&gt;automatic variable&lt;/em&gt;. You can see all environment variables by entering &lt;code class=&quot;highlighter-rouge&quot;&gt;gci env:&lt;/code&gt; and find more information about
+them using &lt;code class=&quot;highlighter-rouge&quot;&gt;get-help about_environment_variables&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;get-date&quot;&gt;Get Date&lt;/h3&gt;
+
+&lt;p&gt;Given what you have learned so far about how commands are named using &lt;em&gt;verb-noun&lt;/em&gt;, hopefully you can take a guess the
+command you can use to get the date.&lt;/p&gt;
+
+&lt;p&gt;If you said &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Date&lt;/code&gt;, then you are absolutely right.&lt;/p&gt;
+
+&lt;h3 id=&quot;that-symbol-explained&quot;&gt;That Symbol Explained&lt;/h3&gt;
+
+&lt;p&gt;The ‘|’ symbol is called a pipe. PowerShell uses it to denote the pipeline.&lt;/p&gt;
+
+&lt;h4 id=&quot;pipeline&quot;&gt;Pipeline&lt;/h4&gt;
+
+&lt;p&gt;In PowerShell, multiple commands can be placed after each other, separated by the pipe, to create a pipeline. The output
+from the first command feeds into the next. The output for the second command feeds into the next, and so on.&lt;/p&gt;
+
+&lt;p&gt;Some cmdlets and functions accept output as it is received on the pipeline. There’s a lot you can learn about pipelines,
+but the topic is a little more advanced than what we need to cover here. For the purpose of the challenge, just knowing
+what the symbol is called and what it represents should be sufficient.&lt;/p&gt;
+
+&lt;p&gt;You can always see what the Help system has about pipelines using &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Help about_pipelines&lt;/code&gt;. If that does not return
+anything, you may need to update your Help system using &lt;code class=&quot;highlighter-rouge&quot;&gt;Update-Help&lt;/code&gt; in an elevated, that is &lt;em&gt;Run as Administrator&lt;/em&gt;,
+PowerShell console session.&lt;/p&gt;
+
+&lt;h2 id=&quot;solution-1&quot;&gt;Solution 1&lt;/h2&gt;
+
+&lt;p&gt;In order to fulfil the last two requirements, we need to use the &lt;code class=&quot;highlighter-rouge&quot;&gt;Select-Object&lt;/code&gt; cmdlet and create two calculated
+properties for computer name and the date. Calculated properties are essentially PowerShell expressions, also called
+statements, enclosed in curly braces &lt;code class=&quot;highlighter-rouge&quot;&gt;{}&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;Select-Object&lt;/code&gt; has a named parameter of &lt;code class=&quot;highlighter-rouge&quot;&gt;Property&lt;/code&gt; which just happens to also be position &lt;em&gt;0&lt;/em&gt;. Furthermore, it
+accepts a list of properties.&lt;/p&gt;
+
+&lt;p&gt;Now that we the necessary basic PowerShell concepts to complete this challenge, let’s put it all together.&lt;/p&gt;
+
+&lt;p&gt;This solution begins differently than the ones discussed so far. This version omits the use of the &lt;code class=&quot;highlighter-rouge&quot;&gt;$files&lt;/code&gt; variable and
+is about the shortest possible.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;gci&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-file&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;measure&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Average&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;COMPUTERNAME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Get-Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;solution-1-output&quot;&gt;Solution 1 Output&lt;/h4&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Count             : 11322
+Sum               : 124909506
+Average           : 11032.4594594595
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;env&lt;/span&gt;:COMPUTERNAME : COMP1
+&lt;span class=&quot;go&quot;&gt;Get-Date          : 10/14/2019 12:06:34 AM
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Solution 1 was taken primarily from John Steele’s response to the challenge which you can find below.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/camusicjunkie/7d7f25c1f3ebbae966493b866267dd34.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;solution-2&quot;&gt;Solution 2&lt;/h2&gt;
+
+&lt;p&gt;This solution is very similar to Solution 1, except that we use a &lt;em&gt;hashtable&lt;/em&gt; for the calculated properties in order to
+name the properties. If you just use an expression, the expression itself is used as the name for the property.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$files&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gci&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-file&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$files&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;measure&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Average&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,@{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'ComputerName'&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;COMPUTERNAME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},@{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Date'&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Get&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;solution-2-output&quot;&gt;Solution 2 Output&lt;/h4&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Count        : 11322
+Sum          : 124909506
+Average      : 11032.4594594595
+ComputerName : COMP1
+Date         : 10/14/2019 12:14:44 AM
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;Use the Help system to learn more about &lt;em&gt;hashtables&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;solution-3&quot;&gt;Solution 3&lt;/h2&gt;
+
+&lt;p&gt;This was the solution that I originally wrote. It outputs the same values but as a custom object. It uses a few
+advanced concepts, such as &lt;em&gt;type accelerators&lt;/em&gt; and an array &lt;code class=&quot;highlighter-rouge&quot;&gt;count&lt;/code&gt; property, that we didn’t cover here.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$files&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gci&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-file&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;PsCustomObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]@{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ComputerName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;COMPUTERNAME&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Get&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;FileCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$files&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Count&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;TotalFileSize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$files&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;measure&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AveFileSize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$files&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;measure&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;average&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$files&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This solution is also not the most efficient solution. How many inefficiencies can you spot? Feel free to leave them in
+the comments below.&lt;/p&gt;
+
+&lt;h2 id=&quot;alternate-solutions&quot;&gt;Alternate Solutions&lt;/h2&gt;
+
+&lt;p&gt;On the challenge’s page, three Iron Scripters submitted their own. We’ve seen one; here are the other two.&lt;/p&gt;
+
+&lt;h4 id=&quot;alternate-solution-1&quot;&gt;Alternate Solution 1&lt;/h4&gt;
+
+&lt;script src=&quot;https://gist.github.com/AspenForester/07545d0b47317de4e4fc6f2363392605.js&quot;&gt;&lt;/script&gt;
+
+&lt;h4 id=&quot;alternate-solution-2&quot;&gt;Alternate Solution 2&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/Dalcron/IronScripter/blob/master/JUL_15_2019_Challenge.ps1&quot; target=&quot;_blank&quot;&gt;GitHub Repo Link&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;We have covered several foundational PowerShell concepts in order to complete the Iron Script’s beginner challenge.&lt;/p&gt;
+
+&lt;p&gt;To complete the challenge, you used the commands &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-ChildItem&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Measure-Object&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;Select-Object&lt;/code&gt;, or more
+accurately, their aliases.&lt;/p&gt;
+
+&lt;p&gt;Hopefully, you now have a better understanding of the PowerShell Help system and how to use &lt;code class=&quot;highlighter-rouge&quot;&gt;Get-Help&lt;/code&gt; to learn about
+concepts and commands. You learned about the &lt;em&gt;Verb-Noun&lt;/em&gt; naming convention, a few types of commands, and variables.
+You also learned about parameters and their positions, default values, and that they can be shorted. And lastly, you
+learned about the PowerShell pipeline which is one of the scripting languages greatest strengths.&lt;/p&gt;
+
+&lt;p&gt;I hope you’ve found this interesting or informative. If you have any comments or questions, please post them below.&lt;/p&gt;
+
+&lt;p&gt;Thanks for reading and good luck on the Iron Scripter challenges!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="powershell concepts" /><category term="learn powershell" /><category term="powershell beginner" /><category term="iron scripter" /><category term="iron scripter challenge" /><category term="iron scripter walk-through" /><summary type="html">Learn basic PowerShell concepts and apply them to the beginner's Iron Scripter challenge.</summary></entry><entry><title type="html">Design Deep Dive : PoShDynDnsApi</title><link href="https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi/" rel="alternate" type="text/html" title="Design Deep Dive : PoShDynDnsApi" /><published>2019-05-08T00:00:00-05:00</published><updated>2019-05-08T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi/">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
 &lt;p&gt;In January, I published the first release of the PoShDynDnsApi module to the &lt;a href=&quot;http://bit.ly/PoShDynDnsApi&quot; target=&quot;_blank&quot;&gt;PowerShellGallery&lt;/a&gt;,
 along with a &lt;a href=&quot;http://bit.ly/2GXJjnt&quot; target=&quot;_blank&quot;&gt;blog post introducing the module&lt;/a&gt;. It was the culmination of months of
@@ -2159,34 +2686,4 @@ the change permanent, I updated the registry.&lt;/p&gt;
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;By using GitHub Pages, platyPS, and the appropriate TLS protocol, I’m finally serving updatable help for my module
-&lt;a href=&quot;https://github.com/thedavecarroll/PoShEvents&quot; target=&quot;_blank&quot;&gt;PoShEvents&lt;/a&gt;.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="update-help" /><category term="updatable help" /><category term="tls" /><category term="ssl" /><category term="platyps" /><category term="powershell" /><summary type="html">Updatable Help on GitHub Pages with platyPS.</summary></entry><entry><title type="html">Clear DNS Server Cache</title><link href="https://powershell.anovelidea.org/powershell/clear-dns-server-cache/" rel="alternate" type="text/html" title="Clear DNS Server Cache" /><published>2018-08-21T00:00:00-05:00</published><updated>2018-08-21T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/clear-dns-server-cache</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/clear-dns-server-cache/">&lt;p&gt;How often have you needed to clear the DNS server cache?&lt;/p&gt;
-
-&lt;p&gt;Regardless how many domain controllers in your environment, a few simple lines of PowerShell can clear the cache on all of them.&lt;/p&gt;
-
-&lt;p&gt;First, we need to get the name of the domain. Of course, if you already know the name, you can simply use it.&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$DomainName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Get-ADDomain&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Select-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-ExpandProperty&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;DnsRoot&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Next, we find all name servers in the domain and show only the hostname.&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$DomainControllers&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Resolve-DnsName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DomainName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;NS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Where&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-eq&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'NS'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;NameHost&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Lastly, we execute the clear command for each one.&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$DomainControllers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ForEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Clear-DnsServerCache&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-ComputerName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Force&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Of course, there are a few shortcuts you can do to get this to a one-liner.&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Resolve-DnsName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Get-ADDomain&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Select-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-ExpandProperty&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;DnsRoot&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;NS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Where&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-eq&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'NS'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;NameHost&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ForEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Clear-DnsServerCache&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-ComputerName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Force&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;For more information, please see the following Microsoft docs:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.microsoft.com/en-us/powershell/module/dnsserver/clear-dnsservercache&quot; target=&quot;_blank&quot;&gt;Clear-DnsServerCache&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Have a great day!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="dns" /><category term="dns cache" /><summary type="html">Clear the DNS server cache on all domain controllers.</summary></entry></feed>
+&lt;a href=&quot;https://github.com/thedavecarroll/PoShEvents&quot; target=&quot;_blank&quot;&gt;PoShEvents&lt;/a&gt;.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="update-help" /><category term="updatable help" /><category term="tls" /><category term="ssl" /><category term="platyps" /><category term="powershell" /><summary type="html">Updatable Help on GitHub Pages with platyPS.</summary></entry></feed>
