@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2019-10-14T00:58:17-05:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Design Deep Dive : PoShDynDnsApi</title><link href="https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi/" rel="alternate" type="text/html" title="Design Deep Dive : PoShDynDnsApi" /><published>2019-05-08T00:00:00-05:00</published><updated>2019-05-08T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi/">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2019-10-14T11:46:11-05:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Design Deep Dive : PoShDynDnsApi</title><link href="https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi/" rel="alternate" type="text/html" title="Design Deep Dive : PoShDynDnsApi" /><published>2019-05-08T00:00:00-05:00</published><updated>2019-05-08T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi/">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
 &lt;p&gt;In January, I published the first release of the PoShDynDnsApi module to the &lt;a href=&quot;http://bit.ly/PoShDynDnsApi&quot; target=&quot;_blank&quot;&gt;PowerShellGallery&lt;/a&gt;,
 along with a &lt;a href=&quot;http://bit.ly/2GXJjnt&quot; target=&quot;_blank&quot;&gt;blog post introducing the module&lt;/a&gt;. It was the culmination of months of
@@ -144,7 +144,7 @@ two PSEditions handle errors.&lt;/p&gt;
 clean and the application to be all that I need in a REST client. There are many REST clients like it, but this one is
 mine (of choice).&lt;/p&gt;
 
-&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/design-deep-dive-poshdyndnsapi-insomnia.png&quot; alt=&quot;InsomniaRESTClient&quot; /&gt;&lt;/p&gt;
+&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/design-deep-dive-poshdyndnsapi-insomnia.png&quot; alt=&quot;InsomniaRESTClient&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;module-variables&quot;&gt;Module Variables&lt;/h2&gt;
 
@@ -551,7 +551,7 @@ with the YML front matter specific to the template I created for online help on 
 but one that I’m glad I started. Thank you for reading this post. I hope it can serve as a spark for your module writing.&lt;/p&gt;
 
 &lt;p&gt;If you have any questions, find errors (typos too!), or have suggestions that can make my module better, please leave a
-comment below. Thank you, again.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="module" /><category term="xplat" /><category term="cross platform" /><category term="rest api" /><category term="webrequest" /><category term="httpclient" /><category term="external help" /><category term="online help" /><category term="updatable help" /><category term="dyn managed dns" /><summary type="html">In this post, I want to give you a peek into my development process for the PoShDynDnsApi module.</summary></entry><entry><title type="html">Using the PSGSuite Module for G Suite</title><link href="https://powershell.anovelidea.org/powershell/using-psgsuite-module/" rel="alternate" type="text/html" title="Using the PSGSuite Module for G Suite" /><published>2019-03-03T00:00:00-06:00</published><updated>2019-03-03T00:00:00-06:00</updated><id>https://powershell.anovelidea.org/powershell/using-psgsuite-module</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/using-psgsuite-module/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/gsuite-reddit-post.png&quot; alt=&quot;r/sysadmin&quot; /&gt;&lt;/p&gt;
+comment below. Thank you, again.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="module" /><category term="xplat" /><category term="cross platform" /><category term="rest api" /><category term="webrequest" /><category term="httpclient" /><category term="external help" /><category term="online help" /><category term="updatable help" /><category term="dyn managed dns" /><summary type="html">In this post, I want to give you a peek into my development process for the PoShDynDnsApi module.</summary></entry><entry><title type="html">Using the PSGSuite Module for G Suite</title><link href="https://powershell.anovelidea.org/powershell/using-psgsuite-module/" rel="alternate" type="text/html" title="Using the PSGSuite Module for G Suite" /><published>2019-03-03T00:00:00-06:00</published><updated>2019-03-03T00:00:00-06:00</updated><id>https://powershell.anovelidea.org/powershell/using-psgsuite-module</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/using-psgsuite-module/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/gsuite-reddit-post.png&quot; alt=&quot;r/sysadmin&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -630,7 +630,7 @@ personal G Suite account. I don’t want any surprises at the end of the month.&
 &lt;p&gt;Once I saved the custom schema, I verified that I had entered everything correctly by managing user attributes again and
 selecting the category.&lt;/p&gt;
 
-&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/gsuite-custom-attribute.png&quot; alt=&quot;r/sysadmin&quot; /&gt;&lt;/p&gt;
+&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/gsuite-custom-attribute.png&quot; alt=&quot;r/sysadmin&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;data&quot;&gt;Data&lt;/h3&gt;
 
@@ -968,7 +968,7 @@ pertinent data.&lt;/p&gt;
 
 &lt;p&gt;And here is what the end result will look like.&lt;/p&gt;
 
-&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/gsuite-account-creation-log.png&quot; alt=&quot;AccountCreationLog&quot; /&gt;&lt;/p&gt;
+&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/gsuite-account-creation-log.png&quot; alt=&quot;AccountCreationLog&quot; /&gt;&lt;/p&gt;
 
 &lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; Doug Finke also has an outstanding module, &lt;a href=&quot;https://github.com/dfinke/ImportExcel&quot; target=&quot;_blank&quot;&gt;ImportExcel&lt;/a&gt;, that will help you get your data
 into an Excel spreadsheet.&lt;/p&gt;
@@ -983,7 +983,7 @@ curiosity to learn more on your own.&lt;/p&gt;
 
 &lt;p&gt;If this blog post has helped you, please leave a comment below.&lt;/p&gt;
 
-&lt;p&gt;PowerShell to the People!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="psgsuite" /><category term="g suite" /><category term="google api" /><category term="google cloud" /><category term="how to" /><summary type="html">Examples on how to create OUs, groups, and users with the PSGSuite PowerShell Module.</summary></entry><entry><title type="html">Introducing the PoShDynDnsApi Module</title><link href="https://powershell.anovelidea.org/powershell/module-poshdyndnsapi/" rel="alternate" type="text/html" title="Introducing the PoShDynDnsApi Module" /><published>2019-01-07T00:00:00-06:00</published><updated>2019-01-07T00:00:00-06:00</updated><id>https://powershell.anovelidea.org/powershell/module-poshdyndnsapi</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/module-poshdyndnsapi/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/dyndnsconnect.png&quot; alt=&quot;Connect-DynDnsSession&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;PowerShell to the People!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="psgsuite" /><category term="g suite" /><category term="google api" /><category term="google cloud" /><category term="how to" /><summary type="html">Examples on how to create OUs, groups, and users with the PSGSuite PowerShell Module.</summary></entry><entry><title type="html">Introducing the PoShDynDnsApi Module</title><link href="https://powershell.anovelidea.org/powershell/module-poshdyndnsapi/" rel="alternate" type="text/html" title="Introducing the PoShDynDnsApi Module" /><published>2019-01-07T00:00:00-06:00</published><updated>2019-01-07T00:00:00-06:00</updated><id>https://powershell.anovelidea.org/powershell/module-poshdyndnsapi</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/module-poshdyndnsapi/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/dyndnsconnect.png&quot; alt=&quot;Connect-DynDnsSession&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;sometime-in-early-2018&quot;&gt;Sometime in Early 2018&lt;/h2&gt;
 
@@ -1041,7 +1041,7 @@ Me *sqeeeeee*: Okay.&lt;/p&gt;
   &lt;li&gt;Unlock-DynDnsZone&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/dyndnszone.png&quot; alt=&quot;Get-DynDnsZone&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/dyndnszone.png&quot; alt=&quot;Get-DynDnsZone&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;record&quot;&gt;Record&lt;/h4&gt;
 
@@ -1055,7 +1055,7 @@ Me *sqeeeeee*: Okay.&lt;/p&gt;
   &lt;li&gt;Remove-DynDnsRecord&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/dyndnsrecord.png&quot; alt=&quot;Get-DynDnsRecord&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/dyndnsrecord.png&quot; alt=&quot;Get-DynDnsRecord&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;httpredirect&quot;&gt;HttpRedirect&lt;/h4&gt;
 
@@ -1078,7 +1078,7 @@ Me *sqeeeeee*: Okay.&lt;/p&gt;
   &lt;li&gt;Remove-DynDnsNode&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/dyndnsnodelist.png&quot; alt=&quot;Get-DynDnsNodeList&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/dyndnsnodelist.png&quot; alt=&quot;Get-DynDnsNodeList&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;miscellaneous&quot;&gt;Miscellaneous&lt;/h4&gt;
 
@@ -1101,7 +1101,7 @@ Me *sqeeeeee*: Okay.&lt;/p&gt;
   &lt;li&gt;&lt;a href=&quot;https://help.dyn.com/rest/&quot; target=&quot;_blank&quot;&gt;RESTful API Interface&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/dyndnsdisconnect.png&quot; alt=&quot;Disconnect-DynDnsSession&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/dyndnsdisconnect.png&quot; alt=&quot;Disconnect-DynDnsSession&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;my-first-rest-api-interaction&quot;&gt;My First REST API Interaction&lt;/h2&gt;
 
@@ -1147,7 +1147,7 @@ Me *sqeeeeee*: Okay.&lt;/p&gt;
 
 &lt;p&gt;PowerShell to the people!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="module" /><category term="dns" /><category term="dyn" /><category term="rest api" /><category term="dyndns managed service" /><category term="dyn managed dns rest api" /><summary type="html">PoShDynDnsApi is an unofficial PowerShell module used to interact with Dyn Managed DNS REST API.</summary></entry><entry><title type="html">Windows Forms</title><link href="https://powershell.anovelidea.org/powershell/windows-forms/" rel="alternate" type="text/html" title="Windows Forms" /><published>2018-12-19T00:00:00-06:00</published><updated>2018-12-19T00:00:00-06:00</updated><id>https://powershell.anovelidea.org/powershell/windows-forms</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/windows-forms/">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
-&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/windows-form-example.png&quot; alt=&quot;Windows Forms&quot; /&gt;&lt;/p&gt;
+&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/windows-form-example.png&quot; alt=&quot;Windows Forms&quot; /&gt;&lt;/p&gt;
 
 &lt;p class=&quot;notice--primary&quot;&gt;It’s been too long since I’ve posted any content and I wanted to get something out to let you know that I’m still here.&lt;/p&gt;
 
@@ -1265,7 +1265,7 @@ data.&lt;/p&gt;
 
 &lt;p&gt;Here is a demonstration on how this works.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/windows-form-in-action.gif&quot; alt=&quot;Windows Forms example in action&quot; title=&quot;Windows Forms example in action&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/windows-form-in-action.gif&quot; alt=&quot;Windows Forms example in action&quot; title=&quot;Windows Forms example in action&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;bonus&quot;&gt;Bonus&lt;/h2&gt;
 
@@ -1285,7 +1285,7 @@ for displaying a GUI using the &lt;code class=&quot;highlighter-rouge&quot;&gt;[
 
 &lt;p&gt;I hope you’ve found this interesting or informative. If you have any comments or questions, please post them below.&lt;/p&gt;
 
-&lt;p&gt;Thanks for reading!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="WindowsForms" /><category term="Forms" /><category term="DataGridView" /><category term="PowerShell GUI" /><summary type="html">Recently, I was tasked to provide a GUI for a PowerShell script. Okay, I think I tasked myself, but it was an interesting foray into the .Net [System.Windows.Forms] class...One of the common threads I noticed in the handful of scripts I found was that they really didn't offer options for parameters. I've been a big proponent for creating tools, aka functions, since I first began writing PowerShell code. So, I set out gathering some tools that I thought I would need.</summary></entry><entry><title type="html">How I Implement Module Variables</title><link href="https://powershell.anovelidea.org/powershell/how-i-implement-module-variables/" rel="alternate" type="text/html" title="How I Implement Module Variables" /><published>2018-10-14T00:00:00-05:00</published><updated>2018-10-16T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/how-i-implement-module-variables</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/how-i-implement-module-variables/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/module-variables.png&quot; alt=&quot;How I Implement Module Variables&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Thanks for reading!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="WindowsForms" /><category term="Forms" /><category term="DataGridView" /><category term="PowerShell GUI" /><summary type="html">Recently, I was tasked to provide a GUI for a PowerShell script. Okay, I think I tasked myself, but it was an interesting foray into the .Net [System.Windows.Forms] class...One of the common threads I noticed in the handful of scripts I found was that they really didn't offer options for parameters. I've been a big proponent for creating tools, aka functions, since I first began writing PowerShell code. So, I set out gathering some tools that I thought I would need.</summary></entry><entry><title type="html">How I Implement Module Variables</title><link href="https://powershell.anovelidea.org/powershell/how-i-implement-module-variables/" rel="alternate" type="text/html" title="How I Implement Module Variables" /><published>2018-10-14T00:00:00-05:00</published><updated>2018-10-16T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/how-i-implement-module-variables</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/how-i-implement-module-variables/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/module-variables.png&quot; alt=&quot;How I Implement Module Variables&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;preface&quot;&gt;Preface&lt;/h2&gt;
 
@@ -1507,7 +1507,7 @@ the Information stream is provided.&lt;/p&gt;
 
 &lt;p&gt;I hope that you found this post enlightening or at least it has you thinking about the topic of module variables.&lt;/p&gt;
 
-&lt;p&gt;Please let me know if you have a better method of handling module variables or if you have any questions or comments.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="module" /><category term="module variables" /><category term="global variables" /><summary type="html">Originally, I used globally scoped variables for one of my modules to keep track of session data, but now I use a module variable.</summary></entry><entry><title type="html">ForEach-Object -WhatIf</title><link href="https://powershell.anovelidea.org/powershell/foreach-object-whatif/" rel="alternate" type="text/html" title="ForEach-Object -WhatIf" /><published>2018-09-19T00:00:00-05:00</published><updated>2018-09-19T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/foreach-object-whatif</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/foreach-object-whatif/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org//assets/images/foreach-object-whatif.png&quot; alt=&quot;ForEach-Object -WhatIf&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Please let me know if you have a better method of handling module variables or if you have any questions or comments.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="module" /><category term="module variables" /><category term="global variables" /><summary type="html">Originally, I used globally scoped variables for one of my modules to keep track of session data, but now I use a module variable.</summary></entry><entry><title type="html">ForEach-Object -WhatIf</title><link href="https://powershell.anovelidea.org/powershell/foreach-object-whatif/" rel="alternate" type="text/html" title="ForEach-Object -WhatIf" /><published>2018-09-19T00:00:00-05:00</published><updated>2018-09-19T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/foreach-object-whatif</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/foreach-object-whatif/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/foreach-object-whatif.png&quot; alt=&quot;ForEach-Object -WhatIf&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;preface&quot;&gt;Preface&lt;/h2&gt;
 
