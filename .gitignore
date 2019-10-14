@@ -3,6 +3,7 @@
 *.sublime-workspace
 .bundle
 .DS_Store
+.jekyll-cache
 .jekyll-metadata
 .sass-cache
 _asset_bundler_cache
@@ -19,3 +20,4 @@ test/
 .editorconfig
 CHANGELOG
 package-lock.json
+vendor/bundle
