@@ -151,7 +151,7 @@ The words after the dashes, such as `-examples`, are parameters for the `Get-Hel
 ## Verb-Noun Naming Convention
 
 You might be wondering about the `Get-Help` command itself, specifically why is there a dash between _get_ and _help_.
-The names of PowerShell commands are typically (and best practice) in the form of _verb_-_noun_.
+The names of PowerShell commands are typically (and best practice) in the form of _verb-noun_.
 
 ### Verb
 
