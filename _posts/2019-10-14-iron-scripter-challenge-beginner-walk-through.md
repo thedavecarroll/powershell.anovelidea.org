@@ -3,10 +3,15 @@ layout: pages
 title: "PowerShell Beginners Have to Start Somewhere"
 excerpt: "Learn basic PowerShell concepts and apply them to the beginner's Iron Scripter challenge."
 date: 2019-10-13
+header:
+  overlay_image: /assets/images/iron-scripter-beginner.png
+  overlay_filter: 0.9
 comments: true
 toc: true
 toc_label: On This Page
 toc_icon: list
+toc_sticky: true
+share: true
 tags:
   - powershell
   - powershell concepts

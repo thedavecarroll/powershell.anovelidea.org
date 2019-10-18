@@ -2,6 +2,9 @@
 layout: single
 title: "Using the PSGSuite Module for G Suite"
 excerpt: "Examples on how to create OUs, groups, and users with the PSGSuite PowerShell Module."
+header:
+  overlay_image: /assets/images/gsuite-reddit-post.png
+  overlay_filter: 0.9
 date: 2019-03-03
 comments: true
 tags:
