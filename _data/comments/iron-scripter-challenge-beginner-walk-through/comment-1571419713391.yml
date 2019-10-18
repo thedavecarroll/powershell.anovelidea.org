@@ -1,0 +1,7 @@
+_id: b54fd080-f1cc-11e9-911c-05ffda3a69d3
+message: "Hi Dave, \r\nInterresting post ! \r\nI've measured each script-block with a little function (see here : https://powershellyo.ga/powershell/2017/07/Benchmark.html) \r\nIt could be interresting to do another post to explain why some solutions are fastest than others.\r\nFor your information, the fastest is the last scriptblock  \r\n\r\ni.e. use : \r\n````\r\n$Solution5 = Measure-MyScript -Name 'Solution5' -ScriptBlock  {\r\n$Measurement = get-childitem -Path C:\\temp -Recurse -File | Measure-Object -Property Length -sum -Average\r\n [pscustomobject]@{\r\n    Count = $Measurement.Count\r\n    Average = $Measurement.Average\r\n    Sum = $Measurement.Sum\r\n    Date = Get-Date\r\n    ComputerName = $env:Computername \r\n}\r\n} -Repeat 5 -Unit 'ms' \r\n````\r\nRegards\r\nOlivier"
+name: Olivier
+email: 8d00cef6fe750423840687989cf8a8cd
+url: ''
+hidden: ''
+date: '2019-10-18T17:28:33.389Z'
