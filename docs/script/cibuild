@@ -25,7 +25,8 @@ else
 
 fi
 
-
+echo
+echo "------------------------------------------------------------------------------------------------------------------------"
 echo
 echo "Proofing links"
 bundle exec htmlproofer ./docs --disable-external --allow_hash_href
