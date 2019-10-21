@@ -11,7 +11,7 @@ git remote add upstream https://github.com/mmistakes/minimal-mistakes.git
 # ------------------------------------------------------------------------------
 # pull updated files from upstream remote
 #
-git fetech upstream
+git fetch upstream
 git merge upstream/master --allow-unrelated-histories
 
 # ------------------------------------------------------------------------------
