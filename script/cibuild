@@ -7,12 +7,14 @@ echo
 if [ "$TRAVIS_PULL_REQUEST" != "false" -a "$TRAVIS_BRANCH" == "comments" ]; then
 
     echo "Building site for pull request for $TRAVIS_BRANCH..."
+    echo
     bundle exec jekyll build --config _config.yml --source . --destination ./docs
     echo "Site built into /docs"
 
 elif [ "$TRAVIS_BRANCH" == "master" ]; then
 
     echo "Building site for $TRAVIS_BRANCH..."
+    echo
     bundle exec jekyll build --config _config.yml --source . --destination ./docs
     echo "Site built into /docs"
 

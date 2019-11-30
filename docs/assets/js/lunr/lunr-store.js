@@ -63,4 +63,9 @@ var store = [{
         "excerpt":"Introduction Iron Scripter grew out of the scripting games at PowerShell Summit and the quote below comes from the introductory post on the Iron Scripter site. The Chairman has decided that it is in the best interests of his Iron Scripters, and those that wish to attain that valued designation,...","categories": ["powershell"],
         "tags": ["powershell","powershell concepts","learn powershell","powershell beginner","iron scripter","iron scripter challenge","iron scripter walk-through"],
         "url": "https://powershell.anovelidea.org/powershell/iron-scripter-challenge-beginner-walk-through/",
+        "teaser":null},{
+        "title": "Get-History Lesson",
+        "excerpt":"A Quick History Lesson Today, I did a significant amount of work in a PowerShell session and, even though most of what I did was copy/pasted from a file (open in VS Code), I wanted to grab only the essential commands from the session. Instead of scrolling or arrowing up...","categories": ["powershell"],
+        "tags": ["powershell","powershell concepts","learn powershell","powershell beginner","get-history","Microsoft.PowerShell.Commands.HistoryInfo"],
+        "url": "https://powershell.anovelidea.org/powershell/get-history-lesson/",
         "teaser":null}]

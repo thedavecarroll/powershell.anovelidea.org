@@ -361,8 +361,8 @@
 
 <p>While working on my <a href="https://github.com/thedavecarroll/PoShDynDnsApi" target="_blank">PoShDynDnsApi</a> module, I came across an issue with
 with a function I had predominantly borrowed from a <a href="https://blogs.technet.microsoft.com/janesays/2017/04/25/compare-all-properties-of-two-objects-in-windows-powershell/" target="_blank">TechNet blog post from Jamie Nelson</a>.
-Specifically, in my function <code class="highlighter-rouge">Update-DynDnsRecord</code> that called the <code class="highlighter-rouge">Compare-ObjectProperties</code> function, when I used the
-<code class="highlighter-rouge">-WhatIf</code> parameter, I unexpectedly received the following:</p>
+Specifically, in my function <code class="language-plaintext highlighter-rouge">Update-DynDnsRecord</code> that called the <code class="language-plaintext highlighter-rouge">Compare-ObjectProperties</code> function, when I used the
+<code class="language-plaintext highlighter-rouge">-WhatIf</code> parameter, I unexpectedly received the following:</p>
 
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">What if: Performing the operation "Retrieve the value for property 'Name'" on target "InputObject: ipaddress Address {get;</span><span class="nb">set</span><span class="p">;</span><span class="o">}</span><span class="s2">".
 </span><span class="gp">What if: Performing the operation "Retrieve the value for property 'Name'" on target "InputObject: string Name {get;</span><span class="s2">set;}"</span><span class="nb">.</span>
@@ -376,8 +376,8 @@ Specifically, in my function <code class="highlighter-rouge">Update-DynDnsRecord
 </span><span class="gp">What if: Performing the operation "Retrieve the value for property 'Name'" on target "InputObject: string Zone {get;</span><span class="s2">set;}"</span><span class="nb">.</span>
 </code></pre></div></div>
 
-<p>The <code class="highlighter-rouge">Compare-ObjectProperties</code> seemed to be throwing these additional What If statements. I saw where the <code class="highlighter-rouge">ForEach-Object</code>
-alias of <code class="highlighter-rouge">%</code> was used a few times and determined that these two lines were the cause.</p>
+<p>The <code class="language-plaintext highlighter-rouge">Compare-ObjectProperties</code> seemed to be throwing these additional What If statements. I saw where the <code class="language-plaintext highlighter-rouge">ForEach-Object</code>
+alias of <code class="language-plaintext highlighter-rouge">%</code> was used a few times and determined that these two lines were the cause.</p>
 
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$objprops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$ReferenceObject</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Get-Member</span><span class="w"> </span><span class="nt">-MemberType</span><span class="w"> </span><span class="nx">Property</span><span class="p">,</span><span class="nx">NoteProperty</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nf">Name</span><span class="w">
 </span><span class="nv">$objprops</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">$DifferenceObject</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Get-Member</span><span class="w"> </span><span class="nt">-MemberType</span><span class="w"> </span><span class="nx">Property</span><span class="p">,</span><span class="nx">NoteProperty</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nf">Name</span><span class="w">
@@ -387,13 +387,13 @@ alias of <code class="highlighter-rouge">%</code> was used a few times and deter
 
 <h3 id="-whatif">-WhatIf</h3>
 
-<p>I checked out the <code class="highlighter-rouge">ForEach-Object</code> <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/foreach-object?view=powershell-5.1" target="_blank">docs page</a>
-and saw that it supports <code class="highlighter-rouge">-WhatIf</code> and <code class="highlighter-rouge">-Confirm</code> parameters. That’s something that I had never considered. In fact, the
-more I read, the more I realized that <code class="highlighter-rouge">ForEach-Object</code> was much more than a simple iterative command.</p>
+<p>I checked out the <code class="language-plaintext highlighter-rouge">ForEach-Object</code> <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/foreach-object?view=powershell-5.1" target="_blank">docs page</a>
+and saw that it supports <code class="language-plaintext highlighter-rouge">-WhatIf</code> and <code class="language-plaintext highlighter-rouge">-Confirm</code> parameters. That’s something that I had never considered. In fact, the
+more I read, the more I realized that <code class="language-plaintext highlighter-rouge">ForEach-Object</code> was much more than a simple iterative command.</p>
 
 <h3 id="-begin--process-and--end">-Begin, -Process, and -End</h3>
 
-<p><code class="highlighter-rouge">ForEach-Object</code> provides a ParameterSet that includes the parameters <code class="highlighter-rouge">-Begin</code>, <code class="highlighter-rouge">-Process</code>, and <code class="highlighter-rouge">-End</code>, all as ScriptBlocks.</p>
+<p><code class="language-plaintext highlighter-rouge">ForEach-Object</code> provides a ParameterSet that includes the parameters <code class="language-plaintext highlighter-rouge">-Begin</code>, <code class="language-plaintext highlighter-rouge">-Process</code>, and <code class="language-plaintext highlighter-rouge">-End</code>, all as ScriptBlocks.</p>
 
 <blockquote>
   <p>Hey! Those look like the processing methods of an advanced function.</p>
@@ -403,13 +403,13 @@ more I read, the more I realized that <code class="highlighter-rouge">ForEach-Ob
 
 <h3 id="ad-hoc-advanced-function-but-with-caveats">Ad Hoc Advanced Function But with Caveats</h3>
 
-<p>That the <code class="highlighter-rouge">ForEach-Object</code> cmdlet could be used essentially as an ad hoc advanced function was an epiphany.</p>
+<p>That the <code class="language-plaintext highlighter-rouge">ForEach-Object</code> cmdlet could be used essentially as an ad hoc advanced function was an epiphany.</p>
 
 <p>This wasn’t as miraculous of a discovery as I had originally thought the further testing I performed.</p>
 
 <h4 id="script-blocks-and--whatif">Script Blocks and -WhatIf</h4>
 
-<p>I had hoped that I could provide <code class="highlighter-rouge">-Begin</code>, <code class="highlighter-rouge">-Process</code>, and <code class="highlighter-rouge">-End</code> parameters along with <code class="highlighter-rouge">-WhatIf</code> as illustrated in the
+<p>I had hoped that I could provide <code class="language-plaintext highlighter-rouge">-Begin</code>, <code class="language-plaintext highlighter-rouge">-Process</code>, and <code class="language-plaintext highlighter-rouge">-End</code> parameters along with <code class="language-plaintext highlighter-rouge">-WhatIf</code> as illustrated in the
 following code:</p>
 
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">PS</span><span class="w"> </span><span class="nx">C:\</span><span class="err">&gt;</span><span class="w"> </span><span class="s1">'testing1'</span><span class="p">,</span><span class="s1">'testing2'</span><span class="w"> </span><span class="o">|</span><span class="w">  </span><span class="nf">ForEach-Object</span><span class="w"> </span><span class="nt">-Begin</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -434,7 +434,7 @@ At line:1 char:26
 
 <h4 id="script-blocks-and--verbose">Script Blocks and -Verbose</h4>
 
-<p>In checking how <code class="highlighter-rouge">-Verbose</code> was handled, I discovered the following:</p>
+<p>In checking how <code class="language-plaintext highlighter-rouge">-Verbose</code> was handled, I discovered the following:</p>
 
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">PS</span><span class="w"> </span><span class="nx">C:\</span><span class="err">&gt;</span><span class="w"> </span><span class="s1">'testing1'</span><span class="p">,</span><span class="s1">'testing2'</span><span class="w"> </span><span class="o">|</span><span class="w">  </span><span class="nf">ForEach-Object</span><span class="w"> </span><span class="nt">-Begin</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nf">Write-Output</span><span class="w"> </span><span class="s1">'Starting'</span><span class="w">
@@ -450,24 +450,24 @@ At line:1 char:26
 </span><span class="nf">VERBOSE:</span><span class="w"> </span><span class="nx">Ending</span><span class="w">
 </span></code></pre></div></div>
 
-<p><code class="highlighter-rouge">Foreach-Object</code> didn’t pass the <code class="highlighter-rouge">-Verbose</code> common parameter to any code within the script blocks.</p>
+<p><code class="language-plaintext highlighter-rouge">Foreach-Object</code> didn’t pass the <code class="language-plaintext highlighter-rouge">-Verbose</code> common parameter to any code within the script blocks.</p>
 
 <h2 id="conclusion">Conclusion</h2>
 
-<p>Now that I know that <code class="highlighter-rouge">ForEach-Object</code> supports <code class="highlighter-rouge">-WhatIf</code> and <code class="highlighter-rouge">-Confirm</code> parameters, I am better equipped to handle them
+<p>Now that I know that <code class="language-plaintext highlighter-rouge">ForEach-Object</code> supports <code class="language-plaintext highlighter-rouge">-WhatIf</code> and <code class="language-plaintext highlighter-rouge">-Confirm</code> parameters, I am better equipped to handle them
 in my future functions and scripts.</p>
 
-<p>Also, I debunked my original thought that <code class="highlighter-rouge">ForEach-Object</code> could be a viable replacement for an advanced function.  Not
-passing <code class="highlighter-rouge">-Verbose</code> and potentially other common parameters (I didn’t test any others) is, to me, a significant
+<p>Also, I debunked my original thought that <code class="language-plaintext highlighter-rouge">ForEach-Object</code> could be a viable replacement for an advanced function.  Not
+passing <code class="language-plaintext highlighter-rouge">-Verbose</code> and potentially other common parameters (I didn’t test any others) is, to me, a significant
 deal-breaker.</p>
 
 <p class="notice--primary"><strong>Note:</strong> I never considered forgoing advanced functions, just that the cmdlet could be an ad hoc supplement.</p>
 
-<p>This doesn’t mean that we shouldn’t consider using the <code class="highlighter-rouge">-Begin</code>, <code class="highlighter-rouge">-Process</code>, and <code class="highlighter-rouge">-End</code> script block parameters, as I’m
+<p>This doesn’t mean that we shouldn’t consider using the <code class="language-plaintext highlighter-rouge">-Begin</code>, <code class="language-plaintext highlighter-rouge">-Process</code>, and <code class="language-plaintext highlighter-rouge">-End</code> script block parameters, as I’m
 sure there are use cases when they make perfect sense. The PowerShell team thought so, otherwise they wouldn’t have
 included them in the cmdlet.</p>
 
-<p>My discovery and exploration of the <code class="highlighter-rouge">ForEach-Object</code> cmdlet and a few of its parameters, increased my understanding of it
+<p>My discovery and exploration of the <code class="language-plaintext highlighter-rouge">ForEach-Object</code> cmdlet and a few of its parameters, increased my understanding of it
 and PowerShell. I hope it helps you as well.</p>
 
 <h2 id="further-reading">Further Reading</h2>
@@ -597,14 +597,14 @@ on the <strong>Hey, Scripting Guy!</strong> blog, MVP and Honorary Scripting Guy
         </a>
       
     </p>
-    <div itemprop="text"><p>I also had no idea that <code class="highlighter-rouge">ForEach-Object</code> supported <code class="highlighter-rouge">-WhatIf</code> this way. I do have one scenario where this would be very handy.</p>
+    <div itemprop="text"><p>I also had no idea that <code class="language-plaintext highlighter-rouge">ForEach-Object</code> supported <code class="language-plaintext highlighter-rouge">-WhatIf</code> this way. I do have one scenario where this would be very handy.</p>
 
-<p>One lesser known feature of <code class="highlighter-rouge">ForEach-Object</code> is that it has an alternate parameter set that takes just a string. If that maps to a property name on the object, you will get the value. If it maps to a method on the object, it will get executed. So, you can use <code class="highlighter-rouge">-WhatIf</code> in this way:</p>
+<p>One lesser known feature of <code class="language-plaintext highlighter-rouge">ForEach-Object</code> is that it has an alternate parameter set that takes just a string. If that maps to a property name on the object, you will get the value. If it maps to a method on the object, it will get executed. So, you can use <code class="language-plaintext highlighter-rouge">-WhatIf</code> in this way:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-Process slack | % Close -WhatIf
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-Process slack | % Close -WhatIf
 </code></pre></div></div>
 
-<p>I would never use this magic in a script, but I use it all the time when on the console. I can now see myself using <code class="highlighter-rouge">-WhatIf</code> like this quite often.</p>
+<p>I would never use this magic in a script, but I use it all the time when on the console. I can now see myself using <code class="language-plaintext highlighter-rouge">-WhatIf</code> like this quite often.</p>
 
 <p>Thank you for pointing this out.</p>
 </div>

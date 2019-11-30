@@ -357,7 +357,7 @@
 
       <section class="page__content" itemprop="text">
         
-          <aside class="sidebar__right ">
+          <aside class="sidebar__right sticky">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-list"></i> On This Page</h4></header>
               <ul class="toc__menu">
@@ -447,8 +447,8 @@ should be that website.</p>
 
 <h4 id="custom-domain">Custom Domain</h4>
 
-<p>I’ve had the domain <code class="highlighter-rouge">anovelidea.org</code> since early 2000, and since I didn’t want to use the default domain of *.github.io,
-I opted to use the Custom Domain setting for my repo and created <code class="highlighter-rouge">powershell.anovelidea.org</code>.</p>
+<p>I’ve had the domain <code class="language-plaintext highlighter-rouge">anovelidea.org</code> since early 2000, and since I didn’t want to use the default domain of *.github.io,
+I opted to use the Custom Domain setting for my repo and created <code class="language-plaintext highlighter-rouge">powershell.anovelidea.org</code>.</p>
 
 <h4 id="branches">Branches</h4>
 
@@ -507,7 +507,7 @@ take those files and FTP them to a third-party hosting provider, but where is th
 
 <h4 id="configuration">Configuration</h4>
 
-<p>Jekyll uses what’s called front matter <abbr title="Yet Ain't Markup Language">YAML</abbr> in the template files and in the configuration file, <code class="highlighter-rouge">_config.yml</code>. This
+<p>Jekyll uses what’s called front matter <abbr title="Yet Ain't Markup Language">YAML</abbr> in the template files and in the configuration file, <code class="language-plaintext highlighter-rouge">_config.yml</code>. This
 allows each post and page to have different elements.</p>
 
 <h4 id="layouts-and-includes">Layouts and Includes</h4>
@@ -536,7 +536,7 @@ allows each post and page to have different elements.</p>
     </tr>
     <tr>
       <td>_layouts\single.html</td>
-      <td>Added <code class="highlighter-rouge">classes: wide</code> to the front matter, added code to display published and updated date, removed environment requirement</td>
+      <td>Added <code class="language-plaintext highlighter-rouge">classes: wide</code> to the front matter, added code to display published and updated date, removed environment requirement</td>
     </tr>
     <tr>
       <td>_includes\analytics.html</td>
@@ -563,16 +563,16 @@ allows each post and page to have different elements.</p>
 
 <h3 id="code-syntax">Code Syntax</h3>
 
-<p>Though I’m using the <code class="highlighter-rouge">air</code> skin for my theme, I didn’t like the default color scheme the skin provided. Using the
+<p>Though I’m using the <code class="language-plaintext highlighter-rouge">air</code> skin for my theme, I didn’t like the default color scheme the skin provided. Using the
 theme’s documentation, I was able to replace the code syntax highlighting color variables with another skin’s by
-updating the file <code class="highlighter-rouge">_sass\_variables.scss</code>.</p>
+updating the file <code class="language-plaintext highlighter-rouge">_sass\_variables.scss</code>.</p>
 
 <h3 id="my-modules">My Modules</h3>
 
 <p>I wanted to provide a quick place to see my modules and what features they possess. I originally created markdown tables
 for each, but then decided to use a data file.</p>
 
-<p>Jekyll uses a <code class="highlighter-rouge">_data</code> folder to store data that could be used by the framework. At build time, it will import all files
+<p>Jekyll uses a <code class="language-plaintext highlighter-rouge">_data</code> folder to store data that could be used by the framework. At build time, it will import all files
 in this folder and provide the data as variables.</p>
 
 <h4 id="sample-data">Sample data</h4>
@@ -588,13 +588,13 @@ in this folder and provide the data as variables.</p>
   psgallery: true
 </pre>
 
-<p>In my <code class="highlighter-rouge">_pages\modules.html</code> file, I added the html and Liquid code to loop through each section in the data file.
+<p>In my <code class="language-plaintext highlighter-rouge">_pages\modules.html</code> file, I added the html and Liquid code to loop through each section in the data file.
 Instead of manually adding markdown or html code, which can become tedious, I now simply add another section in the data
-file, <code class="highlighter-rouge">_data\mymodules.yml</code>. On next build, the page will include the new module.</p>
+file, <code class="language-plaintext highlighter-rouge">_data\mymodules.yml</code>. On next build, the page will include the new module.</p>
 
 <h2 id="google-analytics">Google Analytics</h2>
 
-<p>The theme has built-in support for Google Analytics. You simply add your site’s tracking ID to the <code class="highlighter-rouge">_config.yml</code>
+<p>The theme has built-in support for Google Analytics. You simply add your site’s tracking ID to the <code class="language-plaintext highlighter-rouge">_config.yml</code>
 configuration file.</p>
 
 <h2 id="visitor-comments">Visitor Comments</h2>
@@ -611,16 +611,16 @@ theme. When I want to get under the hood again of the theme, I will look at impl
 <p>For Staticman to work, there are a few quick configuration steps needed that are laid out in the
 <a href="https://staticman.net/docs/" target="_blank">documentation</a>.</p>
 
-<p>Additionally, you will need a <code class="highlighter-rouge">staticman.yml</code> configuration file. This file is included in the theme’s repo.</p>
+<p>Additionally, you will need a <code class="language-plaintext highlighter-rouge">staticman.yml</code> configuration file. This file is included in the theme’s repo.</p>
 
 <h3 id="moderation">Moderation</h3>
 
 <p>Comment forms are magnets for bots and malicious users. The theme provides a few tricks to filter comments down to the
 real users wanting to leave a message. Beyond that, I use the optional moderation provided by Staticman which creates a
-pull request to the <code class="highlighter-rouge">comments</code> branch. I get a notification that a PR is waiting for me, login to GitHub, even on
+pull request to the <code class="language-plaintext highlighter-rouge">comments</code> branch. I get a notification that a PR is waiting for me, login to GitHub, even on
 mobile, and merge the pull request to approve the message.</p>
 
-<p>The pull request for a comment is saved to <code class="highlighter-rouge">_data\comments\&lt;title-slug\comment-&lt;date-time-stamp&gt;.yml</code>. The visitor’s
+<p>The pull request for a comment is saved to <code class="language-plaintext highlighter-rouge">_data\comments\&lt;title-slug\comment-&lt;date-time-stamp&gt;.yml</code>. The visitor’s
 email is stored as a hash value to keep it relatively safe.</p>
 
 <h3 id="gravatar">Gravatar</h3>
@@ -642,7 +642,7 @@ While I used this method initially, I have all but abandoned it for now.</p>
 
 <p>I looked for a free hosting solution to have a Linux VM and, what I’m hoping, it appears that Google Cloud Platform will
 give you enough free credits per month to have a single, small VM running the whole time. I had configured it to the
-point of being able execute the <code class="highlighter-rouge">jekyll build</code> command successfully.</p>
+point of being able execute the <code class="language-plaintext highlighter-rouge">jekyll build</code> command successfully.</p>
 
 <p>I had even configured dynamic DNS for the VM to register its IP address with my domain at Google Domains. Hey, at least
 I know how to do that now.</p>
@@ -661,7 +661,7 @@ It drives true DevOps.</p>
 <p>On GitHub, I configured the Travis CI service for my blog repo.</p>
 
 <p><strong>Note:</strong> Travis CI <a href="https://docs.travis-ci.com/user/open-source-on-travis-ci-com/" target="_blank">announced in May</a>
-that open source projects would be able to use <code class="highlighter-rouge">travis-ci.com</code>. Sometime soon, I’ll work on upgrading to the new method
+that open source projects would be able to use <code class="language-plaintext highlighter-rouge">travis-ci.com</code>. Sometime soon, I’ll work on upgrading to the new method
 which uses GitHub Apps and has greater benefits.</p>
 
 <p>With the integration service setup, whenever the master branch changes, that is when I push changes or when a PR from
@@ -669,14 +669,14 @@ the comments branch is merged, the service notifies Travis CI that it needs to c
 
 <h4 id="travis-configuration-file">Travis Configuration File</h4>
 
-<p>In my <code class="highlighter-rouge">.travis.yml</code> configuration file, I set the build script to execute (chmod), set which branch to clone, and
+<p>In my <code class="language-plaintext highlighter-rouge">.travis.yml</code> configuration file, I set the build script to execute (chmod), set which branch to clone, and
 whether to use a cache for the bundler. Additonally I set it to deploy to the gh-pages branch after the build phase
 completes.</p>
 
 <h4 id="build">Build</h4>
 
 <p>When notified of a change, Travis spins up an Ubuntu Linux container, installs all dependencies (from self updating
-cache), clones the master branch of my blog repo, runs the <code class="highlighter-rouge">/script/cibuild</code> bash script I created, then deploys to the
+cache), clones the master branch of my blog repo, runs the <code class="language-plaintext highlighter-rouge">/script/cibuild</code> bash script I created, then deploys to the
 gh-pages branch.</p>
 
 <p><strong>script/cibuild</strong></p>

@@ -347,7 +347,7 @@
 
 <h2 id="syntax">SYNTAX</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-KMSHostLicenseCheckEvent [[-ComputerName] &lt;String&gt;] [[-Credential] &lt;PSCredential&gt;]
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-KMSHostLicenseCheckEvent [[-ComputerName] &lt;String&gt;] [[-Credential] &lt;PSCredential&gt;]
  [[-StartTime] &lt;DateTime&gt;] [[-EndTime] &lt;DateTime&gt;] [[-MaxEvents] &lt;Int64&gt;] [-Oldest] [-Raw] [&lt;CommonParameters&gt;]
 </code></pre></div></div>
 
@@ -357,7 +357,7 @@
 <h2 id="examples">EXAMPLES</h2>
 
 <h3 id="example-1">Example 1</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\&gt; Get-KMSHostLicenseCheckEvent -ComputerName KMSSVR -Credential (Get-Credential) -MaxEvents 5
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\&gt; Get-KMSHostLicenseCheckEvent -ComputerName KMSSVR -Credential (Get-Credential) -MaxEvents 5
 </code></pre></div></div>
 
 <p>This will return the following propeties: ComputerName TimeCreated Id (always 1003) Level ActivationId ApplicationName LicensingStatusMessage The full license status message which will need to be manually decoded.</p>

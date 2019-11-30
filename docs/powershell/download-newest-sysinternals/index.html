@@ -384,7 +384,7 @@ which I used as a basis for my two functions.</p>
 
 <h3 id="get-sysinternals">Get-Sysinternals</h3>
 
-<p>The first function, <code class="highlighter-rouge">Get-Sysinternals</code>, simply retrieves the full list of Sysinternal files from
+<p>The first function, <code class="language-plaintext highlighter-rouge">Get-Sysinternals</code>, simply retrieves the full list of Sysinternal files from
 <a href="https://live.sysinternals.com" target="_blank">Sysinternals Live</a>. The function parses each file and produces an array
 of objects with Name, Length, LastWriteTime, and Updated.</p>
 
@@ -395,26 +395,26 @@ of objects with Name, Length, LastWriteTime, and Updated.</p>
 
 <p class="notice--primary"><strong>Update</strong>
 I discovered the reason why I thought the local files timestamps were off. As it turns out, I’ve discovered 3 distinct
-timestamps for the four files. I suspect that there are three backend servers hosting the content at <code class="highlighter-rouge">live.sysinternals.com</code>.
+timestamps for the four files. I suspect that there are three backend servers hosting the content at <code class="language-plaintext highlighter-rouge">live.sysinternals.com</code>.
 <img src="/assets/images/get-sysinternals-discrepancy.png" alt="Three different responses from Get-Sysinternals" title="Three different responses from Get-Sysinternals" /></p>
 
-<p class="notice--primary"><strong>Note:</strong> I have added a parameter <code class="highlighter-rouge">-InstallLocation</code> in order to retrieve the locally installed files.</p>
+<p class="notice--primary"><strong>Note:</strong> I have added a parameter <code class="language-plaintext highlighter-rouge">-InstallLocation</code> in order to retrieve the locally installed files.</p>
 
 <h3 id="update-sysinternals">Update-Sysinternals</h3>
 
-<p>The <code class="highlighter-rouge">Update-Sysinternals</code> function requires a installation path. It validates it (creating the folder if necessary), uses the
-<code class="highlighter-rouge">Get-Sysinternals</code> function to get a current list, gets the files from the installation path, and compares the two.</p>
+<p>The <code class="language-plaintext highlighter-rouge">Update-Sysinternals</code> function requires a installation path. It validates it (creating the folder if necessary), uses the
+<code class="language-plaintext highlighter-rouge">Get-Sysinternals</code> function to get a current list, gets the files from the installation path, and compares the two.</p>
 
 <p>It then proceeds to download the newer files. After each file is downloaded, the function updates the LastWriteTime of
 the local file.</p>
 
-<p>I included a <code class="highlighter-rouge">-Force</code> switch just in case someone needed to get the lastest and have the LastWriteTime updated, or to replace
+<p>I included a <code class="language-plaintext highlighter-rouge">-Force</code> switch just in case someone needed to get the lastest and have the LastWriteTime updated, or to replace
 corrupted files.</p>
 
-<p class="notice--primary">Please note that I changed the name from <code class="highlighter-rouge">Sync-Sysinternals</code> to <code class="highlighter-rouge">Update-Sysinternals</code>. I also added a new switch parameter
-<code class="highlighter-rouge">IgnoreDownloadErrors</code> that will not display errors in downloading the individual files.
-I also added the option to include the <code class="highlighter-rouge">InstallLocation</code> to the PATH system environment variable. Lastly, I changed the
-output types, some to <code class="highlighter-rouge">Write-Warning</code> and some to <code class="highlighter-rouge">Write-Output</code>, including a total download statement.</p>
+<p class="notice--primary">Please note that I changed the name from <code class="language-plaintext highlighter-rouge">Sync-Sysinternals</code> to <code class="language-plaintext highlighter-rouge">Update-Sysinternals</code>. I also added a new switch parameter
+<code class="language-plaintext highlighter-rouge">IgnoreDownloadErrors</code> that will not display errors in downloading the individual files.
+I also added the option to include the <code class="language-plaintext highlighter-rouge">InstallLocation</code> to the PATH system environment variable. Lastly, I changed the
+output types, some to <code class="language-plaintext highlighter-rouge">Write-Warning</code> and some to <code class="language-plaintext highlighter-rouge">Write-Output</code>, including a total download statement.</p>
 
 <h2 id="scheduling">Scheduling</h2>
 
@@ -427,7 +427,7 @@ Jobs.</p>
 decided to test in PowerShell 5.1. I was so bent on getting the code done and this blog post written, that I cut corners,
 and it decided to cut back.</p>
 
-<p>Between the two editions, the <code class="highlighter-rouge">.Split()</code> method apparently works a little different.</p>
+<p>Between the two editions, the <code class="language-plaintext highlighter-rouge">.Split()</code> method apparently works a little different.</p>
 
 <table>
   <thead>
@@ -439,11 +439,11 @@ and it decided to cut back.</p>
   <tbody>
     <tr>
       <td>PowerShell 5.1</td>
-      <td><code class="highlighter-rouge">.Split('&lt;br&gt;')</code> splits on each character</td>
+      <td><code class="language-plaintext highlighter-rouge">.Split('&lt;br&gt;')</code> splits on each character</td>
     </tr>
     <tr>
       <td>PowerShell Core</td>
-      <td><code class="highlighter-rouge">.Split('&lt;br&gt;')</code> splits on the entire string</td>
+      <td><code class="language-plaintext highlighter-rouge">.Split('&lt;br&gt;')</code> splits on the entire string</td>
     </tr>
   </tbody>
 </table>

@@ -375,7 +375,7 @@ as intended.</p>
 <p>Like most others, I have opted to use the module <a href="https://github.com/PowerShell/platyPS" target="_blank">platyPS</a> to
 create my help files.</p>
 
-<p>This post focuses on solving the issues I had with updatable help. For instructions on how to use <code class="highlighter-rouge">platyPS</code> see any of
+<p>This post focuses on solving the issues I had with updatable help. For instructions on how to use <code class="language-plaintext highlighter-rouge">platyPS</code> see any of
 these sites.</p>
 
 <ul>
@@ -384,17 +384,17 @@ these sites.</p>
 </ul>
 
 <p>I had already created the markdown files that I was serving via GitHub for online help and moved those into my blog
-repository structure. I used <code class="highlighter-rouge">Update-MarkdownHelp</code> to update them and noticed that my Jekyll front matter was largely
+repository structure. I used <code class="language-plaintext highlighter-rouge">Update-MarkdownHelp</code> to update them and noticed that my Jekyll front matter was largely
 untouched – some entries were out of order.</p>
 
-<p>When I originally created the help files, I did not include the <code class="highlighter-rouge">-WithModulePage</code> switch. I ran the <code class="highlighter-rouge">New-MarkdownHelp</code>
+<p>When I originally created the help files, I did not include the <code class="language-plaintext highlighter-rouge">-WithModulePage</code> switch. I ran the <code class="language-plaintext highlighter-rouge">New-MarkdownHelp</code>
 and generated a clean set of help files into a temp folder just to harvest the module page. After placing the file into
 the correct path, I updated the front matter for Download Help Link, Help Version, and Locale.</p>
 
 <p class="notice--primary"><strong>Note:</strong> I also added additional front matter YAML to be used by Jekyll, namely layout, classes, and permalink.</p>
 
 <p>As the content for the help files had previously been updated, I didn’t have to do that again. If you’re starting from a
-clean or initial run of <code class="highlighter-rouge">New-MarkdownHelp</code>, you will need to update the content manually.</p>
+clean or initial run of <code class="language-plaintext highlighter-rouge">New-MarkdownHelp</code>, you will need to update the content manually.</p>
 
 <p>Then, I recreated the external help file.</p>
 
@@ -407,7 +407,7 @@ clean or initial run of <code class="highlighter-rouge">New-MarkdownHelp</code>,
 
 <h3 id="local-source">Local Source</h3>
 
-<p>First, let’s see if we can <code class="highlighter-rouge">Update-Help</code> from the local source.</p>
+<p>First, let’s see if we can <code class="language-plaintext highlighter-rouge">Update-Help</code> from the local source.</p>
 
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">Update-Help</span><span class="w"> </span><span class="nt">-Module</span><span class="w"> </span><span class="nx">PoShEvents</span><span class="w"> </span><span class="nt">-SourcePath</span><span class="w"> </span><span class="o">.</span><span class="nx">\powershell.anovelidea.org\modulehelp\PoShEvents\</span><span class="w"> </span><span class="nt">-Force</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w">
 </span></code></pre></div></div>
@@ -421,9 +421,9 @@ VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\Po
 
 <h3 id="online-source">Online Source</h3>
 
-<p>If the local source test is successful, you will need to upload the <code class="highlighter-rouge">*HelpInfo.xml</code>, <code class="highlighter-rouge">*HelpContent.cab</code>, and
-<code class="highlighter-rouge">*HelpContent.zip</code> help files to the location indicated by the module’s <code class="highlighter-rouge">HelpInfoUri</code>. After this is done, you should
-verify that you can access the URL successfully by using <code class="highlighter-rouge">Invoke-WebRequest</code>. Ideally, the StatusCode should be 200.</p>
+<p>If the local source test is successful, you will need to upload the <code class="language-plaintext highlighter-rouge">*HelpInfo.xml</code>, <code class="language-plaintext highlighter-rouge">*HelpContent.cab</code>, and
+<code class="language-plaintext highlighter-rouge">*HelpContent.zip</code> help files to the location indicated by the module’s <code class="language-plaintext highlighter-rouge">HelpInfoUri</code>. After this is done, you should
+verify that you can access the URL successfully by using <code class="language-plaintext highlighter-rouge">Invoke-WebRequest</code>. Ideally, the StatusCode should be 200.</p>
 
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ModInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Get-Module</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nx">PoShEvents</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Select-Object</span><span class="w"> </span><span class="nt">-Property</span><span class="w"> </span><span class="nx">Name</span><span class="p">,</span><span class="nx">Guid</span><span class="p">,</span><span class="nx">HelpInfoURI</span><span class="w">
 </span><span class="p">(</span><span class="nf">Invoke-WebRequest</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$ModInfo</span><span class="o">.</span><span class="nf">HelpInfoUri</span><span class="p">)</span><span class="err">$</span><span class="p">(</span><span class="nv">$ModInfo</span><span class="o">.</span><span class="nf">Name</span><span class="p">)</span><span class="nf">_</span><span class="err">$</span><span class="p">(</span><span class="nv">$ModInfo</span><span class="o">.</span><span class="nf">Guid</span><span class="p">)</span><span class="nf">_HelpInfo.xml</span><span class="s2">").StatusCode
@@ -434,9 +434,9 @@ verify that you can access the URL successfully by using <code class="highlighte
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
 </span></code></pre></div></div>
 
-<p>I wished that I could say I immediately tested with <code class="highlighter-rouge">Invoke-WebRequest</code>. That would have saved me about an hour going
-down the rabbithole of trying to trace the <code class="highlighter-rouge">Update-Help</code> command. It would really be nice if <code class="highlighter-rouge">Update-Help</code> revealed more
-internal workings when you use the <code class="highlighter-rouge">-Verbose</code> switch.</p>
+<p>I wished that I could say I immediately tested with <code class="language-plaintext highlighter-rouge">Invoke-WebRequest</code>. That would have saved me about an hour going
+down the rabbithole of trying to trace the <code class="language-plaintext highlighter-rouge">Update-Help</code> command. It would really be nice if <code class="language-plaintext highlighter-rouge">Update-Help</code> revealed more
+internal workings when you use the <code class="language-plaintext highlighter-rouge">-Verbose</code> switch.</p>
 
 <h2 id="tls">TLS</h2>
 
@@ -466,7 +466,7 @@ VERBOSE: PoShEvents: Updated C:\PowerShell\GitHub\PoShEvents\PoShEvents\en-US\Po
 
 <h2 id="setting-strong-cryptography-for-net-framework">Setting Strong Cryptography for .Net Framework</h2>
 
-<p>Setting <code class="highlighter-rouge">[Net.ServicePointManager]::SecurityProtocol</code>, as I did, only applies to the current PowerShell session. To make
+<p>Setting <code class="language-plaintext highlighter-rouge">[Net.ServicePointManager]::SecurityProtocol</code>, as I did, only applies to the current PowerShell session. To make
 the change permanent, I updated the registry.</p>
 
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># set strong cryptography on 64 bit .Net Framework (version 4 and above)</span><span class="w">
