@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Get-History Lesson"
-excerpt: "Learn about the Default PowerShell History Cmdlets and Concepts"
+excerpt: "Learn about the default PowerShell history cmdlets and concepts."
 date: 2019-11-29
 header:
   overlay_image: /assets/images/clock.jpg
