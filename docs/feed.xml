@@ -1,4 +1,239 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2019-11-29T18:52:50-06:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Get-History Lesson</title><link href="https://powershell.anovelidea.org/powershell/get-history-lesson/" rel="alternate" type="text/html" title="Get-History Lesson" /><published>2019-11-29T00:00:00-06:00</published><updated>2019-11-29T00:00:00-06:00</updated><id>https://powershell.anovelidea.org/powershell/get-history-lesson</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/get-history-lesson/">&lt;h2 id=&quot;a-quick-history-lesson&quot;&gt;A Quick History Lesson&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2019-12-07T02:05:12-06:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Writing Windows Events with Smart EventData</title><link href="https://powershell.anovelidea.org/powershell/windows-event-logs-eventdata/" rel="alternate" type="text/html" title="Writing Windows Events with Smart EventData" /><published>2019-12-07T00:00:00-06:00</published><updated>2019-12-07T00:00:00-06:00</updated><id>https://powershell.anovelidea.org/powershell/windows-event-logs-eventdata</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/windows-event-logs-eventdata/">&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/windows-eventlog-eventdata-json.png&quot; alt=&quot;EventData&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;I’ve spent quite some time researching how to create events using EventData with named Data elements. It’s not easy and
+is even less easier to write some PowerShell to make it “dynamic”.&lt;/p&gt;
+
+&lt;h3 id=&quot;eventdata-with-named-data&quot;&gt;EventData with Named Data&lt;/h3&gt;
+
+&lt;p&gt;In order to enable named Data elements in your event logs, you have to go through several hoops. I won’t go through them
+in this post, but here are some links to various posts that can help you get started. &lt;em&gt;It’s not for the faint of heart!&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;First, I found &lt;a href=&quot;https://github.com/ggcooper/CustomProvider&quot; target=&quot;_blank&quot;&gt;CustomProvider on GitHub&lt;/a&gt; which references &lt;a href=&quot;http://blog.dlgordon.com/2012/06/writing-to-event-log-in-net-right-way.html&quot; target=&quot;_blank&quot;&gt;this blog post&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;To get the Message Compiler (mc) and Resource Compiler (rc), you will need to download the
+&lt;a href=&quot;https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk&quot; target=&quot;_blank&quot;&gt;Windows 10 SDK&lt;/a&gt; and install the Windows SDK for UWP Managed Apps (which required the Signing Tools
+for Desktop Apps). To get the ManifestGenerator (EcGenMan), you will need to hit up the the Windows SDK archive section
+and download an older version.&lt;/p&gt;
+
+&lt;h3 id=&quot;eventdata-without-named-data&quot;&gt;EventData without Named Data&lt;/h3&gt;
+
+&lt;p&gt;Besides super-fast XML filtering, which &lt;strong&gt;cannot use wildcards&lt;/strong&gt;, I’m not entirely sure what the benefit of having named
+Data elements would be for general use.&lt;/p&gt;
+
+&lt;p&gt;This got me thinking, why not pass EventData in a manner that allows you to easily parse and even search with XML?&lt;/p&gt;
+
+&lt;h3 id=&quot;planning&quot;&gt;Planning&lt;/h3&gt;
+
+&lt;p&gt;You obviously want to stash some event data into an event in some event log. You should consider creating an EventData
+schema for each of your use cases.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Don’t forget to document and share them with your team!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Something like the following&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ScriptName&lt;/td&gt;
+      &lt;td&gt;The name of the PowerShell script.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Status&lt;/td&gt;
+      &lt;td&gt;The results of the execution of the PowerShell script.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;LogFile&lt;/td&gt;
+      &lt;td&gt;This is were the detailed log can be found.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Also, be sure to establish the event ID ranges that you want to use for each schema.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Event ID Range&lt;/th&gt;
+      &lt;th&gt;Purpose&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;100-199&lt;/td&gt;
+      &lt;td&gt;Initialization&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;200-299&lt;/td&gt;
+      &lt;td&gt;Script actions&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;300-399&lt;/td&gt;
+      &lt;td&gt;Completion&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;This is a very simple schema. But with it, you would be able to search the logs with an XML filter for warning events
+for your event source where the script &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MyScript.ps1&lt;/code&gt; generated the event.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;C:\&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$FilterXml&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;@&quot;
+&amp;lt;QueryList&amp;gt;
+  &amp;lt;Query Id=&quot;0&quot; Path=&quot;Application&quot;&amp;gt;
+    &amp;lt;Select Path=&quot;Application&quot;&amp;gt;
+      *[System[Provider[@Name='MyEventSource'] and (Level=3)]]
+      and
+      *[EventData[Data=&quot;ScriptName:MyScript.ps1&quot;]]
+    &amp;lt;/Select&amp;gt;
+  &amp;lt;/Query&amp;gt;
+&amp;lt;/QueryList&amp;gt;
+&quot;@&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;C:\&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Get-WinEvent&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-FilterXml&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$FilterXml&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Message&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;&amp;lt;# Output (with Unicode escape characters)
+{
+    &quot;ScriptName&quot;:  &quot;MyScript.ps1&quot;,
+    &quot;Status&quot;:  &quot;Something didn\u0027t go exactly right.&quot;,
+    &quot;LogFile&quot;:  &quot;C:\\ProgramData\\MyLogs\\20191207_MyScript.log&quot;
+}
+#&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;C:\&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Get-WinEvent&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-FilterXml&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$FilterXml&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Message&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ConvertFrom-Json&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;&amp;lt;# Converted Output (with ConvertFrom-Json)
+
+ScriptName   Status                             LogFile
+----------   ------                             -------
+MyScript.ps1 Something didn't go exactly right. C:\ProgramData\MyLogs\20191207_MyScript.log
+#&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can see that creating your EventData schema would be incredibly important in being able to use XML filters.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I’m using the ConvertFrom-Json to translate the unicode escape characters back to human readable.&lt;/p&gt;
+
+&lt;h3 id=&quot;usage&quot;&gt;Usage&lt;/h3&gt;
+
+&lt;p&gt;First, download the simple module script from the &lt;a href=&quot;https://gist.github.com/thedavecarroll/765547120aa1fa801919040f4d5d2046&quot; target=&quot;_blank&quot;&gt;Gist EventData.psm1&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Once you import the module, you can use the two functions to create a new Windows event log provider and write events
+with structured Data, though not named Data elements.&lt;/p&gt;
+
+&lt;p&gt;In an elevated PowerShell session, import the module.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;C:\&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Import-Module&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;D:\Path\To\Events.psm1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;adding-a-new-provider-aka-source&quot;&gt;Adding a New Provider, aka Source&lt;/h3&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;C:\&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;New-EventSource&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-EventLog&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Source&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;MyCustomEventSource&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;writing-a-new-event&quot;&gt;Writing a New Event&lt;/h3&gt;
+
+&lt;p&gt;In order to write a new event, first you will need an OrderedDictionary. For details, please visit
+&lt;a href=&quot;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_hash_tables?view=powershell-6#creating-ordered-dictionaries&quot; target=&quot;_blank&quot;&gt;Microsoft Docs about_Hash_Tables&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;create-the-event-data&quot;&gt;Create the Event Data&lt;/h4&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;C:\&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$Event&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Data&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;ordered&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]@{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Program&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'MyProgram'&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ThisEvent&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'This is an event I want to track'&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SomethingElse&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'I like the C64'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next, decide which event message format you wish to use: JSON, CSV, or XML.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;Note&lt;/strong&gt;: If using XML, the event message will contain the outer XML for XML document. You would need to parse it as you
+would any XML.&lt;/p&gt;
+
+&lt;h4 id=&quot;write-an-event&quot;&gt;Write an Event&lt;/h4&gt;
+
+&lt;p&gt;Next, simply write the event.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;C:\&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Write-WinEvent&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-LogName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Provider&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;MyEventSource&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-EventId&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-EventType&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Information&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-EventData&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$Event&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Data&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then check your event log for the goodness.&lt;/p&gt;
+
+&lt;h3 id=&quot;how-the-events-look&quot;&gt;How the Events Look&lt;/h3&gt;
+
+&lt;h4 id=&quot;messageformat-json&quot;&gt;MessageFormat: JSON&lt;/h4&gt;
+
+&lt;p&gt;Event message:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ScriptName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;MyScript.ps1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Something didn&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\u&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;0027t go exactly right.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;LogFile&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;C:&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;ProgramData&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;MyLogs&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;20191207_MyScript.log&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;Note&lt;/strong&gt;: This contains Unicode escape characters for the single quote (‘).&lt;/p&gt;
+
+&lt;p&gt;XML View:&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- &lt;span class=&quot;nt&quot;&gt;&amp;lt;EventData&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;Data&amp;gt;&lt;/span&gt;{ &quot;ScriptName&quot;: &quot;MyScript.ps1&quot;, &quot;Status&quot;: &quot;Something didn\u0027t go exactly right.&quot;, &quot;LogFile&quot;: &quot;C:\\ProgramData\\MyLogs\\20191207_MyScript.log&quot; }&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;Data&amp;gt;&lt;/span&gt;ScriptName:MyScript.ps1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;Data&amp;gt;&lt;/span&gt;Status:Something didn't go exactly right.&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;Data&amp;gt;&lt;/span&gt;LogFile:C:\ProgramData\MyLogs\20191207_MyScript.log&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/EventData&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;messageformat-csv&quot;&gt;MessageFormat: CSV&lt;/h4&gt;
+
+&lt;p&gt;Event message:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-csv&quot;&gt;&quot;Key&quot;,&quot;Value&quot;
+&quot;ScriptName&quot;,&quot;MyScript.ps1&quot;
+&quot;Status&quot;,&quot;Something didn't go exactly right.&quot;
+&quot;LogFile&quot;,&quot;C:\ProgramData\MyLogs\20191207_MyScript.log&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;XML View:&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- &lt;span class=&quot;nt&quot;&gt;&amp;lt;EventData&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;Data&amp;gt;&lt;/span&gt;&quot;Key&quot;,&quot;Value&quot; &quot;ScriptName&quot;,&quot;MyScript.ps1&quot; &quot;Status&quot;,&quot;Something didn't go exactly right.&quot; &quot;LogFile&quot;,&quot;C:\ProgramData\MyLogs\20191207_MyScript.log&quot;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;Data&amp;gt;&lt;/span&gt;ScriptName:MyScript.ps1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;Data&amp;gt;&lt;/span&gt;Status:Something didn't go exactly right.&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;Data&amp;gt;&lt;/span&gt;LogFile:C:\ProgramData\MyLogs\20191207_MyScript.log&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/EventData&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;messageformat-xml&quot;&gt;MessageFormat: XML&lt;/h4&gt;
+
+&lt;p&gt;Event message:&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;Objects&amp;gt;&amp;lt;Object&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;System.Collections.Specialized.OrderedDictionary&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;Property&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Key&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;System.String&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;ScriptName&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Property&amp;gt;&amp;lt;Property&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Value&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;System.String&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;MyScript.ps1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Property&amp;gt;&amp;lt;Property&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Key&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;System.String&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Status&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Property&amp;gt;&amp;lt;Property&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Value&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;System.String&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Something didn't go exactly right.&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Property&amp;gt;&amp;lt;Property&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Key&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;System.String&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;LogFile&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Property&amp;gt;&amp;lt;Property&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Value&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;System.String&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;C:\ProgramData\MyLogs\20191207_MyScript.log&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Property&amp;gt;&amp;lt;/Object&amp;gt;&amp;lt;/Objects&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;XML View&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- &lt;span class=&quot;nt&quot;&gt;&amp;lt;EventData&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;Data&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;Objects&amp;gt;&amp;lt;Object&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;System.Collections.Specialized.OrderedDictionary&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;Property&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Key&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;System.String&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;ScriptName&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Property&amp;gt;&amp;lt;Property&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Value&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;System.String&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;MyScript.ps1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Property&amp;gt;&amp;lt;Property&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Key&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;System.String&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Status&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Property&amp;gt;&amp;lt;Property&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Value&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;System.String&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Something didn't go exactly right.&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Property&amp;gt;&amp;lt;Property&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Key&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;System.String&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;LogFile&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Property&amp;gt;&amp;lt;Property&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Value&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;System.String&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;C:\ProgramData\MyLogs\20191207_MyScript.log&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Property&amp;gt;&amp;lt;/Object&amp;gt;&amp;lt;/Objects&amp;gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;Data&amp;gt;&lt;/span&gt;ScriptName:MyScript.ps1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;Data&amp;gt;&lt;/span&gt;Status:Something didn't go exactly right.&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;Data&amp;gt;&lt;/span&gt;LogFile:C:\ProgramData\MyLogs\20191207_MyScript.log&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/EventData&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;Unless you want to spend a ton of time crafting a manifest and compiling all the pieces into a usable Windows custom
+event provider, writing EventData using a structured format such as JSON or XML virtually negates the hassle, while
+still providing you the option for querying with a good XML filter.&lt;/p&gt;
+
+&lt;p&gt;I hope you’ve found this interesting or informative. If you have any comments or questions, please post them below.&lt;/p&gt;
+
+&lt;p&gt;Thanks for reading! Good luck wrangling your EventData!&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;Bonus:&lt;/strong&gt; Once things settle down with my new job and life stuff, I will incorporate these two functions into my
+&lt;a href=&quot;https://www.powershellgallery.com/packages/PoShEvents/&quot; target=&quot;_blank&quot;&gt;PoShEvents&lt;/a&gt; module. If you have been paying attention to its repo, there are a couple new
+functions to generate XML filters on the fly.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="windows" /><category term="event logs" /><category term="events" /><category term="eventdata" /><summary type="html">Learn how to write events with structured EventData.</summary></entry><entry><title type="html">Get-History Lesson</title><link href="https://powershell.anovelidea.org/powershell/get-history-lesson/" rel="alternate" type="text/html" title="Get-History Lesson" /><published>2019-11-29T00:00:00-06:00</published><updated>2019-11-29T00:00:00-06:00</updated><id>https://powershell.anovelidea.org/powershell/get-history-lesson</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/get-history-lesson/">&lt;h2 id=&quot;a-quick-history-lesson&quot;&gt;A Quick History Lesson&lt;/h2&gt;
 
 &lt;p&gt;Today, I did a significant amount of work in a PowerShell session and, even though most of what I did was copy/pasted
 from a file (open in VS Code), I wanted to grab only the essential commands from the session.&lt;/p&gt;
@@ -2554,304 +2789,4 @@ I added the Twitter card to see if it’s really usable. I’d like to include t
 would have a way to like a post after they read it. Let me know what you think about this idea in the comments below. Thanks!&lt;/p&gt;
 
 &lt;blockquote class=&quot;twitter-tweet&quot; data-cards=&quot;hidden&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;I&amp;#39;ve been configuring a new laptop and needed a PowerShell way to download the latest Sysinternals tools. I created two functions and have detailed them in a new blog post. &lt;a href=&quot;https://t.co/UuKo137aLH&quot;&gt;https://t.co/UuKo137aLH&lt;/a&gt;&lt;/p&gt;&amp;mdash; Dave Carroll (@thedavecarroll) &lt;a href=&quot;https://twitter.com/thedavecarroll/status/1036752418732756992?ref_src=twsrc%5Etfw&quot;&gt;September 3, 2018&lt;/a&gt;&lt;/blockquote&gt;
-&lt;script async=&quot;&quot; src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="sysinternals" /><summary type="html">Download recently updated Sysinternals tools</summary></entry><entry><title type="html">How I Blog</title><link href="https://powershell.anovelidea.org/blog/how-i-blog/" rel="alternate" type="text/html" title="How I Blog" /><published>2018-08-26T00:00:00-05:00</published><updated>2018-08-29T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/blog/how-i-blog</id><content type="html" xml:base="https://powershell.anovelidea.org/blog/how-i-blog/">&lt;p&gt;Someone asked what I used to produce this blog. This post will provide the methodology and details.&lt;/p&gt;
-
-&lt;h2 id=&quot;the-decision-to-blog&quot;&gt;The Decision to Blog&lt;/h2&gt;
-
-&lt;p&gt;I’ve hosted a personal website on various platforms since early 2000. I’ve used FTP, SFTP, FrontPage, WebDAV,
-Dreamweaver, WordPress, and probably some others that I’ve forgotten about. Using WordPress, I had performance issues
-when the MySQL database was not located near the web host.&lt;/p&gt;
-
-&lt;p&gt;Even with a stance of ‘update all the plugins’, it was not enough to protect my site from hackers. Late in 2015, my site
-was hacked and it took me months to realize since they were just hosting hidden pages and hidden SEO info. Once I
-realized what had happened to my site, I converted it to a static hosted by (don’t judge) Google Sites. It solved the
-problem of a vulnerable site and poor performance.&lt;/p&gt;
-
-&lt;p&gt;I’ve been toying around with the idea of creating a blog for PowerShell for a few years now, ever since I started
-working with another PowerShell blogger, Michael Simmons, who publishes &lt;a href=&quot;https://ilovepowershell.com&quot; target=&quot;_blank&quot;&gt;I Love PowerShell&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;As I was learning how to build my own modules, with finesse — not just thrown together, I kept finding enlightening
-posts on blogs like &lt;a href=&quot;https://kevinmarquette.github.io&quot; target=&quot;_blank&quot;&gt;Kevin Marquette on PowerShell Theory&lt;/a&gt; and
-&lt;a href=&quot;https://ramblingcookiemonster.github.io/&quot; target=&quot;_blank&quot;&gt;Warren Frame’s Rambling Cookie Monster&lt;/a&gt;. They just happen
-to be using GitHub Pages, Jekyll, and the Minimal Mistakes Jekyll theme.&lt;/p&gt;
-
-&lt;p&gt;This new (to me) tech stack would provide an easy way to add content (not like Google Sites) and still provide a static
-site with decent performance. Thoughts started falling into place and I saw the efficiency and learning opportunities.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;I’m going to blog. And I’m going to use that tech stack.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;editor-and-source-control&quot;&gt;Editor and Source Control&lt;/h2&gt;
-
-&lt;p&gt;I use Visual Studio Code to edit my blog, PowerShell code, and scripts in other languages.&lt;/p&gt;
-
-&lt;p&gt;Git for Windows allows me to create local source controlled folders and to interact with GitHub. Even if you don’t opt to
-use GitHub (free for public repositories), you can still use Git locally.&lt;/p&gt;
-
-&lt;h2 id=&quot;github-and-github-pages&quot;&gt;GitHub and GitHub Pages&lt;/h2&gt;
-
-&lt;p&gt;I’m fully convinced that source control is necessary for code, and a blog is really nothing but code. Therefore, it was
-an easy decision to use a GitHub repository for my blog and then to configure it to publish using GitHub Pages.&lt;/p&gt;
-
-&lt;p&gt;Visit GitHub Help for more information on how to &lt;a href=&quot;https://help.github.com/articles/signing-up-for-a-new-github-account/&quot; target=&quot;_blank&quot;&gt;create a GitHub account&lt;/a&gt;, &lt;a href=&quot;https://help.github.com/articles/create-a-repo/&quot; target=&quot;_blank&quot;&gt;create a repository&lt;/a&gt;, and
-information on &lt;a href=&quot;https://help.github.com/articles/what-is-github-pages/&quot; target=&quot;_blank&quot;&gt;GitHub Pages&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;repository&quot;&gt;Repository&lt;/h3&gt;
-
-&lt;p&gt;Perhaps due to OCD, I created a repository to match the custom domain that I’m using for my GitHub Pages. Actually,
-naming folders based on the hostname is a habit that I got in several years ago. It clearly identifies that the content
-should be that website.&lt;/p&gt;
-
-&lt;h4 id=&quot;custom-domain&quot;&gt;Custom Domain&lt;/h4&gt;
-
-&lt;p&gt;I’ve had the domain &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anovelidea.org&lt;/code&gt; since early 2000, and since I didn’t want to use the default domain of *.github.io,
-I opted to use the Custom Domain setting for my repo and created &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;powershell.anovelidea.org&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h4 id=&quot;branches&quot;&gt;Branches&lt;/h4&gt;
-
-&lt;p&gt;Every git or GitHub repository can have multiple branches. Branches are typically used to develop new features or work
-on fixes without touching the rest of the code.&lt;/p&gt;
-
-&lt;p&gt;Each branch of my repo plays a role in the production of my blog.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Branch&lt;/th&gt;
-      &lt;th&gt;Purpose&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;master&lt;/td&gt;
-      &lt;td&gt;I push commits to this branch when I make changes to the blog, e.g. publish new posts or approve comments.&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;gh-pages&lt;/td&gt;
-      &lt;td&gt;After Travis-CI builds the site, it pushes to this branch which GitHub, in turn, publishes to GitHub Pages.&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;comments&lt;/td&gt;
-      &lt;td&gt;The Staticman API creates pull requests for this branch when a new comment is submitted.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&quot;jekyll-framework&quot;&gt;Jekyll Framework&lt;/h2&gt;
-
-&lt;p&gt;Jekyll is &lt;a href=&quot;https://www.netlify.com/blog/2017/05/25/top-ten-static-site-generators-of-2017/&quot; target=&quot;_blank&quot;&gt;one of the most used&lt;/a&gt;
-static site generators. It’s built on Ruby and renders content with Markdown and Liquid templates.&lt;/p&gt;
-
-&lt;p&gt;GitHub Pages deploy sites using Jekyll and provides a &lt;a href=&quot;https://help.github.com/articles/about-jekyll-themes-on-github/&quot; target=&quot;_blank&quot;&gt;handful of themes&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/&quot; target=&quot;_blank&quot;&gt;Jekyll site&lt;/a&gt; for more details.&lt;/p&gt;
-
-&lt;h2 id=&quot;minimal-mistakes&quot;&gt;Minimal Mistakes&lt;/h2&gt;
-
-&lt;p&gt;The theme that I chose for simplicity is Minimal Mistakes by Michael Rose at &lt;a href=&quot;https://mademistakes.com/&quot; target=&quot;_blank&quot;&gt;Made Mistakes&lt;/a&gt;.
-He provides a &lt;a href=&quot;https://mmistakes.github.io/minimal-mistakes&quot; target=&quot;_blank&quot;&gt;Minimal Mistakes demo site&lt;/a&gt; that can show
-you the theme’s capabilities.&lt;/p&gt;
-
-&lt;p&gt;The cool thing about most of the Jekyll themes is that they, themselves, are in GitHub repos. You can download the full
-repo or fork it and have a site up and running in short order.&lt;/p&gt;
-
-&lt;h3 id=&quot;custom-layouts-and-includes&quot;&gt;Custom Layouts and Includes&lt;/h3&gt;
-
-&lt;p&gt;The Jekyll framework is essentially a given structure of folders with code snippets that build the static HTML files when
-Jekyll is instructed to do so. Layouts, includes, CSS, html, Markdown files, and more are stitched together and, barring
-any compilation errors, the result is several html files, CSS, and other assets that is your site. You could conceivably
-take those files and FTP them to a third-party hosting provider, but where is the fun in that?&lt;/p&gt;
-
-&lt;h4 id=&quot;configuration&quot;&gt;Configuration&lt;/h4&gt;
-
-&lt;p&gt;Jekyll uses what’s called front matter &lt;abbr title=&quot;Yet Ain't Markup Language&quot;&gt;YAML&lt;/abbr&gt; in the template files and in the configuration file, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt;. This
-allows each post and page to have different elements.&lt;/p&gt;
-
-&lt;h4 id=&quot;layouts-and-includes&quot;&gt;Layouts and Includes&lt;/h4&gt;
-
-&lt;p&gt;I’ve updated or added the following layout and includes files from the base theme.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;File&lt;/th&gt;
-      &lt;th&gt;Modifications&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;_layouts\home.html&lt;/td&gt;
-      &lt;td&gt;Replaced archive-single include with posts-lists&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;_layouts\onlinehelp.html&lt;/td&gt;
-      &lt;td&gt;New layout based on single, removed title header, page metadata, and other elements not required&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;_layouts\pages.html&lt;/td&gt;
-      &lt;td&gt;New layout based on single, added code to display published and updated date, removed environment requirement&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;_layouts\single.html&lt;/td&gt;
-      &lt;td&gt;Added &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classes: wide&lt;/code&gt; to the front matter, added code to display published and updated date, removed environment requirement&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;_includes\analytics.html&lt;/td&gt;
-      &lt;td&gt;Removed environment requirement&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;_includes\archive-single.html&lt;/td&gt;
-      &lt;td&gt;Included new include file posts-date&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;_includes\posts-date.html&lt;/td&gt;
-      &lt;td&gt;New include, displays published and updated date&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;_includes\posts-list.html&lt;/td&gt;
-      &lt;td&gt;Based on archive-single, added posts-tags-list and posts-date&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;_includes\posts-tags-list.html&lt;/td&gt;
-      &lt;td&gt;Based on tag-list, uses post.tags instead of page.tags&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;code-syntax&quot;&gt;Code Syntax&lt;/h3&gt;
-
-&lt;p&gt;Though I’m using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;air&lt;/code&gt; skin for my theme, I didn’t like the default color scheme the skin provided. Using the
-theme’s documentation, I was able to replace the code syntax highlighting color variables with another skin’s by
-updating the file &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_sass\_variables.scss&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;my-modules&quot;&gt;My Modules&lt;/h3&gt;
-
-&lt;p&gt;I wanted to provide a quick place to see my modules and what features they possess. I originally created markdown tables
-for each, but then decided to use a data file.&lt;/p&gt;
-
-&lt;p&gt;Jekyll uses a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_data&lt;/code&gt; folder to store data that could be used by the framework. At build time, it will import all files
-in this folder and provide the data as variables.&lt;/p&gt;
-
-&lt;h4 id=&quot;sample-data&quot;&gt;Sample data&lt;/h4&gt;
-
-&lt;pre&gt;
-- name: PoShEvents
-  description: 'PowerShell module to query Windows Event Logs.'
-  help: 'External file'
-  onlinehelp: true
-  updatablehelp: true
-  pester: false
-  build: false
-  psgallery: true
-&lt;/pre&gt;
-
-&lt;p&gt;In my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_pages\modules.html&lt;/code&gt; file, I added the html and Liquid code to loop through each section in the data file.
-Instead of manually adding markdown or html code, which can become tedious, I now simply add another section in the data
-file, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_data\mymodules.yml&lt;/code&gt;. On next build, the page will include the new module.&lt;/p&gt;
-
-&lt;h2 id=&quot;google-analytics&quot;&gt;Google Analytics&lt;/h2&gt;
-
-&lt;p&gt;The theme has built-in support for Google Analytics. You simply add your site’s tracking ID to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt;
-configuration file.&lt;/p&gt;
-
-&lt;h2 id=&quot;visitor-comments&quot;&gt;Visitor Comments&lt;/h2&gt;
-
-&lt;p&gt;The Minimal Mistakes theme includes several options for visitor comments: disqus, discourse, facebook, google-plus,
-staticman, staticman_v2, and custom. After checking into them, I saw that the theme author used Staticman V2. It seemed
-the best way to go and it keeps the comments within your grasp and local(ish) to the site.&lt;/p&gt;
-
-&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; The theme author has developed &lt;strong&gt;reply-to&lt;/strong&gt; comments but has not incorporated them into the Minimal Mistakes
-theme. When I want to get under the hood again of the theme, I will look at implementing it for this site.&lt;/p&gt;
-
-&lt;h3 id=&quot;staticman-api-webhook&quot;&gt;Staticman API Webhook&lt;/h3&gt;
-
-&lt;p&gt;For Staticman to work, there are a few quick configuration steps needed that are laid out in the
-&lt;a href=&quot;https://staticman.net/docs/&quot; target=&quot;_blank&quot;&gt;documentation&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Additionally, you will need a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;staticman.yml&lt;/code&gt; configuration file. This file is included in the theme’s repo.&lt;/p&gt;
-
-&lt;h3 id=&quot;moderation&quot;&gt;Moderation&lt;/h3&gt;
-
-&lt;p&gt;Comment forms are magnets for bots and malicious users. The theme provides a few tricks to filter comments down to the
-real users wanting to leave a message. Beyond that, I use the optional moderation provided by Staticman which creates a
-pull request to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;comments&lt;/code&gt; branch. I get a notification that a PR is waiting for me, login to GitHub, even on
-mobile, and merge the pull request to approve the message.&lt;/p&gt;
-
-&lt;p&gt;The pull request for a comment is saved to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_data\comments\&amp;lt;title-slug\comment-&amp;lt;date-time-stamp&amp;gt;.yml&lt;/code&gt;. The visitor’s
-email is stored as a hash value to keep it relatively safe.&lt;/p&gt;
-
-&lt;h3 id=&quot;gravatar&quot;&gt;Gravatar&lt;/h3&gt;
-
-&lt;p&gt;The theme will use the &lt;a href=&quot;https://en.gravatar.com/support/what-is-gravatar/&quot; target=&quot;_blank&quot;&gt;Gravatar&lt;/a&gt; service to
-provide a graphic that the user has previously configured.&lt;/p&gt;
-
-&lt;h2 id=&quot;jekyll-build&quot;&gt;Jekyll Build&lt;/h2&gt;
-
-&lt;p&gt;As Jekyll runs on Ruby, you will need to have a system that can run Ruby and the Jekyll gems.&lt;/p&gt;
-
-&lt;h3 id=&quot;build-system--windows-subsystem-for-linux&quot;&gt;Build System : Windows Subsystem for Linux&lt;/h3&gt;
-
-&lt;p&gt;Instead of going down the Ruby on Windows avenue, I opted to learn a little about the new Windows Subsystem for Linux on
-Windows 10. This method produced a few errors that I had to overcome. I’ll most likely post on that setup separately.
-While I used this method initially, I have all but abandoned it for now.&lt;/p&gt;
-
-&lt;h3 id=&quot;build-system--google-cloud-platform&quot;&gt;Build System : Google Cloud Platform&lt;/h3&gt;
-
-&lt;p&gt;I looked for a free hosting solution to have a Linux VM and, what I’m hoping, it appears that Google Cloud Platform will
-give you enough free credits per month to have a single, small VM running the whole time. I had configured it to the
-point of being able execute the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jekyll build&lt;/code&gt; command successfully.&lt;/p&gt;
-
-&lt;p&gt;I had even configured dynamic DNS for the VM to register its IP address with my domain at Google Domains. Hey, at least
-I know how to do that now.&lt;/p&gt;
-
-&lt;p&gt;The problem I faced was that I need a way to kick off the build after I pushed changes into the branch —
-automatically, if possible. But that would entail me creating a listener on the VM that could be triggered by the branch
-status change. I felt I had explored that rabbit hole enough and backed out quickly.&lt;/p&gt;
-
-&lt;p&gt;I still needed an automated build system.&lt;/p&gt;
-
-&lt;h3 id=&quot;build-system--travis-ci&quot;&gt;Build System : Travis CI&lt;/h3&gt;
-
-&lt;p&gt;Enter Travis CI. The CI stands for &lt;strong&gt;Continuous Integration&lt;/strong&gt; and is part of the &lt;abbr title=&quot;Continuous Integration/Continuous Delivery&quot;&gt;CI/CD&lt;/abbr&gt; model that I want to learn about.
-It drives true DevOps.&lt;/p&gt;
-
-&lt;p&gt;On GitHub, I configured the Travis CI service for my blog repo.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Travis CI &lt;a href=&quot;https://docs.travis-ci.com/user/open-source-on-travis-ci-com/&quot; target=&quot;_blank&quot;&gt;announced in May&lt;/a&gt;
-that open source projects would be able to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;travis-ci.com&lt;/code&gt;. Sometime soon, I’ll work on upgrading to the new method
-which uses GitHub Apps and has greater benefits.&lt;/p&gt;
-
-&lt;p&gt;With the integration service setup, whenever the master branch changes, that is when I push changes or when a PR from
-the comments branch is merged, the service notifies Travis CI that it needs to create a build.&lt;/p&gt;
-
-&lt;h4 id=&quot;travis-configuration-file&quot;&gt;Travis Configuration File&lt;/h4&gt;
-
-&lt;p&gt;In my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.travis.yml&lt;/code&gt; configuration file, I set the build script to execute (chmod), set which branch to clone, and
-whether to use a cache for the bundler. Additonally I set it to deploy to the gh-pages branch after the build phase
-completes.&lt;/p&gt;
-
-&lt;h4 id=&quot;build&quot;&gt;Build&lt;/h4&gt;
-
-&lt;p&gt;When notified of a change, Travis spins up an Ubuntu Linux container, installs all dependencies (from self updating
-cache), clones the master branch of my blog repo, runs the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/script/cibuild&lt;/code&gt; bash script I created, then deploys to the
-gh-pages branch.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;script/cibuild&lt;/strong&gt;&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/thedavecarroll/74438e76f6d0de1a77d09bcd956d4203.js&quot;&gt;&lt;/script&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;Spinning up a blog in this manner takes patience and determination, but the rewards include learning new technologies,
-such as GitHub, Ruby, and Jekyll. It’s taken me several steps toward automation, &lt;abbr title=&quot;Continuous Integration/Continuous Delivery&quot;&gt;CI/CD&lt;/abbr&gt;, and DevOps.&lt;/p&gt;
-
-&lt;p&gt;Remember, because all of this is hosted publicly by GitHub, you can see everything in
-&lt;a href=&quot;https://github.com/thedavecarroll/powershell.anovelidea.org&quot; target=&quot;_blank&quot;&gt;my repo&lt;/a&gt;. Check out the closed Pull
-Requests. Check out the folder structure and the files.&lt;/p&gt;
-
-&lt;p&gt;I hope this post was informative. Feel free to leave a comment below.&lt;/p&gt;
-
-&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Update&lt;/strong&gt;
-I used the code from &lt;a href=&quot;https://codersblock.com/blog/customizing-github-gists/&quot; target=&quot;_blank&quot;&gt;Coders Block&lt;/a&gt; to change
-the color syntax of GitHub Gists.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;blog&quot;]" /><category term="blog" /><category term="jekyll" /><category term="travis ci" /><category term="github" /><category term="staticman" /><summary type="html">What technologies are used in my blog?</summary></entry></feed>
+&lt;script async=&quot;&quot; src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="sysinternals" /><summary type="html">Download recently updated Sysinternals tools</summary></entry></feed>

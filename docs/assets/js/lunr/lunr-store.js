@@ -68,4 +68,9 @@ var store = [{
         "excerpt":"A Quick History Lesson Today, I did a significant amount of work in a PowerShell session and, even though most of what I did was copy/pasted from a file (open in VS Code), I wanted to grab only the essential commands from the session. Instead of scrolling or arrowing up...","categories": ["powershell"],
         "tags": ["powershell","powershell concepts","learn powershell","powershell beginner","get-history","Microsoft.PowerShell.Commands.HistoryInfo"],
         "url": "https://powershell.anovelidea.org/powershell/get-history-lesson/",
+        "teaser":null},{
+        "title": "Writing Windows Events with Smart EventData",
+        "excerpt":"Introduction I’ve spent quite some time researching how to create events using EventData with named Data elements. It’s not easy and is even less easier to write some PowerShell to make it “dynamic”. EventData with Named Data In order to enable named Data elements in your event logs, you have...","categories": ["powershell"],
+        "tags": ["powershell","windows","event logs","events","eventdata"],
+        "url": "https://powershell.anovelidea.org/powershell/windows-event-logs-eventdata/",
         "teaser":null}]
