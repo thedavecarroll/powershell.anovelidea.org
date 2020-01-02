@@ -6,8 +6,7 @@ gem "html-proofer"
 gem "tzinfo-data"
 gem "wdm", "~> 0.1.0" if Gem.win_platform?
 
-gem "faraday", "0.17.3"
-gem "jekyll", "3.8.6"
+gem "faraday", "0.17.0"
 
 # If you have any plugins, put them here!
 group :jekyll_plugins do
