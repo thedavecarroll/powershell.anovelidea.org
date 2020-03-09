@@ -73,4 +73,9 @@ var store = [{
         "excerpt":"Introduction I’ve spent quite some time researching how to create events using EventData with named Data elements. It’s not easy and is even less easier to write some PowerShell to make it “dynamic”. EventData with Named Data In order to enable named Data elements in your event logs, you have...","categories": ["powershell"],
         "tags": ["powershell","windows","event logs","events","eventdata"],
         "url": "https://powershell.anovelidea.org/powershell/windows-event-logs-eventdata/",
+        "teaser":null},{
+        "title": "PowerShell 7 Changes to JSON Cmdlets",
+        "excerpt":"#PS7Now! PowerShell 7 Is Here! Part of #PSBlogWeek, this article is one of many from several community members and PowerShell bloggers, like me, that focus on a given topic. The topic of this #PSBlogWeek is PowerShell 7. Quick Note: I was incredibly flattered when Jeff asked me to participate in...","categories": ["powershell"],
+        "tags": ["psblogweek","ps7now","powershell7","pwsh","convertfrom-json","convertto-json","test-json","json","json-schema","json schema"],
+        "url": "https://powershell.anovelidea.org/powershell/ps7now-changes-to-json-cmdlets/",
         "teaser":null}]

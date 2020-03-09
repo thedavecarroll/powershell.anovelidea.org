@@ -61,6 +61,10 @@
 <lastmod>2019-12-07T00:00:00-06:00</lastmod>
 </url>
 <url>
+<loc>https://powershell.anovelidea.org/powershell/ps7now-changes-to-json-cmdlets/</loc>
+<lastmod>2020-03-09T00:00:00-05:00</lastmod>
+</url>
+<url>
 <loc>https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/Add-DynDnsHttpRedirect.html</loc>
 </url>
 <url>
@@ -212,5 +216,8 @@
 </url>
 <url>
 <loc>https://powershell.anovelidea.org/page3/</loc>
+</url>
+<url>
+<loc>https://powershell.anovelidea.org/page4/</loc>
 </url>
 </urlset>
