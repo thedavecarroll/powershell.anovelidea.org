@@ -7,6 +7,7 @@ header:
   overlay_image: /assets/images/ps7now/pwsh-7-json-cmdlets.png
   overlay_filter: 0.7
 comments: true
+share: true
 tags:
   - psblogweek
   - ps7now
