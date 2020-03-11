@@ -567,17 +567,17 @@ We can help you on your PowerShell enlightenment journey, along with many others
 
 | Author | Twitter | Blog |
 | :----- | :----- | :----- |
-|Adam Bertram|[@adbertram](https://twitter.com/adbertram)|https://adamtheautomator.com/ |
-|Dave Carroll| [@thedavecarroll](https://twitter.com/thedavecarroll)|https://powershell.anovelidea.org/ |
-|Josh Duffney|[@joshduffney](https://twitter.com/joshduffney)|http://duffney.io/ |
-|Dan Franciscus|[@danfranciscus](https://twitter.com/danfranciscus)|https://winsysblog.com/ |
-|Jeff Hicks|[@jeffhicks](https://twitter.com/jeffhicks)| https://jdhitsolutions.com/|
-|Mike Kanakos|[@MikeKanakos](https://twitter.com/MikeKanakos)|https://www.networkadm.in/ |
-|Josh King|[@WindosNZ](https://twitter.com/WindosNZ)|https://toastit.dev/ |
-|Thomas Lee|[@doctordns](https://twitter.com/doctordns)|https://tfl09.blogspot.com/ |
-|Tommy Maynard|[@thetommymaynard](https://twitter.com/thetommymaynard)| https://tommymaynard.com/ |
-|Jonathan Medd|[@jonathanmedd](https://twitter.com/jonathanmedd)|https://www.jonathanmedd.net/ |
-|Prateek Singh|[@singhprateik](https://twitter.com/singhprateik)|https://ridicurious.com/ |
+|Adam Bertram|[@adbertram](https://twitter.com/adbertram)|[https://adamtheautomator.com/](https://adamtheautomator.com/) |
+|Dave Carroll| [@thedavecarroll](https://twitter.com/thedavecarroll)|[https://powershell.anovelidea.org/](https://powershell.anovelidea.org/) |
+|Josh Duffney|[@joshduffney](https://twitter.com/joshduffney)|[http://duffney.io/](http://duffney.io/) |
+|Dan Franciscus|[@danfranciscus](https://twitter.com/danfranciscus)|[https://winsysblog.com/](https://winsysblog.com/) |
+|Jeff Hicks|[@jeffhicks](https://twitter.com/jeffhicks)|[https://jdhitsolutions.com/](https://jdhitsolutions.com/) |
+|Mike Kanakos|[@MikeKanakos](https://twitter.com/MikeKanakos)|[https://www.networkadm.in/](https://www.networkadm.in/) |
+|Josh King|[@WindosNZ](https://twitter.com/WindosNZ)|[https://toastit.dev/](https://toastit.dev/) |
+|Thomas Lee|[@doctordns](https://twitter.com/doctordns)|[https://tfl09.blogspot.com/](https://tfl09.blogspot.com/) |
+|Tommy Maynard|[@thetommymaynard](https://twitter.com/thetommymaynard)|[https://tommymaynard.com/](https://tommymaynard.com/) |
+|Jonathan Medd|[@jonathanmedd](https://twitter.com/jonathanmedd)|[https://www.jonathanmedd.net/](https://www.jonathanmedd.net/) |
+|Prateek Singh|[@singhprateik](https://twitter.com/singhprateik)|[https://ridicurious.com/](https://ridicurious.com/) |
 
 ## Summary
 
