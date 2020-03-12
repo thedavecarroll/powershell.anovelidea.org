@@ -78,4 +78,9 @@ var store = [{
         "excerpt":"#PS7Now! PowerShell 7 Is Here! Part of #PSBlogWeek, this article is one of many from several community members and PowerShell bloggers, like me, that focus on a given topic. The topic of this #PSBlogWeek is PowerShell 7. Quick Note: I was incredibly flattered when Jeff asked me to participate in...","categories": ["powershell"],
         "tags": ["psblogweek","ps7now","powershell7","pwsh","convertfrom-json","convertto-json","test-json","json","json-schema","json schema"],
         "url": "https://powershell.anovelidea.org/powershell/ps7now-changes-to-json-cmdlets/",
+        "teaser":null},{
+        "title": "PowerShell 7 Experimental Features",
+        "excerpt":"#PS7Now! PowerShell 7 Is Here! This #PSBlogWeek focuses on the official release of PowerShell 7 — the newest, fastest, and best PowerShell putting the spotlight on PowerShell’s Experimental Features. Get #PS7Now to experience them yourself! Experimental Features Defined After becoming open-source software, the PowerShell community requested a mechanism for users...","categories": ["powershell"],
+        "tags": ["ps7now","powershell 7","pwsh","experimental features","experimental"],
+        "url": "https://powershell.anovelidea.org/powershell/ps7now-experimental-features/",
         "teaser":null}]

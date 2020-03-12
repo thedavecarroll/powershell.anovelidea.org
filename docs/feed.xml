@@ -1,4 +1,290 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2020-03-10T19:45:52-05:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">PowerShell 7 Changes to JSON Cmdlets</title><link href="https://powershell.anovelidea.org/powershell/ps7now-changes-to-json-cmdlets/" rel="alternate" type="text/html" title="PowerShell 7 Changes to JSON Cmdlets" /><published>2020-03-09T00:00:00-05:00</published><updated>2020-03-09T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/ps7now-changes-to-json-cmdlets</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/ps7now-changes-to-json-cmdlets/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/ps7now/pwsh-7-json-cmdlets.png&quot; alt=&quot;PowerShell 7 JSON Cmdlets&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2020-03-12T01:24:12-05:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">PowerShell 7 Experimental Features</title><link href="https://powershell.anovelidea.org/powershell/ps7now-experimental-features/" rel="alternate" type="text/html" title="PowerShell 7 Experimental Features" /><published>2020-03-12T00:00:00-05:00</published><updated>2020-03-12T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/ps7now-experimental-features</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/ps7now-experimental-features/">&lt;h2 id=&quot;ps7now-powershell-7-is-here&quot;&gt;#PS7Now! PowerShell 7 Is Here!&lt;/h2&gt;
+
+&lt;p&gt;This &lt;a href=&quot;https://twitter.com/search?q=%23PSBlogWeek&amp;amp;f=live&quot; target=&quot;_blank&quot;&gt;#PSBlogWeek&lt;/a&gt; focuses on the official release of &lt;strong&gt;PowerShell 7&lt;/strong&gt; — the newest,
+fastest, and best PowerShell putting the spotlight on PowerShell’s Experimental Features.&lt;/p&gt;
+
+&lt;p&gt;Get &lt;a href=&quot;https://twitter.com/search?q=PS7Now&amp;amp;f=live&quot; target=&quot;_blank&quot;&gt;#PS7Now&lt;/a&gt; to experience them yourself!&lt;/p&gt;
+
+&lt;h2 id=&quot;experimental-features-defined&quot;&gt;Experimental Features Defined&lt;/h2&gt;
+
+&lt;p&gt;After becoming open-source software, the PowerShell community requested a mechanism for users to
+try out new features and provide early feedback to feature developers.
+This discussion took place in PowerShell &lt;a href=&quot;https://github.com/PowerShell/PowerShell-RFC/blob/master/5-Final/RFC0029-Support-Experimental-Features.md&quot; target=&quot;_blank&quot;&gt;RFC0029&lt;/a&gt; which was finalized
+and implemented in PowerShell Core 6.1.&lt;/p&gt;
+
+&lt;p&gt;New features that are not production ready are deemed experimental in nature.
+Users can choose to opt-in for an experimental feature on an individual basis.
+Administrators can choose to opt-in at the system level.&lt;/p&gt;
+
+&lt;p class=&quot;notice--warning&quot;&gt;Please note that user configuration will take precedence over system configuration.&lt;/p&gt;
+
+&lt;p&gt;Using the built-in support for experimental features, developers can roll out an alternate command or a parameter to their modules.&lt;/p&gt;
+
+&lt;p&gt;Experimental features are not limited to the PowerShell engine itself.&lt;/p&gt;
+
+&lt;h2 id=&quot;experimental-feature-commands&quot;&gt;Experimental Feature Commands&lt;/h2&gt;
+
+&lt;p&gt;Commands to discover, enable, and disable experimental features are provided to the user.&lt;/p&gt;
+
+&lt;h3 id=&quot;get-experimentalfeature&quot;&gt;Get-ExperimentalFeature&lt;/h3&gt;
+
+&lt;p&gt;The command &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-ExperimentalFeature&lt;/code&gt; will display a list of discovered experimental features.
+These features can come from the PowerShell engine itself or from modules.
+You can see where the experimental feature is defined by looking at the &lt;em&gt;Source&lt;/em&gt; column in the command’s output.&lt;/p&gt;
+
+&lt;p&gt;Also, features can be specific to an operating system as the following illustrates.
+Notice the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PSUnixFileStat&lt;/code&gt; feature in the Linux output.&lt;/p&gt;
+
+&lt;h4 id=&quot;experimental-features-on-windows&quot;&gt;Experimental Features on Windows&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/ps7now/pwsh-7-windows-experimentalfeatures.png&quot; alt=&quot;Get-ExperimentalFeature on Windows&quot; title=&quot;Get-ExperimentalFeature on Windows&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;experimental-features-on-linux&quot;&gt;Experimental Features on Linux&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/ps7now/pwsh-7-ubuntu-experimentalfeatures.png&quot; alt=&quot;Get-ExperimentalFeature on Linux&quot; title=&quot;Get-ExperimentalFeature on Linux&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Experimental feature discovery targets the paths in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$env:PSModulePath&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;enable-experimentalfeature&quot;&gt;Enable-ExperimentalFeature&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Enable-ExperimentalFeature&lt;/code&gt; command turns on one or more experimental features for the current user or all users.&lt;/p&gt;
+
+&lt;p&gt;Enabling a feature will add it to an array in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ExperimentalFeatures&lt;/code&gt; key in the Powershell configuration file, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;powershell.config.json&lt;/code&gt;.
+If you do not specify a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Scope&lt;/code&gt;, it will default to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CurrentUser&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;For Windows, the user configuration file will be saved in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$HOME\Documents\PowerShell&lt;/code&gt; folder.&lt;br /&gt;
+For Linux, the user configuration file will be saved in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$HOME\.config\powershell&lt;/code&gt; folder.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt;
+On my system, I re-target my &lt;em&gt;Documents&lt;/em&gt; folder to a separate volume.
+The PowerShell configuration file is saved there and is not in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$HOME&lt;/code&gt; hierarchy.&lt;/p&gt;
+
+&lt;p&gt;You can turn on all experimental features in one line.
+In the following example, I’ve added a sanity check by getting the content of the configuration file.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/ps7now/pwsh-7-windows-experimentalfeatures-enable-all.png&quot; alt=&quot;Enable-ExperimentalFeature All on Windows&quot; title=&quot;Enable-ExperimentalFeature All on Windows&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;notice--warning&quot;&gt;
+&lt;h4 id=&quot;restart-sessions&quot;&gt;Restart Sessions&lt;/h4&gt;
+
+&lt;p&gt;Take note of the warning message that serves as a reminder to restart the PowerShell session.
+In fact, I believe you will need to close all console sessions (those of the same version and platform,
+that is) before the change will take effect.&lt;/p&gt;
+
+&lt;p&gt;Don’t forget the stop the terminal in Visual Studio Code.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;h3 id=&quot;disable-experimentalfeature&quot;&gt;Disable-ExperimentalFeature&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Disable-ExperimentalFeature&lt;/code&gt; command turns off the experimental feature.&lt;/p&gt;
+
+&lt;p&gt;As with enabling, when you disable one or more features, you must close all PowerShell sessions and start a new session.&lt;/p&gt;
+
+&lt;p&gt;Disabling the feature removes its entry from the enabled feature list in the appropriate configuration file.
+The ExperimentalFeatures key will remain even if you disable all experimental features.&lt;/p&gt;
+
+&lt;h2 id=&quot;psunixfilestat-in-action&quot;&gt;PSUnixFileStat In Action&lt;/h2&gt;
+
+&lt;p&gt;Now that we’ve talked about Experimental Features and how to enable/disable them, let’s take one out for a spin.&lt;/p&gt;
+
+&lt;p&gt;One of the features that Linux admins would probably appreciate is the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PSUnixFileStat&lt;/code&gt; feature.
+Let’s get some information about it.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/ps7now/pwsh-7-ubuntu-experimentalfeatures-psunixfilestat-info.png&quot; alt=&quot;PSUnixFileStat Information&quot; title=&quot;PSUnixFileStat Information&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The default output for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-ChildItem&lt;/code&gt; looks the same on Windows or Linux.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/ps7now/pwsh-7-ubuntu-experimentalfeatures-psunixfilestat-get-childitem-before.png&quot; alt=&quot;Get-ChildItem Before Enabling PSUnixFileStat&quot; title=&quot;Get-ChildItem Before Enabling PSUnixFileStat&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The output doesn’t help the Linux admin with permissions.
+Let’s enable the feature and correct that.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/ps7now/pwsh-7-ubuntu-experimentalfeatures-enable-psunixfilestat.png&quot; alt=&quot;Enable-ExperimentalFeature PSUnixFileStat on Linux&quot; title=&quot;Enable-ExperimentalFeature PSUnixFileStat on Linux&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I close all PowerShell sessions in my WSL instance and start a new one.
+And now to see the difference.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/ps7now/pwsh-7-ubuntu-experimentalfeatures-psunixfilestat-get-childitem-after.png&quot; alt=&quot;Get-ChildItem After Enabling PSUnixFileStat&quot; title=&quot;Get-ChildItem After Enabling PSUnixFileStat&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Those new UnixMode entries look much more useful (and are super cool).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;This is PowerShell on Linux!&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;pscommandnotfoundsuggestion-in-action&quot;&gt;PSCommandNotFoundSuggestion In Action&lt;/h2&gt;
+
+&lt;p&gt;Let’s take a quick look at another experimental feature.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/ps7now/pwsh-7-ubuntu-experimentalfeatures-pscommandnotfoundsuggestion.png&quot; alt=&quot;PSCommandNotFoundSuggestion Sample Output&quot; title=&quot;PSCommandNotFoundSuggestion Sample Output&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I meant to type &lt;em&gt;git&lt;/em&gt;, not &lt;em&gt;get&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;With the PSCommandNotFoundSuggestion experimental feature enabled, PowerShell can suggest commands
+when we have a typo or just space out.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Thanks, PowerShell!&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;adding-support-for-an-experimental-feature-to-your-module&quot;&gt;Adding Support for an Experimental Feature to Your Module&lt;/h2&gt;
+
+&lt;p&gt;As I mentioned at the beginning of this article, experimental features are not limited to the PowerShell engine.&lt;/p&gt;
+
+&lt;p&gt;In fact, there are a couple delivered with &lt;strong&gt;PowerShell 7&lt;/strong&gt; within the modules &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Microsoft.PowerShell.Utility&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PSDesiredStateConfiguration&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;I wanted to provide the community a working demo of experimental features, but I couldn’t find any online.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;&lt;em&gt;My google-foo is strong, but it either failed me this time or there are no current examples in the wild.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;I wrote a very simple demo module that contains experimental features.
+You can find it at the bottom of this article.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/ps7now/pwsh-7-experimentalfeatures-demo.png&quot; alt=&quot;Experimental Features Demo Module&quot; title=&quot;Experimental Features Demo Module&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;module-manifest&quot;&gt;Module Manifest&lt;/h3&gt;
+
+&lt;p&gt;In the &lt;a href=&quot;https://github.com/PowerShell/PowerShell-RFC/blob/master/5-Final/RFC0029-Support-Experimental-Features.md#module-experimental-feature&quot; target=&quot;_blank&quot;&gt;Module Experimental Feature&lt;/a&gt; section of RFC0029, I found
+where experimental feature support can be added to a module manifest.&lt;/p&gt;
+
+&lt;p&gt;In the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PrivateData.PSData&lt;/code&gt; section, there is a new ExperimentalFeatures entry which allows an array
+of hashtables with Name and Description.
+This metadata has been incorporated into the necessary components to update the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PSModuleInfo&lt;/code&gt; object.&lt;/p&gt;
+
+&lt;h3 id=&quot;feature-naming&quot;&gt;Feature Naming&lt;/h3&gt;
+
+&lt;p&gt;When I was creating the demo module, I originally created a feature name like &lt;em&gt;PSDemoFeature&lt;/em&gt;.
+I quickly discovered this was not the correct naming scheme for experimental features.&lt;/p&gt;
+
+&lt;p&gt;It became evident when I tested my demo module manifest.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Test-ModuleManifest&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'C:\Program Files\PowerShell\Modules\DemoExperimentalFeatures\DemoExperimentalFeatures.psd1'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Test-ModuleManifest:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;One&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;or&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;more&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;invalid&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;experimental&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;feature&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;found:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;PSDemoExpFeature.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;experimental&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;feature&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;should&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;follow&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;convention:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'ModuleName.FeatureName'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Be sure to use the proper naming scheme for your experimental features.
+The name must be in the format of &lt;em&gt;ModuleName.FeatureName&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;The name of PowerShell engine experimental features is &lt;em&gt;PS&lt;/em&gt;DescriptiveText.
+Once I realized this, I removed the &lt;em&gt;PS&lt;/em&gt; from my feature names to reduce any confusion.&lt;/p&gt;
+
+&lt;h3 id=&quot;experimental-attribute&quot;&gt;Experimental Attribute&lt;/h3&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://docs.microsoft.com/en-gb/powershell/module/microsoft.powershell.core/about/about_experimental_features?view=powershell-7&quot; target=&quot;_blank&quot;&gt;about_Experimental_Feature&lt;/a&gt; documentation goes
+into detail on how to use the new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Experimental&lt;/code&gt; attribute.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Experimental&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;NameOfExperimentalFeature&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;ExperimentAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This attribute can be used for the function or any parameter.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ExperimentAction&lt;/code&gt; is an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;enum&lt;/code&gt; with values of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Hide&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Show&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Show&lt;/code&gt; will allow the experimental feature to be used when it’s enabled.
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Hide&lt;/code&gt; will prohibit the experimental feature to be used when it’s enabled.&lt;/p&gt;
+
+&lt;p&gt;They can be used to provide mutual exclusivity between different versions of a command or parameter.&lt;/p&gt;
+
+&lt;h3 id=&quot;additional-information&quot;&gt;Additional Information&lt;/h3&gt;
+
+&lt;p&gt;Refer to the &lt;a href=&quot;https://docs.microsoft.com/en-gb/powershell/module/microsoft.powershell.core/about/about_experimental_features?view=powershell-7&quot; target=&quot;_blank&quot;&gt;about_Experimental_Feature&lt;/a&gt; documentation
+for examples of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;C#&lt;/code&gt; and how to check if an experimental feature is enabled.&lt;/p&gt;
+
+&lt;p&gt;The latter would be necessary when you don’t need mutual exclusivity and when writing Pester tests for your code.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;&lt;em&gt;When I get extra time, I’ll add another function that uses the experimental feature check.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;demo-module-with-experimental-features-mutually-exclusive&quot;&gt;Demo Module with Experimental Features (Mutually Exclusive)&lt;/h3&gt;
+
+&lt;script src=&quot;https://gist.github.com/thedavecarroll/3a498559a47396be70fc3a4f5be0f07f.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;ps7now-psblogweek-contributors&quot;&gt;#PS7Now #PSBlogWeek Contributors&lt;/h2&gt;
+
+&lt;p&gt;Be sure to watch for more &lt;a href=&quot;https://twitter.com/search?q=PS7Now&amp;amp;f=live&quot;&gt;#PS7Now&lt;/a&gt;! &lt;a href=&quot;https://twitter.com/search?q=%23PSBlogWeek&amp;amp;f=live&quot;&gt;#PSBlogWeek&lt;/a&gt; articles from my fellow contributors and myself.
+And be sure to follow us on Twitter and add our blogs to your feed reader.
+We can help you on your PowerShell enlightenment journey, along with many others in the PowerShell community.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Author&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Twitter&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Blog&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Adam Bertram&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://twitter.com/adbertram&quot;&gt;@adbertram&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://adamtheautomator.com/&quot;&gt;https://adamtheautomator.com/&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Dave Carroll&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://twitter.com/thedavecarroll&quot;&gt;@thedavecarroll&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://powershell.anovelidea.org/&quot;&gt;https://powershell.anovelidea.org/&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Josh Duffney&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://twitter.com/joshduffney&quot;&gt;@joshduffney&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;http://duffney.io/&quot;&gt;http://duffney.io/&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Dan Franciscus&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://twitter.com/danfranciscus&quot;&gt;@danfranciscus&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://winsysblog.com/&quot;&gt;https://winsysblog.com/&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Jeff Hicks&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://twitter.com/jeffhicks&quot;&gt;@jeffhicks&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://jdhitsolutions.com/&quot;&gt;https://jdhitsolutions.com/&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Mike Kanakos&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://twitter.com/MikeKanakos&quot;&gt;@MikeKanakos&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://www.networkadm.in/&quot;&gt;https://www.networkadm.in/&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Josh King&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://twitter.com/WindosNZ&quot;&gt;@WindosNZ&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://toastit.dev/&quot;&gt;https://toastit.dev/&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Thomas Lee&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://twitter.com/doctordns&quot;&gt;@doctordns&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://tfl09.blogspot.com/&quot;&gt;https://tfl09.blogspot.com/&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Tommy Maynard&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://twitter.com/thetommymaynard&quot;&gt;@thetommymaynard&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://tommymaynard.com/&quot;&gt;https://tommymaynard.com/&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Jonathan Medd&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://twitter.com/jonathanmedd&quot;&gt;@jonathanmedd&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://www.jonathanmedd.net/&quot;&gt;https://www.jonathanmedd.net/&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Prateek Singh&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://twitter.com/singhprateik&quot;&gt;@singhprateik&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;https://ridicurious.com/&quot;&gt;https://ridicurious.com/&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;I believe module developers will start delivering experimental features as they migrate to
+&lt;strong&gt;PowerShell 7&lt;/strong&gt;, especially if their modules support mission critical automation and processes.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Thank you for taking the time to read this article and for being part of the PowerShell community.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;You are the reason we do what we do!&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;!-- If you have any comments or questions, please post them below. --&gt;
+
+&lt;p&gt;If you haven’t already, begin your journey with &lt;strong&gt;PowerShell 7&lt;/strong&gt; now!&lt;/p&gt;
+
+&lt;p class=&quot;notice--warning&quot;&gt;&lt;strong&gt;Comments Appear to be Down&lt;/strong&gt;
+I just realized that my comments aren’t working.
+I’ll be looking into that as soon as I can.
+Until I get them back online, you can reach out to me on Twitter or via a comment on the GitHub Gist.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="ps7now" /><category term="powershell 7" /><category term="pwsh" /><category term="experimental features" /><category term="experimental" /><summary type="html">New features that are not production ready are deemed experimental in nature. Users can choose to opt-in for an experimental feature on an individual basis.</summary></entry><entry><title type="html">PowerShell 7 Changes to JSON Cmdlets</title><link href="https://powershell.anovelidea.org/powershell/ps7now-changes-to-json-cmdlets/" rel="alternate" type="text/html" title="PowerShell 7 Changes to JSON Cmdlets" /><published>2020-03-09T00:00:00-05:00</published><updated>2020-03-09T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/ps7now-changes-to-json-cmdlets</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/ps7now-changes-to-json-cmdlets/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/ps7now/pwsh-7-json-cmdlets.png&quot; alt=&quot;PowerShell 7 JSON Cmdlets&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;ps7now-powershell-7-is-here&quot;&gt;#PS7Now! PowerShell 7 Is Here!&lt;/h2&gt;
 
@@ -3127,122 +3413,4 @@ the Information stream is provided.&lt;/p&gt;
 
 &lt;p&gt;I hope that you found this post enlightening or at least it has you thinking about the topic of module variables.&lt;/p&gt;
 
-&lt;p&gt;Please let me know if you have a better method of handling module variables or if you have any questions or comments.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="module" /><category term="module variables" /><category term="global variables" /><summary type="html">Originally, I used globally scoped variables for one of my modules to keep track of session data, but now I use a module variable.</summary></entry><entry><title type="html">ForEach-Object -WhatIf</title><link href="https://powershell.anovelidea.org/powershell/foreach-object-whatif/" rel="alternate" type="text/html" title="ForEach-Object -WhatIf" /><published>2018-09-19T00:00:00-05:00</published><updated>2018-09-19T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/foreach-object-whatif</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/foreach-object-whatif/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/foreach-object-whatif.png&quot; alt=&quot;ForEach-Object -WhatIf&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;preface&quot;&gt;Preface&lt;/h2&gt;
-
-&lt;p&gt;While working on my &lt;a href=&quot;https://github.com/thedavecarroll/PoShDynDnsApi&quot; target=&quot;_blank&quot;&gt;PoShDynDnsApi&lt;/a&gt; module, I came across an issue with
-with a function I had predominantly borrowed from a &lt;a href=&quot;https://blogs.technet.microsoft.com/janesays/2017/04/25/compare-all-properties-of-two-objects-in-windows-powershell/&quot; target=&quot;_blank&quot;&gt;TechNet blog post from Jamie Nelson&lt;/a&gt;.
-Specifically, in my function &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Update-DynDnsRecord&lt;/code&gt; that called the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Compare-ObjectProperties&lt;/code&gt; function, when I used the
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-WhatIf&lt;/code&gt; parameter, I unexpectedly received the following:&lt;/p&gt;
-
-&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: ipaddress Address {get;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;.
-&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: string Name {get;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;set;}&quot;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: int TTL {get;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;.
-&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: string Type {get;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;set;}&quot;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: string Zone {get;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;.
-&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: ipaddress Address {get;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;set;}&quot;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: string Name {get;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;.
-&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: int TTL {get;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;set;}&quot;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: string Type {get;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;.
-&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;What if: Performing the operation &quot;Retrieve the value for property 'Name'&quot; on target &quot;InputObject: string Zone {get;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;set;}&quot;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Compare-ObjectProperties&lt;/code&gt; seemed to be throwing these additional What If statements. I saw where the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt;
-alias of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;%&lt;/code&gt; was used a few times and determined that these two lines were the cause.&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$objprops&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ReferenceObject&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Get-Member&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-MemberType&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Property&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;NoteProperty&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$objprops&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DifferenceObject&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Get-Member&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-MemberType&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Property&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;NoteProperty&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;foreach-object&quot;&gt;ForEach-Object&lt;/h2&gt;
-
-&lt;h3 id=&quot;-whatif&quot;&gt;-WhatIf&lt;/h3&gt;
-
-&lt;p&gt;I checked out the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/foreach-object?view=powershell-5.1&quot; target=&quot;_blank&quot;&gt;docs page&lt;/a&gt;
-and saw that it supports &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-WhatIf&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Confirm&lt;/code&gt; parameters. That’s something that I had never considered. In fact, the
-more I read, the more I realized that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt; was much more than a simple iterative command.&lt;/p&gt;
-
-&lt;h3 id=&quot;-begin--process-and--end&quot;&gt;-Begin, -Process, and -End&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt; provides a ParameterSet that includes the parameters &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Begin&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Process&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-End&lt;/code&gt;, all as ScriptBlocks.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Hey! Those look like the processing methods of an advanced function.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;In fact, comparing the processing methods to the parameters revealed they served basically the same purpose.&lt;/p&gt;
-
-&lt;h3 id=&quot;ad-hoc-advanced-function-but-with-caveats&quot;&gt;Ad Hoc Advanced Function But with Caveats&lt;/h3&gt;
-
-&lt;p&gt;That the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt; cmdlet could be used essentially as an ad hoc advanced function was an epiphany.&lt;/p&gt;
-
-&lt;p&gt;This wasn’t as miraculous of a discovery as I had originally thought the further testing I performed.&lt;/p&gt;
-
-&lt;h4 id=&quot;script-blocks-and--whatif&quot;&gt;Script Blocks and -WhatIf&lt;/h4&gt;
-
-&lt;p&gt;I had hoped that I could provide &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Begin&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Process&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-End&lt;/code&gt; parameters along with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-WhatIf&lt;/code&gt; as illustrated in the
-following code:&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;C:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'testing1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'testing2'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ForEach-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Begin&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Write-Output&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Starting'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Process&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Write-Output&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Processing &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-End&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Write-Output&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Ending'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-WhatIf&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;What I expected was not how PowerShell responded.&lt;/p&gt;
-
-&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;ForEach-Object : The -WhatIf and -Confirm parameters are not supported for script blocks.
-At line:1 char:26
-+ ... esting2' |  ForEach-Object -Begin { write-Output 'Starting' } -Proces ...
-+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+ CategoryInfo          : InvalidOperation: (:) [ForEach-Object], InvalidOperationException
-+ FullyQualifiedErrorId : NoShouldProcessForScriptBlockSet,Microsoft.PowerShell.Commands.ForEachObjectCommand
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;You cannot use the script blocks and WhatIf. Okay, I wondered if there were other restrictions.&lt;/p&gt;
-
-&lt;h4 id=&quot;script-blocks-and--verbose&quot;&gt;Script Blocks and -Verbose&lt;/h4&gt;
-
-&lt;p&gt;In checking how &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Verbose&lt;/code&gt; was handled, I discovered the following:&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;C:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'testing1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'testing2'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ForEach-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Begin&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Write-Output&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Starting'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Process&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Write-Output&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Processing &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Write-Verbose&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Message&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Process block'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-End&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Write-verbose&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Message&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Ending'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Verbose&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Verbose&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Starting&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Processing&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;testing1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Processing&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;testing2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;VERBOSE:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Ending&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Foreach-Object&lt;/code&gt; didn’t pass the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Verbose&lt;/code&gt; common parameter to any code within the script blocks.&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;Now that I know that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt; supports &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-WhatIf&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Confirm&lt;/code&gt; parameters, I am better equipped to handle them
-in my future functions and scripts.&lt;/p&gt;
-
-&lt;p&gt;Also, I debunked my original thought that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt; could be a viable replacement for an advanced function.  Not
-passing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Verbose&lt;/code&gt; and potentially other common parameters (I didn’t test any others) is, to me, a significant
-deal-breaker.&lt;/p&gt;
-
-&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I never considered forgoing advanced functions, just that the cmdlet could be an ad hoc supplement.&lt;/p&gt;
-
-&lt;p&gt;This doesn’t mean that we shouldn’t consider using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Begin&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Process&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-End&lt;/code&gt; script block parameters, as I’m
-sure there are use cases when they make perfect sense. The PowerShell team thought so, otherwise they wouldn’t have
-included them in the cmdlet.&lt;/p&gt;
-
-&lt;p&gt;My discovery and exploration of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt; cmdlet and a few of its parameters, increased my understanding of it
-and PowerShell. I hope it helps you as well.&lt;/p&gt;
-
-&lt;h2 id=&quot;further-reading&quot;&gt;Further Reading&lt;/h2&gt;
-
-&lt;p&gt;In a &lt;a href=&quot;https://blogs.technet.microsoft.com/heyscriptingguy/2014/07/08/getting-to-know-foreach-and-foreach-object/&quot; target=&quot;_blank&quot;&gt;guest post&lt;/a&gt;
-on the &lt;strong&gt;Hey, Scripting Guy!&lt;/strong&gt; blog, MVP and Honorary Scripting Guy &lt;a href=&quot;https://learn-powershell.net/&quot; target=&quot;_blank&quot;&gt;Boe Prox&lt;/a&gt; &lt;a href=&quot;https://twitter.com/proxb&quot; target=&quot;_blank&quot;&gt;@proxb&lt;/a&gt; examines the ForEach-Object cmdlet compared to the ForEach statement.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="foreach-object" /><category term="function" /><category term="ad hoc function" /><summary type="html">While working on my PoShDynDnsApi module, I came across an issue...I checked out the ForEach-Object and saw that it supports -WhatIf and -Confirm parameters.</summary></entry></feed>
+&lt;p&gt;Please let me know if you have a better method of handling module variables or if you have any questions or comments.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="module" /><category term="module variables" /><category term="global variables" /><summary type="html">Originally, I used globally scoped variables for one of my modules to keep track of session data, but now I use a module variable.</summary></entry></feed>
