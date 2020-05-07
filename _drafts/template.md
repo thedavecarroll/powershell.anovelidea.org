@@ -2,6 +2,9 @@
 layout: single
 title: "Post Title"
 excerpt: "Post Excerpt"
+header:
+  overlay_image: /assets/images/template.png
+  overlay_filter: 0.9
 comments: true
 tags:
   - tag1
