@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.17.2 by Michael Rose
+  Minimal Mistakes Jekyll Theme 4.19.2 by Michael Rose
   Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
@@ -10,7 +10,7 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>How I Blog - PowerShell: What A Novel Idea</title>
-<meta name="description" content="What technologies are used in my blog?">
+<meta name="description" content="What technologies are used in my blog? ">
 
 
   <meta name="author" content="Dave Carroll">
@@ -23,7 +23,7 @@
 <meta property="og:url" content="https://powershell.anovelidea.org/blog/how-i-blog/">
 
 
-  <meta property="og:description" content="What technologies are used in my blog?">
+  <meta property="og:description" content="What technologies are used in my blog? ">
 
 
 
@@ -31,7 +31,7 @@
 
   <meta name="twitter:site" content="@thedavecarroll">
   <meta name="twitter:title" content="How I Blog">
-  <meta name="twitter:description" content="What technologies are used in my blog?">
+  <meta name="twitter:description" content="What technologies are used in my blog? ">
   <meta name="twitter:url" content="https://powershell.anovelidea.org/blog/how-i-blog/">
 
   
@@ -161,11 +161,11 @@
             </li><li class="masthead__menu-item">
               <a href="/posts/" title="Blog Posts">Posts</a>
             </li><li class="masthead__menu-item">
-              <a href="/tags/" >Tags</a>
+              <a href="/tags/">Tags</a>
             </li><li class="masthead__menu-item">
-              <a href="/modules/" >My Modules</a>
+              <a href="/modules/">My Modules</a>
             </li><li class="masthead__menu-item">
-              <a href="/resources/" >Resources</a>
+              <a href="/resources/">Resources</a>
             </li></ul>
         
         <button class="search__toggle" type="button">
@@ -201,8 +201,6 @@
 
   
     <div class="author__avatar">
-      
-
       
         <img src="/assets/images/me.jpg" alt="Dave Carroll" itemprop="image">
       
@@ -255,7 +253,7 @@
       
         <li>
           <a href="https://twitter.com/thedavecarroll" itemprop="sameAs" rel="nofollow noopener noreferrer">
-            <i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+            <i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span>
           </a>
         </li>
       
@@ -265,7 +263,7 @@
       
         <li>
           <a href="https://www.linkedin.com/in/thedavecarroll" itemprop="sameAs" rel="nofollow noopener noreferrer">
-            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span>
           </a>
         </li>
       
@@ -281,7 +279,7 @@
       
         <li>
           <a href="https://github.com/thedavecarroll" itemprop="sameAs" rel="nofollow noopener noreferrer">
-            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span>
           </a>
         </li>
       
@@ -329,6 +327,7 @@
 
   
   </div>
+
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
@@ -393,6 +392,7 @@
   </li>
   <li><a href="#conclusion">Conclusion</a></li>
 </ul>
+
             </nav>
           </aside>
         
@@ -791,6 +791,64 @@ the color syntax of GitHub Gists.</p>
   
   
       <section id="static-comments">
+        
+          <!-- Start static comments -->
+          <div class="js-comments">
+            
+          </div>
+          <!-- End static comments -->
+
+          <!-- Start new comment form -->
+          <div class="page__comments-form">
+            <h4 class="page__comments-title">Leave a comment</h4>
+            <p class="small">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
+            <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v2/entry/thedavecarroll/powershell.anovelidea.org/comments/comments">
+              <div class="form__spinner">
+                <i class="fas fa-spinner fa-spin fa-3x fa-fw"></i>
+                <span class="sr-only">Loading...</span>
+              </div>
+
+              <div class="form-group">
+                <label for="comment-form-message">Comment <small class="required">*</small></label>
+                <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+                <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown is supported.</a></div>
+              </div>
+              <div class="form-group">
+                <label for="comment-form-name">Name <small class="required">*</small></label>
+                <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+              </div>
+              <div class="form-group">
+                <label for="comment-form-email">Email address <small class="required">*</small></label>
+                <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+              </div>
+              <div class="form-group">
+                <label for="comment-form-url">Website (optional)</label>
+                <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+              </div>
+              <div class="form-group hidden" style="display: none;">
+                <input type="hidden" name="options[slug]" value="how-i-blog">
+                <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+                <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+                <input type="hidden" name="options[reCaptcha][siteKey]" value="6LfTsmoUAAAAAKI2qS8kGdIxL5rAxjr4vKfD1yH8">
+                <input type="hidden" name="options[reCaptcha][secret]" value="gahrPcBtEt03G0gUgYjtyQR+WRhr9+mgyHRJX0Z23jQ42E63EfEpxTLC4FttAKQX6fXnexRPiAoW8tzRvXMuId3XaTHrCUKkp9ik513TTzuDaT/Bx9lZGxX66Hf7XAg4beiUZsRCXwLZYyLo7jB2x3tRDEgB+4f7xJ34c4iWhEM=">
+              </div>
+              <!-- Start comment form alert messaging -->
+              <p class="hidden js-notice">
+                <strong class="js-notice-text"></strong>
+              </p>
+              <!-- End comment form alert messaging -->
+              
+                <div class="form-group">
+                  <div class="g-recaptcha" data-sitekey="6LfTsmoUAAAAAKI2qS8kGdIxL5rAxjr4vKfD1yH8"></div>
+                </div>
+              
+              <div class="form-group">
+                <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--primary btn--large">Submit comment</button>
+              </div>
+            </form>
+          </div>
+          <!-- End new comment form -->
+          <script async src="https://www.google.com/recaptcha/api.js"></script>
         
       </section>
     
