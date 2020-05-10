@@ -43,7 +43,7 @@ comments:
     issue_term           : # "pathname" (default)
   staticman:
     branch               : "comments"
-    endpoint             : "https://dev.staticman.net/v3/entry/github/thedavecarroll/powershell.anovelidea.org/comments" # "https://{your Staticman v3 API}/v3/entry/github/"
+    endpoint             : "https://dev.staticman.net/v3/entry/github/" # "https://{your Staticman v3 API}/v3/entry/github/"
 reCaptcha:
   siteKey                : "6LfTsmoUAAAAAKI2qS8kGdIxL5rAxjr4vKfD1yH8"
   secret                 : "TziqEh04wif227oSMbOTngYQ4uVciE2p/nRkXx1jqtuLsCCsJKPWc0WKH1czZAV5xIJ3m/YBZgeoQvSnbUbOCjDOJrGREz/DQ3/i26Gc8cDsi06eciYlVB3JPZFYGazJftccRQoSljibPJe7PTG5r6d+TlVo/XqR7QHEIDWzIhA="
