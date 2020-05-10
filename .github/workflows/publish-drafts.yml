@@ -14,5 +14,5 @@ jobs:
       uses: soywiz/github-action-jekyll-publish-drafts@v2
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        jekyll_path: ./docs
+        jekyll_path: ./
         branch: master
