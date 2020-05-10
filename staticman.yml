@@ -10,7 +10,7 @@ comments:
   #
   # Names of the fields the form is allowed to submit. If a field that is
   # not here is part of the request, an error will be thrown.
-  allowedFields: ["name", "email", "message"]
+  allowedFields: ["name", "email", "url","message"]
 
   # (*) REQUIRED WHEN USING NOTIFICATIONS
   #
@@ -102,4 +102,5 @@ comments:
     siteKey: "6LfTsmoUAAAAAKI2qS8kGdIxL5rAxjr4vKfD1yH8"
     # Encrypt reCaptcha secret key using Staticman /encrypt endpoint
     # For more information, https://staticman.net/docs/encryption
-    secret: "gahrPcBtEt03G0gUgYjtyQR+WRhr9+mgyHRJX0Z23jQ42E63EfEpxTLC4FttAKQX6fXnexRPiAoW8tzRvXMuId3XaTHrCUKkp9ik513TTzuDaT/Bx9lZGxX66Hf7XAg4beiUZsRCXwLZYyLo7jB2x3tRDEgB+4f7xJ34c4iWhEM="
+    # old secret: "gahrPcBtEt03G0gUgYjtyQR+WRhr9+mgyHRJX0Z23jQ42E63EfEpxTLC4FttAKQX6fXnexRPiAoW8tzRvXMuId3XaTHrCUKkp9ik513TTzuDaT/Bx9lZGxX66Hf7XAg4beiUZsRCXwLZYyLo7jB2x3tRDEgB+4f7xJ34c4iWhEM="
+    secret: "TziqEh04wif227oSMbOTngYQ4uVciE2p/nRkXx1jqtuLsCCsJKPWc0WKH1czZAV5xIJ3m/YBZgeoQvSnbUbOCjDOJrGREz/DQ3/i26Gc8cDsi06eciYlVB3JPZFYGazJftccRQoSljibPJe7PTG5r6d+TlVo/XqR7QHEIDWzIhA="
