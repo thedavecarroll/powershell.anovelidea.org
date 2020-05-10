@@ -567,6 +567,106 @@ on the <strong>Hey, Scripting Guy!</strong> blog, MVP and Honorary Scripting Guy
   
       <section id="static-comments">
         
+          <!-- Start static comments -->
+          <div class="js-comments">
+            
+              <h4 class="page__comments-title">Comments</h4>
+              
+
+              
+                
+                
+                
+                
+                
+                <article id="comment1" class="js-comment comment" itemprop="comment" itemscope itemtype="https://schema.org/Comment">
+  <div class="comment__avatar-wrapper">
+    <img class="comment__avatar" src="https://www.gravatar.com/avatar/d7d29e9573b5da44d9886df24fcc6142?d=mm&s=80" alt="Kevin Marquette">
+  </div>
+  <div class="comment__content-wrapper">
+    <h3 class="comment__author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+      
+        <span itemprop="name"><a rel="external nofollow" itemprop="url" href="https://kevinmarquette.github.io">Kevin Marquette</a></span>
+      
+    </h3>
+    <p class="comment__date">
+      
+        <a href="#comment1" itemprop="url">
+        <time datetime="2018-09-20T04:12:11-05:00" itemprop="datePublished">September 20, 2018 at 09:12 AM</time>
+        </a>
+      
+    </p>
+    <div itemprop="text"><p>I also had no idea that <code class="language-plaintext highlighter-rouge">ForEach-Object</code> supported <code class="language-plaintext highlighter-rouge">-WhatIf</code> this way. I do have one scenario where this would be very handy.</p>
+
+<p>One lesser known feature of <code class="language-plaintext highlighter-rouge">ForEach-Object</code> is that it has an alternate parameter set that takes just a string. If that maps to a property name on the object, you will get the value. If it maps to a method on the object, it will get executed. So, you can use <code class="language-plaintext highlighter-rouge">-WhatIf</code> in this way:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-Process slack | % Close -WhatIf
+</code></pre></div></div>
+
+<p>I would never use this magic in a script, but I use it all the time when on the console. I can now see myself using <code class="language-plaintext highlighter-rouge">-WhatIf</code> like this quite often.</p>
+
+<p>Thank you for pointing this out.</p>
+</div>
+  </div>
+</article>
+
+              
+            
+          </div>
+          <!-- End static comments -->
+
+          <!-- Start new comment form -->
+          <div class="page__comments-form">
+            <h4 class="page__comments-title">Leave a comment</h4>
+            <p class="small">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
+            <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://dev.staticman.net/v3/entry/github/thedavecarroll/powershell.anovelidea.org/master/comments">
+              <div class="form__spinner">
+                <i class="fas fa-spinner fa-spin fa-3x fa-fw"></i>
+                <span class="sr-only">Loading...</span>
+              </div>
+
+              <div class="form-group">
+                <label for="comment-form-message">Comment <small class="required">*</small></label>
+                <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+                <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown is supported.</a></div>
+              </div>
+              <div class="form-group">
+                <label for="comment-form-name">Name <small class="required">*</small></label>
+                <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+              </div>
+              <div class="form-group">
+                <label for="comment-form-email">Email address <small class="required">*</small></label>
+                <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+              </div>
+              <div class="form-group">
+                <label for="comment-form-url">Website (optional)</label>
+                <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+              </div>
+              <div class="form-group hidden" style="display: none;">
+                <input type="hidden" name="options[slug]" value="foreach-object-whatif">
+                <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+                <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+                <input type="hidden" name="options[reCaptcha][siteKey]" value="6LfTsmoUAAAAAKI2qS8kGdIxL5rAxjr4vKfD1yH8">
+                <input type="hidden" name="options[reCaptcha][secret]" value="TziqEh04wif227oSMbOTngYQ4uVciE2p/nRkXx1jqtuLsCCsJKPWc0WKH1czZAV5xIJ3m/YBZgeoQvSnbUbOCjDOJrGREz/DQ3/i26Gc8cDsi06eciYlVB3JPZFYGazJftccRQoSljibPJe7PTG5r6d+TlVo/XqR7QHEIDWzIhA=">
+              </div>
+              <!-- Start comment form alert messaging -->
+              <p class="hidden js-notice">
+                <strong class="js-notice-text"></strong>
+              </p>
+              <!-- End comment form alert messaging -->
+              
+                <div class="form-group">
+                  <div class="g-recaptcha" data-sitekey="6LfTsmoUAAAAAKI2qS8kGdIxL5rAxjr4vKfD1yH8"></div>
+                </div>
+              
+              <div class="form-group">
+                <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--primary btn--large">Submit comment</button>
+              </div>
+            </form>
+          </div>
+          <!-- End new comment form -->
+          <script async src="https://www.google.com/recaptcha/api.js"></script>
+        
       </section>
     
 </div>
@@ -666,6 +766,45 @@ on the <strong>Hey, Scripting Guy!</strong> blog, MVP and Honorary Scripting Guy
 
 
     
+  <script>
+    (function ($) {
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fas fa-spinner fa-spin fa-fw"></i> Loading...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('Submitted');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('Thanks for your comment! It will show on the site once it has been approved.');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('Submit comment');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('Sorry, there was an error with your submission. Please make sure all required fields have been completed and try again.');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
 
   
 
