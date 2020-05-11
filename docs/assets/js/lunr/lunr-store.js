@@ -100,4 +100,10 @@ var store = [{
         "tags": ["ps7now","powershell 7","pwsh","experimental features","experimental"],
         "url": "https://powershell.anovelidea.org/powershell/ps7now-experimental-features/",
         "teaser": null
+      },{
+        "title": "Publish a Post for a Jekyll Site on a Schedule",
+        "excerpt":"Scheduled Posts A few months ago, Jeff Hicks asked me to participate in a PSBlogWeek focused on the release of PowerShell 7. I was ecstatic and honored. The contributors were asked to publish one to two blog posts on a specific topic, at a specific time. A specific time, for...","categories": ["blog"],
+        "tags": ["blog","jekyll","github","github actions","github pages","ci"],
+        "url": "https://powershell.anovelidea.org/blog/publish-post-jekyll-on-a-schedule/",
+        "teaser": null
       }]
