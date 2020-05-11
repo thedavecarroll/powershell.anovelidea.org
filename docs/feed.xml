@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2020-05-11T11:33:31-05:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Publish a Post for a Jekyll Site on a Schedule</title><link href="https://powershell.anovelidea.org/blog/publish-post-jekyll-on-a-schedule/" rel="alternate" type="text/html" title="Publish a Post for a Jekyll Site on a Schedule" /><published>2020-05-11T09:00:00-05:00</published><updated>2020-05-11T09:00:00-05:00</updated><id>https://powershell.anovelidea.org/blog/publish-post-jekyll-on-a-schedule</id><content type="html" xml:base="https://powershell.anovelidea.org/blog/publish-post-jekyll-on-a-schedule/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/publish-drafts/marketplace-action.png&quot; alt=&quot;Jekyll Publish Drafts&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2020-05-11T13:58:54-05:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Publish a Post for a Jekyll Site on a Schedule</title><link href="https://powershell.anovelidea.org/blog/publish-post-jekyll-on-a-schedule/" rel="alternate" type="text/html" title="Publish a Post for a Jekyll Site on a Schedule" /><published>2020-05-11T09:00:00-05:00</published><updated>2020-05-11T09:00:00-05:00</updated><id>https://powershell.anovelidea.org/blog/publish-post-jekyll-on-a-schedule</id><content type="html" xml:base="https://powershell.anovelidea.org/blog/publish-post-jekyll-on-a-schedule/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/publish-drafts/marketplace-action.png&quot; alt=&quot;Jekyll Publish Drafts&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;scheduled-posts&quot;&gt;Scheduled Posts&lt;/h2&gt;
 
@@ -197,6 +197,84 @@ It contains the most lines but, ironically, has the least amount of interesting 
 
 &lt;p&gt;Any discoveries that I find after publishing will be added here.&lt;/p&gt;
 
+&lt;h3 id=&quot;future-posts&quot;&gt;Future Posts&lt;/h3&gt;
+
+&lt;p&gt;To see a post with a future date in a local development environment, you must use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--future&lt;/code&gt; command line argument.&lt;/p&gt;
+
+&lt;p&gt;I updated my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker-compose.yml&lt;/code&gt;* file to include this.&lt;/p&gt;
+
+&lt;h3 id=&quot;publish-commit-message&quot;&gt;Publish Commit Message&lt;/h3&gt;
+
+&lt;p&gt;I used &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[skip ci]&lt;/code&gt; in my commit message of the draft and the associated images.
+This prevents Travis CI from building the site and pushing into gh-pages branch.&lt;/p&gt;
+
+&lt;p&gt;By examining the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;script.ts&lt;/code&gt; TypeScript file in the action’s repository, I noticed that the default commit message is &lt;em&gt;Publish drafts&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;I believe if you wanted to change that, you can add the following to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;with:&lt;/code&gt; section of the workflow yaml file.&lt;/p&gt;
+
+&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;      &lt;span class=&quot;na&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# the git_message can be inserted anywhere after with: and must have the same indention&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;git_message&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;My&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Custom&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Commit&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Message&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;incorrect-filename&quot;&gt;Incorrect Filename&lt;/h3&gt;
+
+&lt;p&gt;From the log files, you can see that the file was incorrectly named with date prefix of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2020-04-11&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;2020-05-11T16:32:23.7713614Z Exploring... /home/runner/work/powershell.anovelidea.org/powershell.anovelidea.org/_drafts
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;2020-05-11T16:32:23.7753285Z /home/runner/work/powershell.anovelidea.org/powershell.anovelidea.org/_drafts/publish-post-jekyll-on-a-schedule.md --&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;/home/runner/work/powershell.anovelidea.org/powershell.anovelidea.org/_posts/2020-04-11-publish-post-jekyll-on-a-schedule.md
+&lt;span class=&quot;go&quot;&gt;2020-05-11T16:32:23.8181470Z Found 2 files. Moved drafts: 1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This did not alter the publication date which is read from the front matter yaml.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;xml&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$sitefeed&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Invoke-WebRequest&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Uri&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;https://powershell.anovelidea.org/feed.xml&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Content&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$sitefeed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;feed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;entry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;published&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# 2020-05-11T09:00:00-05:00&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I manually corrected the name of the file by renaming it after using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git pull&lt;/code&gt; to synchronize the changes to my local site repository.&lt;/p&gt;
+
+&lt;p class=&quot;notice--danger&quot;&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; Since this action commits back to your site repository, it is imperative that you use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git pull&lt;/code&gt; to synchronize from &lt;em&gt;origin/master&lt;/em&gt; to your local copy.
+If you modify the markdown file locally before syncing, when you do attempt a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git pull&lt;/code&gt;,
+you will get the following “error: Your local changes to the following files would be overwritten by merge” and it will abort.
+At that point, you would have to simply revert the file (losing changes), copy the changes to temporary location, or use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git stash&lt;/code&gt; to stash changes.
+You can then attempt &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git pull&lt;/code&gt; again.&lt;/p&gt;
+
+&lt;h3 id=&quot;github-action-debug-logs&quot;&gt;GitHub Action Debug Logs&lt;/h3&gt;
+
+&lt;p&gt;I found a &lt;a href=&quot;https://github.com/actions/toolkit&quot; target=&quot;_blank&quot;&gt;GitHub ToolKit&lt;/a&gt; that discusses how to configure &lt;a href=&quot;https://github.com/actions/toolkit/blob/master/docs/action-debugging.md&quot; target=&quot;_blank&quot;&gt;Step Debug and Runner Diagnostic Logs&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Basically, you &lt;a href=&quot;https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets#creating-encrypted-secrets&quot; target=&quot;_blank&quot;&gt;add a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;secret&lt;/code&gt;&lt;/a&gt; to your repository for whichever log you want to enable.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-pre&quot;&gt;ACTIONS_STEP_DEBUG   true
+ACTIONS_RUNNER_DEBUG true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Enabling &lt;strong&gt;Step Debug Logs&lt;/strong&gt; will add debug output prefixed with &lt;strong&gt;##[debug]&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Enabling &lt;strong&gt;Runner Diagnostic Logs&lt;/strong&gt; will add additional log files to the log archive that you can download for the run.&lt;/p&gt;
+
+&lt;p class=&quot;notice&quot;&gt;Ultimately, enabling both of these logs did not really assist in determining why the file was incorrectly named.
+I have removed the secrets from my repository just to reduce the clutter in the logs.&lt;/p&gt;
+
+&lt;h3 id=&quot;ideas&quot;&gt;Ideas&lt;/h3&gt;
+
+&lt;p&gt;Adding post scheduling support to my blog site was a learning experience.
+I’ve writing this post, I have thought of a few things that I could do to make this really shine.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Add additional logging to the action by way of a pull request (PR).&lt;/li&gt;
+  &lt;li&gt;Add additional steps to the workflow to automatically send a notice to various social media sites.&lt;/li&gt;
+  &lt;li&gt;Write my own actions based on PowerShell 7, which is included in the current runner system.
+    &lt;ul&gt;
+      &lt;li&gt;One to essentially do the same as the the current action, which is based on TypeScript.&lt;/li&gt;
+      &lt;li&gt;One to send a Tweet.&lt;/li&gt;
+      &lt;li&gt;Possibly others.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
 
 &lt;p&gt;Thank you for reading this post.&lt;/p&gt;
@@ -207,6 +285,8 @@ It contains the most lines but, ironically, has the least amount of interesting 
 please leave a comment below.&lt;/p&gt;
 
 &lt;p&gt;Thank you, again.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;* - Be on the lookup for an upcoming post on how to use a &lt;strong&gt;Docker&lt;/strong&gt; image as a local development system for your &lt;strong&gt;Jekyll&lt;/strong&gt; site.&lt;/p&gt;
 
 &lt;h2 id=&quot;reference&quot;&gt;Reference&lt;/h2&gt;
 
