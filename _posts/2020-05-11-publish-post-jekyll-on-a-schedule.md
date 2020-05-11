@@ -2,7 +2,7 @@
 layout: single
 title: "Publish a Post for a Jekyll Site on a Schedule"
 excerpt: "Learn how to schedule the publishing of a post using the GitHub Action, Jekyll Publish Drafts, on a GitHub pages hosted site."
-date: '2020-05-11 08:00:00 -0600'
+date: '2020-05-11T09:00:00-0500'
 header:
   overlay_image: /assets/images/publish-drafts/marketplace-action.png
   overlay_filter: 0.9
@@ -201,6 +201,85 @@ This post was published on a schedule using the configured workflow.
 
 Any discoveries that I find after publishing will be added here.
 
+### Future Posts
+
+To see a post with a future date in a local development environment, you must use `--future` command line argument.
+
+I updated my `docker-compose.yml`* file to include this.
+
+### Publish Commit Message
+
+I used `[skip ci]` in my commit message of the draft and the associated images.
+This prevents Travis CI from building the site and pushing into gh-pages branch.
+
+By examining the `script.ts` TypeScript file in the action's repository, I noticed that the default commit message is *Publish drafts*.
+
+I believe if you wanted to change that, you can add the following to the `with:` section of the workflow yaml file.
+
+```yml
+      with: # the git_message can be inserted anywhere after with: and must have the same indention
+        git_message: "My Custom Commit Message"
+```
+
+### Incorrect Filename
+
+From the log files, you can see that the file was incorrectly named with date prefix of `2020-04-11`.
+
+```console
+2020-05-11T16:32:23.7713614Z Exploring... /home/runner/work/powershell.anovelidea.org/powershell.anovelidea.org/_drafts
+2020-05-11T16:32:23.7753285Z /home/runner/work/powershell.anovelidea.org/powershell.anovelidea.org/_drafts/publish-post-jekyll-on-a-schedule.md --> /home/runner/work/powershell.anovelidea.org/powershell.anovelidea.org/_posts/2020-04-11-publish-post-jekyll-on-a-schedule.md
+2020-05-11T16:32:23.8181470Z Found 2 files. Moved drafts: 1
+```
+
+This did not alter the publication date which is read from the front matter yaml.
+
+```powershell
+PS> [xml]$sitefeed = (Invoke-WebRequest -Uri https://powershell.anovelidea.org/feed.xml).Content
+PS> $sitefeed.feed.entry[0].published
+
+# 2020-05-11T09:00:00-05:00
+```
+
+I manually corrected the name of the file by renaming it after using `git pull` to synchronize the changes to my local site repository.
+
+**NOTE:** Since this action commits back to your site repository, it is imperative that you use `git pull` to synchronize from *origin/master* to your local copy.
+If you modify the markdown file locally before syncing, when you do attempt a `git pull`,
+you will get the following "error: Your local changes to the following files would be overwritten by merge" and it will abort.
+At that point, you would have to simply revert the file (losing changes), copy the changes to temporary location, or use `git stash` to stash changes.
+You can then attempt `git pull` again.
+{: .notice--danger}
+
+### GitHub Action Debug Logs
+
+I found a [GitHub ToolKit][8]{:target="_blank"} that discusses how to configure [Step Debug and Runner Diagnostic Logs][9]{:target="_blank"}.
+
+Basically, you [add a `secret`][10]{:target="_blank"} to your repository for whichever log you want to enable.
+
+```pre
+ACTIONS_STEP_DEBUG   true
+ACTIONS_RUNNER_DEBUG true
+```
+
+Enabling **Step Debug Logs** will add debug output prefixed with **##\[debug]**.
+
+Enabling **Runner Diagnostic Logs** will add additional log files to the log archive that you can download for the run.
+
+Ultimately, enabling both of these logs did not really assist in determining why the file was incorrectly named.
+I have removed the secrets from my repository just to reduce the clutter in the logs.
+{: .notice}
+
+### Ideas
+
+Adding post scheduling support to my blog site was a learning experience.
+I've writing this post, I have thought of a few things that I could do to make this really shine.
+
+* Add additional logging to the action by way of a pull request (PR).
+* Add additional steps to the workflow to automatically send a notice to various social media sites.
+* Write my own actions based on PowerShell 7, which is included in the current runner system.
+  * One to essentially do the same as the the current action, which is based on TypeScript.
+  * One to send a Tweet.
+  * Possibly others.
+
 ## Summary
 
 Thank you for reading this post.
@@ -211,6 +290,9 @@ If you have any questions, find errors (technical, grammatical, or typographical
 please leave a comment below.
 
 Thank you, again.
+
+\* - Be on the lookup for an upcoming post on how to use a **Docker** image as a local development system for your **Jekyll** site.
+{: .notice--info}
 
 ## Reference
 
@@ -224,3 +306,6 @@ Also, if you want want to dig into the action to see how it works, here is the [
 [5]: https://github.com/marketplace?type=actions
 [6]: https://soywiz.com/autopublish-jekyll-drafts/
 [7]: https://github.com/soywiz/github-action-jekyll-publish-drafts
+[8]: https://github.com/actions/toolkit
+[9]: https://github.com/actions/toolkit/blob/master/docs/action-debugging.md
+[10]: https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets#creating-encrypted-secrets
