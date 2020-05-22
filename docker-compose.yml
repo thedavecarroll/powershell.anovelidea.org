@@ -5,7 +5,7 @@ services:
           - JEKYLL_ENV=docker
         image: jekyll/jekyll:latest
         container_name: powershell-anovelidea-org
-        command: jekyll serve --force_polling --watch --port 4000 --config _config.yml --destination ./docs --drafts --future
+        command: jekyll serve --force_polling --watch --port 4000 --config _config.yml,_docker_config.yml --destination ./docs --drafts --future
         ports:
           - "4000:4000"
         volumes:
