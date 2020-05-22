@@ -106,4 +106,10 @@ var store = [{
         "tags": ["blog","jekyll","github","github actions","github pages","ci"],
         "url": "https://powershell.anovelidea.org/blog/publish-post-jekyll-on-a-schedule/",
         "teaser": null
+      },{
+        "title": "A PowerShell Counting Challenge Walk-through",
+        "excerpt":"Introduction The latest IronScripter challenge, A PowerShell Counting Challenge, had challengers learning about loops, possibly range and modulus operators, basic parameter validation, and creation of a simple custom object. This post should serve as a walk-through, or learning guide if you will, for the Iron Scripter’s challenge. Beginner For the...","categories": ["powershell"],
+        "tags": ["powershell","powershell concepts","learn powershell","iron scripter","iron scripter challenge","iron scripter walk-through"],
+        "url": "https://powershell.anovelidea.org/powershell/powershell-counting-challenge/",
+        "teaser": null
       }]

@@ -1,4 +1,269 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2020-05-22T09:05:01-05:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Publish a Post for a Jekyll Site on a Schedule</title><link href="https://powershell.anovelidea.org/blog/publish-post-jekyll-on-a-schedule/" rel="alternate" type="text/html" title="Publish a Post for a Jekyll Site on a Schedule" /><published>2020-05-11T09:00:00-05:00</published><updated>2020-05-11T09:00:00-05:00</updated><id>https://powershell.anovelidea.org/blog/publish-post-jekyll-on-a-schedule</id><content type="html" xml:base="https://powershell.anovelidea.org/blog/publish-post-jekyll-on-a-schedule/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/publish-drafts/marketplace-action.png&quot; alt=&quot;Jekyll Publish Drafts&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2020-05-22T15:15:48-05:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">A PowerShell Counting Challenge Walk-through</title><link href="https://powershell.anovelidea.org/powershell/powershell-counting-challenge/" rel="alternate" type="text/html" title="A PowerShell Counting Challenge Walk-through" /><published>2020-05-22T00:00:00-05:00</published><updated>2020-05-22T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/powershell-counting-challenge</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/powershell-counting-challenge/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/ironscripter/counting/three-loops.png&quot; alt=&quot;IronScripterChallenge&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;The latest IronScripter challenge, &lt;a href=&quot;https://ironscripter.us/a-powershell-counting-challenge/&quot; target=&quot;_blank&quot;&gt;A PowerShell Counting Challenge&lt;/a&gt;, had challengers
+learning about loops, possibly range and modulus operators, basic parameter validation, and creation of a simple custom object.&lt;/p&gt;
+
+&lt;p&gt;This post should serve as a walk-through, or learning guide if you will, for the Iron Scripter’s challenge.&lt;/p&gt;
+
+&lt;h2 id=&quot;beginner&quot;&gt;Beginner&lt;/h2&gt;
+
+&lt;p&gt;For the beginner challenge, the Chairman wanted the challenger to:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Get the sum of the even numbers between 1 and 100.
+You should be able to do this in at least 3 different ways.
+Show all 3 ways.
+You don’t need to write any functions or scripts.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;modulus&quot;&gt;Modulus&lt;/h4&gt;
+
+&lt;p&gt;Using the modulus operator, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;%&lt;/code&gt;, seems to be the easiest way to determine if a number is even or odd.
+It returns the remainder of a division operation and anything evenly divisible by 2 is even.&lt;/p&gt;
+
+&lt;p&gt;I used this in three of my beginner methods.
+In these, I iterated through the range of numbers and divided each one by 2.
+Then, depending on which method, I either sent the result to the pipeline or added it to a variable.&lt;/p&gt;
+
+&lt;h4 id=&quot;range-operator&quot;&gt;Range Operator&lt;/h4&gt;
+
+&lt;p&gt;For two of my beginner methods, the start and end numbers are created using the range operator - &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;..&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# example 1, numbers&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;1..4&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;&amp;lt;# result
+1
+2
+3
+4
+#&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# example 2, reverse alphabetic string&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'F'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'A'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;&amp;lt;# result
+F
+E
+D
+C
+B
+A
+#&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# example 3, forward alphabetic string&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'e'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;&amp;lt;# result
+a
+b
+c
+d
+e
+#&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# example 4, alphabetic string, not cast as string, produces error&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a..e&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;&amp;lt;# error
+a..e: The term 'a..e' is not recognized as the name of a cmdlet, function, script file, or operable program.
+Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+#&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# example 5, decimal numbers, rounded to nearest integer&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;1.1..3.7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;&amp;lt;# result
+1
+2
+3
+4
+#&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;method-1&quot;&gt;Method 1&lt;/h3&gt;
+
+&lt;p&gt;For the first method, I chose to loop using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt; cmdlet which accepts input from the &lt;a href=&quot;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipelines?view=powershell-7&quot; target=&quot;_blank&quot;&gt;pipeline&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;1..100&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ForEach-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-eq&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Measure-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Sum&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Count             : 50
+Average           :
+Sum               : 2550
+Maximum           :
+Minimum           :
+StandardDeviation :
+Property          :
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt; performs an operation on each item, an array of numbers from 1 to 100 in this case.
+Within the script block, which in this example is passed as the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Process&lt;/code&gt; parameter, we evaluate each item in the array.
+In the pipeline, the current item can be referenced as either &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$_&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$PSItem&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Basically, we are performing the following operation for each number.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-eq&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-eq&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# result&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# 2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-eq&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-eq&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# result&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# 4&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Let’s break down what the modulus is doing inside the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;if&lt;/code&gt; statement.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# 1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# 0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# 1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# 0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Finally, I use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Measure-Object&lt;/code&gt; cmdlet’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Sum&lt;/code&gt; parameter to get the sum of all the even numbers.&lt;/p&gt;
+
+&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$PSItem&lt;/code&gt; was introduced in Windows PowerShell version 2 for greater clarity.&lt;/p&gt;
+
+&lt;h3 id=&quot;method-2&quot;&gt;Method 2&lt;/h3&gt;
+
+&lt;p&gt;For my next method, I chose to loop using a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;foreach&lt;/code&gt; statement.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$evennumbers&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;foreach&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$number&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$number&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-eq&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$number&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$evennumbers&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Measure-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Sum&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Count             : 50
+Average           :
+Sum               : 2550
+Maximum           :
+Minimum           :
+StandardDeviation :
+Property          :
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;foreach&lt;/code&gt; statement, or loop, is a general way to iterate through an array of items.
+When declaring the loop, you will provide a variable name for the single item and the array of items, such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;($number in 1..100)&lt;/code&gt;.
+Within the loop, you reference the single item variable (but you can still reference the array, if necessary).&lt;/p&gt;
+
+&lt;p&gt;In this example, I assign the output of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;foreach&lt;/code&gt; loop to the variable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$evennumbers = foreach (...&lt;/code&gt;.
+This actually takes all of the output, which is still held in memory, and assigns it to an array variable.&lt;/p&gt;
+
+&lt;p class=&quot;notice--warning&quot;&gt;&lt;strong&gt;Warning&lt;/strong&gt;
+&lt;br /&gt;
+There can be a lot of confusion between the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;foreach&lt;/code&gt; statement and the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;foreach&lt;/code&gt; alias of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt;.
+The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;foreach&lt;/code&gt; statement essentially ignores the pipeline.
+It cannot take input from the pipeline, nor can it send objects out to the pipeline.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt; cmdlet honors the pipeline for input and output.&lt;/p&gt;
+
+&lt;h3 id=&quot;method-3&quot;&gt;Method 3&lt;/h3&gt;
+
+&lt;p&gt;For my second method, I chose to loop using a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;for&lt;/code&gt; statement.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$sum&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-le&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-eq&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$sum&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$sum&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;2550
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;for&lt;/code&gt; statement loops through a statement based on a conditional test.
+For this example, we want to iterate from 1 to 100.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$i = 1&lt;/code&gt; is the initialization section, which is executed prior to the loop running.&lt;/li&gt;
+  &lt;li&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$i -le 100&lt;/code&gt; specifies the condition which must be true for the loop to continue running.&lt;/li&gt;
+  &lt;li&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$i++&lt;/code&gt; is repeated after each iteration of the loop. The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;++&lt;/code&gt; is an operator increases the value by 1.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p class=&quot;notice--warning&quot;&gt;&lt;strong&gt;Warning&lt;/strong&gt;
+&lt;br /&gt;
+You see that I first created the array variable, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$sum = @()&lt;/code&gt;, and then add the output within the loop, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$sum += $i&lt;/code&gt;.
+This way of capturing output forces PowerShell to create a new variable, that is allocate memory, and copy the old array variable and add the new output.
+Each iteration will increase the memory usage and will cause performance issues when dealing with large output objects.
+&lt;br /&gt;
+&lt;br /&gt;
+Sometimes, however, this is the simplest way to capture the output in a loop, especially for beginners.&lt;/p&gt;
+
+&lt;h3 id=&quot;method-4&quot;&gt;Method 4&lt;/h3&gt;
+
+&lt;p&gt;For my last beginner method, I wanted to do something a little harder and forego using modulus.&lt;/p&gt;
+
+&lt;p&gt;A quick search for &lt;em&gt;sum of all even numbers between 1 and 100&lt;/em&gt; revealed a &lt;a href=&quot;https://www.quora.com/What-is-the-sum-of-all-even-numbers-between-1-and-100&quot; target=&quot;_blank&quot;&gt;Quora answer&lt;/a&gt; that delved into a mathematical equation.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;S = n∗(n+1) / d&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Where&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; is the quantity of numbers in the series&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;d&lt;/code&gt; is the common difference, 2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$firsteven&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$lasteven&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$quantity&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$lasteven&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;/2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$sum&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$quantity&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;/2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$firsteven&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$quantity&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$sum&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;2550
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;&lt;em&gt;Disclaimer: I’m not a maths guy, so this last method may not be &lt;strong&gt;100.1%&lt;/strong&gt; accurate.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;intermediate-and-bonus-functions&quot;&gt;Intermediate and Bonus Functions&lt;/h2&gt;
+
+&lt;p&gt;For both of these functions, I relied on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;for&lt;/code&gt; statement and the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Measure-Object&lt;/code&gt; cmdlet.
+You will also see that I use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Select-Object&lt;/code&gt; to limit or define the properties I want in the output.&lt;/p&gt;
+
+&lt;p&gt;The main difference from my use of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;for&lt;/code&gt; in these functions and method 3 above is that I actually wanted an array of objects so I could use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Measure-Object&lt;/code&gt; cmdlet.
+In method 3, I only needed the sum.&lt;/p&gt;
+
+&lt;p&gt;See the attached GitHub gist for my submissions for these parts of the challenge.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/thedavecarroll/e18d8a7d6c0f6a51acd8c46aa4a446ed.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;additional-help&quot;&gt;Additional Help&lt;/h2&gt;
+
+&lt;p&gt;Check out PowerShell’s help for more details on the concepts covered.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# learn more about the ForEach-Object cmdlet and pipelines&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Get-Help&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ForEach-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Get-Help&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;about_pipelines&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# learn more about the foreach and for statements&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Get-Help&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;about_foreach&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Get-Help&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;about_for&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# learn more about modulus and range operators&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Get-Help&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;about_operators&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# learn more about ++ assignment operator&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Get-Help&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;about_assignment_operators&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;It’s been a while since I completed an IronScripter challenge completely or even created a gist or post with my solution.
+I know that if I had kept skipping them, my skills could diminish.&lt;/p&gt;
+
+&lt;p&gt;I encourage anyone reading this to go through the IronScripter challenges.&lt;/p&gt;
+
+&lt;p&gt;You may feel that some may be below your “level” or capability.
+If that is the case, the challenge shouldn’t take you long to finish.
+Your solution, once shared, could be extra that bit that someone needs to gain a better understanding of &lt;strong&gt;PowerShell&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;You also may feel that it is above your “level”.
+Everyone has been at whatever level you believe yourself to currently be.
+You should push to learn more when possible.
+Be sure to review past challenge solutions to see how others approached them.
+It could help you by seeing other’s code.&lt;/p&gt;
+
+&lt;p&gt;Please feel free to leave a comment or suggestion.&lt;/p&gt;
+
+&lt;p&gt;Thanks for reading.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="powershell concepts" /><category term="learn powershell" /><category term="iron scripter" /><category term="iron scripter challenge" /><category term="iron scripter walk-through" /><summary type="html">Learn about the PowerShell concepts of for and foreach loops, ForEach-Object and pipelines, and the range and modulus operators in this Iron Scripter challenge walk-through.</summary></entry><entry><title type="html">Publish a Post for a Jekyll Site on a Schedule</title><link href="https://powershell.anovelidea.org/blog/publish-post-jekyll-on-a-schedule/" rel="alternate" type="text/html" title="Publish a Post for a Jekyll Site on a Schedule" /><published>2020-05-11T09:00:00-05:00</published><updated>2020-05-11T09:00:00-05:00</updated><id>https://powershell.anovelidea.org/blog/publish-post-jekyll-on-a-schedule</id><content type="html" xml:base="https://powershell.anovelidea.org/blog/publish-post-jekyll-on-a-schedule/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/publish-drafts/marketplace-action.png&quot; alt=&quot;Jekyll Publish Drafts&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;scheduled-posts&quot;&gt;Scheduled Posts&lt;/h2&gt;
 
@@ -3344,144 +3609,4 @@ Me *sqeeeeee*: Okay.&lt;/p&gt;
 
 &lt;p&gt;If you just want to comment on how much you like the module or this blog post, please leave it below.&lt;/p&gt;
 
-&lt;p&gt;PowerShell to the people!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="module" /><category term="dns" /><category term="dyn" /><category term="rest api" /><category term="dyndns managed service" /><category term="dyn managed dns rest api" /><summary type="html">PoShDynDnsApi is an unofficial PowerShell module used to interact with Dyn Managed DNS REST API.</summary></entry><entry><title type="html">Windows Forms</title><link href="https://powershell.anovelidea.org/powershell/windows-forms/" rel="alternate" type="text/html" title="Windows Forms" /><published>2018-12-19T00:00:00-06:00</published><updated>2018-12-19T00:00:00-06:00</updated><id>https://powershell.anovelidea.org/powershell/windows-forms</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/windows-forms/">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-
-&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/windows-form-example.png&quot; alt=&quot;Windows Forms&quot; /&gt;&lt;/p&gt;
-
-&lt;p class=&quot;notice--primary&quot;&gt;It’s been too long since I’ve posted any content and I wanted to get something out to let you know that I’m still here.&lt;/p&gt;
-
-&lt;p&gt;Recently, I was tasked to provide a GUI for a PowerShell script. Okay, I think I tasked myself, but it was an interesting
-foray into the .Net &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[System.Windows.Forms]&lt;/code&gt; class.&lt;/p&gt;
-
-&lt;p&gt;As one does to find script inspiration - some might call this a starting point - I took to my favorite search engine and
-found numerous scripts built with &lt;a href=&quot;https://www.sapien.com/software/powershell_studio&quot; target=&quot;_blank&quot;&gt;SAPIEN Technologies PowerShell Studio&lt;/a&gt;
-as well as manually coded scripts on GitHub.&lt;/p&gt;
-
-&lt;p&gt;Since a requirement for my task was that I could not use any external application, I was forced to use the manually
-coded option.&lt;/p&gt;
-
-&lt;h2 id=&quot;functions&quot;&gt;Functions&lt;/h2&gt;
-
-&lt;p&gt;One of the common threads I noticed in the handful of scripts I found was that they really didn’t offer options for
-parameters. I’ve been a big proponent for creating tools, aka functions, since I first began writing PowerShell code. So,
-I set out gathering some tools that I thought I would need. &lt;strong&gt;The functions I created are by no means complete, nor is
-the list comprehensive.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Basically, my GUI script needed to be able to the following:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Create a form&lt;/li&gt;
-  &lt;li&gt;Display some controls
-    &lt;ul&gt;
-      &lt;li&gt;Header, used as a section label&lt;/li&gt;
-      &lt;li&gt;Buttons, which must performs some actions&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Display columnar data in a grid
-    &lt;ul&gt;
-      &lt;li&gt;Highlight certain rows based on a value of a cell&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Display the current status in the status bar of the form&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;create-a-form&quot;&gt;Create a form&lt;/h3&gt;
-
-&lt;p&gt;The first thing I needed to do was instantiate a new form object. I wrote &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;New-WindowsForm&lt;/code&gt; to handle this. At minimum, I needed
-to provide the title for the form (which is displayed in the title bar of the form) and the height and width (in pixels).
-I decided to also add a switch (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-NoIcon&lt;/code&gt;) that would hide the default icon in the title bar. By default, hard-coded that
-is, the form will autosize and provide scrollbars.&lt;/p&gt;
-
-&lt;p&gt;I then wrote &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Set-WindowsForm&lt;/code&gt; that allows me to add an array of labels, an array of buttons, a data grid view, a status
-strip, and a script block for the on load event.&lt;/p&gt;
-
-&lt;h3 id=&quot;display-some-controls&quot;&gt;Display some controls&lt;/h3&gt;
-
-&lt;p&gt;I wrote &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;New-FormLabel&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;New-FormButton&lt;/code&gt; both with text to display, height, width, x-axis draw starting point, and
-y-axis draw starting point. For &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;New-FormButton&lt;/code&gt;, I also included a parameter for action (a scriptblock) and an
-anchorstyle (this lets the close button always be on the right side connected to the edge of the form).&lt;/p&gt;
-
-&lt;p&gt;The button’s action could be a very complex scriptblock that can load a file to use, set the filename for a log, update
-the data, and update the status bar.&lt;/p&gt;
-
-&lt;h3 id=&quot;display-columnar-data&quot;&gt;Display columnar data&lt;/h3&gt;
-
-&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[System.Windows.Forms.DataGridView]&lt;/code&gt; class was used to display my data and to highlight the rows that needed it. I
-wrote &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;New-DataGridView&lt;/code&gt; to instantiate an instance of the class. With &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Update-DataGridView&lt;/code&gt;, I’m able to pass in the
-data, a DataGridView object, and a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[hashtable]&lt;/code&gt; that I use for to determine how to highlight the row. This part was
-very tricky.&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$RowHighlight&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;@{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Cell'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'ProcessName'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Values'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;@{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'PowerShell'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Green'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Chrome'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Red'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Update-DataGridView&lt;/code&gt;, I have this code:&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RowHighlight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Cell&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RowHighlight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Cell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;foreach&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Row&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DataGridView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Rows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CellValue&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Row&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Cells&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Cell&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Value&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Write-Verbose&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CellValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Gettype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Verbose&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RowHighlight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Values'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ContainsKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CellValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Write-Verbose&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Setting row based on &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Cell&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; cell of &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CellValue&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; to &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RowHighlight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Values'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CellValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; color&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Row&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;DefaultCellStyle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;BackColor&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RowHighlight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Values'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CellValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Write-Verbose&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Setting &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Cell&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; cell for &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CellValue&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; to &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RowHighlight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Values'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Default&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;
-      &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Row&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.DefaultCellStyle.BackColor = &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RowHighlight&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;['Values']['Default']
-    }
-  }
-}
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Actually, this function is the only one that provides Verbose output at the moment. If I find myself using this ad hoc
-module often, I’ll spiffy it up with plenty &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Write-Verbose&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Write-Warning&lt;/code&gt; statements.&lt;/p&gt;
-
-&lt;h3 id=&quot;display-the-current-status-in-the-status-bar-of-the-form&quot;&gt;Display the current status in the status bar of the form&lt;/h3&gt;
-
-&lt;p&gt;Refreshing the data would take some time. Loading a file or writing a file would take some time. I wanted to be able to
-tell the user (myself, at this point) that things were happening. Enter the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[System.Windows.Forms.StatusStrip]&lt;/code&gt; class.&lt;/p&gt;
-
-&lt;p&gt;In a similar fashion as the form, I created &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;New-StatusStrip&lt;/code&gt; and a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Set-StatusStrip&lt;/code&gt; functions. The first creates a,
-more-or-less, &lt;em&gt;empty&lt;/em&gt; object. The latter function does all of the heavy lifting. It will display the operation, progress,
-and the progress values.&lt;/p&gt;
-
-&lt;h2 id=&quot;the-module-and-example-script&quot;&gt;The Module and Example Script&lt;/h2&gt;
-
-&lt;p&gt;Now that we have the tools you need to create a quick GUI, let’s create the script that will use them. This simple script
-will display the form, load specific processes highlighting them based on what we want, and provide a way to refresh the
-data.&lt;/p&gt;
-
-&lt;p&gt;Here is the module and example script.&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/thedavecarroll/f7e7eced888d34eeb2776536c333d3b5.js&quot;&gt;&lt;/script&gt;
-
-&lt;h2 id=&quot;in-action&quot;&gt;In Action&lt;/h2&gt;
-
-&lt;p&gt;Here is a demonstration on how this works.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/windows-form-in-action.gif&quot; alt=&quot;Windows Forms example in action&quot; title=&quot;Windows Forms example in action&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;bonus&quot;&gt;Bonus&lt;/h2&gt;
-
-&lt;p&gt;Something else that most forms provide is a way to open a file and to save a file. I have included &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-OpenFileDialog&lt;/code&gt;
-and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Set-SaveFileDialog&lt;/code&gt; to do just that. These are currently very basic and could use some long-term care (more
-parameters).&lt;/p&gt;
-
-&lt;h2 id=&quot;next-steps&quot;&gt;Next Steps&lt;/h2&gt;
-
-&lt;p&gt;If I use this ad hoc module more, I would need to convert it to fully formed module, via plaster template. I know many
-improvements can be made on accepting more properties for the various components. Again, this was a quick proof-of-concept.&lt;/p&gt;
-
-&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
-
-&lt;p&gt;And that’s how I came to write an ad hoc (not fully baked, developed, bare-boned, or whatever you want to call it) module
-for displaying a GUI using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[System.Windows.Forms]&lt;/code&gt; class.&lt;/p&gt;
-
-&lt;p&gt;I hope you’ve found this interesting or informative. If you have any comments or questions, please post them below.&lt;/p&gt;
-
-&lt;p&gt;Thanks for reading!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="WindowsForms" /><category term="Forms" /><category term="DataGridView" /><category term="PowerShell GUI" /><summary type="html">Recently, I was tasked to provide a GUI for a PowerShell script. Okay, I think I tasked myself, but it was an interesting foray into the .Net [System.Windows.Forms] class...One of the common threads I noticed in the handful of scripts I found was that they really didn't offer options for parameters. I've been a big proponent for creating tools, aka functions, since I first began writing PowerShell code. So, I set out gathering some tools that I thought I would need.</summary></entry></feed>
+&lt;p&gt;PowerShell to the people!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="module" /><category term="dns" /><category term="dyn" /><category term="rest api" /><category term="dyndns managed service" /><category term="dyn managed dns rest api" /><summary type="html">PoShDynDnsApi is an unofficial PowerShell module used to interact with Dyn Managed DNS REST API.</summary></entry></feed>
