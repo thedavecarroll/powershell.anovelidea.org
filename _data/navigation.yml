@@ -3,12 +3,15 @@ main:
   - title: "About Me"
     url: /about/
     description: About Me
-  - title: Posts
+  - title: Articles
     url: /posts/
-    description: "Blog Posts"
+    description: "Articles"
   - title: "Tags"
     url: /tags/
+    description: "Tags"
   - title: "My Modules"
     url: /modules/
+    description: "My Modules"
   - title: "Resources"
     url: /resources/
+    description: "Resources"

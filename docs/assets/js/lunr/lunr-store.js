@@ -112,4 +112,10 @@ var store = [{
         "tags": ["powershell","powershell concepts","learn powershell","iron scripter","iron scripter challenge","iron scripter walk-through"],
         "url": "https://powershell.anovelidea.org/powershell/powershell-counting-challenge/",
         "teaser": null
+      },{
+        "title": "Building a PowerShell Command Inventory Solution",
+        "excerpt":"Introduction The latest IronScripter challenge, Building a PowerShell Command Inventory, helps us to understand our library of PowerShell code. It is also a good way to introduce regular expressions, most commonly called regex. Regex and PowerShell Before we tackle the challenge, let’s briefly discuss regex and how you can use...","categories": ["powershell"],
+        "tags": ["regex","regular expressions","powershell","learn powershell","iron scripter","iron scripter challenge","iron scripter solution"],
+        "url": "https://powershell.anovelidea.org/powershell/bulding-powershell-command-inventory-solution/",
+        "teaser": null
       }]

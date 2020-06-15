@@ -1,4 +1,656 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2020-06-07T22:20:59-05:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">A PowerShell Counting Challenge Walk-through</title><link href="https://powershell.anovelidea.org/powershell/powershell-counting-challenge/" rel="alternate" type="text/html" title="A PowerShell Counting Challenge Walk-through" /><published>2020-05-22T00:00:00-05:00</published><updated>2020-05-22T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/powershell-counting-challenge</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/powershell-counting-challenge/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/ironscripter/counting/three-loops.png&quot; alt=&quot;IronScripterChallenge&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2020-06-15T14:04:25-05:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Building a PowerShell Command Inventory Solution</title><link href="https://powershell.anovelidea.org/powershell/bulding-powershell-command-inventory-solution/" rel="alternate" type="text/html" title="Building a PowerShell Command Inventory Solution" /><published>2020-06-15T00:00:00-05:00</published><updated>2020-06-15T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/bulding-powershell-command-inventory-solution</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/bulding-powershell-command-inventory-solution/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/ironscripter/command-inventory/code-type-count.png&quot; alt=&quot;Image Text&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;The latest IronScripter challenge, &lt;a href=&quot;https://ironscripter.us/building-a-powershell-command-inventory/&quot; target=&quot;_blank&quot;&gt;Building a PowerShell Command Inventory&lt;/a&gt;,
+helps us to understand our library of PowerShell code.&lt;/p&gt;
+
+&lt;p&gt;It is also a good way to introduce regular expressions, most commonly called &lt;em&gt;regex&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;regex-and-powershell&quot;&gt;Regex and PowerShell&lt;/h2&gt;
+
+&lt;p&gt;Before we tackle the challenge, let’s briefly discuss regex and how you can use (&lt;em&gt;or probably already have used&lt;/em&gt;) regex in PowerShell.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-is-regex&quot;&gt;What is Regex&lt;/h3&gt;
+
+&lt;p&gt;Regex is a pattern used to match text.
+A regex pattern can contain letters, numbers, spaces, other characters, operators, and other constructs.&lt;/p&gt;
+
+&lt;p&gt;The regex engine contains categories, like characters, escape characters, character classes, anchors, grouping constructs, quantifiers, and more.
+This allows regex patterns to be very simple or incredibly complex.&lt;/p&gt;
+
+&lt;p&gt;There are numerous articles on regex and several questions on public forums.
+&lt;em&gt;StackOverflow over &lt;strong&gt;227,700&lt;/strong&gt; &lt;a href=&quot;https://stackoverflow.com/questions/tagged/regex&quot; target=&quot;_blank&quot;&gt;questions tagged with regex&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;blockquote class=&quot;notice--info&quot;&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt;
+This article will only cover a few concepts, just enough to create the solution for the challenge.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;how-powershell-uses-regex&quot;&gt;How PowerShell Uses Regex&lt;/h3&gt;
+
+&lt;p&gt;If you’ve ever used &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Select-String&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-match&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-replace&lt;/code&gt;, or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-split&lt;/code&gt;, you have used regex.
+You may have used &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;switch&lt;/code&gt; before, but many have realized you could use regex patterns as conditions with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;switch -regex&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;match-text&quot;&gt;Match Text&lt;/h4&gt;
+
+&lt;p&gt;Consider following comparisons:&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Challenge'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-match&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'hall'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Challenge'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-match&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'chall'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Challenge'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-cmatch&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'chall'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In the first statement, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-match&lt;/code&gt; operator checks if the text &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hall&lt;/code&gt; is contained in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Challenge&lt;/code&gt; and returns &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt;.
+The next statement also returns &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt; because regular expressions are case-insensitive by default in PowerShell.
+In the last statement, we force case sensitivity by using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-cmatch&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;regex-character-classes&quot;&gt;Regex Character Classes&lt;/h4&gt;
+
+&lt;p&gt;Regex places special meaning on some characters.&lt;/p&gt;
+
+&lt;p&gt;For instance, the period &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.&lt;/code&gt; is treated as a wildcard for a single character.
+The backslash &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\&lt;/code&gt; character escapes a character or is used to denote a character class.
+To match on a period, you can’t use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.&lt;/code&gt; alone; you must escape it like this: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\.&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Word &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\w&lt;/code&gt;, white-space &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\s&lt;/code&gt;, and digit &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\d&lt;/code&gt; are character classes that will match on a single character of the respective types.
+To match on the opposite, use the uppercase, like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\W&lt;/code&gt; for any non-word character such as white-space or punctuation.&lt;/p&gt;
+
+&lt;p&gt;Also, brackets can surround a character group.
+To match on any character &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; through &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;e&lt;/code&gt;, you can use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[a-e]&lt;/code&gt; character set.&lt;/p&gt;
+
+&lt;p&gt;You can also negate a character set using the caret &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;^&lt;/code&gt; after the first bracket, such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[^abcd]&lt;/code&gt;.
+This negated character set will match on anything without the letters a, b, c, or d.&lt;/p&gt;
+
+&lt;p class=&quot;notice&quot;&gt;&lt;em&gt;Don’t confuse this character class with a table-top roleplaying game class, such as cleric, fighter, wizard, or rogue.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;regex-quantifiers&quot;&gt;Regex Quantifiers&lt;/h4&gt;
+
+&lt;p&gt;In the previous section, you may have noticed that many of the classes match on single character.
+Regex has quantifiers that can be applied immediately after the class.&lt;/p&gt;
+
+&lt;p&gt;Here are the some common quantifiers:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt; - matches the previous element zero or more times&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;+&lt;/code&gt; - matches the previous element one or more times&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;?&lt;/code&gt; - matches the previous element zero or one times&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{*n*}&lt;/code&gt; - matches the previous element exactly &lt;em&gt;n&lt;/em&gt; times&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Split&lt;/code&gt; operator, let’s examine how we can combine quantifiers with a character class for specific results.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'This is my test sentence. And this is another.'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-split&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'\W+'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;This&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;is&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;my&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sentence&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;And&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;is&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Split&lt;/code&gt; returns substrings by splitting the text by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\W+&lt;/code&gt;, or one or more non-word characters.
+Spaces, or white-spaces, and periods are non-word characters.
+The first sentence’s period and following space is matched with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\W+&lt;/code&gt; pattern because of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;+&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here’s another simple &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Split&lt;/code&gt; example.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Anna ate the banana'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-split&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'n'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ate&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;the&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ba&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Anna ate the banana'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-split&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'n+'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ate&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;the&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ba&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The second pattern matches on &lt;em&gt;nn&lt;/em&gt; in Anna and it is treated as a character set to split on.&lt;/p&gt;
+
+&lt;h4 id=&quot;regex-anchors-and-alternation&quot;&gt;Regex Anchors and Alternation&lt;/h4&gt;
+
+&lt;p&gt;The next two regex constructs were the first ones that I used many years ago when I supported Linux.&lt;/p&gt;
+
+&lt;p&gt;A regex pattern with an anchor matches when the text is in the position or grouping indicated by the anchor.&lt;/p&gt;
+
+&lt;p&gt;Here are the meta-character anchors:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;^&lt;/code&gt; - match must start at the beginning of the string&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$&lt;/code&gt; - match must be at the end of the string before a newline&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\b&lt;/code&gt; - match must occur on boundary between a word character and a non-word character&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\B&lt;/code&gt; - match must not occur on a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\b&lt;/code&gt; boundary&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Alternation constructs enables either/or matching.
+The most common alternation construct is the vertical bar &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;|&lt;/code&gt;, sometimes called the pipeline especially in PowerShell.&lt;/p&gt;
+
+&lt;p&gt;You may have come across some code that looks like the following.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;PS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'The quick brown fox jumped over the lazy dog.'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Select-String&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Pattern&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'fox|dog'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-AllMatches&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The regex pattern will match on the words (&lt;em&gt;actually each letter is matched&lt;/em&gt;) fox and dog.
+“The quick brown &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fox&lt;/code&gt; jumped over the lazy &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dog&lt;/code&gt;.”&lt;/p&gt;
+
+&lt;h4 id=&quot;regex-grouping&quot;&gt;Regex Grouping&lt;/h4&gt;
+
+&lt;p&gt;The last regex topic we need to cover before delving into the solution for the challenge is grouping.
+As in math and PowerShell expression statements, parentheses, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;)&lt;/code&gt;, provide the foundation for grouping.&lt;/p&gt;
+
+&lt;p&gt;Each sub-expression in between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;( )&lt;/code&gt; is captured.
+The advanced solution uses named groups, which are in the form of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(?&amp;lt;group-name&amp;gt;)&lt;/code&gt;.
+You can define a non-capturing group using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(?: sub-expression)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;Any regex specifics beyond what we’ve covered above will be addressed as the topic comes up during examination of the solution.&lt;/p&gt;
+
+&lt;h2 id=&quot;intermediate-challenge&quot;&gt;Intermediate Challenge&lt;/h2&gt;
+
+&lt;p&gt;With a regex primer behind us, we can now turn to the the first challenge which asks us to count how many lines of code
+we have in our repertoire.
+Regex will play a role in the part that requires us to skip empty or blank lines.&lt;/p&gt;
+
+&lt;h3 id=&quot;sample-output&quot;&gt;Sample Output&lt;/h3&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;D:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'D:\GitHub\Workshop\PowerShell'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;D:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Measure-PSCodeLine&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;ParentPath     : D:\GitHub\Workshop
+TotalFiles     : 62
+TotalCodeLines : 6593
+TotalLines     : 7620
+Date           : 6/13/2020 1:21:28 AM
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This one was fairly simple.&lt;/p&gt;
+
+&lt;p&gt;I used &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-ChildItem&lt;/code&gt; with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Recurse&lt;/code&gt; to get a list of all the PowerShell files,
+as designated by extensions &lt;em&gt;ps1&lt;/em&gt; and &lt;em&gt;psm1&lt;/em&gt;.
+Then, within a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Foreach-Object&lt;/code&gt; loop, I read each file with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-Content&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Next, I pipe the file contents into a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Where-Object&lt;/code&gt; clause that performs a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;match&lt;/code&gt; on any non-whitespace characters.
+In regex terms, this is a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\S&lt;/code&gt; (&lt;em&gt;uppercase S&lt;/em&gt;).
+This gets me the non-empty or blank lines.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$CodeComments&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Where-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-match&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'\S'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Lastly, I return a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PSCustomObject&lt;/code&gt; with the required fields and counts.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;By default, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-Content&lt;/code&gt; will read a file line-by-line and produces an array of strings.
+If you want to read the complete file as a single string object, you must include the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Raw&lt;/code&gt; switch.
+This really useful when you are reading the contents of a JSON file, as the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ConvertFrom-Json&lt;/code&gt; command
+will only work on a string object, not the array that you get without the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Raw&lt;/code&gt; switch.&lt;/p&gt;
+
+&lt;h2 id=&quot;advanced-challenge&quot;&gt;Advanced Challenge&lt;/h2&gt;
+
+&lt;p&gt;The advanced challenge wants us to get a list of commands that we use in the same scripts that we just inventoried.
+This list of commands should be sorted by the number of times used.&lt;/p&gt;
+
+&lt;p&gt;For extra credit, we should be able to detect and expand aliases and, as an extra challenge, provide a array of files
+that contain the command.&lt;/p&gt;
+
+&lt;p&gt;I thought about the heart of this challenge.
+Getting a command, in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Verb-Noun&lt;/code&gt; format, would be relatively simple with the right regex.
+Discovering aliases used would be a bit harder.&lt;/p&gt;
+
+&lt;p&gt;But, why stop there?
+Why not include &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CmdletBinding&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Parameter&lt;/code&gt; attributes?
+How often do you use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;trap&lt;/code&gt; or a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;try/catch&lt;/code&gt; block?&lt;/p&gt;
+
+&lt;p&gt;It would be nice to have a tool that parses your PowerShell code and reveals what parts of the PowerShell language you
+frequently use.
+And I wanted to have this information by file and where in the file the structure was found, namely line number and
+index within that line.
+So that’s what I built to solve the advanced challenge.&lt;/p&gt;
+
+&lt;p&gt;I crafted some regex patterns for each of these code constructs.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Verb-Noun&lt;/li&gt;
+  &lt;li&gt;DotNetObjects&lt;/li&gt;
+  &lt;li&gt;-f operator&lt;/li&gt;
+  &lt;li&gt;Function&lt;/li&gt;
+  &lt;li&gt;Class&lt;/li&gt;
+  &lt;li&gt;Variable declaration&lt;/li&gt;
+  &lt;li&gt;CmdletBinding&lt;/li&gt;
+  &lt;li&gt;Parameter&lt;/li&gt;
+  &lt;li&gt;Param declaration&lt;/li&gt;
+  &lt;li&gt;DynamicParam declaration&lt;/li&gt;
+  &lt;li&gt;Try/Catch/Finally&lt;/li&gt;
+  &lt;li&gt;Trap&lt;/li&gt;
+  &lt;li&gt;Enum definition&lt;/li&gt;
+  &lt;li&gt;Loop statements
+    &lt;ul&gt;
+      &lt;li&gt;for, foreach, do/while, do/until, while&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Switch statements&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;I intentionally made it easy to add additional code types.
+Just look at the complete function and you will see how you can add constructs by adding additional keys with regex
+patterns that puts the construct into a a named group.&lt;/p&gt;
+
+&lt;h3 id=&quot;powershell-code-structure-regex&quot;&gt;PowerShell Code Structure Regex&lt;/h3&gt;
+
+&lt;p&gt;The most critical regex is the one that detects a PowerShell command.
+Lucky for us, a PowerShell command is in the form of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Verb-Noun&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;How do we make a regex pattern to match on this?&lt;/p&gt;
+
+&lt;p&gt;First, there can be any number of spaces before and after the command.
+The verb and noun component will always be a word character, probably more than one word character per component.
+And we need to handle that dash &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Based on the previous paragraph, we can create this regex pattern: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\s+(\w+\-\w+)\s+&lt;/code&gt;.
+This should read as “any number of white-spaces before a grouping of any number of word characters followed immediately
+by a literal dash then any number of word characters ending the grouping followed by any number of white-spaces”.&lt;/p&gt;
+
+&lt;p&gt;While this may appear to be adequate, and in another use case might be, it would be better if we named the group so we
+can use the group name in cataloging the code structure.
+We now have the pattern &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\s+(?&amp;lt;PSVerbNoun&amp;gt;\w+\-\w+)\s+&lt;/code&gt; with the group name called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PSVerbNoun&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;In &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-PSCodeStructure&lt;/code&gt;, I created an ordered hashtable with each of the required code type regex pattern in sequence.
+Note that the key is not important other than establishing the hashtable.
+The regex patterns can be pulled from the hashtable using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$PSPatterns.Values&lt;/code&gt; attribute of the hashtable.&lt;/p&gt;
+
+&lt;p&gt;This array of values can then be concatenated using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-join&lt;/code&gt; and the regex alternation character, the vertical bar &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;|&lt;/code&gt;.
+The complete, and now much more complex, regex pattern is made using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$RegExPattern = $PSPatterns.Values -join '|'&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;powershell-regex-matches&quot;&gt;PowerShell Regex Matches&lt;/h4&gt;
+
+&lt;p&gt;In order for our named groups to function as we need, we need something other than &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Select-String -AllMatches&lt;/code&gt;.
+Also, according to the documentation, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$Matches&lt;/code&gt; hashtable will only contain the first occurrence of any matching pattern.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;D:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'$Variable = Get-Content -Path $Path'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;select-string&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-pattern&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RegExPattern&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This only gives us the first match, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$Variable =&lt;/code&gt; Get-Content $path.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;D:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'$Variable = Get-Content -Path $Path'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;select-string&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-pattern&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RegExPattern&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-AllMatches&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This only gives us both matches, “&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$Variable = Get-Content&lt;/code&gt; -Path $path”, but &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$Matches&lt;/code&gt; does not have the second match.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;D:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$Matches&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Name                           Value
+----                           -----
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;VariableDeclaration            $&lt;/span&gt;Variable
+&lt;span class=&quot;gp&quot;&gt;1                              $&lt;/span&gt;Variable &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;0                              $&lt;/span&gt;Variable &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Because of this limitation, we have to use the .Net class for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[regex]&lt;/code&gt;.
+Let’s look at the class constructor overloads.&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;[regex]::new
+
+OverloadDefinitions
+-------------------
+regex new(string pattern)
+regex new(string pattern, System.Text.RegularExpressions.RegexOptions options)
+regex new(string pattern, System.Text.RegularExpressions.RegexOptions options, timespan matchTimeout)
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We need the string pattern and, optionally, we can supply regex options and a timeout.
+Unlike PowerShell, the .Net class is case sensitive, so we need to instruct it to ignore case.
+&lt;em&gt;Note: We won’t be using the matchTimeout parameter.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;regex&lt;/code&gt; class has a method called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Matches()&lt;/code&gt; which will provide us all matches.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;D:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RegexOptions&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;System.Text.RegularExpressions.&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;RegexOptions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;IgnoreCase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;System.Text.RegularExpressions.&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;RegexOptions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CultureInvariant&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;D:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Regex&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;regex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RegExPattern&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RegexOptions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;D:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Regex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Matches&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'$Variable = Get-Content $path'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This produces the following output.&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Groups   : {0, 1, 2, 3…}
+Success  : True
+Name     : 0
+Captures : {0}
+Index    : 0
+Length   : 11
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;Value    : $&lt;/span&gt;Variable &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;
+Groups   : {0, 1, 2, 3…}
+Success  : True
+Name     : 0
+Captures : {0}
+Index    : 11
+Length   : 13
+Value    :  Get-Content
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We then need to filter on the groups that matched (&lt;em&gt;Success is true&lt;/em&gt;) and are named (&lt;em&gt;Name not an integer&lt;/em&gt;).&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;D:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Regex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Matches&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'$Variable = Get-Content $path'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Groups&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Where&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Success&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-and&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-notmatch&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'\d+'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And this gives us what we ultimately needed.&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Success  : True
+Name     : VariableDeclaration
+Captures : {VariableDeclaration}
+Index    : 0
+Length   : 9
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;Value    : $&lt;/span&gt;Variable
+&lt;span class=&quot;go&quot;&gt;
+Success  : True
+Name     : PSVerbNoun
+Captures : {PSVerbNoun}
+Index    : 12
+Length   : 11
+Value    : Get-Content
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The Name is the group name of the specific code structure type.&lt;/li&gt;
+  &lt;li&gt;The Value is the captured value from the pattern.&lt;/li&gt;
+  &lt;li&gt;The Index is the position the match was found&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We use these three to build the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PSCustomObject&lt;/code&gt; which is outputted into the pipeline.&lt;/p&gt;
+
+&lt;h4 id=&quot;handling-false-positives&quot;&gt;Handling False Positives&lt;/h4&gt;
+
+&lt;p&gt;So far, we have a regex pattern that will match on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Verb-Noun&lt;/code&gt;.
+Unfortunately, at least the way I’ve written it, this pattern will lead to false positives.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;D:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'key. Volume-licensed systems require upgrading from a qualifying operating system.'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-match&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'\s+(?&amp;lt;PSVerbNoun&amp;gt;\w+\-\w+)\s+'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;D:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$Matches&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;                           &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Value&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;----&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;                           &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-----&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;PSVerbNoun&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;                     &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Volume-licensed&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;                               &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Volume-licensed&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Clearly, &lt;em&gt;Volume-licensed&lt;/em&gt; is not the name of a PowerShell command.
+I needed something to negate the false positives.&lt;/p&gt;
+
+&lt;p&gt;The method I chose was to check the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Verb&lt;/code&gt; of the matched value with a list of approved PowerShell verbs.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$Verbs&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Get-Verb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Verb&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# &amp;lt;truncated&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Where-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-ne&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'PSVerbNoun'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Verbs&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-contains&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Command&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'-'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p class=&quot;notice--warning&quot;&gt;&lt;strong&gt;Important Note:&lt;/strong&gt;&lt;br /&gt;
+Matching on approved verbs will skip any commands that you use which do not use approved verbs.
+For instance, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Encode-Sqlname&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Decode-Sqlname&lt;/code&gt; commands from the module &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SqlPS&lt;/code&gt; would not match and, therefore,
+would not be in our inventory.
+&lt;br /&gt;
+&lt;br /&gt;
+Perhaps someone with greater &lt;strong&gt;regex-foo&lt;/strong&gt; or a better idea on how to filter out false positives can comment below.&lt;/p&gt;
+
+&lt;h3 id=&quot;capture-code-structure-into-variable&quot;&gt;Capture Code Structure into Variable&lt;/h3&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;D:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CodeInfo&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Get-PSCodeStructure&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Recurse&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;FileCount    : 63
+Elapsed Time : 0h 0m 13.42s
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;em&gt;FileCount&lt;/em&gt; and &lt;em&gt;Elapsed Time&lt;/em&gt; is written to the &lt;em&gt;Information Stream&lt;/em&gt;.
+I think the &lt;em&gt;Information Stream&lt;/em&gt; is underutilized.
+It’s a great way to provide the user information and it doesn’t “clutter” up the standard output stream, like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Write-Host&lt;/code&gt;
+or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Write-Output&lt;/code&gt; would do.&lt;/p&gt;
+
+&lt;h3 id=&quot;sample-object&quot;&gt;Sample Object&lt;/h3&gt;
+
+&lt;p&gt;Let’s take a look at the first discovered code structure.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;D:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CodeInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;FileName     : BuildOnlineHelpLanding.ps1
+FileFullName : D:\GitHub\Workshop\PowerShell\Functions\BuildOnlineHelpLanding.ps1
+Line         : 1
+Index        : 0
+Type         : FunctionDefinition
+AliasName    :
+Command      : function New-OnlineHelpLanding
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We have all of the critical pieces of data we would need about this structure.
+We know the file, the structure type, what line contains it, where it is in the line, and the command itself.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AliasName&lt;/code&gt; property will contain the alias and the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Command&lt;/code&gt; will contain the full command name.&lt;/p&gt;
+
+&lt;p class=&quot;notice--warning&quot;&gt;&lt;strong&gt;Important Note:&lt;/strong&gt;&lt;br /&gt;
+Currently, the regex pattern for detecting aliases does not discern if the alias is used within a comment.
+In fact, none of the regex can discern if the code type is used within a comment.
+&lt;br /&gt;
+&lt;br /&gt;
+Again, perhaps someone with greater regex-foo or a better idea on how to filter out false positives can comment below.&lt;/p&gt;
+
+&lt;h3 id=&quot;count-of-structure-types&quot;&gt;Count of Structure Types&lt;/h3&gt;
+
+&lt;p&gt;We can use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Group-Object&lt;/code&gt; to get a count of the code structure types.
+Throw in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sort-Object&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Select-Object&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;D:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CodeInfo&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Group-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Property&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Sort-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Count&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Descending&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Select-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,@{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'CodeType'&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Count CodeType
+----- --------
+ 1079 VariableDeclaration
+  732 PSVerbNoun
+  166 DotNet
+  145 ParameterAttribute
+  100 ParamDeclaration
+   99 LoopStatement
+   93 TryCatchFinally
+   89 FOperator
+   89 FunctionDefinition
+   88 CmdletBindingAttribute
+   17 SwitchStatement
+   10 Alias
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;Looks like I need to go back and remove some Aliases.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;count-of-verb-noun-commands-and-aliases&quot;&gt;Count of Verb-Noun Commands and Aliases&lt;/h3&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;D:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CodeInfo&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Where-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-match&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'PSVerbNoun|Alias'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Group-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Property&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Sort-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Count&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Descending&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Select-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,@{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'CodeType'&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Count CodeType
+----- --------
+  732 PSVerbNoun
+   10 Alias
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This shows that I have 732 PowerShell commands in the scripts within this folder.
+These may include commands in comments.&lt;/p&gt;
+
+&lt;h3 id=&quot;advanced-extra-credit-challenge&quot;&gt;Advanced Extra Credit Challenge&lt;/h3&gt;
+
+&lt;p&gt;From the list above, we can also see that I have used 10 aliases.
+Let’s check those out and how I pulled those out of the code.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;D:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CodeInfo&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Where-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-match&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Alias'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Format-Table&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-AutoSize&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;FileName                   FileFullName                                                       Line Index Type  AliasName Command
+--------                   ------------                                                       ---- ----- ----  --------- -------
+New-EventFilterXml.ps1     D:\GitHub\Workshop\PowerShell\Functions\New-EventFilterXml.ps1      141    54 Alias select    Select-Object
+New-EventFilterXml.ps1     D:\GitHub\Workshop\PowerShell\Functions\New-EventFilterXml.ps1      149    54 Alias select    Select-Object
+Write-PlasterParameter.ps1 D:\GitHub\Workshop\PowerShell\Functions\Write-PlasterParameter.ps1  109   117 Alias select    Select-Object
+build.settings.ps1         D:\GitHub\Workshop\PowerShell\PlasterTemplate\build.settings.ps1    101     6 Alias Select    Select-Object
+PingViewer.ps1             D:\GitHub\Workshop\PowerShell\Scripts\PingViewer.ps1                420   341 Alias Select    Select-Object
+temp.ps1                   D:\GitHub\Workshop\PowerShell\Scripts\temp.ps1                       20     8 Alias ForEach   Foreach-Object
+temp.ps1                   D:\GitHub\Workshop\PowerShell\Scripts\temp.ps1                       66    17 Alias Select    Select-Object
+temp.ps1                   D:\GitHub\Workshop\PowerShell\Scripts\temp.ps1                       86    18 Alias ForEach   Foreach-Object
+temp.ps1                   D:\GitHub\Workshop\PowerShell\Scripts\temp.ps1                       93    28 Alias Select    Select-Object
+temp.ps1                   D:\GitHub\Workshop\PowerShell\Scripts\temp.ps1                       94    25 Alias Select    Select-Object
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In the &lt;em&gt;begin&lt;/em&gt; block of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-PSCodeStructure&lt;/code&gt;, you will find &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$Aliases = Get-Alias&lt;/code&gt;.
+After the regex patterns have gathered any matches, I split the line and start iterating through each ‘word’.&lt;/p&gt;
+
+&lt;p&gt;Since &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;foreach&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;select&lt;/code&gt; are also part of Verb-Noun commands, I first attempt to match on them specifically.
+Next, I attempt to match the ‘word’ against all the names in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$Aliases&lt;/code&gt; and if the ‘word’ contains only letter.&lt;/p&gt;
+
+&lt;h3 id=&quot;advanced-extra-challenge&quot;&gt;Advanced Extra Challenge&lt;/h3&gt;
+
+&lt;p&gt;As an extra challenge, we were asked to include a property that is an array of the filenames where the command exists.
+Lucky for us, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FileName&lt;/code&gt; is tucked away in the Group property.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;D:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CodeInfo&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Where-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-match&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'PSVerbNoun|Alias'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Group-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Property&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Sort-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Count&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Descending&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Select-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,@{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'CodeType'&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},@{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'FileName'&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Group&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;FileName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Count CodeType   FileName
+----- --------   --------
+  732 PSVerbNoun {Add-ModuleUnitTests.ps1, Add-ModuleUnitTests.ps1, Add-ModuleUnitTests.ps1, Add-ModuleUnitTests.ps1…}
+   10 Alias      {New-EventFilterXml.ps1, New-EventFilterXml.ps1, Write-PlasterParameter.ps1, build.settings.ps1…}
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;solution&quot;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Here are the two functions I wrote to solve this challenge.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/thedavecarroll/bdb519bf474739851ca1e7d2d3faeee6.js&quot;&gt;&lt;/script&gt;
+
+&lt;h3 id=&quot;performance&quot;&gt;Performance&lt;/h3&gt;
+
+&lt;p&gt;One consideration in processing a numerous files is performance.&lt;/p&gt;
+
+&lt;p&gt;I tested using PowerShell 7’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Foreach-Object -Parallel&lt;/code&gt; and a standard &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;foreach&lt;/code&gt; statement on a folder path containing
+157 files.&lt;/p&gt;
+
+&lt;p&gt;Here are the results.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Iteration&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Foreach-Object -Parallel&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;foreach&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Run 1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0h 0m 24.223s&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0h 0m 25.638s&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Run 2&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0h 0m 25.4s&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0h 0m 19.659s&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Run 3&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0h 0m 29.780s&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0h 0m 27.159s&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;There’s not that much difference between the elapsed time.&lt;/p&gt;
+
+&lt;p&gt;However, I did notice that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Foreach-Object -Parallel&lt;/code&gt; consumed more processor and memory, using up to 450MB and up to 80% CPU.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;foreach&lt;/code&gt; statement only consumed up to 150MB and up to 25%.&lt;/p&gt;
+
+&lt;p&gt;Based on these findings, I chose to use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;foreach&lt;/code&gt; statement only.&lt;/p&gt;
+
+&lt;h3 id=&quot;other-notes&quot;&gt;Other Notes&lt;/h3&gt;
+
+&lt;p&gt;For the Advanced challenge, we need to pass a path.
+I wanted to provide the user a way to supply a single file or a path.
+If provided a path, any &lt;em&gt;ps1&lt;/em&gt; or &lt;em&gt;psm1&lt;/em&gt; files would be selected.
+I also provided a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Recurse&lt;/code&gt; switch that allows the user to select all multiple downstream paths.&lt;/p&gt;
+
+&lt;p&gt;With this criteria in mind, here’s how I did that.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$PathType&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Get-Item&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;GetType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PathType&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-eq&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'DirectoryInfo'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$PSBoundParameters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ContainsKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Recurse'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Files&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Get-ChildItem&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Recurse&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-File&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Where-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Extension&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-in&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PSCodeExtensions&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Files&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Get-ChildItem&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-File&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Where-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Extension&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-in&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PSCodeExtensions&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;elseif&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PathType&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-eq&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'FileInfo'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Files&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Get-ChildItem&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;additional-information&quot;&gt;Additional Information&lt;/h2&gt;
+
+&lt;p&gt;To learn more about regex, here are a few resources that go much deeper into the topic than this article.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://powershellexplained.com/2017-07-31-Powershell-regex-regular-expression/&quot; target=&quot;_blank&quot;&gt;Powershell: The many ways to use regex&lt;/a&gt; on &lt;a href=&quot;https://twitter.com/kevinmarquette&quot; target=&quot;_blank&quot;&gt;Kevin Marquette&lt;/a&gt;’s blog&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://duffney.io/APracticalGuideforUsingRegexinPowerShell&quot; target=&quot;_blank&quot;&gt;A Practical Guide for Using Regex in PowerShell&lt;/a&gt; on &lt;a href=&quot;https://twitter.com/joshduffney&quot; target=&quot;_blank&quot;&gt;Josh Duffney&lt;/a&gt;’s blog&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_regular_expressions?view=powershell-7&quot; target=&quot;_blank&quot;&gt;About Regular Expressions&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference&quot; target=&quot;_blank&quot;&gt;.Net Quick Reference&lt;/a&gt; on Regular Expression Language&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote class=&quot;notice&quot;&gt;
+  &lt;p&gt;I’m not a regex guru.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;For several years now, I have crafted my regex using the following online validator tools.
+There are others, these are just the ones I find familiar and easy to use.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://regex101.com/&quot; target=&quot;_blank&quot;&gt;regex101.com&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://regexr.com/&quot; target=&quot;_blank&quot;&gt;regexr.com&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;blockquote class=&quot;notice--success&quot;&gt;
+  &lt;p&gt;Thank you for sticking with the article!
+I didn’t realize that it was going to grow this large, to a 15+ minute read time.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;When I began working on this Iron Scripter challenge, I was only considering writing a short article on my solution.
+I quickly realized, however, that the heart of the challenge involves regular expressions.
+And I suspect that many PowerShell scripters would only have a little experience or knowledge on this complex subject.&lt;/p&gt;
+
+&lt;p&gt;My hopes for this article are twofold:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;You have gained a better understanding of regex and how you can use and write regex patterns in PowerShell.&lt;/li&gt;
+  &lt;li&gt;You have gained an interest in participating in the Iron Scripter challenges, or have had your interest bolstered.
+You can learn a great deal while solving the challenges.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If you have suggestions for better regex patterns or a better way to handle false positives for Verb-Noun and aliases,
+please let me know in the comments below.&lt;/p&gt;
+
+&lt;p&gt;If you have any general questions on Regex or PowerShell, feel free to leave them in the comments or ask me on &lt;a href=&quot;https://twitter.com/thedavecarroll&quot;&gt;Twitter&lt;/a&gt;.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="regex" /><category term="regular expressions" /><category term="powershell" /><category term="learn powershell" /><category term="iron scripter" /><category term="iron scripter challenge" /><category term="iron scripter solution" /><summary type="html">Learn the basics of regular expressions and how I used them to solve this Iron Scripter challenge.</summary></entry><entry><title type="html">A PowerShell Counting Challenge Walk-through</title><link href="https://powershell.anovelidea.org/powershell/powershell-counting-challenge/" rel="alternate" type="text/html" title="A PowerShell Counting Challenge Walk-through" /><published>2020-05-22T00:00:00-05:00</published><updated>2020-05-22T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/powershell-counting-challenge</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/powershell-counting-challenge/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/ironscripter/counting/three-loops.png&quot; alt=&quot;IronScripterChallenge&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -3447,166 +4099,4 @@ curiosity to learn more on your own.&lt;/p&gt;
 
 &lt;p&gt;If this blog post has helped you, please leave a comment below.&lt;/p&gt;
 
-&lt;p&gt;PowerShell to the People!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="psgsuite" /><category term="g suite" /><category term="google api" /><category term="google cloud" /><category term="how to" /><summary type="html">Examples on how to create OUs, groups, and users with the PSGSuite PowerShell Module.</summary></entry><entry><title type="html">Introducing the PoShDynDnsApi Module</title><link href="https://powershell.anovelidea.org/powershell/module-poshdyndnsapi/" rel="alternate" type="text/html" title="Introducing the PoShDynDnsApi Module" /><published>2019-01-07T00:00:00-06:00</published><updated>2019-01-07T00:00:00-06:00</updated><id>https://powershell.anovelidea.org/powershell/module-poshdyndnsapi</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/module-poshdyndnsapi/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/dyndnsconnect.png&quot; alt=&quot;Connect-DynDnsSession&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;sometime-in-early-2018&quot;&gt;Sometime in Early 2018&lt;/h2&gt;
-
-&lt;p&gt;Manager: Hey, Dave. I need you to add all of our domains as Accepted Domains in Exchange Online.&lt;br /&gt;
-Me: Okay. How many do we have?&lt;br /&gt;
-Manager: Maybe 50?&lt;br /&gt;
-Me *finally gets access to Dyn and checks*: We have over 170 in Dyn.&lt;br /&gt;
-Manager: Yeah, all those.&lt;br /&gt;
-Me: We will need to create a TXT record in Dyn Managed DNS to prove ownership of the domain in Azure first.&lt;br /&gt;
-Manager: Do your thing.&lt;br /&gt;
-Me *sqeeeeee*: Okay.&lt;/p&gt;
-
-&lt;p&gt;Narrator: And this is how Dave started tinkering with the Dyn Managed DNS REST API.&lt;/p&gt;
-
-&lt;h2 id=&quot;introducing-the-poshdyndnsapi-module&quot;&gt;Introducing the PoShDynDnsApi Module&lt;/h2&gt;
-
-&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PoShDynDnsApi&lt;/code&gt; module, version 0.1.0, is now available in the &lt;a href=&quot;http://bit.ly/PoShDynDnsApi&quot; target=&quot;_blank&quot;&gt;PowerShell Gallery&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;PoShDynDnsApi is an unofficial PowerShell module used to interact with Dyn Managed DNS REST API.&lt;/p&gt;
-
-&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Notice:&lt;/strong&gt; I am not affiliated with Dyn and I am not paid to develop this module which began to simplify my day-to-day work. This module has become a learning tool for me to hone my PowerShell skills. I pay $7 monthly in order to have an account that allows me to have a single zone for testing the module.&lt;/p&gt;
-
-&lt;h3 id=&quot;commands&quot;&gt;Commands&lt;/h3&gt;
-
-&lt;p&gt;There are currently 28 commands available to the user.&lt;/p&gt;
-
-&lt;p&gt;To see complete examples and command syntax, please visit the &lt;a href=&quot;https://powershell.anovelidea.org/modulehelp/PoShDynDnsApi/&quot; target=&quot;_blank&quot;&gt;module help&lt;/a&gt; site.&lt;/p&gt;
-
-&lt;h4 id=&quot;session&quot;&gt;Session&lt;/h4&gt;
-
-&lt;p&gt;You can used the following commands to create, extend, test, or remove a session. Additionally, you can view the current session information or view the current session history.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Connect-DynDnsSession&lt;/li&gt;
-  &lt;li&gt;Send-DynDnsSession&lt;/li&gt;
-  &lt;li&gt;Test-DynDnsSession&lt;/li&gt;
-  &lt;li&gt;Disconnect-DynDnsSession&lt;/li&gt;
-  &lt;li&gt;Get-DynDnsSession&lt;/li&gt;
-  &lt;li&gt;Get-DynDnsHistory&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;zone&quot;&gt;Zone&lt;/h4&gt;
-
-&lt;p&gt;Use the following commands to create a zone by providing required parameters or by providing a zone file, and you can view the zone record. You can also remove a zone. You can view pending changes and publish them or discard them. And you can view the publish notes. Additionally, you can freeze or thaw the zone.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Add-DynDnsZone&lt;/li&gt;
-  &lt;li&gt;Get-DynDnsZone&lt;/li&gt;
-  &lt;li&gt;Get-DynDnsZoneNotes&lt;/li&gt;
-  &lt;li&gt;Remove-DynDnsZone&lt;/li&gt;
-  &lt;li&gt;Get-DynDnsZoneChanges&lt;/li&gt;
-  &lt;li&gt;Publish-DynDnsZoneChanges&lt;/li&gt;
-  &lt;li&gt;Undo-DynDnsZoneChanges&lt;/li&gt;
-  &lt;li&gt;Lock-DynDnsZone&lt;/li&gt;
-  &lt;li&gt;Unlock-DynDnsZone&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/dyndnszone.png&quot; alt=&quot;Get-DynDnsZone&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;record&quot;&gt;Record&lt;/h4&gt;
-
-&lt;p&gt;Use the follow commands to view, add, update, or remove DNS records of the following types: A, TXT, CNAME, MX, SRV, or PTR. There is a command to create a new record object that can be used to add or update a record.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Get-DynDnsRecord&lt;/li&gt;
-  &lt;li&gt;New-DynDnsRecord&lt;/li&gt;
-  &lt;li&gt;Add-DynDnsRecord&lt;/li&gt;
-  &lt;li&gt;Update-DynDnsRecord&lt;/li&gt;
-  &lt;li&gt;Remove-DynDnsRecord&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/dyndnsrecord.png&quot; alt=&quot;Get-DynDnsRecord&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;httpredirect&quot;&gt;HttpRedirect&lt;/h4&gt;
-
-&lt;p&gt;Use the following commands to view, create, or delete an HTTP redirect service.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Get-DynDnsHttpRedirect&lt;/li&gt;
-  &lt;li&gt;Add-DynDnsHttpRedirect&lt;/li&gt;
-  &lt;li&gt;Remove-DynDnsHttpRedirect&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;node&quot;&gt;Node&lt;/h4&gt;
-
-&lt;p&gt;Use the following commands to list nodes and remove a node.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Note: Add commands such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Add-DynDnsRecord&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Add-DynDnsHttpRedirect&lt;/code&gt; will create the node prior to adding the record or service.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Get-DynDnsNodeList&lt;/li&gt;
-  &lt;li&gt;Remove-DynDnsNode&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/dyndnsnodelist.png&quot; alt=&quot;Get-DynDnsNodeList&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;miscellaneous&quot;&gt;Miscellaneous&lt;/h4&gt;
-
-&lt;p&gt;These commands will allow you to view users, jobs, or tasks.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Get-DynDnsUser&lt;/li&gt;
-  &lt;li&gt;Get-DynDnsTask&lt;/li&gt;
-  &lt;li&gt;Get-DynDnsJob&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;more-information&quot;&gt;More Information&lt;/h3&gt;
-
-&lt;p&gt;Please check out the following links for more information on the Dyn Managed DNS REST API.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://help.dyn.com/dns-api-guide/&quot; target=&quot;_blank&quot;&gt;DNS API Quick-Start Guide&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://help.dyn.com/understanding-works-api/&quot; target=&quot;_blank&quot;&gt;Understanding How The API Works&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://help.dyn.com/rest-resources/&quot; target=&quot;_blank&quot;&gt;REST Resources&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://help.dyn.com/rest/&quot; target=&quot;_blank&quot;&gt;RESTful API Interface&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/dyndnsdisconnect.png&quot; alt=&quot;Disconnect-DynDnsSession&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;my-first-rest-api-interaction&quot;&gt;My First REST API Interaction&lt;/h2&gt;
-
-&lt;p&gt;I am a PowerShell developer (just now starting calling myself that) with a background in multiple scripting languages, identity management, and much of the Microsoft technology stack. I have connected to MS SQL, Oracle SQL, and mySQL databases with vbScript, PHP, and PowerShell. But, I had never connected to a REST API until I started working on proof of concepts for connecting to Dyn’s API.&lt;/p&gt;
-
-&lt;h3 id=&quot;powershell-lessons-learned&quot;&gt;PowerShell Lessons Learned&lt;/h3&gt;
-
-&lt;p&gt;Over the course of the months I’ve spent developing this module, I have learned several lessons about writing better PowerShell scripts and modules.&lt;/p&gt;
-
-&lt;h4 id=&quot;globally-scoped-module-variables&quot;&gt;Globally Scoped Module Variables&lt;/h4&gt;
-
-&lt;p&gt;This should be avoided. Any variable declared at the module level (in the psm1 file) is scoped to the module.&lt;/p&gt;
-
-&lt;h4 id=&quot;dot-sourcing-custom-class-ps1-files&quot;&gt;Dot-sourcing Custom Class ps1 Files&lt;/h4&gt;
-
-&lt;p&gt;The generally accepted way to have classes available to the module is to include them in the module’s psm1 (most likely through a compile process).&lt;/p&gt;
-
-&lt;h4 id=&quot;default-parameter-values-from-read-host&quot;&gt;Default Parameter Values from Read-Host&lt;/h4&gt;
-
-&lt;p&gt;Using this essentially makes the parameter mandatory and may not be part of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$PSBoundParameters&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h4 id=&quot;cross-edition-and-cross-platform&quot;&gt;Cross Edition and Cross-Platform&lt;/h4&gt;
-
-&lt;p&gt;The difference between Invoke-RestMethod and Invoke-WebRequest in Windows PowerShell and PowerShell Core posed significant roadblocks to make the module cross platform. I will blog about this process soon.&lt;/p&gt;
-
-&lt;h4 id=&quot;plaster-psake-and-pester&quot;&gt;Plaster, PSake, and Pester&lt;/h4&gt;
-
-&lt;p&gt;I have spent a lot of time working on my module scaffolding while writing the module. I have a good understanding of Plaster templates, have a PSake build script that at least gets me to a compiled module state, and have starting devising my logic for general unit and integration tests.&lt;/p&gt;
-
-&lt;h4 id=&quot;provide-a-solution-sooner-than-later&quot;&gt;Provide a Solution Sooner than Later&lt;/h4&gt;
-
-&lt;p&gt;In general, I’m a perfectionist. Everything has to be just right. This module has taken many months of coding to get it to this point, albeit not consistent coding. But I realized while talking with &lt;a href=&quot;http://stevenmaglio.blogspot.com/&quot; target=&quot;_blank&quot;&gt;Steven Maglio&lt;/a&gt;, that I was going about it wrong. Actually, he told me it was wrong. DevOps is about quick iterations. Get something into the user’s hands and update as you go along. That was the catalyst I needed to do a final, manual test (thankfully, as I had to fix a bug), then deploy to the PowerShell Gallery.&lt;/p&gt;
-
-&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
-
-&lt;p&gt;I believe the PoShDynDnsApi module is a powerful and easy tool to manage your Dyn Managed DNS service. I hope you will, too.&lt;/p&gt;
-
-&lt;p&gt;If you discover issues, please submit a &lt;a href=&quot;https://github.com/thedavecarroll/PoShDynDnsApi/issues/new?labels=bug&amp;amp;template=bug_report.md&amp;amp;title=%5BBUG%5D&quot; target=&quot;_blank&quot;&gt;bug report&lt;/a&gt; via GitHub.&lt;/p&gt;
-
-&lt;p&gt;If you would like a new feature or command that interacts with the Dyn Managed DNS REST API, please submit the &lt;a href=&quot;https://github.com/thedavecarroll/PoShDynDnsApi/issues/new?labels=enhancement&amp;amp;template=feature_request.md&amp;amp;title=%5BNew+Feature%5D&quot; target=&quot;_blank&quot;&gt;feature request&lt;/a&gt; via GitHub.&lt;/p&gt;
-
-&lt;p&gt;If you just want to comment on how much you like the module or this blog post, please leave it below.&lt;/p&gt;
-
-&lt;p&gt;PowerShell to the people!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="module" /><category term="dns" /><category term="dyn" /><category term="rest api" /><category term="dyndns managed service" /><category term="dyn managed dns rest api" /><summary type="html">PoShDynDnsApi is an unofficial PowerShell module used to interact with Dyn Managed DNS REST API.</summary></entry></feed>
+&lt;p&gt;PowerShell to the People!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="psgsuite" /><category term="g suite" /><category term="google api" /><category term="google cloud" /><category term="how to" /><summary type="html">Examples on how to create OUs, groups, and users with the PSGSuite PowerShell Module.</summary></entry></feed>
