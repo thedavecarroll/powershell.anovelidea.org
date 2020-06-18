@@ -49,7 +49,7 @@
 
 
 
-  <meta property="article:modified_time" content="2018-08-29T00:00:00-05:00">
+  <meta property="article:modified_time" content="2020-06-18T00:00:00-05:00">
 
 
 
@@ -334,7 +334,7 @@
     <meta itemprop="headline" content="How I Blog">
     <meta itemprop="description" content="What technologies are used in my blog?">
     <meta itemprop="datePublished" content="August 26, 2018">
-    <meta itemprop="dateModified" content="August 29, 2018">
+    <meta itemprop="dateModified" content="June 18, 2020">
 
     <div class="page__inner-wrap">
       
@@ -466,7 +466,7 @@ on fixes without touching the rest of the code.</p>
   </thead>
   <tbody>
     <tr>
-      <td>master</td>
+      <td>main</td>
       <td>I push commits to this branch when I make changes to the blog, e.g. publish new posts or approve comments.</td>
     </tr>
     <tr>
@@ -664,7 +664,7 @@ It drives true DevOps.</p>
 that open source projects would be able to use <code class="language-plaintext highlighter-rouge">travis-ci.com</code>. Sometime soon, I’ll work on upgrading to the new method
 which uses GitHub Apps and has greater benefits.</p>
 
-<p>With the integration service setup, whenever the master branch changes, that is when I push changes or when a PR from
+<p>With the integration service setup, whenever the main branch changes, that is when I push changes or when a PR from
 the comments branch is merged, the service notifies Travis CI that it needs to create a build.</p>
 
 <h4 id="travis-configuration-file">Travis Configuration File</h4>
@@ -676,7 +676,7 @@ completes.</p>
 <h4 id="build">Build</h4>
 
 <p>When notified of a change, Travis spins up an Ubuntu Linux container, installs all dependencies (from self updating
-cache), clones the master branch of my blog repo, runs the <code class="language-plaintext highlighter-rouge">/script/cibuild</code> bash script I created, then deploys to the
+cache), clones the main branch of my blog repo, runs the <code class="language-plaintext highlighter-rouge">/script/cibuild</code> bash script I created, then deploys to the
 gh-pages branch.</p>
 
 <p><strong>script/cibuild</strong></p>
@@ -694,9 +694,12 @@ Requests. Check out the folder structure and the files.</p>
 
 <p>I hope this post was informative. Feel free to leave a comment below.</p>
 
-<p class="notice--primary"><strong>Update</strong>
+<p class="notice--primary"><strong>Update 2018-08-29</strong>
 I used the code from <a href="https://codersblock.com/blog/customizing-github-gists/" target="_blank">Coders Block</a> to change
 the color syntax of GitHub Gists.</p>
+
+<p class="notice--primary"><strong>Update 2020-06-18</strong>
+Updated references of master branch to main.</p>
 
         
       </section>
@@ -765,7 +768,7 @@ the color syntax of GitHub Gists.</p>
             <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted:</strong> <time datetime="2018-08-26T00:00:00-05:00">August 26, 2018</time></p>
         
         
-            <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-08-29">August 29, 2018</time></p>
+            <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2020-06-18">June 18, 2020</time></p>
         
 
       </footer>
@@ -838,7 +841,7 @@ You build a masterpiece, thanks for inspiring me.</p>
           <div class="page__comments-form">
             <h4 class="page__comments-title">Leave a comment</h4>
             <p class="small">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
-            <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://dev.staticman.net/v3/entry/github/thedavecarroll/powershell.anovelidea.org/master/comments">
+            <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://dev.staticman.net/v3/entry/github/thedavecarroll/powershell.anovelidea.org/main/comments">
               <div class="form__spinner">
                 <i class="fas fa-spinner fa-spin fa-3x fa-fw"></i>
                 <span class="sr-only">Loading...</span>

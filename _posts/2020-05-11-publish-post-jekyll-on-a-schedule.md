@@ -3,6 +3,7 @@ layout: single
 title: "Publish a Post for a Jekyll Site on a Schedule"
 excerpt: "Learn how to schedule the publishing of a post using the GitHub Action, Jekyll Publish Drafts, on a GitHub pages hosted site."
 date: '2020-05-11T09:00:00-0500'
+last_modified_at: 2020-06-18
 header:
   overlay_image: /assets/images/publish-drafts/marketplace-action.png
   overlay_filter: 0.9
@@ -116,7 +117,7 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         jekyll_path: ./
-        branch: master
+        branch: main
 ```
 {% endraw %}
 
@@ -242,7 +243,7 @@ PS> $sitefeed.feed.entry[0].published
 
 I manually corrected the name of the file by renaming it after using `git pull` to synchronize the changes to my local site repository.
 
-**NOTE:** Since this action commits back to your site repository, it is imperative that you use `git pull` to synchronize from *origin/master* to your local copy.
+**NOTE:** Since this action commits back to your site repository, it is imperative that you use `git pull` to synchronize from *origin/main* to your local copy.
 If you modify the markdown file locally before syncing, when you do attempt a `git pull`,
 you will get the following "error: Your local changes to the following files would be overwritten by merge" and it will abort.
 At that point, you would have to simply revert the file (losing changes), copy the changes to temporary location, or use `git stash` to stash changes.
@@ -298,6 +299,10 @@ Thank you, again.
 
 Feel free to check out the action's [author's blog post][6]{:target="_blank"} on using `Jekyll Publish Drafts`.
 Also, if you want want to dig into the action to see how it works, here is the [GitHub repo][7]{:target="_blank"}.
+
+**Update 2020-06-18**
+Updated references of master branch to main.
+{: .notice--primary}
 
 [1]: https://twitter.com/JeffHicks
 [2]: https://help.github.com/en/actions/getting-started-with-github-actions/about-github-actions
