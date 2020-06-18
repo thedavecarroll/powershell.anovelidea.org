@@ -1,6 +1,6 @@
 _id: aa4eba20-b18e-11ea-812a-c51359872986
 message: >-
-  Check out an [alternate solution](https://bit.ly/37sL3yE) that uses
+  Check out `Measure-PSCommand`, an [alternate solution](https://bit.ly/37sL3yE) that uses
   **PowerShell AST**.
 name: thedavecarroll
 email: fd0387e212af38089603b5480e406545
