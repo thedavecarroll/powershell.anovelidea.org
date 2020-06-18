@@ -8,7 +8,7 @@ gemfile: Gemfile
 
 branches:
   only:
-    - master
+    - main
 
 notifications:
   email: false
@@ -32,6 +32,6 @@ deploy:
   keep-history: true
   verbose: true
   on:
-    branch: master
+    branch: main
 
 after_deploy: ./script/sitemap_ping

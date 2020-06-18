@@ -11,7 +11,7 @@ git remote add upstream https://github.com/mmistakes/minimal-mistakes.git
 # pull updated files from upstream remote
 #
 git fetch upstream
-git merge upstream/master --allow-unrelated-histories
+git merge upstream/main --allow-unrelated-histories
 
 # ------------------------------------------------------------------------------
 # find staged files
