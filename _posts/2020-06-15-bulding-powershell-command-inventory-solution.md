@@ -585,7 +585,8 @@ Count CodeType   FileName
 
 Here are the two functions I wrote to solve this challenge.
 
-<script src="https://gist.github.com/thedavecarroll/bdb519bf474739851ca1e7d2d3faeee6.js"></script>
+<script src="https://gist.github.com/thedavecarroll/bdb519bf474739851ca1e7d2d3faeee6.js?file=1-Measure-PSCodeLine.ps1"></script>
+<script src="https://gist.github.com/thedavecarroll/bdb519bf474739851ca1e7d2d3faeee6.js?file=2-Get-PSCodeStructure.ps1"></script>
 
 ### Performance
 
