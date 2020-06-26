@@ -118,4 +118,10 @@ var store = [{
         "tags": ["regex","regular expressions","powershell","learn powershell","iron scripter","iron scripter challenge","iron scripter solution"],
         "url": "https://powershell.anovelidea.org/powershell/bulding-powershell-command-inventory-solution/",
         "teaser": null
+      },{
+        "title": "Building a PowerShell Command Inventory Solution - Part Deux",
+        "excerpt":"Introduction It’s been ten days since I published an article on my initial solution for the IronScripter challenge Building a PowerShell Command Inventory. That solution relied on regular expressions, most commonly called regex. The article included a primer on regex mechanics and how to use regex in PowerShell. However, the...","categories": ["powershell"],
+        "tags": ["abstract tree syntax","ast","powershell","learn powershell","iron scripter","iron scripter challenge","iron scripter solution"],
+        "url": "https://powershell.anovelidea.org/powershell/powershell-command-inventory-part-deux/",
+        "teaser": null
       }]
