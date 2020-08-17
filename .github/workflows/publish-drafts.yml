@@ -2,7 +2,12 @@ name: Publish Blog Drafts
 
 on:
   schedule:
-    - cron: '30 */4 * * *'
+    # every 4 hours on the half hour
+    # - cron: '30 */4 * * *'
+    # every hour at 5 minutes past the hour
+    - cron: '05 * * * *'
+  # on demand
+  workflow_dispatch:
 
 jobs:
   build:
