@@ -2,7 +2,7 @@
 layout: single
 title: "Responding to an Issue Submitted for the PoShDynDnsApi Module"
 excerpt: "The curtains are pulled back in this look behind-the-scenes where I respond to the first public-submitted issue for PoShDynDnsApi."
-date: '2020-08-17T09:00:00-0500'
+date: 2020-08-17
 header:
   overlay_image: /assets/images/dyndnsrecord_bad.png
   overlay_filter: 0.9
