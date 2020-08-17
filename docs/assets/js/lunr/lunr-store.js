@@ -124,4 +124,10 @@ var store = [{
         "tags": ["abstract tree syntax","ast","powershell","learn powershell","iron scripter","iron scripter challenge","iron scripter solution"],
         "url": "https://powershell.anovelidea.org/powershell/powershell-command-inventory-part-deux/",
         "teaser": null
+      },{
+        "title": "Responding to an Issue Submitted for the PoShDynDnsApi Module",
+        "excerpt":"The PoShDynDnsApi Module I published the PoShDynDnsApi module to the PowerShell Gallery in January of 2019 though it feels more like 5 years than the actual 18 months or so. Since it was published, I’ve written two articles about it — one announcing it and another providing a deep dive...","categories": ["powershell"],
+        "tags": ["powershell","module","dns","dyn","rest api","dyndns managed service","dyn managed dns rest api"],
+        "url": "https://powershell.anovelidea.org/powershell/responding-to-issue-submitted-for-poshdyndnsapi-module/",
+        "teaser": null
       }]

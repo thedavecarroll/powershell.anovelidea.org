@@ -1,4 +1,243 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2020-08-17T14:18:27-05:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Building a PowerShell Command Inventory Solution - Part Deux</title><link href="https://powershell.anovelidea.org/powershell/powershell-command-inventory-part-deux/" rel="alternate" type="text/html" title="Building a PowerShell Command Inventory Solution - Part Deux" /><published>2020-06-25T00:00:00-05:00</published><updated>2020-06-25T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/powershell-command-inventory-part-deux</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/powershell-command-inventory-part-deux/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/ironscripter/command-inventory/measure-pscommand.png&quot; alt=&quot;Image Text&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://powershell.anovelidea.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://powershell.anovelidea.org/" rel="alternate" type="text/html" /><updated>2020-08-17T14:25:04-05:00</updated><id>https://powershell.anovelidea.org/feed.xml</id><title type="html">PowerShell: What A Novel Idea</title><subtitle>A blog on PowerShell and IT</subtitle><author><name>Dave Carroll</name></author><entry><title type="html">Responding to an Issue Submitted for the PoShDynDnsApi Module</title><link href="https://powershell.anovelidea.org/powershell/responding-to-issue-submitted-for-poshdyndnsapi-module/" rel="alternate" type="text/html" title="Responding to an Issue Submitted for the PoShDynDnsApi Module" /><published>2020-08-17T00:00:00-05:00</published><updated>2020-08-17T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/responding-to-issue-submitted-for-poshdyndnsapi-module</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/responding-to-issue-submitted-for-poshdyndnsapi-module/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/dyndnsrecord_issue.png&quot; alt=&quot;Get-DynDnsRecord Issue&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;the-poshdyndnsapi-module&quot;&gt;The PoShDynDnsApi Module&lt;/h2&gt;
+
+&lt;p&gt;I published the PoShDynDnsApi module to the PowerShell Gallery in January of 2019 though it feels more like 5 years than the actual 18 months or so.&lt;/p&gt;
+
+&lt;p&gt;Since it was published, I’ve written two articles about it — one announcing it and another providing a deep dive into the inner workings.
+The module has been downloaded from the gallery just over 350 times.
+Even with my testing and downloading, there are potentially over 340 people using it.
+That’s not a lot, but the main point is that it could be helping people manage their domains in &lt;em&gt;(or perhaps migrate from)&lt;/em&gt; the Dyn Managed DNS service.&lt;/p&gt;
+
+&lt;p class=&quot;notice--warning&quot;&gt;&lt;a href=&quot;https://www.oracle.com/corporate/acquisitions/dyn/technologies/enterprise-customer-faq.html&quot;&gt;Oracle made an announcement&lt;/a&gt; for the sunset of Dyn Managed DNS on May 31, 2022.
+&lt;br /&gt;
+&lt;br /&gt;
+Based on this, no new features will be added to this module and I have recently updated the repo’s README to reflect this.&lt;/p&gt;
+
+&lt;p&gt;I tracked the changes that I wanted to make to the module as GitHub issues and I had worked through all of the bugfix type issues.
+After I decided to not add any new features, I closed the last few that targeted new functionality.&lt;/p&gt;
+
+&lt;h2 id=&quot;first-public-issue&quot;&gt;First Public Issue&lt;/h2&gt;
+
+&lt;p&gt;When I received a new GitHub issue email alert just over a week ago, excitement and nervousness overcame me.
+It was the &lt;a href=&quot;https://github.com/thedavecarroll/PoShDynDnsApi/issues/11&quot;&gt;first issue&lt;/a&gt; submitted by someone in the community using any of my modules.&lt;/p&gt;
+
+&lt;p&gt;I followed the link and started reading it.
+They had used my &lt;strong&gt;bug&lt;/strong&gt; issue template and responded to all of its directives.
+There was enough information that I could verify the behavior of the existing code.&lt;/p&gt;
+
+&lt;h2 id=&quot;first-response&quot;&gt;First Response&lt;/h2&gt;
+
+&lt;p&gt;My first response came a few hours later after I spent time on reproducing the behavior described in the issue.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-issue&quot;&gt;The Issue&lt;/h3&gt;
+
+&lt;p&gt;The command &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-DynDnsRecord&lt;/code&gt; would not return specific record types.&lt;/p&gt;
+
+&lt;p&gt;Reviewing the issue message, I could see that the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Node&lt;/code&gt; parameter was not used.
+This was key in determining the root cause.&lt;/p&gt;
+
+&lt;h3 id=&quot;investigation&quot;&gt;Investigation&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-DynDnsRecord&lt;/code&gt; prepends the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Node&lt;/code&gt; input to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Zone&lt;/code&gt; input, and if it is not provided, defaults to using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Zone&lt;/code&gt; as the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Node&lt;/code&gt;.
+The URI is built using: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;/REST/$($RecordType)Record/$Zone/$Fqdn/&quot;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;With the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RecordType&lt;/code&gt; of &lt;strong&gt;All&lt;/strong&gt;, it uses URI &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/REST/AllRecord/&amp;lt;zone&amp;gt;&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/REST/AllRecord/&amp;lt;zone&amp;gt;/&amp;lt;node&amp;gt;&lt;/code&gt; which “[r]etrieves a list of all record resources for the specified node and zone combination &lt;strong&gt;as well as all records from any object below that point on the zone hierarchy&lt;/strong&gt;”.
+The bold text is the key difference between any other RecordType URI.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;If you want to know more, here is the &lt;a href=&quot;https://help.dyn.com/get-all-records-api/&quot;&gt;Get All Records (API)&lt;/a&gt; documentation page.&lt;/p&gt;
+
+&lt;h3 id=&quot;options&quot;&gt;Options&lt;/h3&gt;
+
+&lt;p&gt;I wasn’t sure of how the user was needing to use the records he was attempting to retrieve.&lt;/p&gt;
+
+&lt;p&gt;In my response, I provided the user with three options:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-DynDnsRecord -RecordType All&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Where-Object&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-DynDnsNodeList&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-DynDnsRecord -RecordType All&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Group-Object&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The first one simply called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-DynDnsRecord -RecordType All&lt;/code&gt; and used &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Where-Object&lt;/code&gt; to filter by the record type needed.
+The second one used &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-DynDnsNodeList&lt;/code&gt; which would retrieve all the nodes for the zone, essentially the node tree, and
+then inside a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ForEach-Object&lt;/code&gt; loop, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-DynDnsRecord&lt;/code&gt; would be called with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Node&lt;/code&gt; dynamically provided.
+The last one called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-DynDnsRecord -RecordType All&lt;/code&gt; and then used &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Group-Object&lt;/code&gt; to group the results by the record type.&lt;/p&gt;
+
+&lt;h3 id=&quot;additional-information&quot;&gt;Additional Information&lt;/h3&gt;
+
+&lt;p&gt;I provided the user with additional information on the record classes, specifically the hidden properties that are included.
+I explained that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-DynDnsHistory&lt;/code&gt; would have all of the API calls URI’s included.
+And I explained &lt;em&gt;(though perhaps not very clearly, as I reread my response)&lt;/em&gt; that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-DynDnsRecord&lt;/code&gt; first call retrieves a list of object URIs.
+Then, the list is iterated through and the individual record is returned.&lt;/p&gt;
+
+&lt;p&gt;I also suggested that using &lt;a href=&quot;https://insomnia.rest/download/core/?&quot;&gt;Insomnia Core&lt;/a&gt; could help with understanding the calls.&lt;/p&gt;
+
+&lt;h3 id=&quot;first-feedback&quot;&gt;First Feedback&lt;/h3&gt;
+
+&lt;p&gt;The user replied a couple of days after and said that option one would be sufficient.&lt;/p&gt;
+
+&lt;p&gt;Great news!&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;I responded the second time before he could provide this feedback.&lt;/p&gt;
+
+&lt;h2 id=&quot;second-response&quot;&gt;Second Response&lt;/h2&gt;
+
+&lt;p&gt;Feeling awesome that I resolved the user’s issue, I bragged about it to a friend, &lt;a href=&quot;http://stevenmaglio.blogspot.com/&quot; target=&quot;_blank&quot;&gt;Steven Maglio&lt;/a&gt;.
+He happens to be an incredibly intelligent and amazing developer.
+I value his opinion on most things, even more so if they fall in the realm of software development and lifecycle support.&lt;/p&gt;
+
+&lt;p&gt;My first response was very adequate.
+But I missed the point.&lt;/p&gt;
+
+&lt;p class=&quot;notice--danger&quot;&gt;The user expected one behavior and I had provided another by programming &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-DynDnsRecord&lt;/code&gt; to “match” the API.&lt;/p&gt;
+
+&lt;p&gt;The command, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-DynDnsRecord&lt;/code&gt;, actually interacts with 9 different API endpoints, one for each &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RecordType&lt;/code&gt; including &lt;strong&gt;All&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Example:&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/REST/CNAMERecord/&amp;lt;zone&amp;gt;/&amp;lt;node&amp;gt;
+/REST/AllRecord/&amp;lt;zone&amp;gt;/&amp;lt;node&amp;gt;
+/REST/MXRecord/&amp;lt;zone&amp;gt;/&amp;lt;node&amp;gt;
+/REST/SOARecord/&amp;lt;zone&amp;gt;/&amp;lt;node&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The second section of the URI specifies which record type to find and return.
+Originally, if the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Node&lt;/code&gt; parameter was not provided, I would use the provided &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Zone&lt;/code&gt; as the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Node&lt;/code&gt;.
+In the API, the node is the fully qualified domain name (FQDN) and must be in the zone hierarchy.&lt;/p&gt;
+
+&lt;p&gt;This works for record types that can exist at the root of the zone, such as SOA, NS, MX, A, and most others.
+However, DNS by design, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CNAME&lt;/code&gt; cannot exist at the root of a domain.&lt;/p&gt;
+
+&lt;p&gt;Well, this works, mostly.
+The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AllRecord&lt;/code&gt; endpoint has different behavior than the other &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;type&amp;gt;Record&lt;/code&gt; endpoints.
+It will return all records &lt;em&gt;recursively&lt;/em&gt; starting with the node provided or, more specifically, the FQDN provided.&lt;/p&gt;
+
+&lt;p&gt;The other &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;type&amp;gt;Record&lt;/code&gt; endpoints will only return records of the type from the node/FQDN provided.&lt;/p&gt;
+
+&lt;p&gt;I then began updating the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-DynDnsRecord&lt;/code&gt; code to provide the expected behavior.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;If Node is not provided:
+    &lt;ul&gt;
+      &lt;li&gt;Return all records in the entire zone tree filtered by RecordType.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;If Node is provided:
+    &lt;ul&gt;
+      &lt;li&gt;Return records contained in the node filtered by RecordType.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I made the changes, published the module, and replied to the user.&lt;/p&gt;
+
+&lt;h3 id=&quot;second-feedback&quot;&gt;Second Feedback&lt;/h3&gt;
+
+&lt;p&gt;The user updated their module to the latest version and is pleased with the new behavior.&lt;/p&gt;
+
+&lt;p&gt;Still great news!&lt;/p&gt;
+
+&lt;h2 id=&quot;haste-makes-waste&quot;&gt;Haste Makes Waste&lt;/h2&gt;
+
+&lt;p&gt;In my haste to publish an updated version to the gallery, I made a huge mistake.&lt;/p&gt;
+
+&lt;p class=&quot;notice--warning&quot;&gt;HUGE mistake!&lt;/p&gt;
+
+&lt;p&gt;Here is the original code:&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Node&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-match&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Zone&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Fqdn&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Node&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Fqdn&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Node&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'.'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Zone&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Fqdn&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Zone&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Records&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Invoke-DynDnsRequest&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-UriPath&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/REST/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RecordType&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Record/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Zone&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Fqdn&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Here is my first attempt to fix the code:&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Node&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-match&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Zone&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$UriPath&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/REST/{0}/{1}/{1}'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RecordType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Zone&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$UriPath&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/REST/{0}/{1}/{2}.{1}'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RecordType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Zone&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Node&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'No node provided. {0} record types for zone tree will be returned.'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RecordType&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Write-Verbose&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$UriPath&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/REST/AllRecord/{0}'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Zone&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Records&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Invoke-DynDnsRequest&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-UriPath&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$UriPath&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As you can see, I completely missed including the &lt;em&gt;Record&lt;/em&gt; text as part of the second URI section.&lt;/p&gt;
+
+&lt;p&gt;I wish I could say that I caught this before I pushed the release to GitHub or even the PowerShell Gallery.
+Alas, I did not.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;If only there was some way to test my code changes before pushing to GitHub or PSGallery.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;I have been lazy with my modules and have not included adequate &lt;a href=&quot;https://pester.dev/&quot;&gt;Pester&lt;/a&gt; tests.
+For much of my PowerShell history, I have done the same hacky thing that most systems administrators have done — write a function, manually test a function.
+Just recently I’ve begun using Visual Studio Code’s debugging, so at least there’s that.&lt;/p&gt;
+
+&lt;p&gt;When I updated the code to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-DynDnsRecord&lt;/code&gt;, I guess I only tested the ‘no node provided’ path.
+After I published to PS Gallery, I updated the module from there to ensure everything worked as expected.&lt;/p&gt;
+
+&lt;p&gt;I tested &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-DynDnsRecord&lt;/code&gt; using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Node&lt;/code&gt; parameter and received a warning (actually, an API error).&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;Get-DynDnsRecord&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Zone&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;anovelidea.org&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Node&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;www3&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;WARNING: API-3.7.16 : ERROR : API-A : INVALID_REQUEST : Unknown resource All (Requested URI: /REST/All/anovelidea.org/www3.anovelidea.org)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The requested URI was missing the rest of the text.
+Instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;All&lt;/code&gt;, it should have been &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AllRecord&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;After dealing with the sinking feeling in the pit of my stomach, I fixed the code and tested &lt;em&gt;(manually)&lt;/em&gt; again.
+I tested several paths and felt confident that I had fixed the problem I had created and that the function’s behavior matched the new design.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;In case you haven’t published any modules (or scripts) to the PowerShell Gallery, know that you cannot overwrite an existing version.&lt;/p&gt;
+
+&lt;p&gt;I bumped the version and pushed the commits to GitHub.
+Then, I removed the GitHub release artifacts for the &lt;em&gt;bad&lt;/em&gt; release tag and created a new release for the updated version.
+Next, I published the new version to the PowerShell Gallery and unlisted the &lt;em&gt;bad&lt;/em&gt; version.&lt;/p&gt;
+
+&lt;p class=&quot;notice--warning&quot;&gt;&lt;strong&gt;Unlisting Module in PowerShell Gallery&lt;/strong&gt;
+&lt;br /&gt;
+Since a module could be a dependency for other modules or scripts, Microsoft does allow you to delete a version module.
+They do provide a way to &lt;em&gt;unlist&lt;/em&gt; a particular version of the module.
+People can still download it if they specify the version, but a search will not include the unlisted version.
+You can &lt;em&gt;unlist&lt;/em&gt; a script, similarly.&lt;/p&gt;
+
+&lt;p&gt;With the new &lt;em&gt;(working)&lt;/em&gt; version in GitHub and PowerShell Gallery, I was able to breathe a sigh of relief.
+It was a learning experience.&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;Though not significantly focused on PowerShell, I wanted this article to show you how I responded to an issue discovered in one of the commands of the PoShDynDnsApi module.
+It was not an issue with the usage of the command, rather, it was an issue of how I designed and initially wrote the command.&lt;/p&gt;
+
+&lt;p&gt;Then, in my hastiness to fix the design issue, I thoroughly botched the implementation.
+I frantically corrected the botched code and published an updated version.
+This left a &lt;em&gt;bad&lt;/em&gt; version in the PowerShell Gallery that, luckily, I was able to unlist.&lt;/p&gt;
+
+&lt;h3 id=&quot;lessons-learned&quot;&gt;Lessons Learned&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Consider having others provide input on the initial design of a module.&lt;/li&gt;
+  &lt;li&gt;Provide Pester tests with as much code coverage as possible.&lt;/li&gt;
+  &lt;li&gt;Test code updates manually, especially when not covered by any Pester tests.&lt;/li&gt;
+  &lt;li&gt;People do find and use your code, so provide the best code to them.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If you have any general questions on PowerShell, feel free to leave them in the comments or ask me on &lt;a href=&quot;https://twitter.com/thedavecarroll&quot;&gt;Twitter&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Thank you for reading!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="module" /><category term="dns" /><category term="dyn" /><category term="rest api" /><category term="dyndns managed service" /><category term="dyn managed dns rest api" /><summary type="html">The curtains are pulled back in this look behind-the-scenes where I respond to the first public-submitted issue for PoShDynDnsApi.</summary></entry><entry><title type="html">Building a PowerShell Command Inventory Solution - Part Deux</title><link href="https://powershell.anovelidea.org/powershell/powershell-command-inventory-part-deux/" rel="alternate" type="text/html" title="Building a PowerShell Command Inventory Solution - Part Deux" /><published>2020-06-25T00:00:00-05:00</published><updated>2020-06-25T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/powershell-command-inventory-part-deux</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/powershell-command-inventory-part-deux/">&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/ironscripter/command-inventory/measure-pscommand.png&quot; alt=&quot;Image Text&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -3270,557 +3509,4 @@ learned about the PowerShell pipeline which is one of the scripting languages gr
 
 &lt;p&gt;I hope you’ve found this interesting or informative. If you have any comments or questions, please post them below.&lt;/p&gt;
 
-&lt;p&gt;Thanks for reading and good luck on the Iron Scripter challenges!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="powershell concepts" /><category term="learn powershell" /><category term="powershell beginner" /><category term="iron scripter" /><category term="iron scripter challenge" /><category term="iron scripter walk-through" /><summary type="html">Learn basic PowerShell concepts and apply them to the beginner's Iron Scripter challenge.</summary></entry><entry><title type="html">Design Deep Dive : PoShDynDnsApi</title><link href="https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi/" rel="alternate" type="text/html" title="Design Deep Dive : PoShDynDnsApi" /><published>2019-05-08T00:00:00-05:00</published><updated>2019-05-08T00:00:00-05:00</updated><id>https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi</id><content type="html" xml:base="https://powershell.anovelidea.org/powershell/design-deep-dive-poshdyndnsapi/">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-
-&lt;p&gt;In January, I published the first release of the PoShDynDnsApi module to the &lt;a href=&quot;http://bit.ly/PoShDynDnsApi&quot; target=&quot;_blank&quot;&gt;PowerShellGallery&lt;/a&gt;,
-along with a &lt;a href=&quot;http://bit.ly/2GXJjnt&quot; target=&quot;_blank&quot;&gt;blog post introducing the module&lt;/a&gt;. It was the culmination of months of
-often-distracted work that began nearly a year prior.&lt;/p&gt;
-
-&lt;p&gt;In this post, I want to give you a peek into my development process.&lt;/p&gt;
-
-&lt;h2 id=&quot;topics-covered&quot;&gt;Topics Covered&lt;/h2&gt;
-
-&lt;p&gt;Below are the topics that I will cover in this post.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Dyn Managed DNS Service
-    &lt;ul&gt;
-      &lt;li&gt;Managed DNS API&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;PowerShell Web Cmdlets
-    &lt;ul&gt;
-      &lt;li&gt;Changes Between Windows PowerShell and PowerShell Core&lt;/li&gt;
-      &lt;li&gt;Strictly RESTing&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Testing Tool&lt;/li&gt;
-  &lt;li&gt;Module Variables
-    &lt;ul&gt;
-      &lt;li&gt;Session&lt;/li&gt;
-      &lt;li&gt;History&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;API Request
-    &lt;ul&gt;
-      &lt;li&gt;Invoke-DynDnsRequestDesktop&lt;/li&gt;
-      &lt;li&gt;Invoke-DynDnsRequestCore&lt;/li&gt;
-      &lt;li&gt;Invoke-DynDnsRequest&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Output
-    &lt;ul&gt;
-      &lt;li&gt;Classes&lt;/li&gt;
-      &lt;li&gt;Output Streams&lt;/li&gt;
-      &lt;li&gt;Write-DynDnsOutput&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Help&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;dyn-managed-dns-service&quot;&gt;Dyn Managed DNS Service&lt;/h2&gt;
-
-&lt;p&gt;When I first started working on this module, I had access to Dyn’s Managed DNS through an employer. When I left them in
-October 2018, I obviously lost my access to Dyn.&lt;/p&gt;
-
-&lt;p&gt;I wanted to continue development on the module. Originally, I contacted Dyn (turned out to be Sales) and they really had
-no clue what I was talking about. I poked around their website and saw that they offered a Developer account that
-provided access to the Dyn Managed DNS service with a maximum of one domain.&lt;/p&gt;
-
-&lt;p&gt;By the way, the Managed DNS service is not the same as Dynamic DNS (DDNS).&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;The Managed DNS service fully hosts your domain, allowing you to add records, get reports per record or domain, set granular permissions, and more.&lt;/li&gt;
-  &lt;li&gt;The DDNS service allows your hosts/devices to auto-register with their service providing you access to your device via its hostname, typically &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;myuniquehostname.dyndns.org&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;managed-dns-api&quot;&gt;Managed DNS API&lt;/h3&gt;
-
-&lt;p&gt;Dyn provides two APIs which can be used to interact with the Managed DNS Service.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RESTful&lt;/code&gt; API&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SOAP 1.1&lt;/code&gt; API&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Each API has specific requirements for establishing a session, creating resources, querying resources, modifying
-resources, and deleting resources.&lt;/p&gt;
-
-&lt;p&gt;For more details, please visit &lt;a href=&quot;https://help.dyn.com/dns-api-guide/&quot; target=&quot;_blank&quot;&gt;Dyn’s DNS API Quick-Start Guide&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;powershell-web-cmdlets&quot;&gt;PowerShell Web Cmdlets&lt;/h2&gt;
-
-&lt;p&gt;In the world of PowerShell, one typically would use the commands &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Invoke-WebRequest&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Invoke-RestMethod&lt;/code&gt;, both
-available since Windows PowerShell 3.0.&lt;/p&gt;
-
-&lt;p&gt;In fact, the Windows PowerShell version uses &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Invoke-WebRequest&lt;/code&gt; under the hood.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;But why not &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Invoke-RestMethod&lt;/code&gt;, Dave?&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Glad you asked. I’ll be covering that further down in the post.&lt;/p&gt;
-
-&lt;h3 id=&quot;changes-between-windows-powershell-and-powershell-core&quot;&gt;Changes Between Windows PowerShell and PowerShell Core&lt;/h3&gt;
-
-&lt;p&gt;The following table provides a quick overview of the major changes between the web cmdlets from Windows PowerShell and PowerShell Core.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Version&lt;/th&gt;
-      &lt;th&gt;PSEdition&lt;/th&gt;
-      &lt;th&gt;Primary .NET API&lt;/th&gt;
-      &lt;th&gt;Response Object&lt;/th&gt;
-      &lt;th&gt;Strict Header Parsing&lt;/th&gt;
-      &lt;th&gt;Headers Values&lt;/th&gt;
-      &lt;th&gt;Content Headers&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Windows PowerShell&lt;/td&gt;
-      &lt;td&gt;Desktop&lt;/td&gt;
-      &lt;td&gt;System.Net.WebRequest&lt;/td&gt;
-      &lt;td&gt;System.Net.WebResponse&lt;/td&gt;
-      &lt;td&gt;No&lt;/td&gt;
-      &lt;td&gt;Single string, joined by commas&lt;/td&gt;
-      &lt;td&gt;HttpWebResponse.Headers&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;PowerShell Core&lt;/td&gt;
-      &lt;td&gt;Core&lt;/td&gt;
-      &lt;td&gt;System.Net.Http.HttpClient (.Net 4.5+)&lt;/td&gt;
-      &lt;td&gt;System.Net.Http.HttpResponseMessage&lt;/td&gt;
-      &lt;td&gt;Yes&lt;/td&gt;
-      &lt;td&gt;Sting array&lt;/td&gt;
-      &lt;td&gt;HttpResponseMessage.Content.Headers&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;The table data was distilled from a series of blog posts (&lt;a href=&quot;https://get-powershellblog.blogspot.com/2017/11/powershell-core-web-cmdlets-in-depth.html&quot; target=&quot;_blank&quot;&gt;Part 1&lt;/a&gt;, &lt;a href=&quot;https://get-powershellblog.blogspot.com/2017/12/powershell-core-web-cmdlets-in-depth.html&quot; target=&quot;_blank&quot;&gt;Part 2&lt;/a&gt;,
-and &lt;a href=&quot;https://get-powershellblog.blogspot.com/2017/12/powershell-core-web-cmdlets-in-depth_24.html&quot; target=&quot;_blank&quot;&gt;Part 3&lt;/a&gt;) on &lt;em&gt;PowerShell Core Web Cmdlets in Depth&lt;/em&gt; by &lt;a href=&quot;https://twitter.com/markekraus&quot; target=&quot;_blank&quot;&gt;Mark Kraus&lt;/a&gt;. Please
-check out Mark’s posts for details, as he’s pretty much a leading authority since he’s writing most of the feature work
-for them.&lt;/p&gt;
-
-&lt;h3 id=&quot;strictly-resting&quot;&gt;Strictly RESTing&lt;/h3&gt;
-
-&lt;p&gt;While I was developing a proof of concept in PowerShell Core, I immediately hit a wall. It seems that, in this PSEdition,
-Microsoft prohibits sending a JSON payload via the GET method. This led me to initially targeting Windows PowerShell.&lt;/p&gt;
-
-&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; I believe it was the body with GET method, but I’m not 100% sure. There is also major differences in how the
-two PSEditions handle errors.&lt;/p&gt;
-
-&lt;h2 id=&quot;testing-tool&quot;&gt;Testing Tool&lt;/h2&gt;
-
-&lt;p&gt;For testing external to PowerShell, I use the &lt;a href=&quot;https://insomnia.rest/&quot; target=&quot;_blank&quot;&gt;Insomnia REST Client&lt;/a&gt;. I find the UI to be very
-clean and the application to be all that I need in a REST client. There are many REST clients like it, but this one is
-mine (of choice).&lt;/p&gt;
-
-&lt;p class=&quot;full&quot;&gt;&lt;img src=&quot;https://powershell.anovelidea.org/assets/images/design-deep-dive-poshdyndnsapi-insomnia.png&quot; alt=&quot;InsomniaRESTClient&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;module-variables&quot;&gt;Module Variables&lt;/h2&gt;
-
-&lt;p&gt;My blog post in October 2018 on module variables received a lot of views, largely due to a gracious retweet from &lt;a href=&quot;https://twitter.com/concentrateddon&quot; target=&quot;_blank&quot;&gt;Don
-Jones&lt;/a&gt;. In it, I describe how I began using module variables, aka script scoped variables.&lt;/p&gt;
-
-&lt;p&gt;Originally, I had created globally scoped variables for the API client URL, the API version, and the authentication
-token. The first was created in the module’s psm1 file, while the others were created in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Connect-DynDnsSession&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Looking back on my original implementation, all I can say is that I was (and still am) learning.&lt;/p&gt;
-
-&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;A Note About Global Variables:&lt;/strong&gt; There are some people, like my friend &lt;a href=&quot;http://stevenmaglio.blogspot.com/&quot; target=&quot;_blank&quot;&gt;Steven Maglio&lt;/a&gt;, who
-attests a globally scoped hashtable allows for quick edits and could be valuable in debugging and sanity checking.&lt;/p&gt;
-
-&lt;h3 id=&quot;session&quot;&gt;Session&lt;/h3&gt;
-
-&lt;p&gt;The Dyn API requires an authentication token to be sent with each call, so we definitely need that in a variable. I
-wanted to also include the API client URL and API version. Essentially, the following is what I had in the first
-iteration of the module.&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;New-Variable&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;DynDnsApiClient&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Value&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'https://api.dynect.net'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Scope&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Global&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Option&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ReadOnly&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Force&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Set-Variable&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;DynDnsAuthToken&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Value&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Scope&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;global&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Set-Variable&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;DynDnsApiVersion&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Value&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;API-&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot; -Scope global
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;As I continued working on the module, I realized that having the user and customer (company) information would allow a
-user to validate that the correct account was being used.&lt;/p&gt;
-
-&lt;p&gt;Lastly, the authentication token has an expiration. I wanted to track when the session was originally created, how long
-the session has been active, and when the session has been extended.&lt;/p&gt;
-
-&lt;p&gt;Here is the current session variable hashtable as it stands today.&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;ordered&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]@{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ClientUrl&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;           &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'https://api.dynect.net'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;                &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$null&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Customer&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;            &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$null&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ApiVersion&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;          &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$null&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AuthToken&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;           &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$null&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;StartTime&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;           &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$null&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ElapsedTime&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;         &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$null&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;RefreshTime&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;         &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$null&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;User&lt;/code&gt;,&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Customer&lt;/code&gt;,&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ApiVersion&lt;/code&gt;,&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AuthToken&lt;/code&gt;,&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;StartTime&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ElapsedTime&lt;/code&gt; properties are updated when a new session
-starts.&lt;/p&gt;
-
-&lt;p&gt;The cool thing with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ElapsedTime&lt;/code&gt; property is that it is a timer, using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[System.Diagnostics.Stopwatch]::StartNew()&lt;/code&gt;.
-The stopwatch continues during the PowerShell session while you have the module loaded. I reset it to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$null&lt;/code&gt; when the
-API session is terminated.&lt;/p&gt;
-
-&lt;h3 id=&quot;history&quot;&gt;History&lt;/h3&gt;
-
-&lt;p&gt;All responses from the API includes a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;job_id&lt;/code&gt;. You can use it to retrieve the results from a previous job in the same
-session by making a call against the URL &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;https://api.dynect.net/REST/Job/&amp;lt;job_id&amp;gt;/&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;I first started including the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;job_id&lt;/code&gt; in the Information output stream (more on that later), but realized that it was
-transient and someone would have to use the common parameter &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;InformationAction&lt;/code&gt; with each command.&lt;/p&gt;
-
-&lt;p&gt;I needed a way for a user to easily retrieve the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;job_id&lt;/code&gt;’s from previously run commands, therefore another module
-variable, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$DynDnsHistory&lt;/code&gt;, was born.&lt;/p&gt;
-
-&lt;p&gt;The instantiation is very simple, just an empty &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;System.Collections.ArrayList&lt;/code&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsHistory&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;New-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;System.Collections.ArrayList&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then, during the output processing, I add the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$InformationOutput&lt;/code&gt; object.&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$InformationOutput&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;DynDnsHistory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(@{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Command&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Command&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Status&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Status&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;JobId&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$JobId&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Method&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsResponse&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Method&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Uri&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsResponse&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Uri&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;StatusCode&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsResponse&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;StatusCode&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;StatusDescription&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsResponse&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;StatusDescription&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ElapsedTime&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;{0:N3}&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsResponse&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ElapsedTime&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Arguments&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$FilteredArguments&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsHistory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$InformationOutput&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;I believe it provides the user enough information about the calls to the API during an active session. The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JobId&lt;/code&gt;
-property of the object is the same as the raw &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;job_id&lt;/code&gt; provided in the response by the API.&lt;/p&gt;
-
-&lt;h2 id=&quot;api-requests&quot;&gt;API Requests&lt;/h2&gt;
-
-&lt;p&gt;At the heart of the module is two private functions. The first one, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Invoke-DynDnsRequest&lt;/code&gt;, does the heavy lifting by
-interfacing with the REST API. The second one, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Write-DynDnsOutput&lt;/code&gt;, provides all output to the user; this command is
-discussed further down page.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Invoke-DynDnsRequest&lt;/code&gt; is an alias which points to the correct PSEdition version of the command.&lt;/p&gt;
-
-&lt;p&gt;In the module’s psm1, I have the following code:&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PSEdition&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-eq&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Core'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Set-Alias&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Invoke-DynDnsRequest'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Value&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Invoke-DynDnsRequestCore'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Set-Alias&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Invoke-DynDnsRequest'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Value&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Invoke-DynDnsRequestDesktop'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;invoke-dyndnsrequest&quot;&gt;Invoke-DynDnsRequest&lt;/h3&gt;
-
-&lt;p&gt;As previously mentioned, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Invoke-DynDnsRequest&lt;/code&gt; command is an alias. Both &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Invoke-DynDnsRequestDesktop&lt;/code&gt; and
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Invoke-DynDnsRequestCore&lt;/code&gt; have the same parameters and parameter sets.&lt;/p&gt;
-
-&lt;p&gt;The commands have two parameter sets, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Default&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Session&lt;/code&gt;.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Default Parameter Set
-    &lt;ul&gt;
-      &lt;li&gt;Method
-        &lt;ul&gt;
-          &lt;li&gt;Validate Set: Get, Post, Put, Delete&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;UriPath&lt;/li&gt;
-      &lt;li&gt;Body&lt;/li&gt;
-      &lt;li&gt;SkipSessionCheck
-        &lt;ul&gt;
-          &lt;li&gt;Some commands make two queries against the API; it is unlikely the session will expire between the two calls.&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Session Parameter Set
-    &lt;ul&gt;
-      &lt;li&gt;Body
-        &lt;ul&gt;
-          &lt;li&gt;Validated JSON&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;SessionAction
-        &lt;ul&gt;
-          &lt;li&gt;Validate Set: Connect, Disconnect, Test, Send&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The content is converted to JSON, and the custom &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[DynDnsHttpResponse]&lt;/code&gt; object is built and added to the
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[DynDnsRestResponse]&lt;/code&gt; object.&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;DynDnsRestResponse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;PsCustomObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]@{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Response&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Data&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;        &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Data&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ElapsedTime&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ElapsedTime&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;invoke-dyndnsrequestdesktop&quot;&gt;Invoke-DynDnsRequestDesktop&lt;/h3&gt;
-
-&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Invoke-DynDnsRequestDesktop&lt;/code&gt; is a wrapper command for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Invoke-WebRequest&lt;/code&gt;. Each parameter set builds a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$RestParams&lt;/code&gt;
-variable that is used as a splat to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Invoke-WebRequest&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;The following code shows how I use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[System.IO.StreamReader]&lt;/code&gt; construct to handle any errors from the API.&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$StopWatch&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;System.Diagnostics.&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Stopwatch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;StartNew&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$OriginalProgressPreference&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ProgressPreference&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ProgressPreference&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'SilentlyContinue'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsResponse&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Invoke-WebRequest&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;RestParams&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-ErrorVariable&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ErrorResponse&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Content&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;catch&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsResponse&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$Error&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Response.ErrorRecord.Exception.Response&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ResponseReader&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;System.IO.&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;StreamReader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;GetResponseStream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ResponseReader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ReadToEnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ResponseReader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ElapsedTime&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$StopWatch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Elapsed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;TotalSeconds&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$StopWatch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Stop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ProgressPreference&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$OriginalProgressPreference&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; I do not use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Invoke-RestMethod&lt;/code&gt; since I want to access more than just the API response. I want the HTTP
-status code, description, URI, and method used. Some of these are available, but I would have to pass them from the
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Invoke-DynDnsRequestDesktop&lt;/code&gt;  to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Write-DynDnsOutput&lt;/code&gt; command. Having all of this, the data, and the elapsed time
-in one object is very useful.&lt;/p&gt;
-
-&lt;h3 id=&quot;invoke-dyndnsrequestcore&quot;&gt;Invoke-DynDnsRequestCore&lt;/h3&gt;
-
-&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Invoke-DynDnsRequestCore&lt;/code&gt; is a custom command based on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;System.Net.Http.HttpClient&lt;/code&gt; class. This was the first
-time that I’ve worked with this class and there were some challenges.&lt;/p&gt;
-
-&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;System.Net.Http.HttpClient&lt;/code&gt; class allows for reuse of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HttpClient&lt;/code&gt;, however, I dispose of each
-connection with each call to the API.&lt;/p&gt;
-
-&lt;p&gt;I build the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HttpClient&lt;/code&gt; using the following code:&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$HttpClient&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;System.Net.Http.&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Httpclient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HttpClient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Timeout&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;System.&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;TimeSpan&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;90&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HttpClient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;DefaultRequestHeaders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;TransferEncodingChunked&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$false&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Accept&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;System.Net.Http.Headers.&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;MediaTypeWithQualityHeaderValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'application/json'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HttpClient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;DefaultRequestHeaders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Accept&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Accept&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HttpClient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;BaseAddress&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DynDnsSession&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ClientUrl&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then for each API call type, I add the AuthToken to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HttpClient&lt;/code&gt; (when applicable) and then build and execute the
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HttpRequest&lt;/code&gt; and retrieve the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HttpResponseMessage&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;See how I build the content in the following code:&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$StopWatch&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;System.Diagnostics.&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Stopwatch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;StartNew&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HttpResponseMessage&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HttpClient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;SendAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HttpRequest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HttpResponseMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;IsFaulted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PsCmdlet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ThrowTerminatingError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HttpResponseMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Exception&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Result&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HttpResponseMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Result&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ReadAsStringAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Result&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ConvertFrom-Json&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;catch&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$null&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ElapsedTime&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$StopWatch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Elapsed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;TotalSeconds&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$StopWatch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Stop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;output&quot;&gt;Output&lt;/h2&gt;
-
-&lt;p&gt;To process the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Invoke-DynDnsRequest&lt;/code&gt; responses, I decided on writing a single function to parse the response data.
-Additionally, I decided on using custom classes (first introduced in Windows PowerShell 5.0) and most of the output
-streams.&lt;/p&gt;
-
-&lt;h3 id=&quot;classes&quot;&gt;Classes&lt;/h3&gt;
-
-&lt;p&gt;I wanted to simulate the output objects of Microsoft DNS commands, like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Resolve-DnsName&lt;/code&gt;, and similar property names.
-The custom classes allow me to strongly type the output objects.&lt;/p&gt;
-
-&lt;p&gt;I also wanted to include the raw API data, so my base class &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DynDnsRawData&lt;/code&gt; starts there.&lt;/p&gt;
-
-&lt;p&gt;Here are the custom classes currently used by the module with indentation indicating a child class.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;DynDnsRawData
-    &lt;ul&gt;
-      &lt;li&gt;DynDnsRecord
-        &lt;ul&gt;
-          &lt;li&gt;DynDnsRecord_A&lt;/li&gt;
-          &lt;li&gt;DynDnsRecord_TXT&lt;/li&gt;
-          &lt;li&gt;DynDnsRecord_CNAME&lt;/li&gt;
-          &lt;li&gt;DynDnsRecord_MX&lt;/li&gt;
-          &lt;li&gt;DynDnsRecord_SRV&lt;/li&gt;
-          &lt;li&gt;DynDnsRecord_PTR&lt;/li&gt;
-          &lt;li&gt;DynDnsRecord_NS&lt;/li&gt;
-          &lt;li&gt;DynDnsRecord_SOA&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;DynDnsTask&lt;/li&gt;
-      &lt;li&gt;DynDnsZone&lt;/li&gt;
-      &lt;li&gt;DynDnsZoneNote&lt;/li&gt;
-      &lt;li&gt;DynDnsZoneChanges&lt;/li&gt;
-      &lt;li&gt;DynDnsHttpRedirect&lt;/li&gt;
-      &lt;li&gt;DynDnsUser&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;DynDnsHttpResponse&lt;/li&gt;
-  &lt;li&gt;DynDnsRestResponse&lt;/li&gt;
-  &lt;li&gt;DynDnsHistory&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Here is how I create the classes used by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DynDnsRecord_A&lt;/code&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;DynDnsRawData&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;hidden&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;PSCustomObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RawData&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;DynDnsRecord&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;DynDnsRawData&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Zone&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$TTL&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;hidden&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RecordId&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-    &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;DynDnsRecord&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;DynDnsRecord&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;PSCustomObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Zone&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;zone&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fqdn&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;record_type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;TTL&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ttl&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;RecordId&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;record_id&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;RawData&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;DynDnsRecord_A&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;DynDnsRecord&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;ipaddress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Address&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-    &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;DynDnsRecord_A&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;DynDnsRecord_A&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;PSCustomObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Zone&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;zone&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fqdn&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;record_type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;TTL&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ttl&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Address&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rdata&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;RecordId&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;record_id&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;RawData&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DnsRecord&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;And here is a quick look at the class type names and property members.&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;C:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;using&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;PoShDynDnsApi&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;C:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;DynDnsRecord_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Select-Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-ExpandProperty&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;PSTypeNames&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;DynDnsRecord_A&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;DynDnsRecord&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;DynDnsRawData&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;System.Object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;C:\&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;DynDnsRecord_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]::&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Get-Member&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-MemberType&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Property&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Force&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-   &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;TypeName:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;DynDnsRecord_A&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;MemberType&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Definition&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;----&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;----------&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;----------&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Address&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Property&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ipaddress&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Address&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Property&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;RawData&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Property&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;psobject&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;RawData&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;RecordId&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Property&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;RecordId&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;TTL&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;      &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Property&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;TTL&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Property&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Zone&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Property&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Zone&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;output-streams&quot;&gt;Output Streams&lt;/h3&gt;
-
-&lt;p&gt;For the output streams, I use 5 out of the 6 streams available in PowerShell versions 5.0 and higher.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Output/Success&lt;/li&gt;
-  &lt;li&gt;Verbose&lt;/li&gt;
-  &lt;li&gt;Error
-    &lt;ul&gt;
-      &lt;li&gt;These are the &lt;strong&gt;hard&lt;/strong&gt; errors.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Warning
-    &lt;ul&gt;
-      &lt;li&gt;Not all errors returned by the API should be considered an error. These would be &lt;strong&gt;soft errors&lt;/strong&gt;.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Information
-    &lt;ul&gt;
-      &lt;li&gt;Detailed in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Write-DynDnsOutput&lt;/code&gt; section below.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;write-dyndnsoutput&quot;&gt;Write-DynDnsOutput&lt;/h3&gt;
-
-&lt;p&gt;The command &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Write-DynDnsOutput&lt;/code&gt; takes the response object and pulls the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;status&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;job_id&lt;/code&gt; from the API response.
-Next, it determines the original command called using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-PSCallStack&lt;/code&gt; and extracts the arguments, omitting the common
-parameters.&lt;/p&gt;
-
-&lt;p&gt;The command details is then added to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$InformationOutput&lt;/code&gt; variable which is written to the Information stream and
-added to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$DynDnHistory&lt;/code&gt; module variable. The Warning and Error messages are processed next.&lt;/p&gt;
-
-&lt;p&gt;Finally, the data is converted to the appropriate custom class and sent to standard output.&lt;/p&gt;
-
-&lt;h2 id=&quot;help&quot;&gt;Help&lt;/h2&gt;
-
-&lt;p&gt;Instead of including comment-based help in the functions themselves, I elected to use the PowerShell help system. I
-provide external and online help. With the help of &lt;a href=&quot;https://www.powershellgallery.com/packages/platyPS&quot; target=&quot;_blank&quot;&gt;platyPS&lt;/a&gt;, I was able to
-create the external MAML-xml file and the markdown for the online help.&lt;/p&gt;
-
-&lt;p&gt;I plan on providing updatable help within the next release or two. PlatyPS can help with that, too.&lt;/p&gt;
-
-&lt;p&gt;For online help, I wrote a script that iterated through the exported commands which would build a file for each command
-with the YML front matter specific to the template I created for online help on my blog.&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;foreach&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Command&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Get-Command&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Module&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ModuleName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Link&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;modulehelp/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ModuleName&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Command&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;html&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;
-    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$FrontMatter&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; = @{
-        'layout' = 'onlinehelp'
-        'search' = 'false'
-        'classes' = 'wide'
-        'permalink' = &quot;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Link&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;
-    }
-
-    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$OnlineVersionUri&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; = &quot;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;https://powershell.anovelidea.org/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Link&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;
-
-    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$NewMarkdownHelpParams&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; = @{
-        Command             = &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Command&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-        OutputFolder        = &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$OutputFolder&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-        Metadata            = &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$FrontMatter&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-        OnlineVersionUrl    = &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$OnlineVersionUri&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-        Force               = &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$true&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-    }
-
-    New-MarkdownHelp @NewMarkdownHelpParams
-}
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
-
-&lt;p&gt;And that is basically how I went about creating the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PoShDynDnsApi&lt;/code&gt; module. Much like this post, it was a long journey,
-but one that I’m glad I started. Thank you for reading this post. I hope it can serve as a spark for your module writing.&lt;/p&gt;
-
-&lt;p&gt;If you have any questions, find errors (typos too!), or have suggestions that can make my module better, please leave a
-comment below. Thank you, again.&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="module" /><category term="xplat" /><category term="cross platform" /><category term="rest api" /><category term="webrequest" /><category term="httpclient" /><category term="external help" /><category term="online help" /><category term="updatable help" /><category term="dyn managed dns" /><summary type="html">In this post, I want to give you a peek into my development process for the PoShDynDnsApi module.</summary></entry></feed>
+&lt;p&gt;Thanks for reading and good luck on the Iron Scripter challenges!&lt;/p&gt;</content><author><name>Dave Carroll</name></author><category term="[&quot;powershell&quot;]" /><category term="powershell" /><category term="powershell concepts" /><category term="learn powershell" /><category term="powershell beginner" /><category term="iron scripter" /><category term="iron scripter challenge" /><category term="iron scripter walk-through" /><summary type="html">Learn basic PowerShell concepts and apply them to the beginner's Iron Scripter challenge.</summary></entry></feed>
