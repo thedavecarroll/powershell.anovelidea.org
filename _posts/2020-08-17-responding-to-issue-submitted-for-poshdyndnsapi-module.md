@@ -241,7 +241,7 @@ Next, I published the new version to the PowerShell Gallery and unlisted the *ba
 
 **Unlisting Module in PowerShell Gallery**
 \\
-Since a module could be a dependency for other modules or scripts, Microsoft does allow you to delete a version module.
+Since a module could be a dependency for other modules or scripts, Microsoft **does not** allow you to delete a version module.
 They do provide a way to *unlist* a particular version of the module.
 People can still download it if they specify the version, but a search will not include the unlisted version.
 You can *unlist* a script, similarly.
