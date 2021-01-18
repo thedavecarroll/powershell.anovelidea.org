@@ -272,7 +272,7 @@ The IronScripter challenges serves to teach PowerShell concepts and techniques o
 I've written a few articles as walk-throughs for specific challenges and I think they've helped others expand their PowerShell knowledge and skills.
 
 [IronScripter]: https://ironscripter.us/let-the-powershell-challenges-begin/
-[IronScripterSolutions]: (https://github.com/thedavecarroll/IronScripterSolutions
+[IronScripterSolutions]: https://github.com/thedavecarroll/IronScripterSolutions
 [ProcessTree]: https://ironscripter.us/building-a-powershell-process-tree/
 
 ## 2021 Directions
