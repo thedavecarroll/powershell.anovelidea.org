@@ -24,12 +24,13 @@ before_script:
 script: ./script/cibuild
 
 deploy:
+  strategy: git
   provider: pages
-  target-branch: gh-pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN
-  committer-from-gh: true
-  keep-history: true
+  target_branch: gh-pages
+  cleanup: false
+  token: $GITHUB_TOKEN
+  committer_from_gh: true
+  keep_history: true
   verbose: true
   on:
     branch: main
