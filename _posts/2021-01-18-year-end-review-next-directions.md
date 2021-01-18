@@ -2,7 +2,7 @@
 layout: single
 title: "A 2020 Year End Review and 2021 Directions"
 excerpt: "A summary of 2020, including the Bad and the Good, and what I hope for 2021."
-date: 2020-01-18
+date: 2021-01-18
 header:
   overlay_image: /assets/images/hiatus.jpg
   overlay_filter: 0.9
@@ -299,7 +299,7 @@ Thank you for spending a little bit of your time with me and this article.
 I hope you are healthy and safe, and remain so.
 You are an important part of the PowerShell community.
 
-Please feel free to leave a comment below or hit me up on Twitter at [@thedavecarroll][MyTwitter]{:target="_blank"}.
+Please feel free to leave a comment below or hit me up on Twitter [@thedavecarroll][MyTwitter]{:target="_blank"}.
 
 Thanks for reading.
 
