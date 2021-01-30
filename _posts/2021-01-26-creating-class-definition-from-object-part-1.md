@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Creating a Class Definition from an Existing Object - Part 1"
-excerpt: "Learn about the PowerShell objects and classes the first part of this Iron Scripter challenge walk-through."
+excerpt: "Learn about the PowerShell objects and classes in this first part of this Iron Scripter challenge walk-through."
 date: 2021-01-26
 header:
   overlay_image: /assets/images/ironscripter/class-definition/Silicone_mold_resin_cast_figure.jpg
@@ -10,6 +10,9 @@ comments: true
 tags:
   - powershell
   - powershell concepts
+  - custom class
+  - psobject
+  - pscustomobject
   - learn powershell
   - iron scripter
   - iron scripter challenge
@@ -417,7 +420,7 @@ Get-CimInstance -ClassName Win32_OperatingSystem | ConvertTo-ClassDefinition -In
 ```console
 # class definition created by ConvertTo-ClassDefinition at 1/25/2021 11:40:12 PM for object type Microsoft.Management.Infrastructure.CimInstance#root/cimv2/Win32_OperatingSystem
 
-class MyOS
+class MyOS {
 
     # properties
     [string]$Caption
@@ -444,7 +447,7 @@ Get-Process | ConvertTo-ClassDefinition -ClassName ANewClass -IncludeProperty St
 ```console
 # class definition created by ConvertTo-ClassDefinition at 1/26/2021 12:04:44 AM for object type System.Diagnostics.Process
 
-class ANewClass
+class ANewClass {
 
     # properties
     [System.String]$Name
@@ -460,7 +463,7 @@ class ANewClass
 }
 ```
 
-<script src="https://gist.github.com/thedavecarroll/a0db4e3b3c97941ddf11e161288408d7.js"></script>
+<script src="https://gist.github.com/thedavecarroll/a0db4e3b3c97941ddf11e161288408d7.js?file=Part1-ConvertTo-ClassDefinition.ps1"></script>
 
 ## Summary
 
