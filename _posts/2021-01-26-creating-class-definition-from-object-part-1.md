@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Creating a Class Definition from an Existing Object - Part 1"
-excerpt: "Learn about the PowerShell objects and classes in this first part of this Iron Scripter challenge walk-through."
+excerpt: "Learn about PowerShell objects and classes in this first part of an Iron Scripter challenge walk-through."
 date: 2021-01-26
 header:
   overlay_image: /assets/images/ironscripter/class-definition/Silicone_mold_resin_cast_figure.jpg
