@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Creating a Class Definition from an Existing Object - Part 2"
-excerpt: "Learn about PowerShell class methods and detecting property types in this second part of this Iron Scripter challenge walk-through."
+excerpt: "In this second part of the Iron Scripter challenge walk-through, we convert property and class names to PascalCase, detect property types, and hide properties."
 date: 2021-01-30
 header:
   overlay_image: /assets/images/ironscripter/class-definition/Silicone_mold_resin_cast_figure.jpg
