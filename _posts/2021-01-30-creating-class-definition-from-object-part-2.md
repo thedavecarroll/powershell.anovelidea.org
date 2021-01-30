@@ -336,15 +336,6 @@ I added another step to test for beginning uppercase `^[A-Z]` but that didn't se
 Until I realized that the regex operators `match` and `notmatch` are not case sensitive.
 Once I changed the operator to `-cnotmatch`, it started working as needed.
 
-Also, when dealing with an array of input, I have used the pattern of using `foreach ($thing in $object)` inside the process block for iteration.
-I watched a video\* this morning that reminded me of the [`$input` automatic variable][InputAutoVar]{:target="_blank"}.
-I updated the function to use that and removed the `foreach` loop.
-
-> \* Check out Trevor Sullivan's informational video on [Building PowerShell Functions that Support Pipeline Input][PipelineSupport]{:target="_blank"}.
-
-[InputAutoVar]: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_automatic_variables?view=powershell-7.1#input
-[PipelineSupport]: https://youtu.be/BdfVsoMVz8g
-
 ## Part 2 Solution
 
 Here is my current `ConvertTo-ClassDefinition` function.
