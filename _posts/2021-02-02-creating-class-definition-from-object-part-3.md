@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Creating a Class Definition from an Existing Object - Part 3"
-excerpt: "Learn about PowerShell class methods and detecting property types in this second part of this Iron Scripter challenge walk-through."
+excerpt: "Wrapping up this series, we add methods and recursive capability to the ConvertTo-ClassDefinition function for this Iron Scripter challenge walk-through."
 date: 2021-02-02
 header:
   overlay_image: /assets/images/ironscripter/class-definition/Silicone_mold_resin_cast_figure.jpg
