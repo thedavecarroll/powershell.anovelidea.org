@@ -27,7 +27,7 @@ layout: pages
             <tr>
                 <td>Online Help</td>
                 <td>
-                    {% if module.onlinehelp == true %}
+                    {% if module.onlinehelp != null %}
                         <a href="{{ module.onlinehelp }}"  target="_blank">Yes</a>
                     {% else %}
                         No
