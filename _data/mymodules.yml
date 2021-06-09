@@ -1,7 +1,7 @@
 - name: BluebirdPS
   description: 'A Twitter Automation Client for PowerShell 7. Tweet, retweet, send direct messages, manage lists, and more.'
   help: 'External file'
-  onlinehelp: 'https://bluebirdps.anovelidea.org/en/latest/'
+  onlinehelp: 'https://docs.bluebirdps.dev/en/latest/'
   updatablehelp: false
   pester: false
   build: true
