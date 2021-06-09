@@ -70,7 +70,7 @@ This unexpected release has merely spurred me on toward completing it.
 ## Method Classes
 
 Let's take care of 2 primary requirements right off the start.
-We need to provide a way for the user to add one ore more methods the class definition.
+We need to provide a way for the user to add one or more methods the class definition.
 
 A class method is basically a function, with a name, typed parameters, and an output type.
 The output type must be declared, even if it's `[void]`.
