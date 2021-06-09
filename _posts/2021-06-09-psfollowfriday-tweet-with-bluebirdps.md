@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "#PSFollowFriday Tweet with BluebirdPS"
-excerpt: "Learn how to use BluebirdPS to generate and publish a PSFollowFriday Tweet."
+excerpt: "Learn how to use BluebirdPS to generate and publish a #PSFollowFriday Tweet."
 date: 2021-06-09
 header:
   overlay_image: /assets/images/bluebirdps/psfollowfriday-tweet.png
